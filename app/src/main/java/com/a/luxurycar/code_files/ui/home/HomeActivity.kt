@@ -131,10 +131,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun openOrCloseDrawerProfile() {
 
-        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.END)){
+            binding.drawerLayout.closeDrawer(GravityCompat.END)
         }else{
-            binding.drawerLayout.openDrawer(GravityCompat.START)
+            binding.drawerLayout.openDrawer(GravityCompat.END)
         }
     }
 
