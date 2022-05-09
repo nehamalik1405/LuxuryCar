@@ -99,5 +99,7 @@
 
     /////////////////////////////////////////////////////////////////
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="title_inspecting">Inspecting</string>
+    <string name="str_view_sample_report"><u>View Sample Report</u></string>
 
 </resources>
