@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".code_files.ui.home.fragment.StorageFragment">
+
+    <LinearLayout
+        android:id="@+id/linLayoutTop"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_storage"
+            android:textSize="@dimen/txt_size_15sp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_10_dp"
+            />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/margin_40_dp"
+        app:layout_constraintTop_toBottomOf="@+id/linLayoutTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomViewLine">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewCarImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_180_dp"
+               app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:cardCornerRadius="@dimen/margin_10_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/margin_15_dp"
+                android:layout_marginEnd="@dimen/margin_15_dp"
+                android:layout_marginTop="@dimen/margin_20_dp"
+                >
+                <ImageView
+                    android:id="@+id/imgViewCar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/storage_car"
+                    android:scaleType="fitXY"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnEnquire"
+                android:background="@drawable/drawable_button_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/margin_20_dp"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewCarImage"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginStart="@dimen/margin_30_dp"
+                    android:layout_marginEnd="@dimen/margin_30_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:padding="@dimen/margin_0dp"
+                    android:text="@string/titlr_enquire"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_size_15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtViewWhatsIncluded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_what_s_included"
+                android:textSize="@dimen/margin_15_dp"
+                android:fontFamily="@font/muli_semi_bold"
+                android:textColor="@color/light_black"
+                android:layout_marginTop="@dimen/margin_20_dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnEnquire"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewForEnquireList"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_15_dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewWhatsIncluded"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+<View
+    android:id="@+id/bottomViewLine"
+    android:layout_width="@dimen/margin_0dp"
+    android:layout_height="@dimen/margin_2dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:background="@color/green"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

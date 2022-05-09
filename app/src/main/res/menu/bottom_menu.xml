@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_contact"
+        android:icon="@drawable/ic_contact_us"
+        android:title="@string/contact_fragment" />
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@mipmap/ic_home"
+        android:title="@string/home_fragment" />
+
+    <item
+        android:id="@+id/nav_follow_us"
+        android:icon="@drawable/ic_follow_us"
+        android:title="@string/follow_us_fragment" />
+
+</menu>

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".code_files.ui.auth.fragment.RegisterFragment">
+
+    <ScrollView
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/consLayoutBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/margin_20_dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            >
+
+
+            <ImageView
+                android:id="@+id/imgViewLogo"
+                android:layout_width="@dimen/margin_100_dp"
+                android:layout_height="@dimen/margin_100_dp"
+                android:layout_marginTop="@dimen/margin_20_dp"
+                android:src="@mipmap/ic_main_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/app_name" />
+            <TextView
+                android:id="@+id/txtViewRegisterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:text="Registration"
+                android:textColor="@color/black"
+                android:fontFamily="@font/muli_bold"
+                style="@style/TextViewHeading"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgViewLogo"
+                />
+
+            <TextView
+                android:id="@+id/txtViewRegisterMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_7dp"
+                android:fontFamily="@font/muli_bold"
+                android:text="Please Enter Your Registration Details"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewRegisterTitle" />
+
+
+
+               <TextView
+                   android:id="@+id/txtViewName"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Name"
+                   android:layout_marginTop="@dimen/margin_25_dp"
+                   android:fontFamily="@font/muli_bold"
+                   android:textColor="@color/black"
+                   android:textSize="14sp"
+                   android:textAllCaps="true"
+                   app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewRegisterMessage" />
+
+               <EditText
+                   android:id="@+id/edtTextName"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:hint="Name"
+                   android:inputType="text"
+                   style="@style/EditTextField"
+                   android:imeOptions="actionNext"
+                   android:gravity="center_vertical"
+                   android:backgroundTint="@color/white"
+                   app:layout_constraintTop_toBottomOf="@+id/txtViewName"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   />
+
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:background="@color/view_color"
+                   app:layout_constraintEnd_toEndOf="@+id/edtTextName"
+                   app:layout_constraintStart_toStartOf="@+id/edtTextName"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextName" />
+
+
+               <TextView
+                   android:id="@+id/txtViewEmail"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="15dp"
+                   android:text="Email"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/muli_bold"
+                   android:textColor="@color/black"
+                   android:textSize="14sp"
+                   app:autoSizeStepGranularity="2sp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextName" />
+
+               <EditText
+                   android:id="@+id/edtTextEmail"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:hint="Email"
+                   android:singleLine="true"
+                   android:imeOptions="actionNext"
+                   style="@style/EditTextField"
+                   android:gravity="center_vertical"
+                   android:backgroundTint="@color/white"
+                   app:layout_constraintTop_toBottomOf="@+id/txtViewEmail"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   />
+
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:background="@color/view_color"
+                   app:layout_constraintEnd_toEndOf="@+id/edtTextEmail"
+                   app:layout_constraintStart_toStartOf="@+id/edtTextEmail"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
+
+               <TextView
+                   android:id="@+id/txtViewMobileNo"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="15dp"
+                   android:text="Mobile No."
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/muli_bold"
+                   android:textColor="@color/black"
+                   android:textSize="14sp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
+
+               <androidx.appcompat.widget.AppCompatEditText
+                   android:id="@+id/edtTextMobileNo"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   style="@style/EditTextField"
+                   android:hint="Mobile Number"
+                   android:imeOptions="actionNext"
+                   android:maxLength="10"
+                   android:inputType="phone"
+                   android:gravity="center_vertical"
+                   android:backgroundTint="@color/white"
+                   app:layout_constraintTop_toBottomOf="@+id/txtViewMobileNo"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   />
+
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:background="@color/view_color"
+                   app:layout_constraintEnd_toEndOf="@+id/edtTextMobileNo"
+                   app:layout_constraintStart_toStartOf="@+id/edtTextMobileNo"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextMobileNo" />
+
+
+               <TextView
+                   android:id="@+id/txtViewPassword"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="15dp"
+                   android:text="Password"
+                   android:textAllCaps="true"
+                   android:textColor="@color/black"
+                   android:textSize="14sp"
+                   android:fontFamily="@font/muli_bold"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextMobileNo" />
+
+               <EditText
+                   android:id="@+id/edtTextPassword"
+                   android:layout_width="@dimen/margin_0dp"
+                   android:layout_height="wrap_content"
+                   android:hint="Password"
+                   android:maxLength="10"
+                   android:inputType="textPassword"
+                   style="@style/EditTextField"
+                   android:paddingEnd="30dp"
+                   android:imeOptions="actionNext"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/txtViewPassword" />
+
+            <ImageView
+                android:id="@+id/imgViewEyePassword"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_marginEnd="5dp"
+                android:src="@mipmap/ic_hide_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edtTextPassword"
+                app:layout_constraintBottom_toBottomOf="@id/edtTextPassword"
+                />
+
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:background="@color/view_color"
+                   app:layout_constraintEnd_toEndOf="@+id/edtTextPassword"
+                   app:layout_constraintStart_toStartOf="@+id/edtTextPassword"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextPassword" />
+
+               <TextView
+                   android:id="@+id/txtViewConfirmPassword"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="15dp"
+                   android:text="Confirm Password"
+                   android:textColor="@color/black"
+                   android:textSize="14sp"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/muli_bold"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextPassword" />
+
+               <EditText
+                   android:id="@+id/edtTextConfirmPassword"
+                   android:layout_width="@dimen/margin_0dp"
+                   android:layout_height="wrap_content"
+                   android:gravity="center_vertical"
+                   android:hint="Confirm Password"
+                   android:inputType="textPassword"
+                   style="@style/EditTextField"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:imeOptions="actionDone"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/txtViewConfirmPassword" />
+
+            <ImageView
+                android:id="@+id/imgViewEyeConfirmPassword"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_marginEnd="5dp"
+                android:src="@mipmap/ic_hide_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edtTextConfirmPassword"
+                app:layout_constraintBottom_toBottomOf="@id/edtTextConfirmPassword"
+                />
+
+               <View
+                   android:id="@+id/viewConfirmPassword"
+                   android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:background="@color/view_color"
+                   app:layout_constraintEnd_toEndOf="@+id/edtTextConfirmPassword"
+                   app:layout_constraintStart_toStartOf="@+id/edtTextConfirmPassword"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextConfirmPassword" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnRegister"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:layout_marginTop="@dimen/margin_25_dp"
+                android:textColor="@color/white"
+                style="@style/buttonFieldStyle"
+                android:textAllCaps="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewConfirmPassword"
+                app:rippleColor="@color/white" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consLayoutBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/txtViewDontHaveAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:textColor="#AAACBB"
+            android:text="Have an account ? "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtViewLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="@string/titlr_login"
+            android:textSize="15sp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:textColor="@color/green"
+            app:layout_constraintBottom_toBottomOf="@+id/txtViewDontHaveAcc"
+            app:layout_constraintStart_toEndOf="@+id/txtViewDontHaveAcc"
+            app:layout_constraintTop_toTopOf="@+id/txtViewDontHaveAcc" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBarLoginPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
