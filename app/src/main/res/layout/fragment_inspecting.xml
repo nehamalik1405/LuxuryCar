@@ -6,16 +6,214 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".code_files.ui.home.fragment.InspectingFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linLayoutTop"
+        android:layout_width="@dimen/margin_0dp"
         android:layout_height="wrap_content"
-        android:text="Inspecting"
-        android:textSize="@dimen/margin_25sp"
-        android:textColor="@color/black"
+        android:background="@color/green"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_inspecting"
+            android:textSize="@dimen/txt_size_15sp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_10_dp"
+            />
+
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
+        android:layout_marginStart="@dimen/margin_15_dp"
+        android:layout_marginEnd="@dimen/margin_15_dp"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginBottom="@dimen/margin_20_dp"
+        app:cardCornerRadius="@dimen/margin_8dp"
+        app:layout_constraintTop_toBottomOf="@+id/linLayoutTop"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consLayoutBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+          >
+            <ImageView
+                android:id="@+id/imgViewBackground"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="@dimen/margin_0dp"
+                android:src="@drawable/ic_car_image"
+                android:scaleType="fitXY"
+                android:alpha=".75"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <LinearLayout
+                android:id="@+id/linLayoutPhysicalInspection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_30_dp"
+                app:layout_constraintStart_toStartOf="@+id/imgViewBackground"
+                app:layout_constraintTop_toTopOf="@+id/imgViewBackground">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/margin_25_dp"
+                    android:layout_height="@dimen/margin_25_dp"
+                    android:src="@mipmap/ic_right_check"
+                    android:layout_marginStart="@dimen/margin_25_dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Physical inspection"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/margin_13sp"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_25_dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linLayout360DegreeVehicleChecks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                app:layout_constraintStart_toStartOf="@+id/imgViewBackground"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutPhysicalInspection">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/margin_25_dp"
+                    android:layout_height="@dimen/margin_25_dp"
+                    android:src="@mipmap/ic_right_check"
+                    android:layout_marginStart="@dimen/margin_25_dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="360-degree vehicle checks"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:textSize="@dimen/margin_13sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_25_dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linLayoutConsprehensiveComputerDiagnotics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                app:layout_constraintStart_toStartOf="@+id/imgViewBackground"
+                app:layout_constraintTop_toBottomOf="@+id/linLayout360DegreeVehicleChecks">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/margin_25_dp"
+                    android:layout_height="@dimen/margin_25_dp"
+                    android:src="@mipmap/ic_right_check"
+                    android:layout_marginStart="@dimen/margin_25_dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comprehensive computer diagnostics"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:textSize="@dimen/margin_13sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_25_dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linLayoutDigitalVehicleReports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                app:layout_constraintStart_toStartOf="@+id/imgViewBackground"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutConsprehensiveComputerDiagnotics">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/margin_25_dp"
+                    android:layout_height="@dimen/margin_25_dp"
+                    android:src="@mipmap/ic_right_check"
+                    android:layout_marginStart="@dimen/margin_25_dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Digital vehicle reports"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:textSize="@dimen/margin_13sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_25_dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linLayoutEnuireNBookNow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/margin_25_dp"
+                android:layout_marginTop="@dimen/margin_30_dp"
+                android:layout_marginEnd="@dimen/margin_25_dp"
+                app:layout_constraintStart_toStartOf="@+id/imgViewBackground"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutDigitalVehicleReports"
+                app:layout_constraintEnd_toEndOf="@+id/consLayoutBackground"
+                >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEnquire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Enquire"
+                    android:textSize="@dimen/margin_14sp"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/muli_semi_bold"
+                    style="@style/buttonFieldStyle"
+                    android:backgroundTint="@color/yellow_color"
+                    android:layout_marginTop="@dimen/margin_0dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:layout_weight="3"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBookNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Book Now"
+                    android:textSize="@dimen/margin_14sp"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/muli_semi_bold"
+                    style="@style/buttonFieldStyle"
+                    android:layout_marginTop="@dimen/margin_0dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:layout_weight="3"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_view_sample_report"
+                app:layout_constraintStart_toStartOf="@+id/consLayoutBackground"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutEnuireNBookNow"
+                app:layout_constraintEnd_toEndOf="@+id/consLayoutBackground"
+                android:layout_marginTop="@dimen/margin_30_dp"
+                android:textSize="@dimen/margin_14sp"
+                android:fontFamily="@font/muli_semi_bold"
+                android:textColor="@color/white"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
