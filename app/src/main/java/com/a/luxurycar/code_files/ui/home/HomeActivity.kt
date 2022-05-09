@@ -1,5 +1,6 @@
 package com.a.luxurycar.code_files.ui.home
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -140,15 +141,25 @@ class HomeActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        val builder1 = AlertDialog.Builder(this)
-        builder1.setMessage("Are You Sure You Want to Exit the App?")
-        builder1.setCancelable(true)
-        builder1.setPositiveButton("Yes") { dialog, id ->
-            finish()
+        when(navController.currentDestination?.id) {
+            R.id.nav_home-> {
+                val builder1 = AlertDialog.Builder(this)
+                builder1.setMessage("Are You Sure You Want to Exit the App?")
+                builder1.setCancelable(true)
+                builder1.setPositiveButton("Yes") { dialog, id ->
 
+                    finish()
+
+                }
+                builder1.setNegativeButton("No")
+                { dialog, id -> dialog.cancel() }
+                val alert11 = builder1.create()
+                alert11.show()
+            }
+            else ->
+            {
+                super.onBackPressed()
+            }
         }
-        builder1.setNegativeButton("No") { dialog, id -> dialog.cancel() }
-        val alert11 = builder1.create()
-        alert11.show()
     }
-    }
+}
