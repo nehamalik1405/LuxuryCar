@@ -138,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10_dp"
                     android:text="@string/title_select_make"
+                    android:fontFamily="@font/muli_regular"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -186,6 +187,7 @@
                     android:layout_marginStart="@dimen/margin_10_dp"
                     android:text="@string/title_select_model"
                     android:textSize="14sp"
+                    android:fontFamily="@font/muli_regular"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -241,6 +243,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10_dp"
                         android:text="@string/title_year_from"
+                        android:fontFamily="@font/muli_regular"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -289,6 +292,7 @@
                         android:layout_marginStart="@dimen/margin_10_dp"
                         android:text="@string/title_year_to"
                         android:textSize="14sp"
+                        android:fontFamily="@font/muli_regular"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -347,6 +351,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10_dp"
                         android:text="@string/title_price_from"
+                        android:fontFamily="@font/muli_regular"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -395,11 +400,10 @@
                         android:layout_marginStart="@dimen/margin_10_dp"
                         android:text="@string/title_price_to"
                         android:textSize="14sp"
+                        android:fontFamily="@font/muli_regular"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
                     <ImageView
@@ -412,9 +416,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

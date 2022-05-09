@@ -4,27 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_Profile"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profiles"
             android:icon="@drawable/ic_arrow_back"
-            android:title="@string/view_profile"
-             />
-
+            android:title="@string/view_profile" />
+    </group>
+    <group
+        android:id="@+id/group_language"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_language"
             android:icon="@drawable/ic_arrow_back"
             android:title="@string/language" />
-
+    </group>
+    <group
+        android:id="@+id/group_terms"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_condition"
             android:icon="@drawable/ic_arrow_back"
             android:title="@string/terms_condition" />
-
+    </group>
+    <group
+        android:id="@+id/group_logout"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_arrow_back"
             android:title="@string/logout" />
-
     </group>
+
 </menu>
