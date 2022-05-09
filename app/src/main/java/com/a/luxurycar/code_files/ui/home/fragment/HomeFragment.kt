@@ -46,7 +46,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         setAdvertiserList()
 
         binding.btnSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_home_to_storageFragment)
+            findNavController().navigate(R.id.storageFragment)
         }
     }
 

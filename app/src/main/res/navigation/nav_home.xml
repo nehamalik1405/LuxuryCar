@@ -110,7 +110,11 @@
         android:id="@+id/storageFragment"
         android:name="com.a.luxurycar.code_files.ui.home.fragment.StorageFragment"
         android:label="fragment_storage"
-        tools:layout="@layout/fragment_storage" />
+        tools:layout="@layout/fragment_storage" >
+        <action
+            android:id="@+id/action_storageFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 
 </navigation>
