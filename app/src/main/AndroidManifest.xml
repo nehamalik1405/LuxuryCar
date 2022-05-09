@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.a.luxurycar">
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".common.application.LuxuryCarApplication"
         android:allowBackup="true"
@@ -10,6 +10,10 @@
         android:roundIcon="@mipmap/ic_main_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.LuxuryCar">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2046241422238764~3503622393"/>
         <activity
             android:name=".code_files.ui.auth.AuthActivity"
             android:exported="false" />
