@@ -18,7 +18,6 @@ import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.databinding.FragmentCarListBinding
 
-
 class CarListFragment :BaseFragment<CarListViewModel, FragmentCarListBinding,CarListRepository>(){
 
 

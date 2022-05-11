@@ -56,4 +56,5 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseReposit
     abstract fun getRepository(): R
 
 
+
 }

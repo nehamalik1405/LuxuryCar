@@ -1,12 +1,17 @@
 package com.a.luxurycar.code_files.ui.home
 
+import android.app.Dialog
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -22,18 +27,20 @@ import com.a.luxurycar.databinding.ActivityHomeBinding
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class HomeActivity : AppCompatActivity() {
-
+    lateinit var dialog:Dialog
     lateinit var binding: ActivityHomeBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     lateinit var imageViewMenu: ImageView
     lateinit var imageViewProfile: ImageView
+    lateinit var linLayoutPopUpMenu:LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +53,7 @@ class HomeActivity : AppCompatActivity() {
         imageViewMenu = findViewById(R.id.imgViewMenu)
         imageViewProfile = findViewById(R.id.imgViewProfile)
 
+
         menageClickEvents()
         setBottomNavigation()
         setLeftNavView()
@@ -56,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
        // to connect bottom navigation menu to nav control
 
 
-      /*  binding.navViewLeft.setNavigationItemSelectedListener(object :
+        binding.navViewRight.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 val itemId = item.itemId
@@ -67,10 +75,10 @@ class HomeActivity : AppCompatActivity() {
 
                 }
 
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                binding.drawerLayout.closeDrawer(GravityCompat.END)
                 return true
             }
-        })*/
+        })
 /*
         binding.navViewRight.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {
@@ -101,11 +109,54 @@ class HomeActivity : AppCompatActivity() {
             navController
         )
     }
-
     private fun setBottomNavigation() {
+
         bottomNavigation.setupWithNavController(navController)
+      /*  bottomNavigation.setOnNavigationItemSelectedListener { it
+            when (it.itemId) {
+                R.id.nav_follow_us -> {
+
+                    linLayoutPopUpMenu.visibility =View.VISIBLE
+
+                }
+
+            }
+            true
+        }*/
+
     }
 
+    private fun openBottomSheet() {
+
+        // on below line we are inflating a layout file which we have created.
+
+     /*   val view = layoutInflater.inflate(R.layout.bottom_view, null)*/
+        val uTube = dialog.findViewById<ImageView>(R.id.imgViewYouTube)
+        val linkedIn = dialog.findViewById<ImageView>(R.id.imgViewLinkedIn)
+        val Instagram = dialog.findViewById<ImageView>(R.id.imgViewInstagram)
+        val facebook = dialog.findViewById<ImageView>(R.id.imgViewFacebook)
+
+
+        uTube.setOnClickListener {
+            Toast.makeText(applicationContext,"You Tube click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+        linkedIn.setOnClickListener {
+            Toast.makeText(applicationContext,"LinkedIn click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+        Instagram.setOnClickListener {
+            Toast.makeText(applicationContext,"Instagram click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+        facebook.setOnClickListener {
+            Toast.makeText(applicationContext,"Facebook click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+    }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }

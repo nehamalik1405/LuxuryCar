@@ -2,14 +2,8 @@ package com.a.luxurycar.code_files.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.a.luxurycar.code_files.repository.CarListRepository
-import com.a.luxurycar.code_files.repository.HomeRepository
-import com.a.luxurycar.code_files.repository.LoginRepository
-import com.a.luxurycar.code_files.repository.RegistrationRepository
-import com.a.luxurycar.code_files.view_model.CarListViewModel
-import com.a.luxurycar.code_files.view_model.HomeViewModel
-import com.a.luxurycar.code_files.view_model.LoginViewModel
-import com.a.luxurycar.code_files.view_model.RegistrationViewModel
+import com.a.luxurycar.code_files.repository.*
+import com.a.luxurycar.code_files.view_model.*
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(
@@ -23,6 +17,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(RegistrationViewModel::class.java) -> RegistrationViewModel(repository = repository as RegistrationRepository) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(repository = repository as HomeRepository) as T
             modelClass.isAssignableFrom(CarListViewModel::class.java) -> CarListViewModel(repository = repository as CarListRepository) as T
+            modelClass.isAssignableFrom(TransportExportViewModel::class.java) -> TransportExportViewModel(repository = repository as TransportExportRepository) as T
 
 
             else -> {

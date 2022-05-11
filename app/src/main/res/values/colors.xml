@@ -35,5 +35,6 @@
     <color name="color_blue">#1066d2</color>
     <color name="color_light_black">#242634</color>
     <color name="text_color_grey">#717F8B</color>
+    <color name="light_grey">#81CFD1D0</color>
 
 </resources>

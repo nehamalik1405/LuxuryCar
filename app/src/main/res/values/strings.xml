@@ -82,7 +82,7 @@
     <string name="title_price_to">Price To</string>
     <string name="title_search">Search</string>
     <string name="title_car_listing">Car listing</string>
-    <string name="str_sort_by">Sort By</string>
+    <string name="str_sort_by">Sort by</string>
     <string name="str_featured">Featured</string>
     <string name="str_chevrolet_camaroerui">Chevrolet Camaroerui</string>
     <string name="str_year">2019</string>
@@ -101,5 +101,22 @@
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="title_inspecting">Inspecting</string>
     <string name="str_view_sample_report"><u>View Sample Report</u></string>
+    <string name="str_transport_export">Transport/ Export</string>
+    <string name="str_pay_now">Pay Now</string>
+    <string name="only_299_for_our_full_service">Only $299 for our full service</string>
+    <string name="str_contact_us_about_your_transport_export_requirements">Contact us about your transport/export requirements</string>
+    <string name="str_destination_country">Destination country.*</string>
+    <string name="str_number_of_cars_to_export">Number of cars to export</string>
+    <string name="str_car_links">Car Links.*</string>
+    <string name="str_first_name">First Name.*</string>
+    <string name="str_last_name">Last Name.*</string>
+    <string name="str_email">Email.*</string>
+    <string name="str_phone">Phone.*</string>
+    <string name="str_get_free_quote">Get Free Quote</string>
+    <string name="str_transport_export_faq_s">Transport/Export FAQ\'S</string>
+    <string-array name="countryCode">
+        <item>+91</item>
+        <item>+1</item>
 
+    </string-array>
 </resources>

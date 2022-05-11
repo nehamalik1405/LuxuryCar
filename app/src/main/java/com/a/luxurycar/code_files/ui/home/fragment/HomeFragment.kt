@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a.luxurycar.R
@@ -62,6 +63,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         val photos_viewpager = binding.photosViewpager
         photos_viewpager.adapter= imageAdapter
 
+
         val handler = Handler()
         val update = Runnable {
             if (currentPage == list.size) {
@@ -69,6 +71,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
             }
             //The second parameter ensures smooth scrolling
             photos_viewpager.setCurrentItem(currentPage++, true)
+           // Toast.makeText(requireContext(),"${photos_viewpager.currentItem}",Toast.LENGTH_LONG).show()
         }
         Timer().schedule(object : TimerTask() {
             // task to be scheduled
@@ -77,7 +80,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
             }
         }, 2500, 2500)
 
-        TabLayoutMediator(binding.tabLayout, photos_viewpager) { tab, position -> }.attach()
+
+
+        TabLayoutMediator(binding.tabLayout, photos_viewpager) { tab, position ->
+
+        }.attach()
     }
 
     private fun addImage() {

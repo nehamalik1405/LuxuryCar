@@ -36,6 +36,11 @@
 
         </LinearLayout>
 
+<View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_3dp"
+    android:background="@color/green"
+    android:layout_above="@+id/bottomNavigation"/>
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"

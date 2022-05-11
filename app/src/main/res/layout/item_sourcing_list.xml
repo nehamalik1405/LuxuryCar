@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<ImageView
+    android:id="@+id/imageViewCheck"
+    android:layout_width="@dimen/margin_12_dp"
+    android:layout_height="@dimen/margin_12_dp"
+    android:src="@mipmap/ic_small_check"
+    app:layout_constraintTop_toTopOf="@+id/txtViewMoreChoice"
+    app:layout_constraintBottom_toBottomOf="@+id/txtViewMoreChoice"
+    app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:id="@+id/txtViewMoreChoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More choice -"
+        android:textSize="@dimen/margin_14sp"
+        android:fontFamily="@font/muli_semi_bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCheck"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        />
+
+    <TextView
+        android:id="@+id/txtViewDescriptionMoreChoice"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/margin_12_dp"
+        android:fontFamily="@font/muli_semi_bold"
+        android:textColor="@color/black"
+        android:text="we have mode it our bussiness to know the UAE's luxury car market inside out giving us land your access to cars on and off the market"
+        app:layout_constraintStart_toStartOf="@+id/txtViewMoreChoice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewMoreChoice"
+        android:layout_marginTop="@dimen/margin_3dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -92,7 +92,7 @@
                     android:layout_marginStart="@dimen/margin_10_dp"
                     android:text="@string/str_featured"
                     android:gravity="center_vertical"
-                    android:textSize="@dimen/margin_16sp"
+                    android:textSize="@dimen/margin_13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -118,7 +118,6 @@
 
         </androidx.cardview.widget.CardView>
 
-
         <ImageView
             android:id="@+id/imgViewFilter"
             android:layout_width="wrap_content"
@@ -133,6 +132,8 @@
         android:layout_width="@dimen/margin_0dp"
         android:fillViewport="true"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/margin_10_dp"
         app:layout_constraintTop_toBottomOf="@+id/ConsLayoutSort"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +143,6 @@
             android:id="@+id/recyclerviewCarList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
             android:scrollbars="vertical"
             />

@@ -91,7 +91,7 @@
 
     <!--    right navigation view fragment-->
 
-    <fragment
+    <!--<fragment
         android:id="@+id/nav_profiles"
         android:name="com.a.luxurycar.code_files.ui.home.fragment.ViewProfileFragment"
         android:label="fragment_view_profile"
@@ -100,7 +100,7 @@
         android:id="@+id/nav_language"
         android:name="com.a.luxurycar.code_files.ui.home.fragment.LanguageFragment"
         android:label="fragment_language"
-        tools:layout="@layout/fragment_language" />
+        tools:layout="@layout/fragment_language" />-->
     <fragment
         android:id="@+id/nav_condition"
         android:name="com.a.luxurycar.code_files.ui.home.fragment.TermAndConditionFragment"

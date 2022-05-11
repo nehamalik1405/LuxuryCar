@@ -1,21 +1,55 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
+
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.a.luxurycar.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.TransportExportRepository
+import com.a.luxurycar.code_files.ui.home.adapter.AdvertieserSuggestedList
+import com.a.luxurycar.code_files.ui.home.adapter.ExpandableListAdapter
+import com.a.luxurycar.code_files.ui.home.adapter.TransportExportAdapter
+import com.a.luxurycar.code_files.view_model.TransportExportViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentTranspotExportBinding
 
 
-class TranspotExportFragment : Fragment() {
+class TranspotExportFragment : BaseFragment<TransportExportViewModel,FragmentTranspotExportBinding,TransportExportRepository>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transpot_export, container, false)
+
+
+    override fun getViewModel()=TransportExportViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ) = FragmentTranspotExportBinding.inflate(inflater,container,false)
+
+    override fun getRepository()=TransportExportRepository(ApiAdapter.buildApi(ApiService::class.java))
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setRecyclerView()
+        setExpandableCardRecyclerView()
+
     }
 
+    private fun setExpandableCardRecyclerView() {
+        val expandableListAdapter = ExpandableListAdapter()
+        binding.recyclerviewTransportExportExpandableList.adapter = expandableListAdapter
+        binding.recyclerviewTransportExportExpandableList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+    }
+
+    private fun setRecyclerView() {
+        val transportExportAdapter = TransportExportAdapter()
+        binding.recyclerviewTransportExportList.adapter = transportExportAdapter
+        binding.recyclerviewTransportExportList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL ,false)
+
+    }
 }
