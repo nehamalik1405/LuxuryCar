@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_nav_inspecting_to_nav_sell_ur_car"
             app:destination="@id/nav_sell_ur_car" />
+        <action
+            android:id="@+id/action_nav_inspecting_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_sell_ur_car"
@@ -115,6 +118,11 @@
             android:id="@+id/action_storageFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.a.luxurycar.code_files.ui.home.fragment.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" />
 
 
 </navigation>

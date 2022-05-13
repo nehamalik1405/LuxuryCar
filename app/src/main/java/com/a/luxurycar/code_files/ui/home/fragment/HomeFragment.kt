@@ -3,6 +3,7 @@ package com.a.luxurycar.code_files.ui.home.fragment
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
     lateinit var list:ArrayList<ImageModel>
     var currentPage = 0
 
+
     override fun getViewModel()=HomeViewModel::class.java
 
     override fun getFragmentBinding(
@@ -45,10 +47,23 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         addImage()
         setViewPager()
         setAdvertiserList()
+        setSelectionOnButton()
 
         binding.btnSearch.setOnClickListener {
-            findNavController().navigate(R.id.storageFragment)
+            findNavController().navigate(R.id.productDetailFragment)
         }
+    }
+
+    private fun setSelectionOnButton() {
+        binding.btnToBuy.setOnClickListener{
+            binding.btnToBuy.setBackgroundResource(R.drawable.drawable_button_background)
+            binding.btnToRent.setBackgroundResource(R.drawable.disable_button_background)
+       }
+        binding.btnToRent.setOnClickListener{
+           binding.btnToRent.setBackgroundResource(R.drawable.drawable_button_background)
+            binding.btnToBuy.setBackgroundResource(R.drawable.disable_button_background)
+        }
+
     }
 
     private fun setAdvertiserList() {
