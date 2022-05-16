@@ -2,6 +2,7 @@ package com.a.luxurycar.code_files.ui.home
 
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
@@ -20,6 +21,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.internal.NavigationMenuView
@@ -59,8 +61,6 @@ class HomeActivity : AppCompatActivity() {
 
  // to connect drawer menu to nav control
        // to connect bottom navigation menu to nav control
-        navigationMenuView= binding.navViewRight.get(0) as NavigationMenuView
-        navigationMenuView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         binding.navViewRight.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {
@@ -68,9 +68,17 @@ class HomeActivity : AppCompatActivity() {
                 val itemId = item.itemId
 
                 if (itemId == R.id.nav_profiles) {
-
-                    Toast.makeText(applicationContext,"Profile View",Toast.LENGTH_LONG).show()
-
+                    navController.navigate(R.id.nav_profiles)
+                }
+                else if(itemId == R.id.nav_language){
+                    navController.navigate(R.id.nav_language)
+                }
+                else if(itemId == R.id.nav_condition){
+                    navController.navigate(R.id.nav_condition)
+                }
+                else if(itemId == R.id.nav_logout){
+                    startActivity(Intent(applicationContext, AuthActivity::class.java))
+                    (this as HomeActivity).finish()
                 }
 
                 binding.drawerLayout.closeDrawer(GravityCompat.END)
@@ -99,6 +107,28 @@ class HomeActivity : AppCompatActivity() {
             binding.navViewRight,
             navController
         )
+        binding.navViewRight.setNavigationItemSelectedListener(object :
+            NavigationView.OnNavigationItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                val itemId = item.itemId
+
+                if (itemId == R.id.nav_profiles) {
+                    navController.navigate(R.id.nav_profiles)
+                }
+                else if(itemId == R.id.nav_language){
+                    navController.navigate(R.id.nav_language)
+                }
+                else if(itemId == R.id.nav_condition){
+                    navController.navigate(R.id.nav_condition)
+                }
+                else if(itemId == R.id.nav_logout){
+                    startActivity(Intent(applicationContext, AuthActivity::class.java))
+                    (this as HomeActivity).finish()
+                }
+                binding.drawerLayout.closeDrawer(GravityCompat.END)
+                return true
+            }
+        })
     }
 
     private fun setLeftNavView(){
@@ -110,51 +140,27 @@ class HomeActivity : AppCompatActivity() {
     private fun setBottomNavigation() {
 
         bottomNavigation.setupWithNavController(navController)
-      /*  bottomNavigation.setOnNavigationItemSelectedListener { it
-            when (it.itemId) {
-                R.id.nav_follow_us -> {
 
-                    linLayoutPopUpMenu.visibility =View.VISIBLE
+       /* bottomNavigation.setOnNavigationItemSelectedListener { it
+             val itemId = it.itemId
 
+                if (itemId == R.id.nav_contact) {
+                    navController.navigate(R.id.nav_contact)
+                }
+                else if(itemId == R.id.nav_home){
+                    navController.navigate(R.id.nav_home)
+                }
+                else if(itemId == R.id.nav_follow_us){
+                    navController.navigate(R.id.nav_follow_us)
                 }
 
-            }
+
             true
         }*/
 
     }
 
-    private fun openBottomSheet() {
 
-        // on below line we are inflating a layout file which we have created.
-
-     /*   val view = layoutInflater.inflate(R.layout.bottom_view, null)*/
-        val uTube = dialog.findViewById<ImageView>(R.id.imgViewYouTube)
-        val linkedIn = dialog.findViewById<ImageView>(R.id.imgViewLinkedIn)
-        val Instagram = dialog.findViewById<ImageView>(R.id.imgViewInstagram)
-        val facebook = dialog.findViewById<ImageView>(R.id.imgViewFacebook)
-
-
-        uTube.setOnClickListener {
-            Toast.makeText(applicationContext,"You Tube click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
-
-        linkedIn.setOnClickListener {
-            Toast.makeText(applicationContext,"LinkedIn click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
-
-        Instagram.setOnClickListener {
-            Toast.makeText(applicationContext,"Instagram click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
-        facebook.setOnClickListener {
-            Toast.makeText(applicationContext,"Facebook click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
-
-    }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
@@ -210,5 +216,36 @@ class HomeActivity : AppCompatActivity() {
                 super.onBackPressed()
             }
         }
+    }
+    private fun openBottomSheet() {
+
+        // on below line we are inflating a layout file which we have created.
+
+        /*   val view = layoutInflater.inflate(R.layout.bottom_view, null)*/
+        val uTube = dialog.findViewById<ImageView>(R.id.imgViewYouTube)
+        val linkedIn = dialog.findViewById<ImageView>(R.id.imgViewLinkedIn)
+        val Instagram = dialog.findViewById<ImageView>(R.id.imgViewInstagram)
+        val facebook = dialog.findViewById<ImageView>(R.id.imgViewFacebook)
+
+
+        uTube.setOnClickListener {
+            Toast.makeText(applicationContext,"You Tube click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+        linkedIn.setOnClickListener {
+            Toast.makeText(applicationContext,"LinkedIn click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+        Instagram.setOnClickListener {
+            Toast.makeText(applicationContext,"Instagram click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+        facebook.setOnClickListener {
+            Toast.makeText(applicationContext,"Facebook click",Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
     }
     }
