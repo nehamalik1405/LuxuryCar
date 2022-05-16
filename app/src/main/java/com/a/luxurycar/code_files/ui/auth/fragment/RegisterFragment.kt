@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
@@ -15,20 +16,24 @@ import com.a.luxurycar.code_files.repository.RegistrationRepository
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.view_model.RegistrationViewModel
+import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
-import com.a.luxurycar.common.utils.Utils
+import com.a.luxurycar.common.requestresponse.Const
+import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.*
+import com.a.luxurycar.common.utils.Utils.Companion.getDeviceId
 import com.a.luxurycar.common.utils.Utils.Companion.isValidEmail
-import com.a.luxurycar.common.utils.getStringFromResource
-import com.a.luxurycar.common.utils.showErrorAndSetFocus
 import com.a.luxurycar.databinding.FragmentRegisterBinding
+import org.json.JSONObject
 
 
 class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBinding,RegistrationRepository>() {
     var isShowPassword = false
-    var name=""
+    var firstName=""
+    var lastName=""
     var email= ""
-    var mobileNo=""
+    var phone=""
     var password=""
     var confirm_password=""
     override fun getViewModel() = RegistrationViewModel::class.java
@@ -52,9 +57,10 @@ class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBind
 
         binding.btnRegister.setOnClickListener {
             if (isRegisterDataValid()){
-                Toast.makeText(requireContext(),"Registration Successfully",Toast.LENGTH_LONG).show()
+                callRegisterApi()
+               /* Toast.makeText(requireContext(),"Registration Successfully",Toast.LENGTH_LONG).show()
                 startActivity(Intent(requireContext(), HomeActivity::class.java))
-                (context as AuthActivity).finish()
+                (context as AuthActivity).finish()*/
             }
         }
 
@@ -91,27 +97,73 @@ class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBind
 
 
     }
+
+    private fun callRegisterApi() {
+        createRequestAndCallRegisterApi()
+
+        viewModel.RegisterResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarUserInfo.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null) {
+
+                        SessionManager.setAuthorizationToken(it.values.data?.accessToken?:"")
+                        Toast.makeText(requireContext(),it.values.message,Toast.LENGTH_LONG).show()
+                       // findNavController().navigate(R.id.nav_choosePhotoFragment)
+                    }
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
+
+    private fun createRequestAndCallRegisterApi() {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put(Const.PARAM_FIRST_NAME, firstName)
+            jsonObject.put(Const.PARAM_LAST_NAME, lastName)
+            jsonObject.put(Const.PARAM_EMAIL, email)
+            jsonObject.put(Const.PARAM_PASSWARD, password)
+            jsonObject.put(Const.PARAM_CONFIRM_PASSWARD, confirm_password)
+            jsonObject.put(Const.PARAM_Phone, phone)
+            jsonObject.put("device_id", "12345")
+            jsonObject.put("device_token", "12345")
+            jsonObject.put("device_token", "a")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        val body = jsonObject.convertJsonToRequestBody()
+        viewModel.getRegisterResponse(body)
+    }
+
     private fun getDataFromEditField() {
-        name = binding.edtTextName.text.toString().trim()
+        firstName = binding.edtTextFirstName.text.toString().trim()
+        lastName = binding.edtTextLastName.text.toString().trim()
         email = binding.edtTextEmail.text.toString().trim()
-        mobileNo = binding.edtTextMobileNo.text.toString().trim()
+        phone = binding.edtTextMobileNo.text.toString().trim()
         password = binding.edtTextPassword.text.toString().trim()
         confirm_password = binding.edtTextConfirmPassword.text.toString().trim()
     }
     private fun isRegisterDataValid(): Boolean {
 
         getDataFromEditField()
-        if (Utils.isEmptyOrNull(name)) {
-            binding.edtTextName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_name))
+        if (Utils.isEmptyOrNull(firstName)) {
+            binding.edtTextFirstName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_first_name))
             return false
-        }  else if (Utils.isEmptyOrNull(email)) {
+        }
+        else if (Utils.isEmptyOrNull(lastName)) {
+            binding.edtTextLastName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_last_name))
+            return false
+        }
+        else if (Utils.isEmptyOrNull(email)) {
             binding.edtTextEmail.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_email))
             return false
         } else if (!isValidEmail(email)) {
             binding.edtTextEmail.showErrorAndSetFocus(getStringFromResource(R.string.error_invalid_email))
             return false
         }
-        else if (Utils.isEmptyOrNull(mobileNo)) {
+        else if (Utils.isEmptyOrNull(phone)) {
             binding.edtTextMobileNo.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_mobile_no))
             return false
         }

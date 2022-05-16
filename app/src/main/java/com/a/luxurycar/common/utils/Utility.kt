@@ -17,6 +17,8 @@ import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.common.requestresponse.Resource
 import com.google.android.material.snackbar.Snackbar
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 
 import org.json.JSONObject
 
@@ -32,7 +34,12 @@ fun View.hideKeyboard() {
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }
-
+fun JSONObject.convertJsonToRequestBody() : RequestBody {
+    return (RequestBody.create(
+        "application/json; charset=utf-8".toMediaTypeOrNull(),
+        this.toString()
+    ))
+}
 fun <A : Activity> Activity.StartActivity(activity: Class<A>) {
     Intent(this, activity).also {
         //it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

@@ -59,49 +59,8 @@ class HomeActivity : AppCompatActivity() {
         setRightNavView()
 
 
- // to connect drawer menu to nav control
-       // to connect bottom navigation menu to nav control
-
-        binding.navViewRight.setNavigationItemSelectedListener(object :
-            NavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                val itemId = item.itemId
-
-                if (itemId == R.id.nav_profiles) {
-                    navController.navigate(R.id.nav_profiles)
-                }
-                else if(itemId == R.id.nav_language){
-                    navController.navigate(R.id.nav_language)
-                }
-                else if(itemId == R.id.nav_condition){
-                    navController.navigate(R.id.nav_condition)
-                }
-                else if(itemId == R.id.nav_logout){
-                    startActivity(Intent(applicationContext, AuthActivity::class.java))
-                    (this as HomeActivity).finish()
-                }
-
-                binding.drawerLayout.closeDrawer(GravityCompat.END)
-                return true
-            }
-        })
-/*
-        binding.navViewRight.setNavigationItemSelectedListener(object :
-            NavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                val itemId = item.itemId
-
-                if (itemId == R.id.nav_about_us) {
-
-                }
-
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-                return true
-            }
-        })*/
 
     }
-
     private fun setRightNavView() {
         NavigationUI.setupWithNavController(
             binding.navViewRight,

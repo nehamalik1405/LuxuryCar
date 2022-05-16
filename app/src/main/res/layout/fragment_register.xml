@@ -65,10 +65,10 @@
 
 
                <TextView
-                   android:id="@+id/txtViewName"
+                   android:id="@+id/txtViewFirstName"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Name"
+                   android:text="First Name"
                    android:layout_marginTop="@dimen/margin_25_dp"
                    android:fontFamily="@font/muli_bold"
                    android:textColor="@color/black"
@@ -78,16 +78,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtViewRegisterMessage" />
 
                <EditText
-                   android:id="@+id/edtTextName"
+                   android:id="@+id/edtTextFirstName"
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
-                   android:hint="Name"
+                   android:hint="First Name"
                    android:inputType="text"
                    style="@style/EditTextField"
                    android:imeOptions="actionNext"
                    android:gravity="center_vertical"
                    android:backgroundTint="@color/white"
-                   app:layout_constraintTop_toBottomOf="@+id/txtViewName"
+                   app:layout_constraintTop_toBottomOf="@+id/txtViewFirstName"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintEnd_toEndOf="parent"
                    />
@@ -96,9 +96,45 @@
                    android:layout_width="0dp"
                    android:layout_height="1dp"
                    android:background="@color/view_color"
-                   app:layout_constraintEnd_toEndOf="@+id/edtTextName"
-                   app:layout_constraintStart_toStartOf="@+id/edtTextName"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextName" />
+                   app:layout_constraintEnd_toEndOf="@+id/edtTextFirstName"
+                   app:layout_constraintStart_toStartOf="@+id/edtTextFirstName"
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextFirstName" />
+
+            <TextView
+                android:id="@+id/txtViewLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/muli_bold"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtTextFirstName" />
+
+            <EditText
+                android:id="@+id/edtTextLastName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Last Name"
+                android:inputType="text"
+                style="@style/EditTextField"
+                android:imeOptions="actionNext"
+                android:gravity="center_vertical"
+                android:backgroundTint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewLastName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/view_color"
+                app:layout_constraintEnd_toEndOf="@+id/edtTextLastName"
+                app:layout_constraintStart_toStartOf="@+id/edtTextLastName"
+                app:layout_constraintTop_toBottomOf="@+id/edtTextLastName" />
 
 
                <TextView
@@ -113,7 +149,7 @@
                    android:textSize="14sp"
                    app:autoSizeStepGranularity="2sp"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextName" />
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextLastName" />
 
                <EditText
                    android:id="@+id/edtTextEmail"
@@ -338,5 +374,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
