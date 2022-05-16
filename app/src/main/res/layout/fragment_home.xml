@@ -75,10 +75,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/card_color"
-            android:paddingStart="@dimen/margin_15_dp"
-            android:paddingEnd="@dimen/margin_15_dp"
-            android:paddingTop="@dimen/margin_20_dp"
-            android:paddingBottom="@dimen/margin_20_dp"
+            android:paddingStart="@dimen/margin_10_dp"
+            android:paddingEnd="@dimen/margin_10_dp"
+            android:paddingTop="@dimen/margin_15_dp"
+            android:paddingBottom="@dimen/margin_15_dp"
 
             >
             <LinearLayout

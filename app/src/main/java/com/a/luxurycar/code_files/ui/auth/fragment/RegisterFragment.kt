@@ -1,5 +1,6 @@
 package com.a.luxurycar.code_files.ui.auth.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
@@ -11,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.RegistrationRepository
+import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.view_model.RegistrationViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
@@ -50,6 +53,8 @@ class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBind
         binding.btnRegister.setOnClickListener {
             if (isRegisterDataValid()){
                 Toast.makeText(requireContext(),"Registration Successfully",Toast.LENGTH_LONG).show()
+                startActivity(Intent(requireContext(), HomeActivity::class.java))
+                (context as AuthActivity).finish()
             }
         }
 

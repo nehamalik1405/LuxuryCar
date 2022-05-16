@@ -4,32 +4,46 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_about_us"
             android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
             android:title="@string/menu_aboutus" />
+
+
+
         <item
             android:id="@+id/nav_car_listing"
             android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
             android:title="@string/menu_car_listing" />
+
+
         <item
             android:id="@+id/nav_transport"
             android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
             android:title="@string/menu_transport" />
+
 
         <item
             android:id="@+id/nav_sourcing"
             android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
             android:title="@string/menu_soucing" />
+
 
         <item
             android:id="@+id/nav_inspecting"
             android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
             android:title="@string/menu_Inspecting" />
 
         <item
             android:id="@+id/nav_sell_ur_car"
             android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
             android:title="@string/menu_sellur_car" />
     </group>
 </menu>

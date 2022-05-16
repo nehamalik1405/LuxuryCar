@@ -42,17 +42,17 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
 
     private fun manageListeners() {
         binding.txtViewRegister.setOnClickListener {
-          // if (isValidation()) {
+           if (isValidation()) {
                 findNavController().navigate(R.id.registerFragment)
-          //  }
+            }
            
         }
         binding.btnLogin.setOnClickListener {
-        //   if (isValidation()) {
+           if (isValidation()) {
                 Toast.makeText(requireContext(),"Login Successfully",Toast.LENGTH_LONG).show()
                 startActivity(Intent(requireContext(), HomeActivity::class.java))
                 (context as AuthActivity).finish()
-           //   }
+              }
 
         }
         binding.txtViewForgotPassword.setOnClickListener {

@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class ProductDetailFragment : Fragment(),OnMapReadyCallback {
-
+    private lateinit var map: GoogleMap
     var _binding:FragmentProductDetailBinding? = null
     val binding get() = _binding!!;
     lateinit var list:ArrayList<ProductDetailImageModel>
@@ -42,11 +42,10 @@ class ProductDetailFragment : Fragment(),OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val sydney = LatLng(-33.852, 151.211)
-        googleMap.addMarker(MarkerOptions()
-            .position(sydney)
-            .title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        map=googleMap
+        val india = LatLng(     23.63936, 79.14712)
+        map.addMarker(MarkerOptions().position(india).title("india location"))
+        map.moveCamera(CameraUpdateFactory.newLatLng(india))
     }
     private fun setViewPager() {
         list = arrayListOf()

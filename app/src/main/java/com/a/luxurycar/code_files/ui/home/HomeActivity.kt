@@ -1,36 +1,32 @@
 package com.a.luxurycar.code_files.ui.home
 
+
 import android.app.Dialog
-import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.a.luxurycar.R
-import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.databinding.ActivityHomeBinding
-
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.internal.NavigationMenuView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+
 
 class HomeActivity : AppCompatActivity() {
     lateinit var dialog:Dialog
@@ -40,6 +36,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var navController: NavController
     lateinit var imageViewMenu: ImageView
     lateinit var imageViewProfile: ImageView
+    lateinit var navigationMenuView: NavigationMenuView
     lateinit var linLayoutPopUpMenu:LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +59,8 @@ class HomeActivity : AppCompatActivity() {
 
  // to connect drawer menu to nav control
        // to connect bottom navigation menu to nav control
-
+        navigationMenuView= binding.navViewRight.get(0) as NavigationMenuView
+        navigationMenuView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         binding.navViewRight.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {

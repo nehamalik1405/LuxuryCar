@@ -114,6 +114,7 @@
     <string name="str_phone">Phone.*</string>
     <string name="str_get_free_quote">Get Free Quote</string>
     <string name="str_transport_export_faq_s">Transport/Export FAQ\'S</string>
+    <string name="str_put_simply_car_sourcing_is_you_the_buyer_commissioning_us_the_seller_to_locate_prepare_and_supply_you_next_luxury_car">Put simply,car sourcing is you (the buyer) commissioning us (the seller) to locate,prepare and supply you next luxury car.</string>
     <string-array name="countryCode">
         <item>+91</item>
         <item>+1</item>
