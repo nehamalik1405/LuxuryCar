@@ -28,7 +28,7 @@ import com.a.luxurycar.databinding.FragmentRegisterBinding
 import org.json.JSONObject
 
 
-class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBinding,RegistrationRepository>() {
+class RegisterFragment : BaseFragment<RegistrationViewModel, FragmentRegisterBinding,RegistrationRepository>() {
     var isShowPassword = false
     var firstName=""
     var lastName=""
@@ -105,12 +105,12 @@ class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBind
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                    if (it.values.status != null) {
-
-                        SessionManager.setAuthorizationToken(it.values.data?.accessToken?:"")
-                        Toast.makeText(requireContext(),it.values.message,Toast.LENGTH_LONG).show()
+                    if (it.values.status != null && it.values.status == 1) {
+                        //SessionManager.setAuthorizationToken(it.values.data?.accessToken?:"")
                        // findNavController().navigate(R.id.nav_choosePhotoFragment)
+                        findNavController().popBackStack()
                     }
+                    Toast.makeText(requireContext(),it.values.message,Toast.LENGTH_LONG).show()
                 }
                 is Resource.Failure -> handleApiErrors(it)
             }
@@ -126,9 +126,6 @@ class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBind
             jsonObject.put(Const.PARAM_PASSWARD, password)
             jsonObject.put(Const.PARAM_CONFIRM_PASSWARD, confirm_password)
             jsonObject.put(Const.PARAM_Phone, phone)
-            jsonObject.put("device_id", "12345")
-            jsonObject.put("device_token", "12345")
-            jsonObject.put("device_token", "a")
         } catch (e: Exception) {
             e.printStackTrace()
         }

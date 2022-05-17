@@ -110,12 +110,15 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                    if (it.values.status != null) {
+                    if (it.values.status != null && it.values.status == 1) {
                         SessionManager.saveUserData(it.values)
                           StartActivity(HomeActivity::class.java)
                           requireActivity().finishAffinity()
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
                     }
+
 
                 }
                 is Resource.Failure -> handleApiErrors(it)

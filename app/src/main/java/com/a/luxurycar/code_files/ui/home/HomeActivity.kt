@@ -22,6 +22,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.internal.NavigationMenuView
@@ -94,9 +95,11 @@ class HomeActivity : AppCompatActivity() {
                 else if(itemId == R.id.nav_condition){
                     navController.navigate(R.id.nav_condition)
                 }
-                else if(itemId == R.id.nav_logout){
+                else if(itemId == R.id.nav_logout) {
+                    val sessionManager = SessionManager(this@HomeActivity)
+                    sessionManager.logout()
                     startActivity(Intent(applicationContext, AuthActivity::class.java))
-                    (this as HomeActivity).finish()
+                    finish()
                 }
                 binding.drawerLayout.closeDrawer(GravityCompat.END)
                 return true

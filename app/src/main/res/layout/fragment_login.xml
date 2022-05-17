@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="15dp"
-    android:layout_marginEnd="15dp"
+    android:paddingStart="@dimen/margin_15dp"
+    android:paddingEnd="@dimen/margin_15dp"
     tools:context=".code_files.ui.auth.fragment.LoginFragment">
 
 
@@ -20,7 +20,7 @@
 
               <androidx.constraintlayout.widget.ConstraintLayout
                   android:layout_width="match_parent"
-                  android:layout_height="match_parent">
+                  android:layout_height="wrap_content">
 
 
 
@@ -28,7 +28,7 @@
                       android:id="@+id/imgViewLogo"
                       android:layout_width="@dimen/margin_100_dp"
                       android:layout_height="@dimen/margin_100_dp"
-                      android:layout_marginBottom="@dimen/margin_10_dp"
+                      android:layout_marginBottom="@dimen/margin_40dp"
                       android:src="@mipmap/ic_main_logo"
                       app:layout_constraintEnd_toEndOf="parent"
                       app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
                       android:fontFamily="@font/muli_bold"
                       android:text="@string/please_enter_your_login_details"
                       android:textSize="15sp"
-                      android:layout_marginBottom="@dimen/margin_25_dp"
+                      android:layout_marginBottom="@dimen/margin_40dp"
                       android:textColor="@color/sub_title_color"
                       app:layout_constraintEnd_toEndOf="parent"
                       app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +106,7 @@
                           android:id="@+id/view"
                           android:layout_width="0dp"
                           android:layout_height="1dp"
+                          android:layout_marginTop="@dimen/margin_10dp"
                           android:background="@color/view_color"
                           app:layout_constraintEnd_toEndOf="@+id/edtTextEmail"
                           app:layout_constraintStart_toStartOf="@+id/edtTextEmail"
@@ -117,7 +118,7 @@
                           android:id="@+id/txtViewPassword"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:layout_marginTop="15dp"
+                          android:layout_marginTop="@dimen/margin_30dp"
                           android:text="@string/title_password"
                           android:textAllCaps="true"
                           android:textColor="@color/black"
@@ -144,6 +145,7 @@
                           android:id="@+id/view2"
                           android:layout_width="0dp"
                           android:layout_height="1dp"
+                          android:layout_marginTop="@dimen/margin_10dp"
                           android:background="@color/view_color"
                           app:layout_constraintEnd_toEndOf="@+id/edtTextPassword"
                           app:layout_constraintStart_toStartOf="@+id/edtTextPassword"
@@ -171,7 +173,7 @@
                           android:layout_marginTop="10dp"
                           android:fontFamily="@font/muli_bold"
                           android:textColor="#AAACBB"
-                          app:layout_constraintTop_toBottomOf="@+id/edtTextPassword"
+                          app:layout_constraintTop_toBottomOf="@+id/view2"
                           app:layout_constraintEnd_toEndOf="parent"
                           />
                   </androidx.constraintlayout.widget.ConstraintLayout>
@@ -184,6 +186,7 @@
                       style="@style/buttonFieldStyle"
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
+                      android:layout_marginTop="@dimen/margin_40dp"
                       android:textAllCaps="true"
                       android:text="@string/titlr_login"
                       app:layout_constraintEnd_toEndOf="parent"
@@ -286,7 +289,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/margin_5dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
