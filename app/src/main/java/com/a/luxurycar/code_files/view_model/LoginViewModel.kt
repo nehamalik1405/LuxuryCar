@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a.luxurycar.code_files.base.BaseViewModel
 import com.a.luxurycar.code_files.repository.LoginRepository
-import com.a.luxurycar.code_files.ui.auth.model.LoginResponse
+import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.common.requestresponse.Resource
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody

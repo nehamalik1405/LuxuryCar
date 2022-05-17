@@ -1,7 +1,8 @@
 package com.a.luxurycar.common.requestresponse
 
-import com.a.luxurycar.code_files.ui.auth.model.LoginResponse
-import com.a.luxurycar.code_files.ui.auth.model.RegistrationResponse
+
+import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
+import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 
 import okhttp3.RequestBody
 import retrofit2.http.Body

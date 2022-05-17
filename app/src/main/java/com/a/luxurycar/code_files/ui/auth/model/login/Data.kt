@@ -1,4 +1,4 @@
-package com.a.luxurycar.code_files.ui.auth.model
+package com.a.luxurycar.code_files.ui.auth.model.login
 
 
 import com.google.gson.annotations.SerializedName

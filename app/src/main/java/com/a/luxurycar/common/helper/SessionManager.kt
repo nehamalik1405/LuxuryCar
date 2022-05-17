@@ -2,7 +2,8 @@ package com.a.luxurycar.common.helper;
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.a.luxurycar.code_files.ui.auth.model.LoginResponse
+import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
+
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.utils.PrefUtil
 import com.google.gson.Gson
