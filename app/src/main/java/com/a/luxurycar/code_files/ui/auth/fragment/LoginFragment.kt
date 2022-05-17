@@ -2,6 +2,7 @@ package com.a.luxurycar.code_files.ui.auth.fragment
 
 import android.content.Context
 import android.content.Context.TELEPHONY_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.text.method.PasswordTransformationMethod
@@ -25,6 +26,8 @@ import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentLoginBinding
 import org.json.JSONObject
 import android.provider.Settings
+import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.code_files.ui.home.HomeActivity
 
 
 class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRepository>() {
@@ -55,7 +58,7 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
         binding.btnLogin.setOnClickListener {
            if (isValidation()) {
                callLoginApi()
-               /* Toast.makeText(requireContext(),"Login Successfully",Toast.LENGTH_LONG).show()
+            /*    Toast.makeText(requireContext(),"Login Successfully",Toast.LENGTH_LONG).show()
                 startActivity(Intent(requireContext(), HomeActivity::class.java))
                 (context as AuthActivity).finish()*/
            }
@@ -109,8 +112,8 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
                 is Resource.Success -> {
                     if (it.values.status != null) {
                         SessionManager.saveUserData(it.values)
-                         /* StartActivity(HomeActivity::class.java)
-                          requireActivity().finishAffinity()*/
+                          StartActivity(HomeActivity::class.java)
+                          requireActivity().finishAffinity()
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
                     }
 

@@ -102,7 +102,7 @@ class RegisterFragment : BaseFragment<RegistrationViewModel,FragmentRegisterBind
         createRequestAndCallRegisterApi()
 
         viewModel.RegisterResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressBarUserInfo.visible(it is Resource.Loading)
+            binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null) {
