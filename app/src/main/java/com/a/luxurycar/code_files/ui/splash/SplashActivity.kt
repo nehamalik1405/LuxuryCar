@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBar
 import com.a.luxurycar.MainActivity
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.utils.StartActivity
 import kotlinx.coroutines.*
@@ -27,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         // to send a message with a delayed time.
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000)
-            StartActivity(AuthActivity::class.java)
+            StartActivity(HomeActivity::class.java)
             finish()
         }// 3000 is the delayed time in milliseconds.
 

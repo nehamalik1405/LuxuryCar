@@ -4,14 +4,15 @@ package com.a.luxurycar.code_files.ui.home
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -19,7 +20,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.databinding.ActivityHomeBinding
@@ -57,6 +57,20 @@ class HomeActivity : AppCompatActivity() {
         setBottomNavigation()
         setLeftNavView()
         setRightNavView()
+
+
+        bottomNavigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_follow_us -> {
+                    val popup = PopupMenu(this@HomeActivity, findViewById(R.id.nav_follow_us))
+                    val inflater: MenuInflater = popup.getMenuInflater()
+                    inflater.inflate(R.menu.follow_menu, popup.getMenu())
+                    popup.show()
+                }
+
+            }
+            false
+        })
 
 
 
