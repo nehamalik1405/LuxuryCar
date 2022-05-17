@@ -46,6 +46,9 @@ class SessionManager(var context: Context) {
         fun isUserLoggedIn(): Boolean {
             return PrefUtil.getBoolean(LuxuryCarApplication.instance, IS_USER_LOGGED_IN, false)
         }
+        public fun getUserData(): LoginResponse? {
+            return Gson().fromJson(PrefUtil.getString(LuxuryCarApplication.instance, KEY_USER_DATA,""), LoginResponse::class.java)
+        }
 
     }
 

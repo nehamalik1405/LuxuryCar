@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.text.ClipboardManager
+import android.text.Editable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -40,6 +41,8 @@ fun JSONObject.convertJsonToRequestBody() : RequestBody {
         this.toString()
     ))
 }
+fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
+
 fun <A : Activity> Activity.StartActivity(activity: Class<A>) {
     Intent(this, activity).also {
         //it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

@@ -18,6 +18,8 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(repository = repository as HomeRepository) as T
             modelClass.isAssignableFrom(CarListViewModel::class.java) -> CarListViewModel(repository = repository as CarListRepository) as T
             modelClass.isAssignableFrom(TransportExportViewModel::class.java) -> TransportExportViewModel(repository = repository as TransportExportRepository) as T
+            modelClass.isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel(repository = repository as AuthRepository) as T
+            modelClass.isAssignableFrom(UpdateDetailViewModel::class.java) -> UpdateDetailViewModel(repository = repository as UpdateDetailRepository) as T
 
 
             else -> {
