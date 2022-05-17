@@ -93,8 +93,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
             override fun run() {
                 handler.post(update)
             }
-        }, 2500, 2500)
-
+        }, 2000, 2000)
 
 
         TabLayoutMediator(binding.tabLayout, photos_viewpager) { tab, position ->

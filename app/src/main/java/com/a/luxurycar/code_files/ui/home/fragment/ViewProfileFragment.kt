@@ -1,14 +1,11 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
 import android.os.Bundle
-import android.text.Editable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.UpdateDetailRepository
 import com.a.luxurycar.code_files.ui.home.HomeActivity
@@ -19,7 +16,6 @@ import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Resource
 import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentViewProfileBinding
-import kotlinx.android.synthetic.main.fragment_view_profile.*
 
 
 class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfileBinding,UpdateDetailRepository>() {
@@ -84,29 +80,43 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
 
     private fun callUpdateDeatilApi() {
         viewModel.getUpdateDetails(firstName,lastname,email,phone)
-   /*     viewModel.UpdateDetailResponse.observe(viewLifecycleOwner, Observer {
+
+        viewModel.UpdateDetailResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                    if (it.values. != null) {
-                        SessionManager.saveUserData(it.values)
+                    if (it.values.status != null && it.values.status == 1) {
                         StartActivity(HomeActivity::class.java)
+                        updateDataInSession()
                         requireActivity().finishAffinity()
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
                     }
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
             }
-        })*/
+        })
 
     }
 
+    private fun updateDataInSession() {
+        val userData = SessionManager.getUserData()
+        userData?.data?.user?.firstname = firstName
+        userData?.data?.user?.lastname = lastname
+        userData?.data?.user?.phone = phone
+        SessionManager.saveUserData(userData!!)
+    }
+
     private fun manageSessionData() {
-         firstName = SessionManager.getUserData()?.data?.user?.firstname.toString()
-         lastname = SessionManager.getUserData()?.data?.user?.lastname.toString()
-         email = SessionManager.getUserData()?.data?.user?.email.toString()
-         phone = SessionManager.getUserData()?.data?.user?.phone.toString()
+
+        val userData = SessionManager.getUserData()?.data?.user
+
+         firstName = userData?.firstname.toString()
+         lastname = userData?.lastname.toString()
+         email = userData?.email.toString()
+         phone = userData?.phone.toString()
 
         binding.edtTextFirstName.setText(firstName)
         binding.edtTextLastName.setText(lastname)

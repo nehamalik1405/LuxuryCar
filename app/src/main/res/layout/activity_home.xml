@@ -31,6 +31,7 @@
        android:layout_height="match_parent"
        android:minHeight="?attr/actionBarSize"
        android:layout_gravity="end"
+       app:itemIconTint="#006138"
        android:fitsSystemWindows="true"
        app:headerLayout="@layout/nav_header_right_main"
        app:menu="@menu/drawer_right_menu" />

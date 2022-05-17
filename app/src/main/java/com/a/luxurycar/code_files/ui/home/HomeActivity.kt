@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +29,7 @@ import com.a.luxurycar.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.internal.NavigationMenuView
 import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -52,12 +55,13 @@ class HomeActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         imageViewMenu = findViewById(R.id.imgViewMenu)
         imageViewProfile = findViewById(R.id.imgViewProfile)
-
+        navViewRight.setItemIconTintList(null)
 
         menageClickEvents()
         setBottomNavigation()
         setLeftNavView()
         setRightNavView()
+        setRightHeader()
 
 
         bottomNavigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -76,11 +80,27 @@ class HomeActivity : AppCompatActivity() {
 
 
     }
+
+    private fun setRightHeader() {
+        val userData = SessionManager.getUserData()
+        val navView: NavigationView = findViewById(R.id.navViewRight)
+        val headerView: View = navView.getHeaderView(0)
+        val imgViewProfile = headerView.findViewById<ImageView>(R.id.imageView)
+        val txtViewEmail = headerView.findViewById<TextView>(R.id.textViewEmail)
+        val textViewUserName = headerView.findViewById<TextView>(R.id.txtViewUserName)
+        if (userData != null) {
+            Picasso.get().load(userData.data.user.image).into(imgViewProfile)
+            textViewUserName.text=userData.data.user.fullname
+            txtViewEmail.text=userData.data.user.email
+        }
+    }
+
     private fun setRightNavView() {
         NavigationUI.setupWithNavController(
             binding.navViewRight,
             navController
         )
+
         binding.navViewRight.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -95,6 +115,9 @@ class HomeActivity : AppCompatActivity() {
                 else if(itemId == R.id.nav_condition){
                     navController.navigate(R.id.nav_condition)
                 }
+               /* else if(itemId == R.id.nav_change_password){
+                    navController.navigate(R.id.nav_change_password)
+                }*/
                 else if(itemId == R.id.nav_logout) {
                     val sessionManager = SessionManager(this@HomeActivity)
                     sessionManager.logout()
@@ -112,6 +135,8 @@ class HomeActivity : AppCompatActivity() {
             binding.navViewLeft,
             navController
         )
+
+
     }
     private fun setBottomNavigation() {
 

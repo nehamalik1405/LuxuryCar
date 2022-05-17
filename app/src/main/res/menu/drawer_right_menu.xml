@@ -11,6 +11,7 @@
             android:id="@+id/nav_profiles"
             android:icon="@drawable/ic_arrow_back"
             android:title="@string/view_profile"
+
              />
     </group>
     <group
@@ -29,8 +30,16 @@
             android:icon="@drawable/ic_arrow_back"
             android:title="@string/terms_condition" />
     </group>
-    <group
+   <!-- <group
         android:id="@+id/grp4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_change_password"
+            android:icon="@drawable/ic_arrow_back"
+            android:title="@string/str_change_password" />
+    </group>-->
+    <group
+        android:id="@+id/grp5"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_logout"

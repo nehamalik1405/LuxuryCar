@@ -1,4 +1,4 @@
-package com.a.luxurycar.code_files.ui.auth.model.login
+package com.a.luxurycar.code_files.ui.home.model.update_details
 
 
 import com.google.gson.annotations.SerializedName
@@ -7,29 +7,25 @@ data class User(
     @SerializedName("about")
     val about: Any,
     @SerializedName("device_id")
-    val deviceId: Any,
+    val deviceId: String,
     @SerializedName("device_token")
-    val deviceToken: Any,
+    val deviceToken: String,
     @SerializedName("device_type")
-    val deviceType: Any,
+    val deviceType: String,
     @SerializedName("email")
     val email: String,
     @SerializedName("firstname")
-    var firstname: String,
-    @SerializedName("fullname")
-    val fullname: String,
+    val firstname: String,
     @SerializedName("id")
     val id: Int,
     @SerializedName("image")
     val image: String,
     @SerializedName("lastname")
-    var lastname: String,
+    val lastname: String,
     @SerializedName("phone")
-    var phone: String,
+    val phone: String,
     @SerializedName("role")
     val role: String,
     @SerializedName("status")
-    val status: String,
-    @SerializedName("user_address")
-    val userAddress: Any
+    val status: String
 )

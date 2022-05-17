@@ -1,16 +1,12 @@
 package com.a.luxurycar.code_files.ui.auth.fragment
 
 import android.content.Context
-import android.content.Context.TELEPHONY_SERVICE
-import android.content.Intent
 import android.os.Bundle
-import android.telephony.TelephonyManager
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
@@ -26,7 +22,6 @@ import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentLoginBinding
 import org.json.JSONObject
 import android.provider.Settings
-import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.code_files.ui.home.HomeActivity
 
 
@@ -62,6 +57,9 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
                 startActivity(Intent(requireContext(), HomeActivity::class.java))
                 (context as AuthActivity).finish()*/
            }
+            binding.txtViewForgotPassword.setOnClickListener {
+                findNavController().navigate(R.id.forgotPassword)
+            }
 
         }
         binding.txtViewForgotPassword.setOnClickListener {

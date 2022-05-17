@@ -118,6 +118,13 @@
     <string name="str_put_simply_car_sourcing_is_you_the_buyer_commissioning_us_the_seller_to_locate_prepare_and_supply_you_next_luxury_car">Put simply,car sourcing is you (the buyer) commissioning us (the seller) to locate,prepare and supply you next luxury car.</string>
     <string name="str_my_profile">My Profile</string>
     <string name="str_save_my_details">Save My Details</string>
+    <string name="str_please_enter_your_first_name">Please enter your first name</string>
+    <string name="str_please_enter_your_last_name">Please enter your last name.</string>
+    <string name="str_please_enter_your_email">Please enter your email</string>
+    <string name="str_please_enter_your_mobile_number">Please enter your mobile number</string>
+    <string name="str_mobile_number">Mobile Number</string>
+    <string name="str_please_enter_password">Please enter password</string>
+    <string name="str_change_password">Change Password</string>
     <string-array name="countryCode">
         <item>+91</item>
         <item>+1</item>

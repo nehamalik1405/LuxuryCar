@@ -20,6 +20,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(TransportExportViewModel::class.java) -> TransportExportViewModel(repository = repository as TransportExportRepository) as T
             modelClass.isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel(repository = repository as AuthRepository) as T
             modelClass.isAssignableFrom(UpdateDetailViewModel::class.java) -> UpdateDetailViewModel(repository = repository as UpdateDetailRepository) as T
+            modelClass.isAssignableFrom(ChangePasswordViewModel::class.java) -> ChangePasswordViewModel(repository = repository as ChangePasswordRepository) as T
 
 
             else -> {

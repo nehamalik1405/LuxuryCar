@@ -3,6 +3,7 @@ package com.a.luxurycar.common.helper;
 import android.content.Context
 import android.content.SharedPreferences
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
+import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateDetailsModel
 
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.utils.PrefUtil
@@ -25,6 +26,7 @@ class SessionManager(var context: Context) {
         val KEY_AUTHORIZATION_TOKEN = "authorization_token" //
         val KEY_USER_DATA = "user_data" //
         val IS_USER_LOGGED_IN = "is_user_logged_in" //
+
         fun saveUserData(loginData: LoginResponse) {
             PrefUtil.putBoolean(LuxuryCarApplication.instance, IS_USER_LOGGED_IN, true)
             PrefUtil.putString(LuxuryCarApplication.instance, KEY_USER_DATA, Gson().toJson(loginData))
