@@ -17,11 +17,9 @@ import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Resource
-import com.a.luxurycar.common.utils.StartActivity
-import com.a.luxurycar.common.utils.handleApiErrors
-import com.a.luxurycar.common.utils.toEditable
-import com.a.luxurycar.common.utils.visible
+import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentViewProfileBinding
+import kotlinx.android.synthetic.main.fragment_view_profile.*
 
 
 class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfileBinding,UpdateDetailRepository>() {
@@ -48,12 +46,44 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
 
     private fun manageListenerEvent() {
         binding.btnSaveMyDetails.setOnClickListener {
-            callUpdateDeatilApi()
+            onClickUpdateProfileBtn()
         }
     }
 
+    private fun onClickUpdateProfileBtn() {
+        firstName = binding.edtTextFirstName.text.toString().trim()
+        lastname = binding.edtTextLastName.text.toString().trim()
+        email = binding.edtTextEmail.text.toString().trim()
+        phone = binding.edtTextMobileNo.text.toString().trim()
+
+        if(isDataValid()) {
+            callUpdateDeatilApi()
+        }
+
+    }
+
+    private fun isDataValid(): Boolean {
+
+        if(Utils.isEmptyOrNull(firstName)) {
+            binding.edtTextFirstName.error = "Please enter first name."
+            binding.edtTextFirstName.requestFocus()
+            return false
+        } else if(Utils.isEmptyOrNull(lastname)) {
+            binding.edtTextLastName.error = "Please enter last name."
+            binding.edtTextLastName.requestFocus()
+            return false
+        } else if(Utils.isEmptyOrNull(phone)) {
+            binding.edtTextMobileNo.error = "Please enter mobile number."
+            binding.edtTextMobileNo.requestFocus()
+            return false
+        }
+        return true
+
+
+    }
+
     private fun callUpdateDeatilApi() {
-        viewModel.getUpdateDetails(firstName,lastname,lastname,lastname)
+        viewModel.getUpdateDetails(firstName,lastname,email,phone)
    /*     viewModel.UpdateDetailResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
