@@ -37,7 +37,10 @@ class SessionManager(var context: Context) {
         }
 
         fun getAuthorizationToken(): String {
-            return PrefUtil.getString(LuxuryCarApplication.instance, KEY_AUTHORIZATION_TOKEN, "")?:""
+            return getUserData()?.data?.let {
+                PrefUtil.getString(LuxuryCarApplication.instance, KEY_AUTHORIZATION_TOKEN,
+                    it.accessToken)
+            } ?:""
         }
 
 

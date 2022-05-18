@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/item_youtube"
         android:icon="@mipmap/ic_utube"
-        app:showAsAction="never"
-        android:title="youtube"
+        android:title="@string/str_youtube"
+
         />
 
     <item
         android:id="@+id/item_linkedin"
         android:icon="@mipmap/ic_linkedin"
-        app:showAsAction="never"
-        android:title="linkedlin"/>
+        android:title="@string/str_linkedlin"/>
 
     <item
         android:id="@+id/item_instagram"
         android:icon="@mipmap/ic_instagram"
-        app:showAsAction="never"
-        android:title="instagram"/>
+        android:title="@string/str_instagram"/>
 
     <item
         android:id="@+id/item_facebook"
         android:icon="@mipmap/ic_facebook_trans"
-        app:showAsAction="never"
-        android:title="facebook" />
+        android:title="@string/str_facebook"
+        />
 
 </menu>

@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPassword"
-        android:name="com.a.luxurycar.code_files.ui.forgot_password.ForgotPassword"
+        android:name="com.a.luxurycar.code_files.ui.auth.fragment.ForgotPassword"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action

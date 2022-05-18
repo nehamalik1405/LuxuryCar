@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.TransportExportRepository
-import com.a.luxurycar.code_files.ui.home.adapter.AdvertieserSuggestedList
 import com.a.luxurycar.code_files.ui.home.adapter.ExpandableListAdapter
 import com.a.luxurycar.code_files.ui.home.adapter.TransportExportAdapter
 import com.a.luxurycar.code_files.view_model.TransportExportViewModel

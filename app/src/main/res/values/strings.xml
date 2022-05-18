@@ -27,6 +27,9 @@
     <string name="str_password">********</string>
     <string name="don_t_have_an_account">Don\'t have an account ?</string>
     <string name="or">Or</string>
+    <string name="str_enter_otp">Enter Your OTP Code Here</string>
+    <string name="str_dont_receive_code">Didn"'"t receive any code </string>
+    <string name="str_resend_code_no_underline">Resend a new code.</string>
     //// Navigation drawer
     <string name="action_settings">Settings</string>
 
@@ -125,6 +128,10 @@
     <string name="str_mobile_number">Mobile Number</string>
     <string name="str_please_enter_password">Please enter password</string>
     <string name="str_change_password">Change Password</string>
+    <string name="str_youtube">youtube</string>
+    <string name="str_linkedlin">linkedlin</string>
+    <string name="str_instagram">instagram</string>
+    <string name="str_facebook">facebook</string>
     <string-array name="countryCode">
         <item>+91</item>
         <item>+1</item>

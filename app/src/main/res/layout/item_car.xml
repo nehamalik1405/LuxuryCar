@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
    <androidx.cardview.widget.CardView
        android:layout_width="@dimen/margin_160_dp"
        android:layout_height="wrap_content"
@@ -61,7 +62,7 @@
                  android:background="@drawable/drawable_button_background"/>
 
               <TextView
-                  android:id="@+id/txtViewPrice"
+                  android:id="@+id/txtViewKm"
                   android:layout_width="0dp"
                   android:layout_height="wrap_content"
                  android:text="@string/str_kilometer"
@@ -74,7 +75,7 @@
 
            </LinearLayout>
            <TextView
-               android:id="@+id/txtViewAED"
+               android:id="@+id/txtViewPrice"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/str_aed_168_000"

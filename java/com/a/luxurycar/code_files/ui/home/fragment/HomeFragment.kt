@@ -80,7 +80,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         TabLayoutMediator(binding.tabLayout, photos_viewpager) { tab, position -> }.attach()
     }
 
-    private fun addImage() {
+    /*private fun addImage() {
         list = arrayListOf()
         list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-03.JPG"))
         list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-08.JPG"))
@@ -88,7 +88,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-13.JPG"))
         list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-17.JPG"))
         list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-21.JPG"))
-    }
+    }*/
 }
 
 

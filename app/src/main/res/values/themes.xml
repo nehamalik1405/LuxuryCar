@@ -17,7 +17,20 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:itemBackground">@color/green</item>
+      <!--  <item name="android:popupMenuStyle">@style/PopupMenu</item>-->
     </style>
+
+
+
+<!--
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/green</item>
+        <item name="android:textColor">#FF01F0</item>
+        <item name="android:textSize">25sp</item>
+    </style>-->
+
+
     <style name="MyActionBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
     </style>

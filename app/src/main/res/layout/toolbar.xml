@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:background="@color/white"
-    android:elevation="@dimen/margin_0_dp">
+    android:elevation="@dimen/margin_0_dp"
+    >
 
     <ImageView
         android:id="@+id/imgViewMenu"

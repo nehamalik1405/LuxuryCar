@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_15_dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".code_files.ui.auth.fragment.OtpVarificationFragment">
+
+    <ImageView
+        android:id="@+id/imgViewLogo"
+        android:layout_width="@dimen/margin_100_dp"
+        android:layout_height="@dimen/margin_100_dp"
+        android:layout_marginTop="@dimen/margin_30dp"
+        android:src="@mipmap/ic_main_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/app_name" />
+    <TextView
+        android:id="@+id/txtViewEmailVarificationCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10_dp"
+        android:text="Email Varification"
+        android:textColor="@color/black"
+        android:fontFamily="@font/muli_bold"
+        style="@style/TextViewHeading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgViewLogo"
+        />
+
+
+    <TextView
+        android:id="@+id/txtViewSubTitleEnterOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/str_enter_otp"
+        android:textColor="@color/sub_title_color"
+        android:textSize="@dimen/margin_14sp"
+        android:fontFamily="@font/muli_semi_bold"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEmailVarificationCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/linLayOtpCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_25_dp"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewSubTitleEnterOTP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <EditText
+            android:id="@+id/edtTextCodeOne"
+            android:layout_width="@dimen/margin_50dp"
+            android:layout_height="@dimen/margin_50dp"
+            android:background="@color/light_grey"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            android:maxLines="1"
+            android:maxLength="1"
+            android:inputType="number"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+
+            />
+
+        <EditText
+            android:id="@+id/edtTextCodeTwo"
+            android:layout_width="@dimen/margin_50dp"
+            android:layout_height="@dimen/margin_50dp"
+            android:background="@color/light_grey"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            android:maxLines="1"
+            android:maxLength="1"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/edtTextCodeThree"
+            android:layout_width="@dimen/margin_50dp"
+            android:layout_height="@dimen/margin_50dp"
+            android:background="@color/light_grey"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            android:maxLines="1"
+            android:maxLength="1"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/edtTextCodeFour"
+            android:layout_width="@dimen/margin_50dp"
+            android:layout_height="@dimen/margin_50dp"
+            android:background="@color/light_grey"
+            android:maxLines="1"
+            android:maxLength="1"
+            android:inputType="number"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtViewDontReceiveCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_25_dp"
+        android:fontFamily="@font/muli_semi_bold"
+        android:text="Didn't receive any code"
+        android:textSize="@dimen/margin_14sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/linLayOtpCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:id="@+id/txtViewResendCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:text="@string/str_resend_code_no_underline"
+        android:textColor="@color/sub_title_color"
+        android:fontFamily="@font/muli_semi_bold"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewDontReceiveCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnVerify"
+
+        style="@style/buttonFieldStyle"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_25dp"
+        android:textAllCaps="true"
+        android:text="Verify"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewResendCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

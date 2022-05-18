@@ -12,8 +12,6 @@ class ApiAdapter {
 
     companion object{
 
-      //  var alternateUrl="https://helper.testnet.near.org/"
-
         var tokenData = ""
 
         class NoInternetException(override var message: String) : Exception(message)

@@ -1,35 +1,43 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.HomeRepository
-import com.a.luxurycar.code_files.ui.home.adapter.AdvertieserSuggestedList
+import com.a.luxurycar.code_files.ui.home.adapter.SuggestedListAdapter
 import com.a.luxurycar.code_files.ui.home.adapter.ImageAdapter
+import com.a.luxurycar.code_files.ui.home.adapter.PremiumListAdapter
+import com.a.luxurycar.code_files.ui.home.adapter.PromotedListAdapter
 import com.a.luxurycar.code_files.ui.home.model.ImageModel
+import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.AdvertiserSuggestedListModel
+import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.Listt
+import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.SuggestedCars
 import com.a.luxurycar.code_files.view_model.HomeViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.handleApiErrors
+import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeRepository>() {
 
-    lateinit var list:ArrayList<ImageModel>
+
+    lateinit var arrAdvertiserSuggerstedList : ArrayList<AdvertiserSuggestedListModel>
+    lateinit var arrSuggestedList : ArrayList<Listt>
+    lateinit var arrPremiumList : ArrayList<Listt>
+    lateinit var arrPromotedList : ArrayList<Listt>
+    lateinit var arrBannerList : ArrayList<Listt>
     var currentPage = 0
 
 
@@ -44,15 +52,71 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addImage()
-        setViewPager()
-        setAdvertiserList()
+
         setSelectionOnButton()
+        callHomePageApi()
 
         binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.productDetailFragment)
         }
     }
+
+    private fun setPromotedList() {
+        val promotedListAdapter = PromotedListAdapter(requireContext(),arrPromotedList)
+        binding.recyclerviewPromotedList.adapter = promotedListAdapter
+        binding.recyclerviewPromotedList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
+
+    }
+
+    private fun setPremiumList() {
+        val premiumListAdapter = PremiumListAdapter(requireContext(),arrPremiumList)
+        binding.recyclerviewPremiumList.adapter = premiumListAdapter
+        binding.recyclerviewPremiumList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
+    }
+
+
+    private fun callHomePageApi() {
+        viewModel.getAdvertiserSuggestedListResponse()
+
+        viewModel.AdvertiserSuggestedListResponse.observe(viewLifecycleOwner , androidx.lifecycle.Observer {
+            binding.progressBarHomePage.visible(it is Resource.Loading)
+            when (it) {
+
+                is Resource.Success -> {
+                    if(it != null) {
+
+                        //initiaize suggested list
+                        arrBannerList = arrayListOf()
+                        arrSuggestedList = arrayListOf()
+                        arrPremiumList = arrayListOf()
+                        arrPromotedList = arrayListOf()
+
+                        arrBannerList=it.values.data!!.banners!!.list
+
+                        arrSuggestedList=it.values.data!!.suggestedCars!!.list
+
+
+                        arrPremiumList=it.values.data!!.premiumCars!!.list
+
+
+                        arrPromotedList=it.values.data!!.promotedCars!!.list
+
+                        setSuggestedList()
+                        setPremiumList()
+                        setPromotedList()
+                        setViewPager()
+
+                    }
+                }
+
+                is Resource.Failure -> handleApiErrors(it)
+            }
+
+
+        })
+
+    }
+
 
     private fun setSelectionOnButton() {
         binding.btnToBuy.setOnClickListener{
@@ -66,22 +130,24 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
 
     }
 
-    private fun setAdvertiserList() {
-        val advertieserSuggestedList = AdvertieserSuggestedList(requireContext())
+    private fun setSuggestedList() {
+
+
+        val advertieserSuggestedList = SuggestedListAdapter(requireContext(),arrSuggestedList)
         binding.recyclerviewSuggestedList.adapter = advertieserSuggestedList
-        binding.recyclerviewSuggestedList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL ,false)
+        binding.recyclerviewSuggestedList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
 
     }
 
     private fun setViewPager() {
-        val imageAdapter = ImageAdapter(requireContext(),list)
+        val imageAdapter = ImageAdapter(requireContext(),arrBannerList)
         val photos_viewpager = binding.photosViewpager
         photos_viewpager.adapter= imageAdapter
 
 
         val handler = Handler()
         val update = Runnable {
-            if (currentPage == list.size) {
+            if (currentPage == arrBannerList.size) {
                 currentPage = 0
             }
             //The second parameter ensures smooth scrolling
@@ -101,15 +167,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         }.attach()
     }
 
-    private fun addImage() {
-        list = arrayListOf()
-        list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-03.JPG"))
-        list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-08.JPG"))
-        list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-10.JPG"))
-        list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-13.JPG"))
-        list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-17.JPG"))
-        list.add(ImageModel("https://demonuts.com/Demonuts/SampleImages/W-21.JPG"))
-    }
+
 }
 
 

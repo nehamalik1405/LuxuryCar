@@ -69,16 +69,24 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_follow_us -> {
                     val popup = PopupMenu(this@HomeActivity, findViewById(R.id.nav_follow_us))
                     val inflater: MenuInflater = popup.getMenuInflater()
-                    inflater.inflate(R.menu.follow_menu, popup.getMenu())
+                    inflater.inflate(R.menu.pop_up_menu, popup.getMenu())
                     popup.show()
+
                 }
 
             }
             false
         })
 
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
+        val id = item.itemId
 
+        if (id == R.id.item_youtube) {
+            return true
+        }
     }
 
     private fun setRightHeader() {
@@ -115,9 +123,9 @@ class HomeActivity : AppCompatActivity() {
                 else if(itemId == R.id.nav_condition){
                     navController.navigate(R.id.nav_condition)
                 }
-               /* else if(itemId == R.id.nav_change_password){
+                else if(itemId == R.id.nav_change_password){
                     navController.navigate(R.id.nav_change_password)
-                }*/
+                }
                 else if(itemId == R.id.nav_logout) {
                     val sessionManager = SessionManager(this@HomeActivity)
                     sessionManager.logout()

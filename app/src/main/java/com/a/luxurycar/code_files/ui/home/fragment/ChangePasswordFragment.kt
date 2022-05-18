@@ -53,6 +53,22 @@ class ChangePasswordFragment : BaseFragment<ChangePasswordViewModel,FragmentChan
 
         if(isDataValid()) {
             callChangePasswordApi()
+            viewModel.ChangePasswordResponse.observe(viewLifecycleOwner, Observer {
+                binding.progressBarChangePasswordPage.visible(it is Resource.Loading)
+                when (it) {
+                    is Resource.Success -> {
+                        if (it.values.status != null && it.values.status == 1) {
+                            StartActivity(HomeActivity::class.java)
+                            requireActivity().finishAffinity()
+                        }
+                        if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                    is Resource.Failure -> handleApiErrors(it)
+                }
+            })
         }
 
     }

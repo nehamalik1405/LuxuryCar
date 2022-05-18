@@ -34,4 +34,8 @@ class CarListAdapter(val context: Context): RecyclerView.Adapter<CarListAdapter.
 
         val recyclerviewSuggestedList = itemView.recyclerviewSuggestedList
     }
+
+
+
+
 }
