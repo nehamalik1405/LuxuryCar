@@ -136,6 +136,17 @@
         app:layout_constraintTop_toBottomOf="@+id/txtViewDontReceiveCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:id="@+id/txtViewResendTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:text="60"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@+id/txtViewResendCode"
+        app:layout_constraintStart_toEndOf="@+id/txtViewResendCode"
+        app:layout_constraintBottom_toBottomOf="@+id/txtViewResendCode"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnVerify"
@@ -150,6 +161,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+    <ProgressBar
+        android:id="@+id/progressBarVerifyOtpPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

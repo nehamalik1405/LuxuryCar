@@ -23,6 +23,7 @@ class SessionManager(var context: Context) {
     companion object {
 
         val KEY_USER_PREF = "user_pref" //
+        val KEY_USER_Email = "user_email" //
         val KEY_AUTHORIZATION_TOKEN = "authorization_token" //
         val KEY_USER_DATA = "user_data" //
         val IS_USER_LOGGED_IN = "is_user_logged_in" //
@@ -34,6 +35,14 @@ class SessionManager(var context: Context) {
 
         fun setAuthorizationToken(authToken : String) {
             PrefUtil.putString(LuxuryCarApplication.instance, KEY_AUTHORIZATION_TOKEN, authToken)
+        }
+
+       fun setEmail(email : String) {
+           PrefUtil.putString(LuxuryCarApplication.instance, KEY_USER_Email, email)
+       }
+        fun getEmail(): String?{
+            return PrefUtil.getString(LuxuryCarApplication.instance, KEY_USER_Email,"")
+
         }
 
         fun getAuthorizationToken(): String {

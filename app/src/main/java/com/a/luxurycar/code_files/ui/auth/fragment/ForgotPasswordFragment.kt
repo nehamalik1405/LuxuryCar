@@ -1,27 +1,28 @@
 package com.a.luxurycar.code_files.ui.auth.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.ForgotPasswordRepository
 import com.a.luxurycar.code_files.view_model.ForgotPasswordViewModel
+import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
-import com.a.luxurycar.common.utils.Utils
-import com.a.luxurycar.common.utils.convertJsonToRequestBody
-import com.a.luxurycar.common.utils.getStringFromResource
-import com.a.luxurycar.common.utils.showErrorAndSetFocus
+import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentForgotPasswordBinding
 import org.json.JSONObject
 
 
-class ForgotPassword : BaseFragment<ForgotPasswordViewModel,FragmentForgotPasswordBinding,ForgotPasswordRepository>() {
+class ForgotPasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentForgotPasswordBinding,ForgotPasswordRepository>() {
 
     var email = ""
 
@@ -41,6 +42,7 @@ class ForgotPassword : BaseFragment<ForgotPasswordViewModel,FragmentForgotPasswo
 
     private fun manageOnClickListener() {
         binding.btnSubmit.setOnClickListener {
+            it.hideKeyboard()
             if (isValidId()){
                 callSendOtpApi()
                //findNavController().navigate(R.id.otpVarificationFragment)
@@ -50,6 +52,28 @@ class ForgotPassword : BaseFragment<ForgotPasswordViewModel,FragmentForgotPasswo
 
     private fun callSendOtpApi() {
        callRequestSendOtpApi()
+        passEmailToOtpPage()
+        viewModel.SendOtpResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarForgotPasswordPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        findNavController().navigate(R.id.otpVarificationFragment)
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+
+    }
+
+    private fun passEmailToOtpPage() {
+    SessionManager.setEmail(email)
     }
 
     private fun callRequestSendOtpApi() {

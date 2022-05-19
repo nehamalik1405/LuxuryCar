@@ -55,9 +55,27 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
 
         setSelectionOnButton()
         callHomePageApi()
-
         binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.productDetailFragment)
+        }
+    }
+
+    private fun checkListNullability() {
+        if (!arrSuggestedList.isEmpty()){
+
+            binding.txtViewSuggestedListing.visibility = View.VISIBLE
+            binding.imgViewSuggestedRightArrow.visibility = View.VISIBLE
+
+        }
+        if (!arrPremiumList.isEmpty()){
+
+            binding.txtViewPremiumListing.visibility = View.VISIBLE
+            binding.imgViewPremiumRightArrow.visibility = View.VISIBLE
+
+        }
+        if (!arrPromotedList.isEmpty()){
+            binding.txtViewPromotedListing.visibility =View.VISIBLE
+            binding.imgViewPromotedRightArrow.visibility =View.VISIBLE
         }
     }
 
@@ -105,6 +123,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
                         setPremiumList()
                         setPromotedList()
                         setViewPager()
+                        checkListNullability()
 
                     }
                 }
@@ -159,7 +178,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
             override fun run() {
                 handler.post(update)
             }
-        }, 2000, 2000)
+        }, 1500, 1500)
 
 
         TabLayoutMediator(binding.tabLayout, photos_viewpager) { tab, position ->

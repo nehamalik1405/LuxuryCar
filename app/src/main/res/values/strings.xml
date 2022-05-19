@@ -16,6 +16,7 @@
     <string name="error_empty_mobile_no">Please enter mobile no.</string>
     <string name="error_invalid_email">Please enter valid email.</string>
     <string name="error_empty_password">Please enter password.</string>
+    <string name="error_empty_new_password">Please enter your new password.</string>
     <string name="error_empty_confirm_password">Please enter confirm password.</string>
     <string name="error_password_not_match">Please enter the same  password.</string>
     <string name="titlr_login">Login</string>
@@ -30,6 +31,7 @@
     <string name="str_enter_otp">Enter Your OTP Code Here</string>
     <string name="str_dont_receive_code">Didn"'"t receive any code </string>
     <string name="str_resend_code_no_underline">Resend a new code.</string>
+    <string name="str_resend_code"><u>Resend a new code.</u></string>
     //// Navigation drawer
     <string name="action_settings">Settings</string>
 

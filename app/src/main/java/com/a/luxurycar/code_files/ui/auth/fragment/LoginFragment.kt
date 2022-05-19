@@ -1,17 +1,24 @@
 package com.a.luxurycar.code_files.ui.auth.fragment
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.provider.Settings
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.LoginRepository
+import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.view_model.LoginViewModel
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
@@ -21,8 +28,6 @@ import com.a.luxurycar.common.requestresponse.Resource
 import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentLoginBinding
 import org.json.JSONObject
-import android.provider.Settings
-import com.a.luxurycar.code_files.ui.home.HomeActivity
 
 
 class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRepository>() {
@@ -51,15 +56,25 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
             findNavController().navigate(R.id.registerFragment)
         }
         binding.btnLogin.setOnClickListener {
+            it.hideKeyboard()
            if (isValidation()) {
                callLoginApi()
-            /*    Toast.makeText(requireContext(),"Login Successfully",Toast.LENGTH_LONG).show()
-                startActivity(Intent(requireContext(), HomeActivity::class.java))
-                (context as AuthActivity).finish()*/
            }
             binding.txtViewForgotPassword.setOnClickListener {
                 findNavController().navigate(R.id.forgotPassword)
             }
+
+            /*binding.edtTextPassword.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE ||
+                    event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (isValidation()) {
+                        callLoginApi()
+                    }
+                    return@OnEditorActionListener true
+                }
+                false
+            })
+*/
 
         }
         binding.txtViewForgotPassword.setOnClickListener {

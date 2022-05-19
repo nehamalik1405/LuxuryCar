@@ -26,7 +26,6 @@
         android:layout_marginStart="@dimen/margin_15_dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         android:layout_marginTop="@dimen/margin_20_dp"
-
         >
 
         <androidx.viewpager2.widget.ViewPager2
@@ -457,6 +456,7 @@
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Suggested Listing"
             android:textSize="@dimen/margin_14sp"
+            android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:textColor="@color/black"
             android:fontFamily="@font/muli_bold"
@@ -469,6 +469,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10_dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
+            android:visibility="gone"
             android:src="@mipmap/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtViewSuggestedListing"
@@ -491,6 +492,7 @@
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Premium Listing"
             android:textSize="@dimen/margin_14sp"
+            android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:textColor="@color/black"
             android:fontFamily="@font/muli_bold"
@@ -503,6 +505,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10_dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
+            android:visibility="gone"
             android:src="@mipmap/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtViewPremiumListing"
@@ -525,6 +528,7 @@
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Promoted List"
             android:textSize="@dimen/margin_14sp"
+            android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:textColor="@color/black"
             android:fontFamily="@font/muli_bold"
@@ -537,6 +541,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10_dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
+            android:visibility="gone"
             android:src="@mipmap/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtViewPromotedListing"

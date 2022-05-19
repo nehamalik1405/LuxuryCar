@@ -4,7 +4,6 @@ package com.a.luxurycar.code_files.ui.home
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -13,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -53,6 +51,7 @@ class HomeActivity : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigation)
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
+
         imageViewMenu = findViewById(R.id.imgViewMenu)
         imageViewProfile = findViewById(R.id.imgViewProfile)
         navViewRight.setItemIconTintList(null)
@@ -63,6 +62,10 @@ class HomeActivity : AppCompatActivity() {
         setRightNavView()
         setRightHeader()
 
+
+        navController.popBackStack(R.id.nav_home, false)
+
+/*
 
         bottomNavigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -77,16 +80,9 @@ class HomeActivity : AppCompatActivity() {
             }
             false
         })
+*/
 
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-        val id = item.itemId
-
-        if (id == R.id.item_youtube) {
-            return true
-        }
     }
 
     private fun setRightHeader() {
@@ -150,7 +146,7 @@ class HomeActivity : AppCompatActivity() {
 
         bottomNavigation.setupWithNavController(navController)
 
-       /* bottomNavigation.setOnNavigationItemSelectedListener { it
+        bottomNavigation.setOnNavigationItemSelectedListener { it
              val itemId = it.itemId
 
                 if (itemId == R.id.nav_contact) {
@@ -165,15 +161,16 @@ class HomeActivity : AppCompatActivity() {
 
 
             true
-        }*/
+        }
+
 
     }
+
 
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
 
     private fun menageClickEvents() {
         imageViewMenu.setOnClickListener {

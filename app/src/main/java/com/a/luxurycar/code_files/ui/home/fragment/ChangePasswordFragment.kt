@@ -1,6 +1,7 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,7 @@ import org.json.JSONObject
 
 
 class ChangePasswordFragment : BaseFragment<ChangePasswordViewModel,FragmentChangePasswordBinding,ChangePasswordRepository>() {
-
+    var isShowPassword = false
     var oldPassword = ""
     var newPassword = ""
     var confirmPassword = ""
@@ -44,6 +45,46 @@ class ChangePasswordFragment : BaseFragment<ChangePasswordViewModel,FragmentChan
       binding.btnSubmit.setOnClickListener {
           onClickChangePasswordBtn()
       }
+
+        binding.imgViewEyeOldPassword.setOnClickListener {
+            isShowPassword = !isShowPassword
+            if (isShowPassword) {
+                binding.edtTextOldPassword.transformationMethod = null
+                binding.imgViewEyeOldPassword.setImageResource(R.mipmap.ic_show_icon)
+                binding.edtTextOldPassword.setSelection(binding.edtTextOldPassword.length())
+            } else {
+                binding.edtTextOldPassword.transformationMethod = PasswordTransformationMethod()
+                binding.imgViewEyeOldPassword.setImageResource(R.mipmap.ic_hide_icon)
+                binding.edtTextOldPassword.setSelection(binding.edtTextOldPassword.length())
+            }
+        }
+
+        binding.imgViewEyeNewPassword.setOnClickListener {
+            isShowPassword = !isShowPassword
+            if (isShowPassword) {
+                binding.edtTextNewPassword.transformationMethod = null
+                binding.imgViewEyeNewPassword.setImageResource(R.mipmap.ic_show_icon)
+                binding.edtTextNewPassword.setSelection(binding.edtTextNewPassword.length())
+            } else {
+                binding.edtTextNewPassword.transformationMethod = PasswordTransformationMethod()
+                binding.imgViewEyeNewPassword.setImageResource(R.mipmap.ic_hide_icon)
+                binding.edtTextNewPassword.setSelection(binding.edtTextNewPassword.length())
+            }
+        }
+
+        binding.imgViewEyeConfirmPassword.setOnClickListener {
+            isShowPassword = !isShowPassword
+            if (isShowPassword) {
+                binding.edtTextConfirnPassword.transformationMethod = null
+                binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_show_icon)
+                binding.edtTextConfirnPassword.setSelection(binding.edtTextConfirnPassword.length())
+            } else {
+                binding.edtTextConfirnPassword.transformationMethod = PasswordTransformationMethod()
+                binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_hide_icon)
+                binding.edtTextConfirnPassword.setSelection(binding.edtTextConfirnPassword.length())
+            }
+
+        }
     }
 
     private fun onClickChangePasswordBtn() {

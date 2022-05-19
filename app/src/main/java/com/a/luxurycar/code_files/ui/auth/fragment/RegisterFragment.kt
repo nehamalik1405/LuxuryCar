@@ -56,6 +56,7 @@ class RegisterFragment : BaseFragment<RegistrationViewModel, FragmentRegisterBin
     private fun manageListeners() {
 
         binding.btnRegister.setOnClickListener {
+            it.hideKeyboard()
             if (isRegisterDataValid()){
                 callRegisterApi()
                /* Toast.makeText(requireContext(),"Registration Successfully",Toast.LENGTH_LONG).show()
@@ -90,7 +91,7 @@ class RegisterFragment : BaseFragment<RegistrationViewModel, FragmentRegisterBin
             } else {
                 binding.edtTextConfirmPassword.transformationMethod = PasswordTransformationMethod()
                 binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_hide_icon)
-                binding.edtTextConfirmPassword.setSelection(binding.edtTextPassword.length())
+                binding.edtTextConfirmPassword.setSelection(binding.edtTextConfirmPassword.length())
             }
 
         }

@@ -139,6 +139,7 @@
                           android:textColorHint="@color/sub_title_color"
                           android:inputType="textPassword"
                           android:gravity="center_vertical"
+                          android:imeOptions="actionDone"
                           app:layout_constraintTop_toBottomOf="@+id/txtViewPassword"
                           app:layout_constraintStart_toStartOf="parent"
                           app:layout_constraintEnd_toEndOf="parent"

@@ -14,4 +14,7 @@ class ForgotPasswordRepository(val api:ApiService): BaseRepository() {
     suspend fun getVerifyResponse(body: RequestBody) = safeApiCall {
         api.getVarifyOtpResponse(body)
     }
+    suspend fun getUpdatePasswordResponse(email:String,new_password:String,confirm_password:String) = safeApiCall {
+        api.getUpdatePasswordResponse(email,new_password,confirm_password)
+    }
 }

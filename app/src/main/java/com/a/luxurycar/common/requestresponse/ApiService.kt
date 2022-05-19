@@ -2,8 +2,7 @@ package com.a.luxurycar.common.requestresponse
 
 
 
-import com.a.luxurycar.code_files.ui.auth.model.forgot_password.SendOtpModel
-import com.a.luxurycar.code_files.ui.auth.model.forgot_password.VerifyOtpModel
+import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.AdvertiserSuggestedListModel
@@ -33,12 +32,12 @@ interface ApiService {
     suspend fun getAdvertiserSuggestedListResponse(): AdvertiserSuggestedListModel
 
     // send otp api
-    @POST("/otps/send")
-    suspend fun getSendOtpResponse(@Body body: RequestBody): SendOtpModel
+    @POST("otps/send")
+    suspend fun getSendOtpResponse(@Body body: RequestBody): OtpModel
 
     // varify otp api
-    @POST("/otps/verify")
-    suspend fun getVarifyOtpResponse(@Body body: RequestBody): VerifyOtpModel
+    @POST("otps/verify")
+    suspend fun getVarifyOtpResponse(@Body body: RequestBody): OtpModel
 
 
 
@@ -49,4 +48,11 @@ interface ApiService {
                                         @Field("lastname") lastname:String,
                                         @Field("email") email:String,
                                         @Field("phone") phone:String): UpdateDetailsModel
+
+    //update buyer details
+    @FormUrlEncoded
+    @PUT("updatePassword?email=vandana@braintechnosys.biz&newpassword=admin1&newpassword_confirmation=admin1")
+    suspend fun getUpdatePasswordResponse(@Field("email") email:String,
+                                 @Field("newpassword") newpassword:String,
+                                 @Field("newpassword_confirmation") newpassword_confirmation:String): OtpModel
 }

@@ -24,6 +24,9 @@ class Const {
         const val PARAM_OLD_PASSWARD = "old_password"
         const val PARAM_NEW_PASSWARD = "newpassword"
         const val PARAM_NEW_CONFIRM_PASSWARD = "newpassword_confirmation"
+
+        // param for otp
+        const val PARAM_OTP = "otp"
         // gender values
         const val GENDER_MALE = "Male"
         const val GENDER_FEMALE = "Female"
