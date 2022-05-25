@@ -1,3 +1,3 @@
 package com.a.luxurycar.code_files.ui.home.model
 
-class ProductDetailImageModel(val image:Int? = null)
+class ProductDetailImageModel(val image:Int? = null,var isSelected:Boolean = false)

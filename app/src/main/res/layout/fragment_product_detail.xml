@@ -27,7 +27,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerProductDetailPage"
                 android:layout_width="@dimen/margin_0dp"
-                android:layout_height="@dimen/margin_220_dp"
+                android:layout_height="@dimen/margin_180_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -58,8 +58,8 @@
 
             <ImageView
                 android:id="@+id/imgViewShare"
-                android:layout_width="@dimen/margin_55_dp"
-                android:layout_height="@dimen/margin_55_dp"
+                android:layout_width="@dimen/margin_50dp"
+                android:layout_height="@dimen/margin_50dp"
                 android:padding="@dimen/margin_5dp"
                 android:layout_marginEnd="@dimen/margin_15_dp"
                 android:layout_marginTop="@dimen/margin_10_dp"
@@ -70,8 +70,8 @@
 
             <ImageView
                 android:id="@+id/imgViewHeart"
-                android:layout_width="@dimen/margin_55_dp"
-                android:layout_height="@dimen/margin_55_dp"
+                android:layout_width="@dimen/margin_50dp"
+                android:layout_height="@dimen/margin_50dp"
                 android:padding="@dimen/margin_5dp"
                 android:layout_marginEnd="@dimen/margin_10_dp"
                 android:layout_marginTop="@dimen/margin_10_dp"
@@ -127,22 +127,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_15_dp"
-        android:layout_marginTop="@dimen/margin_15_dp"
         android:background="@drawable/drawable_button_background"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLine1">
+        app:layout_constraintTop_toTopOf="@+id/imgViewVolksWagen"
+        app:layout_constraintBottom_toBottomOf="@+id/imgViewVolksWagen">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_20_dp"
-            android:layout_marginTop="@dimen/margin_2dp"
+            android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_20_dp"
-            android:layout_marginBottom="@dimen/margin_2dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
             android:fontFamily="@font/muli_semi_bold"
             android:padding="@dimen/margin_0dp"
             android:text="Coll"
-            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/margin_14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -154,11 +153,11 @@
 
     <ImageView
         android:id="@+id/imgViewEnd"
-        android:layout_width="@dimen/margin_45_dp"
-        android:layout_height="@dimen/margin_45_dp"
+        android:layout_width="@dimen/margin_40dp"
+        android:layout_height="@dimen/margin_40dp"
         android:layout_marginTop="@dimen/margin_15_dp"
-        android:layout_marginEnd="@dimen/margin_35_dp"
-        android:src="@mipmap/ic_logo"
+        android:layout_marginEnd="@dimen/margin_20_dp"
+        android:src="@drawable/lamborghini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
 
@@ -168,19 +167,19 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli_semi_bold"
         android:text="Exotic Cars"
+        android:layout_marginEnd="@dimen/margin_15dp"
         android:textColor="@color/black"
         android:textSize="@dimen/margin_13dp"
-        app:layout_constraintEnd_toEndOf="@+id/imgViewEnd"
-        app:layout_constraintStart_toStartOf="@+id/imgViewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgViewEnd" />
 
     <ImageView
-        android:id="@+id/imgViewStart"
-        android:layout_width="@dimen/margin_45_dp"
-        android:layout_height="@dimen/margin_45_dp"
+        android:id="@+id/imgViewVolksWagen"
+        android:layout_width="@dimen/margin_40dp"
+        android:layout_height="@dimen/margin_40dp"
         android:layout_marginTop="@dimen/margin_15_dp"
-        android:layout_marginEnd="@dimen/margin_25_dp"
-        android:src="@mipmap/ic_logo"
+        android:layout_marginEnd="@dimen/margin_20_dp"
+        android:src="@drawable/volkswagen2"
         app:layout_constraintEnd_toStartOf="@+id/imgViewEnd"
         app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
 
@@ -218,7 +217,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         android:text="XYZ"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:textSize="@dimen/margin_13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewDetails" />
@@ -244,7 +243,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         android:text="XYZ Model"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:textSize="@dimen/margin_13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewMake" />
@@ -270,7 +269,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         android:text="71000"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:textSize="@dimen/margin_13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewModal" />
@@ -295,7 +294,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         android:text="Manual"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:textSize="@dimen/margin_13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewKilometers" />
@@ -321,7 +320,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         android:text="Gray"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:textSize="@dimen/margin_13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType" />
@@ -348,7 +347,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         android:text="2016"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:textSize="@dimen/margin_13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewColor" />
@@ -380,7 +379,7 @@
         android:layout_height="wrap_content"
         android:text="Lorem Ipsum is simply dummy text of the printing and type industry. Lorem Ipsum has been the industry's standards dummy..."
         android:textSize="@dimen/margin_14sp"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:layout_marginStart="@dimen/margin_15_dp"
         android:layout_marginTop="@dimen/margin_10_dp"
         android:fontFamily="@font/muli_semi_bold"

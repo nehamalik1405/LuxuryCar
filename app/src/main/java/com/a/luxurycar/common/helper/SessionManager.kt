@@ -27,6 +27,8 @@ class SessionManager(var context: Context) {
         val KEY_AUTHORIZATION_TOKEN = "authorization_token" //
         val KEY_USER_DATA = "user_data" //
         val IS_USER_LOGGED_IN = "is_user_logged_in" //
+        val KEY_USER_IMAGE_URL = "user_image_url" //
+        val KEY_CURRENT_ITEM_VIEWPAGER = "viewpager_current_item"
 
         fun saveUserData(loginData: LoginResponse) {
             PrefUtil.putBoolean(LuxuryCarApplication.instance, IS_USER_LOGGED_IN, true)
@@ -42,6 +44,20 @@ class SessionManager(var context: Context) {
        }
         fun getEmail(): String?{
             return PrefUtil.getString(LuxuryCarApplication.instance, KEY_USER_Email,"")
+
+        }
+        fun setViewPagerItem(item : String) {
+            PrefUtil.putString(LuxuryCarApplication.instance, KEY_USER_Email, item)
+        }
+        fun getViewPagerItem(): String?{
+            return PrefUtil.getString(LuxuryCarApplication.instance, KEY_USER_Email,"")
+
+        }
+        fun setImageUrl(url : String) {
+            PrefUtil.putString(LuxuryCarApplication.instance, KEY_CURRENT_ITEM_VIEWPAGER, url)
+        }
+        fun getImageUrl(): String?{
+            return PrefUtil.getString(LuxuryCarApplication.instance, KEY_CURRENT_ITEM_VIEWPAGER,"")
 
         }
 

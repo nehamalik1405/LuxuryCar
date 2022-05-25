@@ -41,7 +41,7 @@ class AdapterSpinner(internal var context: Context, txtViewResourceId: Int,
         /*View mySpinner = inflater.inflate(R.layout.layout_spinner_dropdown, parent, false);*/
         val textView = View.inflate(context, R.layout.item_spinner, null) as TextView
 
-        textView.setTextColor(ContextCompat.getColor(context, R.color.white))
+        textView.setTextColor(ContextCompat.getColor(context, R.color.black))
 
         val events = list[position]
 

@@ -25,7 +25,7 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imgViewProfile"
+        android:id="@+id/imgViewOpenProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

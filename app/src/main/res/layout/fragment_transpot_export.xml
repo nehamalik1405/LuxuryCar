@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/drawable_button_background"
-            android:backgroundTint="@color/yellow_color"
+            android:backgroundTint="@color/border_color_yellow"
             android:layout_marginTop="@dimen/margin_15_dp"
             app:layout_constraintTop_toBottomOf="@+id/recyclerviewTransportExportList"
             app:layout_constraintStart_toStartOf="parent"
@@ -140,10 +140,9 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_40dp"
             android:layout_marginStart="@dimen/margin_15_dp"
-           android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_10dp"
             android:background="@drawable/drawable_background_spinner"
-            android:backgroundTint="@color/light_grey"
             android:padding="@dimen/margin_1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/consLayoutNumberOFCars"
@@ -151,20 +150,28 @@
 
 
 
-            <Spinner
-                android:id="@+id/spinnerDestinationCountry"
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/margin_0dp"
                 android:layout_height="match_parent"
-                android:spinnerMode="dialog"
-                android:textColor="@color/white"
-                android:background="@drawable/drawable_background_spinner"
-                android:backgroundTint="@color/white"
+                app:cardCornerRadius="@dimen/margin_7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+                <Spinner
+                    android:id="@+id/spinnerDestinationCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog"
+                    android:backgroundTint="@color/gray_600"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+
+
+           <!-- <ImageView
                 android:id="@+id/imgViewDownDestinationCountry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,7 +179,7 @@
                 android:src="@mipmap/ic_down_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -198,28 +205,31 @@
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
             android:background="@drawable/drawable_background_spinner"
-            android:backgroundTint="@color/light_grey"
             android:padding="@dimen/margin_1dp"
             app:layout_constraintStart_toEndOf="@+id/consLayoutDestinationCountry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtViewDestinationCountry">
 
+<androidx.cardview.widget.CardView
+    android:layout_width="@dimen/margin_0dp"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="@dimen/margin_7dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" >
+    <Spinner
+        android:id="@+id/spinnerNumberOFCars"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:spinnerMode="dialog"
+        android:backgroundTint="@color/gray_600"
+        />
+</androidx.cardview.widget.CardView>
 
 
-            <Spinner
-                android:id="@+id/spinnerNumberOFCars"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:spinnerMode="dialog"
-                android:textColor="@color/white"
-                android:background="@drawable/drawable_background_spinner"
-                android:backgroundTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+          <!--  <ImageView
                 android:id="@+id/imgViewDownNumberOFCars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -228,7 +238,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
+-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -253,29 +263,35 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_10dp"
-            android:background="@drawable/drawable_background_spinner"
-            android:backgroundTint="@color/light_grey"
             android:padding="@dimen/margin_1dp"
+            android:background="@drawable/drawable_background_spinner"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/consLayoutWhereAreYouLooking"
             app:layout_constraintTop_toBottomOf="@id/txtViewCarLinks">
 
+         <androidx.cardview.widget.CardView
+             android:layout_width="@dimen/margin_0dp"
+             android:layout_height="match_parent"
+             app:cardCornerRadius="7dp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent">
+
+             <Spinner
+                 android:id="@+id/spinnerCarLinks"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:spinnerMode="dialog"
+                 android:backgroundTint="@color/gray_600"
+                 />
+
+         </androidx.cardview.widget.CardView>
 
 
-            <Spinner
-                android:id="@+id/spinnerCarLinks"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:spinnerMode="dialog"
-                android:textColor="@color/white"
-                android:background="@drawable/drawable_background_spinner"
-                android:backgroundTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+           <!-- <ImageView
                 android:id="@+id/imgViewDownCarLinks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -284,7 +300,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
+-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -309,28 +325,30 @@
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
             android:background="@drawable/drawable_background_spinner"
-            android:backgroundTint="@color/light_grey"
             android:padding="@dimen/margin_1dp"
             app:layout_constraintStart_toEndOf="@+id/consLayoutCarLinks"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtViewCarLinks">
 
-
-
-            <Spinner
-                android:id="@+id/spinnerWhereAreYouLooking"
-                android:layout_width="0dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/margin_0dp"
                 android:layout_height="match_parent"
-                android:spinnerMode="dialog"
-                android:textColor="@color/white"
-                android:background="@drawable/drawable_background_spinner"
-                android:backgroundTint="@color/white"
+                app:cardCornerRadius="@dimen/margin_7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <Spinner
+                    android:id="@+id/spinnerWhereAreYouLooking"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog"
+                    android:backgroundTint="@color/gray_600"
+                    />
+            </androidx.cardview.widget.CardView>
 
-            <ImageView
+
+           <!-- <ImageView
                 android:id="@+id/imgViewDownWhereAreYouLooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -338,7 +356,7 @@
                 android:src="@mipmap/ic_down_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -597,7 +615,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewCarImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_180_dp"
+            android:layout_height="@dimen/margin_170_dp"
             app:layout_constraintTop_toBottomOf="@+id/btnGetFreeQuote"
             app:layout_constraintStart_toStartOf="parent"
             app:cardCornerRadius="@dimen/margin_5dp"
@@ -621,7 +639,7 @@
             android:text="@string/str_transport_export_faq_s"
             android:fontFamily="@font/muli_semi_bold"
             android:textSize="@dimen/margin_15_dp"
-            android:layout_marginTop="@dimen/margin_40dp"
+            android:layout_marginTop="@dimen/margin_30_dp"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
             android:textColor="@color/black"
@@ -642,7 +660,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewBottomCarImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_180_dp"
+            android:layout_height="@dimen/margin_170_dp"
             app:layout_constraintTop_toBottomOf="@+id/recyclerviewTransportExportExpandableList"
             app:layout_constraintStart_toStartOf="parent"
             app:cardCornerRadius="@dimen/margin_5dp"

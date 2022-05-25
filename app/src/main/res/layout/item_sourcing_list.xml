@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/margin_12_dp"
         android:fontFamily="@font/muli_semi_bold"
-        android:textColor="@color/black"
+        android:textColor="@color/description_color"
         android:text="we have mode it our bussiness to know the UAE's luxury car market inside out giving us land your access to cars on and off the market"
         app:layout_constraintStart_toStartOf="@+id/txtViewMoreChoice"
         app:layout_constraintEnd_toEndOf="parent"

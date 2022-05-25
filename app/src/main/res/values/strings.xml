@@ -32,6 +32,7 @@
     <string name="str_dont_receive_code">Didn"'"t receive any code </string>
     <string name="str_resend_code_no_underline">Resend a new code.</string>
     <string name="str_resend_code"><u>Resend a new code.</u></string>
+    <string name="camera_setting">Please provide Camera permission from app setting.</string>
     //// Navigation drawer
     <string name="action_settings">Settings</string>
 
@@ -134,9 +135,17 @@
     <string name="str_linkedlin">linkedlin</string>
     <string name="str_instagram">instagram</string>
     <string name="str_facebook">facebook</string>
+    <string name="str_camera">Camera</string>
+    <string name="str_gallery">Gallery</string>
     <string-array name="countryCode">
         <item>+91</item>
         <item>+1</item>
+
+    </string-array>
+
+    <string-array name="tesingSpinner">
+        <item>test1</item>
+        <item>test2</item>
 
     </string-array>
 </resources>

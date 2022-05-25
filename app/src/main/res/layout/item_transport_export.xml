@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_15_dp"
     android:paddingBottom="@dimen/margin_10_dp">
 
     <LinearLayout
@@ -90,8 +91,8 @@
         android:layout_below="@+id/linLayoutFindACar"
         android:layout_marginTop="@dimen/margin_5dp"
         android:fontFamily="@font/muli_semi_bold"
-        android:textColor="@color/black"
         android:text="Select your car/s from our listing or from any other website and provide our team with the URL link."
-        android:textSize="@dimen/margin_12_dp" />
+        android:textColor="@color/description_color"
+        android:textSize="@dimen/margin_13dp" />
 
 </RelativeLayout>

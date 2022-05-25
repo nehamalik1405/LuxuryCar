@@ -6,6 +6,7 @@
     <item
         android:id="@+id/item_youtube"
         android:icon="@mipmap/ic_utube"
+        app:showAsAction="always"
         android:title="@string/str_youtube"
 
         />
@@ -13,16 +14,19 @@
     <item
         android:id="@+id/item_linkedin"
         android:icon="@mipmap/ic_linkedin"
+        app:showAsAction="always"
         android:title="@string/str_linkedlin"/>
 
     <item
         android:id="@+id/item_instagram"
         android:icon="@mipmap/ic_instagram"
+        app:showAsAction="always"
         android:title="@string/str_instagram"/>
 
     <item
         android:id="@+id/item_facebook"
         android:icon="@mipmap/ic_facebook_trans"
+        app:showAsAction="always"
         android:title="@string/str_facebook"
         />
 

@@ -1,48 +1,74 @@
 package com.a.luxurycar.code_files.ui.home
 
 
-import android.app.Dialog
+import android.Manifest
+import android.R.attr.button
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.common.helper.AlertDialogHelper
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.databinding.ActivityHomeBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.internal.NavigationMenuView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.nav_header_right_main.*
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class HomeActivity : AppCompatActivity() {
-    lateinit var dialog:Dialog
+
     lateinit var binding: ActivityHomeBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     lateinit var imageViewMenu: ImageView
-    lateinit var imageViewProfile: ImageView
-    lateinit var navigationMenuView: NavigationMenuView
-    lateinit var linLayoutPopUpMenu:LinearLayout
+    lateinit var imgViewOpenProfile: ImageView
+    lateinit var consLayout:ConstraintLayout
+    lateinit var imageViewProfilePhoto:ImageView
+    lateinit var navView:NavigationView
+    lateinit var headerView: View
+    val REQUEST_CODE = 100
 
+    var isShow = false
+    companion object {
+        private val REQUEST_TAKE_PHOTO = 321
+        private val REQUEST_SELECT_IMAGE_IN_ALBUM = 123
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -52,8 +78,11 @@ class HomeActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
+        consLayout = findViewById<ConstraintLayout>(R.id.popupLayout)
         imageViewMenu = findViewById(R.id.imgViewMenu)
-        imageViewProfile = findViewById(R.id.imgViewProfile)
+        imgViewOpenProfile = findViewById(R.id.imgViewOpenProfile)
+        navView = findViewById(R.id.navViewRight)
+        headerView  = navView.getHeaderView(0)
         navViewRight.setItemIconTintList(null)
 
         menageClickEvents()
@@ -61,6 +90,8 @@ class HomeActivity : AppCompatActivity() {
         setLeftNavView()
         setRightNavView()
         setRightHeader()
+        setPhoto()
+
 
 
         navController.popBackStack(R.id.nav_home, false)
@@ -85,17 +116,303 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+
+
     private fun setRightHeader() {
         val userData = SessionManager.getUserData()
-        val navView: NavigationView = findViewById(R.id.navViewRight)
-        val headerView: View = navView.getHeaderView(0)
-        val imgViewProfile = headerView.findViewById<ImageView>(R.id.imageView)
+        imageViewProfilePhoto = headerView.findViewById(R.id.imageViewProfilePhoto)
         val txtViewEmail = headerView.findViewById<TextView>(R.id.textViewEmail)
         val textViewUserName = headerView.findViewById<TextView>(R.id.txtViewUserName)
-        if (userData != null) {
-            Picasso.get().load(userData.data.user.image).into(imgViewProfile)
-            textViewUserName.text=userData.data.user.fullname
+        //setPhoto()
+       if (userData != null) {
+           textViewUserName.text=userData.data.user.fullname
             txtViewEmail.text=userData.data.user.email
+        }
+
+        imageViewProfilePhoto.setOnClickListener {
+            openBottomSheet()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            REQUEST_SELECT_IMAGE_IN_ALBUM -> {
+
+                val permissionCheckRead = ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+
+                val permissionCheckWrite = ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+
+
+                if (permissionCheckRead == 0 && permissionCheckWrite == 0) {
+                    selectImageInAlbum()
+                } else {
+                    AlertDialogHelper.showMessage(
+                        this,
+                        getString(R.string.camera_setting)
+                    )
+                }
+
+                return
+            }
+
+            REQUEST_TAKE_PHOTO -> {
+
+                val permissionCheckCamera = ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.CAMERA
+                )
+
+                val permissionCheckRead = ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+
+                val permissionCheckWrite = ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+
+
+                if (permissionCheckCamera == 0 && permissionCheckRead == 0 && permissionCheckWrite == 0) {
+                    takePhotoFromCamera()
+                } else {
+                    AlertDialogHelper.showMessage(
+                        this,
+                        getString(R.string.camera_setting)
+                    )
+                }
+
+                return
+            }
+
+        }
+    }
+
+
+   // var image_uri: String? = ""
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == AppCompatActivity.RESULT_OK) {
+            galleryAddPic()
+        } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == AppCompatActivity.RESULT_OK) {
+
+            Log.e("pick", "photo gallry")
+
+            if (data != null) {
+                if (data?.getClipData() != null) {
+                    val count = data.clipData!!.itemCount
+
+                    for (i in 0..count - 1) {
+                        val contentURI = data.clipData!!.getItemAt(i).uri
+                       val image_uri = contentURI.toString()
+                        SessionManager.setImageUrl(image_uri)
+                        setPhoto()
+                    }
+
+                } else if (data?.getData() != null) {
+                    // if single image is selected
+
+                    val contentURI = data.data
+                   val image_uri = contentURI.toString()
+                    SessionManager.setImageUrl(image_uri)
+                    setPhoto()
+                }
+
+            }
+
+        } else if (requestCode == 1 && resultCode == 1) {
+
+        }
+    }
+
+    private fun setPhoto() {
+        val image_Url = SessionManager.getImageUrl()
+        //Picasso.get().load(image_Url.toString()).transform(CircleTransform()).into(imgViewProfile)
+       // Picasso.get().load(image_Url.toString()).into(imageViewProfilePhoto)
+         if(image_Url != null){
+             Glide.with(this)
+                 .load(image_Url.toString())
+                 .centerCrop()
+                 .into(imageViewProfilePhoto)
+         }
+
+    }
+
+    private fun openBottomSheet() {
+        // on below line we are inflating a layout file which we have created.
+        val view = layoutInflater.inflate(R.layout.alert_dialog_profile_picture, null)
+        val dialog = BottomSheetDialog(this)
+        val linLayoutCamera = view.findViewById<LinearLayout>(R.id.linLayoutCamera)
+        val linLayoutGallery = view.findViewById<LinearLayout>(R.id.linLayoutGallery)
+
+        linLayoutCamera.setOnClickListener {
+            selectFromCameraPermission()
+            dialog.dismiss()
+        }
+
+        linLayoutGallery.setOnClickListener {
+            selectFromGalleryPermission()
+            dialog.dismiss()
+        }
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+    private fun selectFromCameraPermission() {
+
+        val permissionCheckCamera = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        )
+
+        val permissionCheckRead = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        val permissionCheckWrite = ContextCompat.checkSelfPermission(
+           this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+
+            if (permissionCheckCamera == -1 || permissionCheckRead == -1 || permissionCheckWrite == -1) {
+
+                if (!Settings.System.canWrite(this)) {
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA
+                        ), REQUEST_TAKE_PHOTO
+                    )
+                } else {
+
+                    takePhotoFromCamera()
+                }
+            } else {
+                takePhotoFromCamera()
+            }
+        } else {
+            takePhotoFromCamera()
+        }
+
+    }
+    lateinit var currentPhotoPath: String
+    var photoFile: File? = null
+    var fileUri: Uri? = null
+    private fun takePhotoFromCamera() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            .also { takePictureIntent ->
+                photoFile = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    null
+                }
+
+                photoFile?.also {
+                    fileUri = FileProvider.getUriForFile(
+                        this, "com.luxurycar.fileprovider",
+                        it
+                    )
+                    //AppLogger.d("asad_fileUri", "$fileUri")
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+                }
+            }
+
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File =
+            this.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+    }
+
+
+    private fun selectFromGalleryPermission() {
+
+        val permissionCheckRead = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        val permissionCheckWrite = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+
+            if (permissionCheckRead == -1 || permissionCheckWrite == -1) {
+
+                if (!Settings.System.canWrite(this)) {
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA
+                        ), REQUEST_SELECT_IMAGE_IN_ALBUM
+                    )
+                } else {
+
+
+                    selectImageInAlbum()
+
+                }
+            } else {
+
+                selectImageInAlbum()
+
+            }
+        } else {
+
+            selectImageInAlbum()
+
+        }
+    }
+
+    fun selectImageInAlbum() {
+        val photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        photoPickerIntent.type = "image/*"
+        startActivityForResult(photoPickerIntent, REQUEST_SELECT_IMAGE_IN_ALBUM)
+
+
+    }
+
+    private fun galleryAddPic() {
+
+        if (currentPhotoPath.isNotEmpty()) {
+            val f = File(currentPhotoPath)
+            //image_uri = compressTheImageBeforeSendingToServer(currentPhotoPath).toString()
+           val image_uri = Uri.fromFile(f).toString()
+            SessionManager.setImageUrl(image_uri)
+            setPhoto()
         }
     }
 
@@ -111,15 +428,19 @@ class HomeActivity : AppCompatActivity() {
                 val itemId = item.itemId
 
                 if (itemId == R.id.nav_profiles) {
+                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_profiles)
                 }
                 else if(itemId == R.id.nav_language){
+                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_language)
                 }
                 else if(itemId == R.id.nav_condition){
+                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_condition)
                 }
                 else if(itemId == R.id.nav_change_password){
+                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_change_password)
                 }
                 else if(itemId == R.id.nav_logout) {
@@ -139,9 +460,43 @@ class HomeActivity : AppCompatActivity() {
             binding.navViewLeft,
             navController
         )
+        binding.navViewLeft.setNavigationItemSelectedListener(object :
+            NavigationView.OnNavigationItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                val itemId = item.itemId
 
+                if (itemId == R.id.nav_about_us) {
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_about_us)
+                }
+                else if(itemId == R.id.nav_car_listing){
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_car_listing)
+                }
+                else if(itemId == R.id.nav_transport){
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_transport)
+                }
+                else if(itemId == R.id.nav_sourcing){
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_sourcing)
+                }
+                else if(itemId == R.id.nav_inspecting){
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_inspecting)
+                }
+                else if(itemId == R.id.nav_sell_ur_car){
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_sell_ur_car)
+                }
+
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                return true
+            }
+        })
 
     }
+
     private fun setBottomNavigation() {
 
         bottomNavigation.setupWithNavController(navController)
@@ -151,20 +506,51 @@ class HomeActivity : AppCompatActivity() {
 
                 if (itemId == R.id.nav_contact) {
                     navController.navigate(R.id.nav_contact)
+                    consLayout.visibility = View.GONE
                 }
                 else if(itemId == R.id.nav_home){
                     navController.navigate(R.id.nav_home)
+                    consLayout.visibility = View.GONE
                 }
-                else if(itemId == R.id.nav_follow_us){
-                    navController.navigate(R.id.nav_follow_us)
-                }
+                else if(itemId == R.id.nav_follow_us) {
+                     isShow =!isShow
+                    if (isShow){
+                        consLayout.visibility = View.VISIBLE
+                    }
+                    else{
+                        consLayout.visibility = View.GONE
+                    }
 
 
+                    val imgYouTube = findViewById<ImageView>(R.id.imgViewYoutube)
+                    val imgViewLinkedIn = findViewById<ImageView>(R.id.imgViewLinkedIn)
+                    val imgViewInstagram = findViewById<ImageView>(R.id.imgViewInstagram)
+                    val imgViewFacebook = findViewById<ImageView>(R.id.imgViewFacebook)
+
+                    imgYouTube.setOnClickListener {
+                        consLayout.visibility = View.GONE
+                       Toast.makeText(applicationContext,"you tube",Toast.LENGTH_LONG).show()
+                     }
+                    imgViewLinkedIn.setOnClickListener {
+                        consLayout.visibility = View.GONE
+                        Toast.makeText(applicationContext,"Linkedin",Toast.LENGTH_LONG).show()
+                    }
+                    imgViewInstagram.setOnClickListener {
+                        consLayout.visibility = View.GONE
+                        Toast.makeText(applicationContext,"Instagram",Toast.LENGTH_LONG).show()
+                    }
+                    imgViewFacebook.setOnClickListener {
+                        consLayout.visibility = View.GONE
+                        Toast.makeText(applicationContext,"Facebook",Toast.LENGTH_LONG).show()
+                    }
+
+                }
             true
         }
 
 
     }
+
 
 
 
@@ -177,9 +563,10 @@ class HomeActivity : AppCompatActivity() {
             openOrCloseDrawer()
         }
 
-        imageViewProfile.setOnClickListener{
+        imgViewOpenProfile.setOnClickListener{
             openOrCloseDrawerProfile()
         }
+
     }
 
     private fun openOrCloseDrawer() {
@@ -223,35 +610,35 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-    private fun openBottomSheet() {
 
-        // on below line we are inflating a layout file which we have created.
-
-        /*   val view = layoutInflater.inflate(R.layout.bottom_view, null)*/
-        val uTube = dialog.findViewById<ImageView>(R.id.imgViewYouTube)
-        val linkedIn = dialog.findViewById<ImageView>(R.id.imgViewLinkedIn)
-        val Instagram = dialog.findViewById<ImageView>(R.id.imgViewInstagram)
-        val facebook = dialog.findViewById<ImageView>(R.id.imgViewFacebook)
+ /*   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+            isShow = false
+            consLayout.visibility = View.GONE
 
 
-        uTube.setOnClickListener {
-            Toast.makeText(applicationContext,"You Tube click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
+        return super.dispatchTouchEvent(ev)
+    }*/
+/*    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        isShow = false
+            consLayout.visibility = View.GONE
 
-        linkedIn.setOnClickListener {
-            Toast.makeText(applicationContext,"LinkedIn click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
+        return super.onTouchEvent(event)
+    }*/
 
-        Instagram.setOnClickListener {
-            Toast.makeText(applicationContext,"Instagram click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
-        facebook.setOnClickListener {
-            Toast.makeText(applicationContext,"Facebook click",Toast.LENGTH_LONG).show()
-            dialog.dismiss()
-        }
+    fun capturePhoto() {
 
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, REQUEST_CODE)
     }
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+            imgViewProfile.setImageURI(data?.data) // handle chosen image
+        }
+    }*/
     }

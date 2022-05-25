@@ -38,7 +38,7 @@
                android:layout_height="wrap_content"
                android:text="@string/str_chevrolet_camaroerui"
                android:maxLines="1"
-               android:fontFamily="@font/muli_semi_bold"
+               android:fontFamily="@font/muli_bold"
                android:textColor="@color/white"
                android:textSize="@dimen/txt_size_12_sp"
                android:ellipsize="end"

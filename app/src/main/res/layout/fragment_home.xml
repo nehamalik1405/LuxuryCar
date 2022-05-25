@@ -124,30 +124,22 @@
 
                 <Spinner
                     android:id="@+id/spinnerSelectedMake"
-                    android:layout_width="@dimen/margin_0_dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/gray_600"
                     android:spinnerMode="dialog"
+                    android:layout_marginStart="@dimen/margin_2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txtViewSelectedMake"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10_dp"
-                    android:text="@string/title_select_make"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
 
 
 
-                <ImageView
+
+              <!--  <ImageView
                     android:id="@+id/imgViewDownSelectedMake"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,7 +147,7 @@
                     android:src="@mipmap/ic_down_arrow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" />-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -173,14 +165,15 @@
                     android:id="@+id/spinnerSelectedModel"
                     android:layout_width="@dimen/margin_0_dp"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/white"
                     android:spinnerMode="dialog"
+                    android:layout_marginStart="@dimen/margin_2dp"
+                    android:backgroundTint="@color/gray_600"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+              <!--  <TextView
                     android:id="@+id/txViewSelectedMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -202,7 +195,7 @@
                     android:src="@mipmap/ic_down_arrow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" />-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -229,14 +222,15 @@
                         android:id="@+id/spinnerYearFrom"
                         android:layout_width="@dimen/margin_0_dp"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/gray_600"
                         android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                  <!--  <TextView
                         android:id="@+id/imgViewYearFrom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -259,7 +253,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
+-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -276,14 +270,15 @@
                         android:id="@+id/spinnerYearTo"
                         android:layout_width="@dimen/margin_0_dp"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/gray_600"
                         android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                   <!-- <TextView
                         android:id="@+id/txViewYearTo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -305,7 +300,7 @@
                         android:src="@mipmap/ic_down_arrow"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />-->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -335,14 +330,15 @@
                         android:id="@+id/spinnerPriceFrom"
                         android:layout_width="@dimen/margin_0_dp"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/gray_600"
                         android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                   <!-- <TextView
                         android:id="@+id/imgViewPriceFrom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -365,7 +361,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
+-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -382,14 +378,15 @@
                         android:id="@+id/spinnerPriceTo"
                         android:layout_width="@dimen/margin_0_dp"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/gray_600"
                         android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/txViewPriceTo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -411,7 +408,7 @@
                         android:src="@mipmap/ic_down_arrow"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />-->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -455,7 +452,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Suggested Listing"
-            android:textSize="@dimen/margin_14sp"
+            android:textSize="@dimen/margin_17sp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:textColor="@color/black"
@@ -491,8 +488,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Premium Listing"
-            android:textSize="@dimen/margin_14sp"
             android:visibility="gone"
+            android:textSize="@dimen/margin_17sp"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:textColor="@color/black"
             android:fontFamily="@font/muli_bold"
@@ -527,7 +524,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Promoted List"
-            android:textSize="@dimen/margin_14sp"
+            android:textSize="@dimen/margin_17sp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:textColor="@color/black"

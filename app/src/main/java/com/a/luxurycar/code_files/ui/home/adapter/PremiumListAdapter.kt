@@ -24,8 +24,8 @@ class PremiumListAdapter(val context: Context, val list:ArrayList<Listt>): Recyc
 
         holder.txtViewChevrolet.text = itemData.name
         holder.txtViewModel.text = itemData.carYear
-        holder.txtViewKm.text = itemData.runKms
-        holder.txtViewPrice.text = itemData.price
+        holder.txtViewKm.text = itemData.runKms +" km"
+        holder.txtViewPrice.text = "AED " +itemData.price
 
     }
 

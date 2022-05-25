@@ -24,8 +24,8 @@ class PromotedListAdapter(val context: Context, val list:ArrayList<Listt>): Recy
 
         holder.txtViewChevrolet.text = itemData.name
         holder.txtViewModel.text = itemData.carYear
-        holder.txtViewKm.text = itemData.runKms
-        holder.txtViewPrice.text = itemData.price
+        holder.txtViewKm.text = itemData.runKms +" km"
+        holder.txtViewPrice.text = "AED " +itemData.price
     }
 
     override fun getItemCount(): Int {
