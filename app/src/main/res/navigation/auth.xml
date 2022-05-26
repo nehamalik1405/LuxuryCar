@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.a.luxurycar.code_files.ui.auth.fragment.RegisterFragment"
+        android:name="com.a.luxurycar.code_files.ui.auth.fragment.BuyerRegister"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -60,4 +60,14 @@
             android:id="@+id/action_updatePasswordFragment_to_otpVarificationFragment"
             app:destination="@id/otpVarificationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registerBuyerAndSellerFragment"
+        android:name="com.a.luxurycar.code_files.ui.auth.fragment.RegisterBuyerAndSellerFragment"
+        android:label="fragment_register_buyer_and_seller"
+        tools:layout="@layout/fragment_register_buyer_and_seller" />
+    <fragment
+        android:id="@+id/sellerRegisterFragment"
+        android:name="com.a.luxurycar.code_files.ui.auth.fragment.SellerRegisterFragment"
+        android:label="fragment_seller_register"
+        tools:layout="@layout/fragment_seller_register" />
 </navigation>

@@ -9,17 +9,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_register"> <u>Register</u></string>
-
+    <string name="letsRegister_title">Let"'"s Register</string>
+    <string name="register_page_message">By Creating an account,you will be able \n access your account</string>
     <string name="error_empty_first_name">Please enter first name.</string>
     <string name="error_empty_last_name">Please enter last name.</string>
     <string name="error_empty_email">Please enter email.</string>
     <string name="error_empty_mobile_no">Please enter mobile no.</string>
+    <string name="error_empty_address">Please enter address.</string>
     <string name="error_invalid_email">Please enter valid email.</string>
     <string name="error_empty_password">Please enter password.</string>
     <string name="error_empty_new_password">Please enter your new password.</string>
     <string name="error_empty_confirm_password">Please enter confirm password.</string>
     <string name="error_password_not_match">Please enter the same  password.</string>
     <string name="titlr_login">Login</string>
+    <string name="titlr_login_underline"><u>Login</u></string>
     <string name="title_email">Email</string>
     <string name="title_password">Password</string>
     <string name="please_enter_your_login_details">Please Enter Your Login Details</string>
@@ -93,7 +96,7 @@
     <string name="str_featured">Featured</string>
     <string name="str_chevrolet_camaroerui">Chevrolet Camaroerui</string>
     <string name="str_year">2019</string>
-    <string name="str_kilometer">49000km</string>
+    <string name="str_kilometer">49000 KM</string>
     <string name="str_aed_168_000">AED 168,000</string>
     <string name="titlr_enquire">Enquire</string>
     <string name="str_what_s_included">What\'s Included?</string>
@@ -137,6 +140,19 @@
     <string name="str_facebook">facebook</string>
     <string name="str_camera">Camera</string>
     <string name="str_gallery">Gallery</string>
+    <string name="str_sign_up_as_a_seller">Sign Up as a Seller</string>
+    <string name="str_please_enter_your_sign_up_details">Please enter your sign up details</string>
+    <string name="title_upload_logo">Upload Logo</string>
+    <string name="str_please_only_upload_images_that_you_have_the_right_to_use">Please only upload images that you have the right to use</string>
+    <string name="title_first_name">First Name</string>
+    <string name="title_sur_name">Sur Name</string>
+    <string name="str_address">Address</string>
+    <string name="tirle_confirm_password">Confirm Password</string>
+    <string name="title_description">Description</string>
+    <string name="str_already_have_an_account">Already have an account?</string>
+    <string name="title_mobile_number">Mobile Number</string>
+    <string name="title_sign_up">Sign Up</string>
+    <string name="str_sign_up_as_a_buyer">Sign Up as a Buyer</string>
     <string-array name="countryCode">
         <item>+91</item>
         <item>+1</item>

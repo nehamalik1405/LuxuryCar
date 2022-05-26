@@ -28,7 +28,7 @@ import com.a.luxurycar.databinding.FragmentRegisterBinding
 import org.json.JSONObject
 
 
-class RegisterFragment : BaseFragment<RegistrationViewModel, FragmentRegisterBinding,RegistrationRepository>() {
+class BuyerRegister : BaseFragment<RegistrationViewModel, FragmentRegisterBinding,RegistrationRepository>() {
     var isShowPassword = false
     var firstName=""
     var lastName=""

@@ -65,7 +65,7 @@ class HomeActivity : AppCompatActivity() {
     var isShow = false
     companion object {
         private val REQUEST_TAKE_PHOTO = 321
-        private val REQUEST_SELECT_IMAGE_IN_ALBUM = 123
+        val REQUEST_SELECT_IMAGE_IN_ALBUM = 123
     }
 
     @SuppressLint("ClickableViewAccessibility")

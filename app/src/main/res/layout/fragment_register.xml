@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".code_files.ui.auth.fragment.RegisterFragment">
+    tools:context=".code_files.ui.auth.fragment.BuyerRegister">
 
     <ScrollView
         android:layout_width="@dimen/margin_0dp"
@@ -20,7 +20,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             >
@@ -30,7 +30,7 @@
                 android:id="@+id/imgViewLogo"
                 android:layout_width="@dimen/margin_100_dp"
                 android:layout_height="@dimen/margin_100_dp"
-                android:layout_marginTop="@dimen/margin_30dp"
+                android:layout_marginTop="@dimen/margin_20_dp"
                 android:src="@mipmap/ic_main_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10_dp"
-                android:text="Registration"
-                android:textColor="@color/black"
-                android:fontFamily="@font/muli_bold"
+                android:text="@string/str_sign_up_as_a_buyer"
                 style="@style/TextViewHeading"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,9 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_5dp"
-                android:fontFamily="@font/muli_bold"
-                android:text="Please Enter Your Registration Details"
-                android:textSize="15sp"
+                style="@style/TextViewSubTitle"
+                android:text="@string/str_please_enter_your_sign_up_details"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtViewRegisterTitle" />
@@ -68,187 +65,140 @@
                    android:id="@+id/txtViewFirstName"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="First Name"
-                   android:layout_marginTop="@dimen/margin_40dp"
-                   android:fontFamily="@font/muli_bold"
-                   android:textColor="@color/black"
-                   android:textSize="14sp"
-                   android:textAllCaps="true"
+                   style="@style/TextViewTitle"
+                   android:text="@string/title_first_name"
+                   android:layout_marginTop="@dimen/margin_30_dp"
+                   android:layout_marginStart="@dimen/margin_1dp"
                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewRegisterMessage" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewRegisterMessage"/>
 
                <EditText
                    android:id="@+id/edtTextFirstName"
                    android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:hint="@string/str_please_enter_your_first_name"
+                   android:layout_height="@dimen/margin_45_dp"
                    android:inputType="text"
-                   android:textColorHint="@color/sub_title_color"
+                   android:layout_marginTop="@dimen/margin_5dp"
+                   android:layout_marginEnd="@dimen/margin_5dp"
+                   android:background="@drawable/drawable_rounder_edit_text_background"
                    style="@style/EditTextField"
                    android:imeOptions="actionNext"
                    android:gravity="center_vertical"
-                   android:backgroundTint="@color/white"
                    app:layout_constraintTop_toBottomOf="@+id/txtViewFirstName"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/edtTextLastName"
                    />
-
-               <View
-                   android:id="@+id/viewBeloFirstName"
-                   android:layout_width="0dp"
-                   android:layout_height="1dp"
-                   android:layout_marginTop="@dimen/margin_10dp"
-                   android:background="@color/view_color"
-                   app:layout_constraintEnd_toEndOf="@+id/edtTextFirstName"
-                   app:layout_constraintStart_toStartOf="@+id/edtTextFirstName"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextFirstName" />
 
             <TextView
                 android:id="@+id/txtViewLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Name"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/muli_bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewBeloFirstName" />
+                android:text="@string/title_sur_name"
+                style="@style/TextViewTitle"
+                android:layout_marginStart="@dimen/margin_1dp"
+                app:layout_constraintStart_toStartOf="@+id/edtTextLastName"
+                app:layout_constraintTop_toTopOf="@+id/txtViewFirstName"/>
 
             <EditText
                 android:id="@+id/edtTextLastName"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/str_please_enter_your_last_name"
+                android:layout_height="@dimen/margin_45_dp"
                 android:inputType="text"
-                android:textColorHint="@color/sub_title_color"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:background="@drawable/drawable_rounder_edit_text_background"
                 style="@style/EditTextField"
                 android:imeOptions="actionNext"
                 android:gravity="center_vertical"
-                android:backgroundTint="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewLastName"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewFirstName"
+                app:layout_constraintStart_toEndOf="@+id/edtTextFirstName"
+                app:layout_constraintBottom_toBottomOf="@+id/edtTextFirstName"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
-            <View
-                android:id="@+id/viewBeloLastName"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@color/view_color"
-                android:layout_marginTop="@dimen/margin_10dp"
-                app:layout_constraintEnd_toEndOf="@+id/edtTextLastName"
-                app:layout_constraintStart_toStartOf="@+id/edtTextLastName"
-                app:layout_constraintTop_toBottomOf="@+id/edtTextLastName" />
+
 
 
                <TextView
                    android:id="@+id/txtViewEmail"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="15dp"
-                   android:text="Email"
-                   android:textAllCaps="true"
-                   android:fontFamily="@font/muli_bold"
-                   android:textColor="@color/black"
-                   android:textSize="14sp"
+                   android:layout_marginTop="@dimen/margin_10_dp"
+                   android:text="@string/title_email"
+                   style="@style/TextViewTitle"
+                   android:layout_marginStart="@dimen/margin_1dp"
                    app:autoSizeStepGranularity="2sp"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/viewBeloLastName" />
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextFirstName" />
 
                <EditText
                    android:id="@+id/edtTextEmail"
                    android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:hint="@string/str_please_enter_your_email"
+                   android:layout_height="@dimen/margin_45_dp"
+                   android:layout_marginTop="@dimen/margin_5dp"
                    android:singleLine="true"
                    android:imeOptions="actionNext"
-                   android:textColorHint="@color/sub_title_color"
                    style="@style/EditTextField"
+                   android:background="@drawable/drawable_rounder_edit_text_background"
                    android:gravity="center_vertical"
-                   android:backgroundTint="@color/white"
                    app:layout_constraintTop_toBottomOf="@+id/txtViewEmail"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintEnd_toEndOf="parent"
                    />
 
-               <View
-                   android:id="@+id/viewBeloEmail"
-                   android:layout_width="0dp"
-                   android:layout_height="1dp"
-                   android:background="@color/view_color"
-                   android:layout_marginTop="@dimen/margin_10dp"
-                   app:layout_constraintEnd_toEndOf="@+id/edtTextEmail"
-                   app:layout_constraintStart_toStartOf="@+id/edtTextEmail"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
-
                <TextView
                    android:id="@+id/txtViewMobileNo"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="15dp"
-                   android:text="Mobile Number"
-                   android:textAllCaps="true"
-                   android:fontFamily="@font/muli_bold"
-                   android:textColor="@color/black"
-                   android:textSize="14sp"
+                   android:layout_marginTop="@dimen/margin_10_dp"
+                   android:text="@string/title_mobile_number"
+                   style="@style/TextViewTitle"
+                   android:layout_marginStart="@dimen/margin_1dp"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/viewBeloEmail" />
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
 
                <androidx.appcompat.widget.AppCompatEditText
                    android:id="@+id/edtTextMobileNo"
                    android:layout_width="0dp"
-                   android:layout_height="wrap_content"
+                   android:layout_height="@dimen/margin_45_dp"
+                   android:layout_marginTop="@dimen/margin_5dp"
                    style="@style/EditTextField"
-                   android:hint="@string/str_please_enter_your_mobile_number"
+                   android:background="@drawable/drawable_rounder_edit_text_background"
                    android:imeOptions="actionNext"
                    android:maxLength="10"
-                   android:textColorHint="@color/sub_title_color"
                    android:inputType="phone"
                    android:gravity="center_vertical"
-                   android:backgroundTint="@color/white"
                    app:layout_constraintTop_toBottomOf="@+id/txtViewMobileNo"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintEnd_toEndOf="parent"
                    />
 
-               <View
-                   android:id="@+id/viewBeloPhoneNumber"
-                   android:layout_width="0dp"
-                   android:layout_height="1dp"
-                   android:background="@color/view_color"
-                   android:layout_marginTop="@dimen/margin_10dp"
-                   app:layout_constraintEnd_toEndOf="@+id/edtTextMobileNo"
-                   app:layout_constraintStart_toStartOf="@+id/edtTextMobileNo"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextMobileNo" />
 
 
                <TextView
                    android:id="@+id/txtViewPassword"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="15dp"
-                   android:text="Password"
-                   android:textAllCaps="true"
-                   android:textColor="@color/black"
-                   android:textSize="14sp"
-                   android:fontFamily="@font/muli_bold"
+                   android:layout_marginTop="@dimen/margin_10_dp"
+                   android:text="@string/title_password"
+                   style="@style/TextViewTitle"
+                   android:layout_marginStart="@dimen/margin_1dp"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/viewBeloPhoneNumber" />
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextMobileNo" />
 
                <EditText
                    android:id="@+id/edtTextPassword"
                    android:layout_width="@dimen/margin_0dp"
-                   android:layout_height="wrap_content"
+                   android:layout_height="@dimen/margin_45_dp"
+                   android:layout_marginTop="@dimen/margin_5dp"
                    style="@style/EditTextField"
-                   android:hint="@string/str_please_enter_password"
                    android:maxLength="10"
-                   android:textColorHint="@color/sub_title_color"
+                   android:padding="@dimen/margin_3dp"
+                   android:background="@drawable/drawable_rounder_edit_text_background"
                    android:inputType="textPassword"
                    android:paddingEnd="40dp"
+                   android:layout_marginEnd="@dimen/margin_5dp"
                    android:imeOptions="actionNext"
-                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/edtTextConfirmPassword"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toBottomOf="@+id/txtViewPassword" />
 
@@ -259,49 +209,39 @@
                 android:padding="10dp"
                 android:layout_marginEnd="5dp"
                 android:src="@mipmap/ic_hide_icon"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/edtTextPassword"
                 app:layout_constraintTop_toTopOf="@id/edtTextPassword"
                 app:layout_constraintBottom_toBottomOf="@id/edtTextPassword"
                 />
 
-               <View
-                   android:id="@+id/viewBelowPassword"
-                   android:layout_width="0dp"
-                   android:layout_height="1dp"
-                   android:background="@color/view_color"
-                   android:layout_marginTop="@dimen/margin_10dp"
-                   app:layout_constraintEnd_toEndOf="@+id/edtTextPassword"
-                   app:layout_constraintStart_toStartOf="@+id/edtTextPassword"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextPassword" />
+
 
                <TextView
                    android:id="@+id/txtViewConfirmPassword"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_marginTop="15dp"
-                   android:text="Confirm Password"
-                   android:textColor="@color/black"
-
-                   android:textSize="14sp"
-                   android:textAllCaps="true"
-                   android:fontFamily="@font/muli_bold"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/viewBelowPassword" />
+                   android:text="@string/tirle_confirm_password"
+                   android:layout_marginStart="@dimen/margin_1dp"
+                   style="@style/TextViewTitle"
+                   app:layout_constraintStart_toStartOf="@+id/edtTextConfirmPassword"
+                   app:layout_constraintBottom_toBottomOf="@+id/txtViewPassword"/>
 
                <EditText
                    android:id="@+id/edtTextConfirmPassword"
                    android:layout_width="@dimen/margin_0dp"
-                   android:layout_height="wrap_content"
+                   android:layout_height="@dimen/margin_45_dp"
                    android:gravity="center_vertical"
                    android:paddingEnd="40dp"
-                   android:hint="Please enter your confirm password"
-                   android:textColorHint="@color/sub_title_color"
+                   android:background="@drawable/drawable_rounder_edit_text_background"
                    android:inputType="textPassword"
                    style="@style/EditTextField"
+                   android:layout_marginStart="@dimen/margin_5dp"
                    app:layout_constraintEnd_toEndOf="parent"
-                   android:imeOptions="actionDone"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/txtViewConfirmPassword" />
+                   android:imeOptions="actionNext"
+                   app:layout_constraintStart_toEndOf="@+id/edtTextPassword"
+                   app:layout_constraintTop_toTopOf="@+id/edtTextPassword"
+                   app:layout_constraintBottom_toBottomOf="@+id/edtTextPassword"/>
 
             <ImageView
                 android:id="@+id/imgViewEyeConfirmPassword"
@@ -310,34 +250,53 @@
                 android:padding="10dp"
                 android:layout_marginEnd="5dp"
                 android:src="@mipmap/ic_hide_icon"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/edtTextConfirmPassword"
                 app:layout_constraintTop_toTopOf="@id/edtTextConfirmPassword"
                 app:layout_constraintBottom_toBottomOf="@id/edtTextConfirmPassword"
                 />
 
-               <View
-                   android:id="@+id/viewConfirmPassword"
-                   android:layout_width="0dp"
-                   android:layout_height="1dp"
-                   android:layout_marginTop="@dimen/margin_10dp"
-                   android:background="@color/view_color"
-                   app:layout_constraintEnd_toEndOf="@+id/edtTextConfirmPassword"
-                   app:layout_constraintStart_toStartOf="@+id/edtTextConfirmPassword"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextConfirmPassword" />
 
+            <TextView
+                android:id="@+id/txtViewDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:text="@string/title_description"
+                style="@style/TextViewTitle"
+                android:layout_marginStart="@dimen/margin_1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtTextConfirmPassword" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edtTextDescription"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_100_dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                style="@style/EditTextField"
+                android:background="@drawable/drawable_rounder_edit_text_background"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:minLines="6"
+                android:gravity="top|start"
+                android:maxLines="10"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnRegister"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:layout_marginTop="@dimen/margin_40dp"
+                android:layout_height="@dimen/margin_45_dp"
+                android:text="@string/title_sign_up"
+                android:layout_marginTop="@dimen/margin_30_dp"
                 android:textColor="@color/white"
                 style="@style/buttonFieldStyle"
                 android:textAllCaps="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewConfirmPassword"
+                app:layout_constraintTop_toBottomOf="@+id/edtTextDescription"
                 app:rippleColor="@color/white" />
 
 
@@ -363,7 +322,7 @@
             android:textSize="15sp"
             android:fontFamily="@font/muli_semi_bold"
             android:textColor="#AAACBB"
-            android:text="Have an account ? "
+            android:text="@string/str_already_have_an_account"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -373,7 +332,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:text="@string/titlr_login"
+            android:text="@string/titlr_login_underline"
             android:textSize="15sp"
             android:fontFamily="@font/muli_semi_bold"
             android:textColor="@color/green"

@@ -27,6 +27,7 @@ import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.common.requestresponse.Resource
 import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentLoginBinding
+
 import org.json.JSONObject
 
 
@@ -53,7 +54,7 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
 
     private fun manageListeners() {
         binding.txtViewRegister.setOnClickListener {
-            findNavController().navigate(R.id.registerFragment)
+            findNavController().navigate(R.id.registerBuyerAndSellerFragment)
         }
         binding.btnLogin.setOnClickListener {
             it.hideKeyboard()
