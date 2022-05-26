@@ -25,13 +25,12 @@
         android:theme="@style/Theme.LuxuryCar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".code_files.ui.add_car.AddCarActivity"
+            android:exported="false" />
+        <activity
             android:name=".code_files.ui.seller_deshboard.SellerDeshboardActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -46,11 +45,16 @@
             android:exported="false" />
         <activity
             android:name=".code_files.ui.home.HomeActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".code_files.ui.splash.SplashActivity"
             android:exported="true">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"

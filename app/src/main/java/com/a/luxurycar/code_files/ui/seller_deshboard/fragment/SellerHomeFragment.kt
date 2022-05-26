@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
+import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.ForRentAdapter
 import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.ForSaleAdapter
+import com.a.luxurycar.common.utils.StartActivity
 import com.a.luxurycar.databinding.FragmentSellerHomeBinding
 
 class SellerHomeFragment : Fragment() {
@@ -43,6 +46,11 @@ class SellerHomeFragment : Fragment() {
     }
 
     private fun manageClickListener() {
+        binding.conLayoutFabButton.setOnClickListener {
+            StartActivity(AddCarActivity::class.java)
+            requireActivity().finishAffinity()
+        }
+
         binding.consLayoutTabForSale.setOnClickListener {
             binding.consLayoutTabForRent.setBackgroundResource(0)
             binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(0)

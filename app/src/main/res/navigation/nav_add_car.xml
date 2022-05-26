@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_add_car"
+    app:startDestination="@id/addCarStepOne">
+
+    <fragment
+        android:id="@+id/addCarStepOne"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepOne"
+        android:label="fragment_add_car_step_one"
+        tools:layout="@layout/fragment_add_car_step_one" />
+    <fragment
+        android:id="@+id/addCarStepTwo"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepTwo"
+        android:label="fragment_add_car_step_two"
+        tools:layout="@layout/fragment_add_car_step_two" />
+    <fragment
+        android:id="@+id/addCarStepThree"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepThree"
+        android:label="fragment_add_car_step_three"
+        tools:layout="@layout/fragment_add_car_step_three" />
+    <fragment
+        android:id="@+id/addCarStepFour"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepFour"
+        android:label="fragment_add_car_step_four"
+        tools:layout="@layout/fragment_add_car_step_four" />
+</navigation>
