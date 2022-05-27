@@ -26,7 +26,9 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".code_files.ui.add_car.AddCarActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".code_files.ui.seller_deshboard.SellerDeshboardActivity"
             android:exported="true">
@@ -45,11 +47,12 @@
             android:exported="false" />
         <activity
             android:name=".code_files.ui.home.HomeActivity"
-            android:exported="true" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".code_files.ui.splash.SplashActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

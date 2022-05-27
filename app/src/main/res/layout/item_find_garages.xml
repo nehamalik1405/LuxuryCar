@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/margin_5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgViewFindGarages"
+            android:layout_width="@dimen/margin_170_dp"
+            android:layout_height="@dimen/margin_80_dp"
+            android:src="@drawable/find_garages_image"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/txtViewFirstChoiceGarage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:text="First Choice Garage"
+            style="@style/TextViewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewFindGarages"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/txtViewHeadOffice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3dp"
+            android:text="HEAD OFFICE"
+            android:textColor="@color/sub_title_color"
+            android:textSize="@dimen/margin_13sp"
+            android:fontFamily="@font/muli_semi_bold"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewFirstChoiceGarage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/txtViewCityDubai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3dp"
+            android:text="Dubai"
+            style="@style/TextViewTitle"
+            android:textSize="@dimen/txt_size_12sp"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewHeadOffice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/viewLineBelowDubai"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_1dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewCityDubai"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/dash_color"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_5dp"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            />
+
+        <TextView
+            android:id="@+id/txtView53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:text="53"
+            style="@style/TextViewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/viewLineBelowDubai"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ViewLineMiddle"
+            />
+        <TextView
+            android:id="@+id/txtViewForRent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:text="For rent"
+            style="@style/TextViewTitle"
+            android:textColor="@color/sub_title_color"
+            app:layout_constraintTop_toBottomOf="@+id/txtView53"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ViewLineMiddle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+      <View
+          android:id="@+id/ViewLineMiddle"
+          android:layout_width="@dimen/margin_1dp"
+          android:layout_height="@dimen/margin_50dp"
+          app:layout_constraintTop_toTopOf="@+id/txtView53"
+          app:layout_constraintBottom_toBottomOf="@+id/txtViewForRent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:background="@color/dash_color"
+          />
+        <TextView
+            android:id="@+id/txtView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:text="30"
+            style="@style/TextViewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/viewLineBelowDubai"
+            app:layout_constraintStart_toEndOf="@+id/ViewLineMiddle"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <TextView
+            android:id="@+id/txtViewForSale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:text="For sale"
+            style="@style/TextViewTitle"
+            android:textColor="@color/sub_title_color"
+            app:layout_constraintTop_toBottomOf="@+id/txtView30"
+            app:layout_constraintStart_toEndOf="@+id/ViewLineMiddle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

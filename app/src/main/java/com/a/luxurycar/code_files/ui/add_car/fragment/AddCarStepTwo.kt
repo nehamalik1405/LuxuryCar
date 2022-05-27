@@ -15,8 +15,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class AddCarStepTwo : Fragment(), OnMapReadyCallback {
-    private lateinit var map: GoogleMap
+class AddCarStepTwo : Fragment() {
+   // private lateinit var map: GoogleMap
     var _binding: FragmentAddCarStepTwoBinding?=null
     val binding get() = _binding!!
     override fun onCreateView(
@@ -30,14 +30,14 @@ class AddCarStepTwo : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(this)
+      /*  val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)*/
 
     }
-    override fun onMapReady(googleMap: GoogleMap) {
+  /*  override fun onMapReady(googleMap: GoogleMap) {
         map=googleMap
         val india = LatLng(     23.63936, 79.14712)
         map.addMarker(MarkerOptions().position(india).title("india location"))
         map.moveCamera(CameraUpdateFactory.newLatLng(india))
-    }
+    }*/
 }

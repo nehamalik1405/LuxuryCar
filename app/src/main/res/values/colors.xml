@@ -28,7 +28,7 @@
     <color name="button_disable">#E6E6E6</color>
     <color name="proper_white">#FFFFFF</color>
     <color name="button_disable_text_color">#A5A4AB</color>
-    <color name="green">#026337</color>
+    <color name="green">#016239</color>
     <color name="disable_color">#676767</color>
     <color name="card_color">#E7E5E6</color>
     <color name="sub_title_color">#7E7E7E</color>
@@ -36,7 +36,7 @@
     <color name="color_blue">#1066d2</color>
     <color name="color_light_black">#242634</color>
     <color name="text_color_grey">#717F8B</color>
-    <color name="light_grey">#9ECFD1D0</color>
+    <color name="light_grey">#3CCFD1D0</color>
     <color name="color_space_grey">#919191</color>
 
 </resources>

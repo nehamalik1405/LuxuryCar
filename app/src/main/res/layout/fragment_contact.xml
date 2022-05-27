@@ -1,24 +1,404 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".code_files.ui.home.fragment.ContactFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_20_dp">
 
+    <LinearLayout
+        android:id="@+id/linLayoutTopContact"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
+        <TextView
+            android:id="@+id/txtViewAboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_10_dp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:gravity="center"
+            android:text="Contact Us"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_15sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtViewFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextViewTitle"
+        android:text="@string/title_first_name_star"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linLayoutTopContact"/>
+
+    <EditText
+        android:id="@+id/edtTextFirstName"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_45_dp"
+        android:inputType="text"
+        android:hint="First Name"
+        android:textColorHint="@color/sub_title_color"
+        android:paddingStart="@dimen/margin_10_dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginEnd="@dimen/margin_5dp"
+        android:background="@drawable/drawable_rounder_edit_text_background"
+        style="@style/EditTextField"
+        android:imeOptions="actionNext"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewFirstName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/edtTextLastName"
+        />
+
+    <TextView
+        android:id="@+id/txtViewLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_sur_name_star"
+        style="@style/TextViewTitle"
+        android:layout_marginStart="@dimen/margin_1dp"
+        app:layout_constraintStart_toStartOf="@+id/edtTextLastName"
+        app:layout_constraintTop_toTopOf="@+id/txtViewFirstName"/>
+
+    <EditText
+        android:id="@+id/edtTextLastName"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_45_dp"
+        android:inputType="text"
+        android:hint="Last Name"
+        android:textColorHint="@color/sub_title_color"
+        android:paddingStart="@dimen/margin_10_dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:background="@drawable/drawable_rounder_edit_text_background"
+        style="@style/EditTextField"
+        android:imeOptions="actionNext"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewFirstName"
+        app:layout_constraintStart_toEndOf="@+id/edtTextFirstName"
+        app:layout_constraintBottom_toBottomOf="@+id/edtTextFirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/txtViewEnterEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextViewTitle"
+        android:text="@string/titlt_enter_email"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextFirstName"/>
+
+    <EditText
+        android:id="@+id/edtTextEnterEmail"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_45_dp"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:textColorHint="@color/sub_title_color"
+        android:paddingStart="@dimen/margin_10_dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginEnd="@dimen/margin_5dp"
+        android:background="@drawable/drawable_rounder_edit_text_background"
+        style="@style/EditTextField"
+        android:imeOptions="actionNext"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEnterEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/edtTextPhoneNumber"
+        />
+
+    <TextView
+        android:id="@+id/txtViewPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titlt_phone_no"
+        style="@style/TextViewTitle"
+        android:layout_marginStart="@dimen/margin_1dp"
+        app:layout_constraintStart_toStartOf="@+id/edtTextPhoneNumber"
+        app:layout_constraintTop_toTopOf="@+id/txtViewEnterEmail"/>
+
+    <EditText
+        android:id="@+id/edtTextPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_45_dp"
+        android:inputType="text"
+        android:hint="Phone No."
+        android:textColorHint="@color/sub_title_color"
+        android:paddingStart="@dimen/margin_10_dp"
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:background="@drawable/drawable_rounder_edit_text_background"
+        style="@style/EditTextField"
+        android:imeOptions="actionNext"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="@+id/edtTextEnterEmail"
+        app:layout_constraintStart_toEndOf="@+id/edtTextEnterEmail"
+        app:layout_constraintBottom_toBottomOf="@+id/edtTextEnterEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtTextEnterYourMessage"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_80_dp"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:paddingStart="@dimen/margin_10_dp"
+        android:paddingTop="@dimen/margin_10_dp"
+        android:hint="Enter your message"
+        android:textColorHint="@color/sub_title_color"
+        style="@style/EditTextField"
+        android:background="@drawable/drawable_rounder_edit_text_background"
+        android:imeOptions="actionDone"
+        android:inputType="textMultiLine"
+        android:maxLength="500"
+        android:minLines="4"
+        android:gravity="top|start"
+        android:maxLines="6"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextEnterEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnSend"
+        android:background="@drawable/drawable_button_background"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_45_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextEnterYourMessage"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact"
-            android:textSize="@dimen/margin_25sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/margin_45_dp"
+            android:layout_marginEnd="@dimen/margin_45_dp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:padding="@dimen/margin_0dp"
+            android:text="Send"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_15sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtViewWeAreAnAwardwinning"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        style="@style/TextViewTitle"
+        android:layout_marginTop="@dimen/margin_30_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:text="Award-winning, family-owned dealership of new and pre-owned vehicles with several locations across the city. The lowest prices and the best customer service are guaranteed."
+        app:layout_constraintTop_toBottomOf="@+id/btnSend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView
+        android:id="@+id/txtViewStreet"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        style="@style/TextViewTitle"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:text="West 12th Street"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewWeAreAnAwardwinning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView
+        android:id="@+id/txtViewCityAddress"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        style="@style/TextViewTitle"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:text="New York,NY,USA"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewStreet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView
+        android:id="@+id/txtViewCityPhoneCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/margin_17sp"
+        android:fontFamily="@font/muli_bold"
+        android:layout_marginTop="@dimen/margin_15dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:text="(123)"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewCityAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:id="@+id/txtViewCityPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/green"
+        android:textSize="@dimen/margin_17sp"
+        android:fontFamily="@font/muli_bold"
+        android:layout_marginTop="@dimen/margin_15dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:text="456-78901"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewCityAddress"
+        app:layout_constraintStart_toEndOf="@+id/txtViewCityPhoneCode"
+        />
+
+  <ImageView
+      android:id="@+id/imgViewMail"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_10_dp"
+      android:src="@mipmap/ic_mail"
+      android:layout_marginStart="@dimen/margin_10_dp"
+      app:layout_constraintTop_toBottomOf="@id/txtViewCityPhone"
+      app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtViewEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Support@luxurycarmarket.com"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_12_sp"
+        android:fontFamily="@font/muli_bold"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        app:layout_constraintTop_toTopOf="@+id/imgViewMail"
+        app:layout_constraintStart_toEndOf="@+id/imgViewMail"
+        app:layout_constraintBottom_toBottomOf="@+id/imgViewMail"/>
+
+    <TextView
+        android:id="@+id/txtViewFollowUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Follow us"
+        android:textSize="@dimen/txt_size_14sp"
+        android:textColor="@color/sub_title_color"
+        android:fontFamily="@font/muli_bold"
+        app:layout_constraintStart_toStartOf="@+id/imgViewMail"
+        app:layout_constraintTop_toTopOf="@+id/consLayoutFacebookIcon"
+        app:layout_constraintBottom_toBottomOf="@+id/consLayoutFacebookIcon"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consLayoutFacebookIcon"
+        android:layout_width="@dimen/margin_35_dp"
+        android:layout_height="@dimen/margin_35_dp"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:background="@drawable/drawable_background_circle_shape"
+        android:backgroundTint="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEmailAddress"
+        app:layout_constraintStart_toEndOf="@+id/txtViewFollowUs">
+        <ImageView
+            android:id="@+id/imgViewFacebookIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_facebook_trans"
+            app:tint="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consLayoutTwitterIcon"
+        android:layout_width="@dimen/margin_35_dp"
+        android:layout_height="@dimen/margin_35_dp"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:background="@drawable/drawable_background_circle_shape"
+        android:backgroundTint="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEmailAddress"
+        app:layout_constraintStart_toEndOf="@+id/consLayoutFacebookIcon">
+        <ImageView
+            android:id="@+id/imgViewTwitterIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_twitter"
+            app:tint="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consLayoutInstagramIcon"
+        android:layout_width="@dimen/margin_35_dp"
+        android:layout_height="@dimen/margin_35_dp"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:background="@drawable/drawable_background_circle_shape"
+        android:backgroundTint="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEmailAddress"
+        app:layout_constraintStart_toEndOf="@+id/consLayoutTwitterIcon">
+        <ImageView
+            android:id="@+id/imgViewInstagramIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_instagram"
+            app:tint="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_180_dp"
+        app:cardCornerRadius="@dimen/margin_5dp"
+        app:layout_constraintTop_toBottomOf="@+id/consLayoutInstagramIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:background="@color/card_color">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

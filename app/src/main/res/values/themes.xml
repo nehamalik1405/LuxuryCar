@@ -55,7 +55,7 @@
     <style name="TextViewTitle" parent="@android:style/Widget.TextView">
         <item name="android:textSize">@dimen/margin_13sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/muli_semi_bold</item>
+        <item name="fontFamily">@font/muli_bold</item>
 
     </style>
     <style name="TextViewSubTitle" parent="@android:style/Widget.TextView">

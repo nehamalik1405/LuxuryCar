@@ -489,6 +489,15 @@ class HomeActivity : AppCompatActivity() {
                     consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_sell_ur_car)
                 }
+                else if(itemId == R.id.nav_saurce_my_car){
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_saurce_my_car)
+                }
+                else if(itemId == R.id.nav_find_Garages){
+                    consLayout.visibility = View.GONE
+                    navController.navigate(R.id.nav_find_Garages)
+                }
+
 
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                 return true
