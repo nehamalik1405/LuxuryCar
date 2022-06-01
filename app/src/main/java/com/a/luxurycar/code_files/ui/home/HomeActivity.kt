@@ -2,9 +2,10 @@ package com.a.luxurycar.code_files.ui.home
 
 
 import android.Manifest
-import android.R.attr.button
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,11 +13,11 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -38,11 +39,8 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.nav_header_right_main.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -428,19 +426,15 @@ class HomeActivity : AppCompatActivity() {
                 val itemId = item.itemId
 
                 if (itemId == R.id.nav_profiles) {
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_profiles)
                 }
                 else if(itemId == R.id.nav_language){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_language)
                 }
                 else if(itemId == R.id.nav_condition){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_condition)
                 }
                 else if(itemId == R.id.nav_change_password){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_change_password)
                 }
                 else if(itemId == R.id.nav_logout) {
@@ -466,35 +460,27 @@ class HomeActivity : AppCompatActivity() {
                 val itemId = item.itemId
 
                 if (itemId == R.id.nav_about_us) {
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_about_us)
                 }
                 else if(itemId == R.id.nav_car_listing){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_car_listing)
                 }
                 else if(itemId == R.id.nav_transport){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_transport)
                 }
                 else if(itemId == R.id.nav_sourcing){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_sourcing)
                 }
                 else if(itemId == R.id.nav_inspecting){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_inspecting)
                 }
                 else if(itemId == R.id.nav_sell_ur_car){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_sell_ur_car)
                 }
                 else if(itemId == R.id.nav_saurce_my_car){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_saurce_my_car)
                 }
                 else if(itemId == R.id.nav_find_Garages){
-                    consLayout.visibility = View.GONE
                     navController.navigate(R.id.nav_find_Garages)
                 }
 
@@ -515,23 +501,17 @@ class HomeActivity : AppCompatActivity() {
 
                 if (itemId == R.id.nav_contact) {
                     navController.navigate(R.id.nav_contact)
-                    consLayout.visibility = View.GONE
+                   // consLayout.visibility = View.GONE
                 }
                 else if(itemId == R.id.nav_home){
                     navController.navigate(R.id.nav_home)
-                    consLayout.visibility = View.GONE
+                    //consLayout.visibility = View.GONE
                 }
                 else if(itemId == R.id.nav_follow_us) {
-                     isShow =!isShow
-                    if (isShow){
-                        consLayout.visibility = View.VISIBLE
-                    }
-                    else{
-                        consLayout.visibility = View.GONE
-                    }
+                    onButtonShowPopupWindowClick(findViewById(R.id.nav_follow_us))
 
 
-                    val imgYouTube = findViewById<ImageView>(R.id.imgViewYoutube)
+                    /* val imgYouTube = findViewById<ImageView>(R.id.imgViewYoutube)
                     val imgViewLinkedIn = findViewById<ImageView>(R.id.imgViewLinkedIn)
                     val imgViewInstagram = findViewById<ImageView>(R.id.imgViewInstagram)
                     val imgViewFacebook = findViewById<ImageView>(R.id.imgViewFacebook)
@@ -553,14 +533,76 @@ class HomeActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext,"Facebook",Toast.LENGTH_LONG).show()
                     }
 
+                }*/
                 }
             true
         }
+      /*  bottomNavigation?.menu?.findItem(R.id.nav_follow_us)?.setOnMenuItemClickListener {
 
+
+            onButtonShowPopupWindowClick(findViewById(R.id.nav_follow_us))
+
+
+
+            return@setOnMenuItemClickListener false
+        }*/
 
     }
 
+    private fun onButtonShowPopupWindowClick(view: View) {
 
+        //navController.backQueue
+        // inflate the layout of the popup window
+        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_window, null)
+        val imgViewYoutube = popupView.findViewById<ImageView>(R.id.imgViewYoutube)
+        val imgViewLinkedIn = popupView.findViewById<ImageView>(R.id.imgViewLinkedIn)
+        val imgViewInstagram = popupView.findViewById<ImageView>(R.id.imgViewInstagram)
+        val imgViewFacebook = popupView.findViewById<ImageView>(R.id.imgViewFacebook)
+      // create the popup window
+       // val width = LinearLayout.LayoutParams.WRAP_CONTENT
+       // val height = LinearLayout.LayoutParams.WRAP_CONTENT
+        val focusable = true // lets taps outside the popup also dismiss it
+        val parm1 = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        val popupWindow = PopupWindow(popupView, parm1.width, parm1.height, focusable)
+
+        popupView.layoutParams = parm1
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+
+        // show the popup window
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, Gravity.BOTTOM or Gravity.RIGHT, 80,195)
+
+
+
+        // dismiss the popup window when touched
+
+       /* // dismiss the popup window when touched
+        popupView.setOnTouchListener { v, event ->
+            popupWindow.dismiss()
+            true
+        }*/
+        imgViewYoutube.setOnClickListener {
+            Toast.makeText(applicationContext,"Click pop up youtube", Toast.LENGTH_LONG).show()
+            popupWindow.dismiss()
+        }
+        imgViewLinkedIn.setOnClickListener {
+            Toast.makeText(applicationContext,"Click pop up lindedin", Toast.LENGTH_LONG).show()
+            popupWindow.dismiss()
+        }
+        imgViewInstagram.setOnClickListener {
+            Toast.makeText(applicationContext,"Click pop up instagram", Toast.LENGTH_LONG).show()
+            popupWindow.dismiss()
+        }
+        imgViewFacebook.setOnClickListener {
+            Toast.makeText(applicationContext,"Click pop up facebook", Toast.LENGTH_LONG).show()
+            popupWindow.dismiss()
+        }
+
+    }
 
 
     override fun onSupportNavigateUp(): Boolean {

@@ -11,7 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/margin_20_dp">
+        android:paddingStart="@dimen/margin_15dp"
+        android:paddingEnd="@dimen/margin_15dp"
+        android:paddingBottom="@dimen/margin_15dp">
 
 
     <TextView
@@ -24,7 +26,7 @@
     android:fontFamily="@font/muli_bold"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_marginStart="@dimen/margin_10_dp"/>
+    />
 
     <TextView
         android:id="@+id/txtViewOderSummery"
@@ -37,14 +39,12 @@
         android:fontFamily="@font/muli_bold"
         app:layout_constraintTop_toBottomOf="@+id/txtViewPaymentDetail"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/margin_10_dp"/>
+       />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/consLayoutOrderSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_10_dp"
-            android:layout_marginEnd="@dimen/margin_10_dp"
             android:layout_marginTop="@dimen/margin_30_dp"
             android:paddingTop="@dimen/margin_20_dp"
             android:paddingBottom="@dimen/margin_20_dp"
@@ -160,7 +160,7 @@
         app:layout_constraintTop_toBottomOf="@+id/consLayoutOrderSummary"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/margin_20_dp"
-        android:layout_marginStart="@dimen/margin_10_dp"/>
+        />
 
     <TextView
         android:id="@+id/txtViewCardInformation"
@@ -173,14 +173,12 @@
         app:layout_constraintTop_toBottomOf="@+id/txtViewSPaymentDetail"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/margin_10_dp"
-        android:layout_marginStart="@dimen/margin_10_dp"/>
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consLayoutCardInformation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10_dp"
-        android:layout_marginEnd="@dimen/margin_10_dp"
         android:paddingTop="@dimen/margin_10_dp"
         android:background="@drawable/drawable_rounder_edit_text_background"
         app:layout_constraintTop_toBottomOf="@+id/txtViewCardInformation"
@@ -270,8 +268,6 @@
         android:layout_height="@dimen/margin_45_dp"
         android:layout_marginTop="@dimen/margin_30_dp"
         android:textAllCaps="true"
-        android:layout_marginStart="@dimen/margin_10_dp"
-        android:layout_marginEnd="@dimen/margin_10_dp"
         android:text="Pay AED 261.45"
         android:textColor="@color/black"
         android:fontFamily="@font/muli_bold"

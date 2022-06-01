@@ -69,7 +69,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/margin_25_dp"
                     android:layout_height="@dimen/margin_25_dp"
-                    android:src="@mipmap/ic_right_check"
+                    android:src="@mipmap/ic_right"
                     android:layout_marginStart="@dimen/margin_25_dp"
                     />
                 <TextView
@@ -95,7 +95,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/margin_25_dp"
                     android:layout_height="@dimen/margin_25_dp"
-                    android:src="@mipmap/ic_right_check"
+                    android:src="@mipmap/ic_right"
                     android:layout_marginStart="@dimen/margin_25_dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/margin_25_dp"
                     android:layout_height="@dimen/margin_25_dp"
-                    android:src="@mipmap/ic_right_check"
+                    android:src="@mipmap/ic_right"
                     android:layout_marginStart="@dimen/margin_25_dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/margin_25_dp"
                     android:layout_height="@dimen/margin_25_dp"
-                    android:src="@mipmap/ic_right_check"
+                    android:src="@mipmap/ic_right"
                     android:layout_marginStart="@dimen/margin_25_dp"/>
                 <TextView
                     android:layout_width="wrap_content"

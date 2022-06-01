@@ -1,14 +1,1261 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true"
     tools:context=".code_files.ui.add_car.fragment.AddCarStepOne">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="step One" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_20_dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/txtViewTellUsAboutYourCar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:fontFamily="@font/muli_bold"
+            android:text="@string/str_tell_us_about_your_car"
+            android:textColor="@color/black"
+            android:textSize="@dimen/margin_17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewCarDetails"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            app:cardCornerRadius="@dimen/margin_10_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewTellUsAboutYourCar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F5F8"
+                android:padding="@dimen/margin_15dp">
+
+                <TextView
+                    android:id="@+id/txtViewEnterChasisNumber"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter VIN/Chasis Number"
+                    android:textSize="@dimen/txt_size_12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/margin_20_dp"
+                    android:layout_height="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:background="@drawable/drawable_background_circle_shape"
+                    android:backgroundTint="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewEnterChasisNumber"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewEnterChasisNumber" />
+
+                <EditText
+                    android:id="@+id/edtEnterChasisNumber"
+                    style="@style/EditTextField"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_50dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    android:gravity="center_vertical"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewEnterChasisNumber" />
+
+                <TextView
+                    android:id="@+id/txtViewThisNumberWillNotShowOnYourAd"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2dp"
+                    android:text="This number will not show on your ad"
+                    android:textSize="@dimen/txt_size_12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtEnterChasisNumber" />
+
+                <TextView
+                    android:id="@+id/txtViewCity"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20_dp"
+                    android:text="City"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewThisNumberWillNotShowOnYourAd" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewCity"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewCity" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectCity"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectMake"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewCity">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectCity"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewMake"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Make"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewCity"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectMake"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewCity" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewMake"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewMake" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectMake"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectCity"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectCity"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectCity">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectMake"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- model and year-->
+
+                <TextView
+                    android:id="@+id/txtViewModel"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Model"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectMake" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewModel"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewModel" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectModel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectYear"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewModel">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectModel"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewYear"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Year"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewModel"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectYear"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewModel" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewYear"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewYear" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectYear"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectModel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectModel"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectModel">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectYear"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--kilometers and price-->
+                <TextView
+                    android:id="@+id/txtViewKilometers"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Kilometers"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectModel" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewKilometers"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewKilometers" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectKilometers"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectPrice"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewKilometers">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectKilometers"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!--  <TextView
+                          android:id="@+id/imgViewYearFrom"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginStart="@dimen/margin_10_dp"
+                          android:text="@string/title_year_from"
+                          android:textSize="14sp"
+                          app:layout_constraintBottom_toBottomOf="parent"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+                      <ImageView
+                          android:id="@+id/imgViewDownYearFrom"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginEnd="@dimen/margin_15dp"
+                          android:src="@mipmap/ic_down_arrow"
+                          app:layout_constraintBottom_toBottomOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          app:layout_constraintTop_toTopOf="parent" />
+        -->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewPrice"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewKilometers"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectPrice"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewKilometers" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewPrice"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewPrice" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectKilometers"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectKilometers"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectKilometers">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectPrice"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--regional specification and exteriour colour-->
+
+                <TextView
+                    android:id="@+id/txtViewRegionalSpecification"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Regional Specification"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectPrice" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewRegionalSpecification"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewRegionalSpecification" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectRegionalSpecification"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectExteriourColour"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewRegionalSpecification">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectRegionalSpecification"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewExteriourColour"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exteriour Colour"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewRegionalSpecification"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectExteriourColour"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewRegionalSpecification" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewExteriourColour"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewExteriourColour" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectExteriourColour"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectRegionalSpecification"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectRegionalSpecification"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectRegionalSpecification">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectExteriourColour"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--transmission type and horsepower-->
+
+                <TextView
+                    android:id="@+id/txtViewTransmissionType"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Transmission type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectExteriourColour" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewTransmissionType"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewTransmissionType" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectTransmissionType"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectHorsepower"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectTransmissionType"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewHorsepower"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horsepower"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewTransmissionType"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectHorsepower"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewTransmissionType" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewHorsepower"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewHorsepower" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectHorsepower"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectTransmissionType"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectTransmissionType"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectTransmissionType">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectHorsepower"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--seller type-->
+                <TextView
+                    android:id="@+id/txtViewSellerType"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Seller type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectHorsepower" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewSellerType"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewSellerType" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectSellerType"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectPrice"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewSellerType">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectSellerType"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewSecondPartCarDetails"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            app:cardCornerRadius="@dimen/margin_10_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewCarDetails">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F5F8"
+                android:padding="@dimen/margin_15dp">
+
+                <!--no. of cylinder and interiour colour-->
+
+                <TextView
+                    android:id="@+id/txtViewNumberOfCylinders"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. of cylinders"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectNumberOfCylinders"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectInteriorColour"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewNumberOfCylinders">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectNumberOfCylinders"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewInteriorColour"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Interior colour"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewNumberOfCylinders"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectInteriorColour"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewNumberOfCylinders" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectInteriorColour"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectNumberOfCylinders"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectNumberOfCylinders"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectNumberOfCylinders">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectInteriorColour"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- fuel type  and body type-->
+
+                <TextView
+                    android:id="@+id/txtViewFuelType"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Fuel type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectInteriorColour" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectFuelType"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectBodyType"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewFuelType">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectFuelType"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewBodyType"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Body type"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewFuelType"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectBodyType"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewFuelType" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectBodyType"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectFuelType"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectFuelType"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectFuelType">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectBodyType"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!--body condition and mechanical condition-->
+
+                <TextView
+                    android:id="@+id/txtViewBodyCondition"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Body condition"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectBodyType" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectBodyCondition"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectMechanicalCondition"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewBodyCondition">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectBodyCondition"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewMechanicalCondition"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mechanical condition"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewBodyCondition"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectMechanicalCondition"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewBodyCondition" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectMechanicalCondition"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectBodyCondition"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectBodyCondition"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectBodyCondition">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectMechanicalCondition"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--steering side and warranty-->
+
+                <TextView
+                    android:id="@+id/txtViewSteeringSide"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Body condition"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectMechanicalCondition" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectSteeringSide"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectWarranty"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewSteeringSide">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectSteeringSide"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewWarranty"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Warranty"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewSteeringSide"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectWarranty"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewSteeringSide" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectWarranty"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectSteeringSide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectSteeringSide"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectSteeringSide">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectWarranty"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewAssignSalePerson"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            app:cardCornerRadius="@dimen/margin_10_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewSecondPartCarDetails">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F5F8"
+                android:padding="@dimen/margin_15dp">
+
+                <TextView
+                    android:id="@+id/txtViewAssignSalePerson"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:text="Assign sale person"
+                    android:textSize="@dimen/txt_size_12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectAssignSalePerson"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewAssignSalePerson">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectAssignSalePerson"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtViewJohneeDeo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:fontFamily="@font/muli_bold"
+                    android:text="@string/title_jhone_deo"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_size_15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectAssignSalePerson" />
+
+                <TextView
+                    android:id="@+id/txtViewPersonalDetails"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="+919800000000,jhonedeo@gmail.com"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewJohneeDeo" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consLayoutUploadImage"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            android:background="@drawable/drawable_background_dash_for_add_picture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewAssignSalePerson">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/childConsLayoutUploadImage"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_40dp"
+                android:layout_marginBottom="@dimen/margin_40dp"
+                android:layout_marginStart="@dimen/margin_15dp"
+                android:layout_marginEnd="@dimen/margin_15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/linLayoutAddPictures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgViewUploadImage"
+                        android:layout_width="@dimen/margin_30_dp"
+                        android:layout_height="@dimen/margin_30_dp"
+                        android:src="@mipmap/ic_image_gallery" />
+
+                    <TextView
+                        android:id="@+id/txtViewAddPictures"
+                        style="@style/TextViewTitle"
+                        android:layout_marginStart="@dimen/margin_10_dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add pictures" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/txtViewUploadMultipleImagesordragingordropingonthedashedline"
+                    style="@style/TextViewTitle"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:text="Upload Multiple Images or draging or droping on the dashed line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linLayoutAddPictures" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewMultipleImageUpload"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_15dp"
+            android:layout_marginEnd="@dimen/margin_15dp"
+            app:layout_constraintTop_toBottomOf="@+id/consLayoutUploadImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTitle"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            app:cardCornerRadius="@dimen/margin_10_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerviewMultipleImageUpload">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F5F8"
+                android:padding="@dimen/margin_15dp">
+
+                <TextView
+                    android:id="@+id/txtViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_title"
+                    style="@style/TextViewTitle"
+                    android:layout_marginStart="@dimen/margin_1dp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <EditText
+                    android:id="@+id/edtTextTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45_dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    style="@style/EditTextField"
+                    android:hint="Enter title"
+                    android:textColorHint="@color/sub_title_color"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/txtViewDescribeYourCarForSale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:text="Describe your car for sale"
+                    style="@style/TextViewTitle"
+                    android:layout_marginStart="@dimen/margin_1dp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtTextTitle"
+                    />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtTextDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_150_dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    style="@style/EditTextField"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    android:hint="@string/str_enter_your_message"
+                    android:textColorHint="@color/sub_title_color"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:maxLength="500"
+                    android:minLines="4"
+                    android:gravity="top|start"
+                    android:maxLines="6"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewDescribeYourCarForSale"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewLocationYourCar"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            app:cardCornerRadius="@dimen/margin_10_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F5F8"
+                android:padding="@dimen/margin_15dp">
+
+                <TextView
+                    android:id="@+id/txtViewLocationYourCar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_title"
+                    style="@style/TextViewTitle"
+                    android:layout_marginStart="@dimen/margin_1dp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <EditText
+                    android:id="@+id/edtTextEnterLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45_dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    style="@style/EditTextField"
+                    android:hint="Enter location"
+                    android:textColorHint="@color/sub_title_color"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewLocationYourCar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="@dimen/margin_0dp"
+                        android:layout_height="@dimen/margin_160_dp"
+                        android:layout_marginTop="@dimen/margin_10_dp"
+                        app:layout_constraintTop_toBottomOf="@+id/edtTextEnterLocation"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_50dp"
+            android:text="NEXT"
+            android:layout_marginTop="@dimen/margin_30_dp"
+            android:textColor="@color/white"
+            style="@style/buttonFieldStyle"
+            android:textAllCaps="true"
+            android:layout_marginStart="@dimen/margin_15dp"
+            android:layout_marginEnd="@dimen/margin_15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewLocationYourCar"
+            app:rippleColor="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

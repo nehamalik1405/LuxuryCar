@@ -48,6 +48,7 @@ import java.util.*
 
 class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSellerRegisterBinding, RegistrationRepository>() {
     var isShowPassword = false
+    var isShowConfirmPassword = false
     var firstName=""
     var lastName=""
     var email= ""
@@ -114,7 +115,7 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
             if (isShowPassword) {
                 binding.edtTextConfirmPassword.transformationMethod = null
                 binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_show_icon)
-                binding.edtTextConfirmPassword.setSelection(binding.edtTextPassword.length())
+                binding.edtTextConfirmPassword.setSelection(binding.edtTextConfirmPassword.length())
             } else {
                 binding.edtTextConfirmPassword.transformationMethod = PasswordTransformationMethod()
                 binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_hide_icon)
