@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.FollowUsRepository
+import com.a.luxurycar.code_files.view_model.FollowUsViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentFollowUsBinding
+import kotlinx.android.synthetic.main.fragment_seller_home.*
 
 
-class FollowUsFragment : Fragment() {
+class FollowUsFragment : BaseFragment<FollowUsViewModel,FragmentFollowUsBinding,FollowUsRepository>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_follow_us, container, false)
-    }
+   override fun getViewModel()=FollowUsViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ) = FragmentFollowUsBinding.inflate(inflater,container,false)
+    override fun getRepository() = FollowUsRepository(ApiAdapter.buildApi(ApiService::class.java))
 }

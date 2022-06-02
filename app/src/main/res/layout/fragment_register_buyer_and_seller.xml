@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/margin_20_dp"
     android:paddingBottom="@dimen/margin_20_dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".code_files.ui.auth.fragment.RegisterBuyerAndSellerFragment">
+    tools:context=".code_files.ui.auth.fragment.RegistrationType">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -22,13 +22,12 @@ class CarListFragment :BaseFragment<CarListViewModel, FragmentCarListBinding,Car
 
 
     override fun getViewModel()=CarListViewModel::class.java
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     )= FragmentCarListBinding.inflate(inflater,container,false)
-
     override fun getRepository() = CarListRepository(ApiAdapter.buildApi(ApiService::class.java))
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val carListAdapter = CarListAdapter(requireContext())

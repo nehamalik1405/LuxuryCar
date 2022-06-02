@@ -2,7 +2,6 @@ package com.a.luxurycar.code_files.ui.auth.fragment
 
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.ForgotPasswordRepository
-import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.view_model.ForgotPasswordViewModel
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
@@ -23,9 +21,9 @@ import com.a.luxurycar.databinding.FragmentUpdatePasswordBinding
 
 
 class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpdatePasswordBinding,ForgotPasswordRepository>() {
-    var isShowPassword = false
-    var new_password=""
-    var confirm_password=""
+    private var isShowPassword = false
+    private var new_password=""
+    private var confirmPassword=""
 
     override fun getViewModel() = ForgotPasswordViewModel::class.java
     override fun getFragmentBinding(
@@ -38,7 +36,26 @@ class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manageClickListener()
+        liveDataObserver()
 
+    }
+
+    private fun liveDataObserver() {
+        viewModel.UpdatePasswordResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarUpdatePasswordPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        findNavController().navigate(R.id.loginFragment)
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
     }
 
     private fun manageClickListener() {
@@ -79,26 +96,10 @@ class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpda
     }
 
     private fun callUpdatePasswordApi() {
-        val email = SessionManager.getEmail()
+        val email = arguments?.getString("email").toString()
         if (email != null) {
-            viewModel.getUpdatePasswordResponse(email,new_password,confirm_password)
+            viewModel.getUpdatePasswordResponse(email,new_password,confirmPassword)
         }
-
-        viewModel.UpdatePasswordResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressBarUpdatePasswordPage.visible(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.loginFragment)
-                    }
-                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
 
     }
 
@@ -108,10 +109,10 @@ class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpda
         if (Utils.isEmptyOrNull(new_password)) {
             binding.edtTextNewPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_new_password))
             return false
-        } else if (Utils.isEmptyOrNull(confirm_password)) {
+        } else if (Utils.isEmptyOrNull(confirmPassword)) {
             binding.edtTextConfirnPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_confirm_password))
             return false
-        } else if (!confirm_password.equals(new_password)) {
+        } else if (!confirmPassword.equals(new_password)) {
             binding.edtTextConfirnPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_password_not_match))
             return false
         }
@@ -120,5 +121,5 @@ class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpda
 
     private fun getDataFromEditField() {
         new_password = binding.edtTextNewPassword.text.toString().trim()
-        confirm_password = binding.edtTextConfirnPassword.text.toString().trim()    }
+        confirmPassword = binding.edtTextConfirnPassword.text.toString().trim()    }
 }

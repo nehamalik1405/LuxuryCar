@@ -249,6 +249,8 @@
             android:id="@+id/recyclerViewSourceList"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnSourceMyCar2"

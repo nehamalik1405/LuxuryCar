@@ -54,36 +54,29 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
     var email= ""
     var address=""
     var password=""
-    var confirm_password=""
+    var confirmPassword=""
 
     companion object {
         private val REQUEST_TAKE_PHOTO = 321
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 123
     }
     override fun getViewModel() = RegistrationViewModel::class.java
-
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     )= FragmentSellerRegisterBinding.inflate(inflater,container,false)
-
     override fun getRepository()= RegistrationRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         manageListeners()
-
     }
 
     private fun manageListeners() {
-
         binding.btnRegister.setOnClickListener {
             it.hideKeyboard()
             if (isRegisterDataValid()){
-
-                 startActivity(Intent(requireContext(), SellerDeshboardActivity::class.java))
+                startActivity(Intent(requireContext(), SellerDeshboardActivity::class.java))
                  (context as AuthActivity).finish()
             }
         }
@@ -96,7 +89,6 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
         binding.txtViewLogin.setOnClickListener {
             findNavController().navigate(R.id.loginFragment)
         }
-
         binding.imgViewEyePassword.setOnClickListener {
             isShowPassword = !isShowPassword
             if (isShowPassword) {
@@ -109,7 +101,6 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
                 binding.edtTextPassword.setSelection(binding.edtTextPassword.length())
             }
         }
-
         binding.imgViewEyeConfirmPassword.setOnClickListener {
             isShowPassword = !isShowPassword
             if (isShowPassword) {
@@ -121,23 +112,16 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
                 binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_hide_icon)
                 binding.edtTextConfirmPassword.setSelection(binding.edtTextConfirmPassword.length())
             }
-
         }
-
-
     }
 
-
-
-
-
     private fun getDataFromEditField() {
-        firstName = binding.edtTextFirstName.text.toString().trim()
-        lastName = binding.edtTextLastName.text.toString().trim()
-        email = binding.edtTextEmail.text.toString().trim()
-        address = binding.edtTextAddress.text.toString().trim()
-        password = binding.edtTextPassword.text.toString().trim()
-        confirm_password = binding.edtTextConfirmPassword.text.toString().trim()
+        firstName = binding.edtTextFirstName.getTextInString()
+        lastName = binding.edtTextLastName.getTextInString()
+        email = binding.edtTextEmail.getTextInString()
+        address = binding.edtTextAddress.getTextInString()
+        password = binding.edtTextPassword.getTextInString()
+        confirmPassword = binding.edtTextConfirmPassword.getTextInString()
     }
     private fun isRegisterDataValid(): Boolean {
 
@@ -164,10 +148,10 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
         else if (Utils.isEmptyOrNull(password)) {
             binding.edtTextPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_password))
             return false
-        } else if (Utils.isEmptyOrNull(confirm_password)) {
+        } else if (Utils.isEmptyOrNull(confirmPassword)) {
             binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_confirm_password))
             return false
-        } else if (!confirm_password.equals(password)) {
+        } else if (!confirmPassword.equals(password)) {
             binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_password_not_match))
             return false
         }
@@ -237,9 +221,6 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
 
         }
     }
-
-
-    // var image_uri: String? = ""
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

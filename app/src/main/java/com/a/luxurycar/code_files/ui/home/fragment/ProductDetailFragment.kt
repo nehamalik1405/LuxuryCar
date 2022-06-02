@@ -7,8 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.ProductDetailRepository
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
 import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
+import com.a.luxurycar.code_files.view_model.ProductDetailViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.databinding.FragmentProductDetailBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,20 +24,18 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.nav_header.*
 
 
-class ProductDetailFragment : Fragment(),OnMapReadyCallback {
+class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProductDetailBinding,ProductDetailRepository>(),OnMapReadyCallback {
     private lateinit var map: GoogleMap
-    var _binding: FragmentProductDetailBinding? = null
-    val binding get() = _binding!!;
+
     lateinit var list:ArrayList<ProductDetailImageModel>
     var page = ""
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
+    override fun getViewModel() = ProductDetailViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentProductDetailBinding.inflate(inflater,container,false)
 
-        return binding.root
-    }
+    override fun getRepository()= ProductDetailRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -89,5 +92,6 @@ class ProductDetailFragment : Fragment(),OnMapReadyCallback {
 
 
     }
+
 
 }

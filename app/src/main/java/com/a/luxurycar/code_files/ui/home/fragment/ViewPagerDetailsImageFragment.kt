@@ -15,8 +15,6 @@ class ViewPagerDetailsImageFragment : Fragment() {
     var _binding: FragmentViewPagerDetailsImageBinding? = null
     val binding get() = _binding!!;
 
-    private lateinit var scaleGestureDetector: ScaleGestureDetector
-    private var scaleFactor = 1.0f
     private lateinit var imageView: ImageView
 
     override fun onCreateView(
@@ -31,17 +29,9 @@ class ViewPagerDetailsImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         imageView = view.findViewById(R.id.imageView)
-        scaleGestureDetector = ScaleGestureDetector(requireContext(), ScaleListener())
+
     }
 
-    private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-        override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
-            scaleFactor *= scaleGestureDetector.scaleFactor
-            scaleFactor = max(0.1f, min(scaleFactor, 10.0f))
-            imageView.scaleX = scaleFactor
-            imageView.scaleY = scaleFactor
-            return true
-        }
-    }
+
 
 }

@@ -24,6 +24,7 @@
     <string name="error_invalid_email">Please enter valid email.</string>
     <string name="error_empty_password">Please enter password.</string>
     <string name="error_empty_new_password">Please enter your new password.</string>
+    <string name="error_empty_old_password">Please enter old Password.</string>
     <string name="error_empty_confirm_password">Please enter confirm password.</string>
     <string name="error_password_not_match">Please enter the same  password.</string>
     <string name="titlr_login">Login</string>
@@ -184,6 +185,30 @@
     <string name="title_jhone_deo">jhone Deo</string>
     <string name="str_enter_your_message">Enter your message</string>
     <string name="str_title">Title</string>
+    <string name="str_please_enter_otp">Please enter OTP.</string>
+    <string name="str_please_enter_proper_otp">Please enter proper otp.</string>
+    <string name="str_add_car_step_1">Add car step-1</string>
+    <string name="title_step_1">Step 1</string>
+    <string name="title_step_2">Step 2</string>
+    <string name="title_step_3">Step 3</string>
+    <string name="title_step_4">Step 4</string>
+    <string name="str_book_an_appointment">Book An Appointment</string>
+    <string name="str_please_enter_your_information_below">Please enter your information below</string>
+    <string name="title_company_name">Company name.*</string>
+    <string name="hint_company_name">Company name</string>
+    <string name="title_enter_email_address">Enter Email Address.*</string>
+    <string name="hint_enter_email_address">Enter email address</string>
+    <string name="title_phone_no">Phone No.*</string>
+    <string name="city_code_917">+917</string>
+    <string name="str_min_price">Min Price*</string>
+    <string name="str_enter_price_aed">Enter Price (AED)</string>
+    <string name="str_max_price">Max Price*</string>
+    <string name="title_subject">Subject</string>
+    <string name="str_enter_your_message">Enter your message</string>
+    <string name="title_submit">Submit</string>
+    <string name="hint_phone_no">Phone No.</string>
+
+
     <string-array name="countryCode">
         <item>+91</item>
         <item>+1</item>

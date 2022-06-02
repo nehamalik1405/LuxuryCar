@@ -1,21 +1,24 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.SellYourCarRepository
+import com.a.luxurycar.code_files.view_model.SellYourCarViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentSellYourCarBinding
 
 
-class SellYourCarFragment : Fragment() {
+class SellYourCarFragment : BaseFragment<SellYourCarViewModel, FragmentSellYourCarBinding, SellYourCarRepository>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sell_your_car, container, false)
-    }
+    override fun getViewModel() = SellYourCarViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentSellYourCarBinding.inflate(inflater,container,false)
+    override fun getRepository()= SellYourCarRepository(ApiAdapter.buildApi(ApiService::class.java))
+
 
 }

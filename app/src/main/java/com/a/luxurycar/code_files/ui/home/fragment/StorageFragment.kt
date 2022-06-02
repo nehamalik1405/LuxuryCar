@@ -1,36 +1,37 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.StorageRepository
 import com.a.luxurycar.code_files.ui.home.adapter.StorageAdapter
-import com.a.luxurycar.code_files.ui.home.model.ImageModel
 import com.a.luxurycar.code_files.ui.home.model.StorageModel
+import com.a.luxurycar.code_files.view_model.StorageViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.utils.OnItemClickListener
 import com.a.luxurycar.common.utils.addOnItemClickListener
 import com.a.luxurycar.databinding.FragmentStorageBinding
 import java.util.ArrayList
 
 
-class StorageFragment : Fragment() {
+class StorageFragment : BaseFragment<StorageViewModel,FragmentStorageBinding,StorageRepository>() {
 
     lateinit var list: ArrayList<StorageModel>
-    var _binding: FragmentStorageBinding? = null
-    val binding get() = _binding!!;
+    override fun getViewModel() = StorageViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ) = FragmentStorageBinding.inflate(inflater, container, false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentStorageBinding.inflate(inflater, container, false)
+    override fun getRepository() =
+        StorageRepository(ApiAdapter.buildApi(ApiService::class.java))
 
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,5 +62,6 @@ class StorageFragment : Fragment() {
         })
 
     }
+
 
 }

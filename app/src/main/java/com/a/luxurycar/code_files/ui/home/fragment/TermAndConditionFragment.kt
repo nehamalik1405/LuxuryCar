@@ -6,17 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.TermAndConditionRepository
+import com.a.luxurycar.code_files.view_model.TermAndConditionViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentTermAndConditionBinding
 
-class TermAndConditionFragment : Fragment() {
+class TermAndConditionFragment : BaseFragment<TermAndConditionViewModel,FragmentTermAndConditionBinding,TermAndConditionRepository>() {
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_term_and_condition, container, false)
-    }
+
+    override fun getViewModel()=TermAndConditionViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentTermAndConditionBinding.inflate(inflater,container,false)
+
+    override fun getRepository()= TermAndConditionRepository(ApiAdapter.buildApi(ApiService::class.java))
 
 
 }

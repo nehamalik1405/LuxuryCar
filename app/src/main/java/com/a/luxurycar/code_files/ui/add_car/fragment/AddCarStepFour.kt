@@ -5,19 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.AddCarRepository
+import com.a.luxurycar.code_files.view_model.AddCarViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.databinding.FragmentAddCarStepFourBinding
 
 
-class AddCarStepFour : Fragment() {
+class AddCarStepFour : BaseFragment<AddCarViewModel,FragmentAddCarStepFourBinding,AddCarRepository>() {
 
-    var _binding: FragmentAddCarStepFourBinding?=null
-    val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
+    override fun getViewModel()=AddCarViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentAddCarStepFourBinding.inflate(inflater,container,false)
+    override fun getRepository()= AddCarRepository(ApiAdapter.buildApi(ApiService::class.java))
 
-        _binding = FragmentAddCarStepFourBinding.inflate(inflater,container,false)
-        return binding.root
-    }
 }

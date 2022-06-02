@@ -7,23 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.FindGaragesRepository
 import com.a.luxurycar.code_files.ui.home.adapter.FindGarageAdapter
+import com.a.luxurycar.code_files.view_model.FindGaragesViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.databinding.FragmentFindGaragesBinding
 
 
-class FindGaragesFragment : Fragment() {
+class FindGaragesFragment : BaseFragment<FindGaragesViewModel,FragmentFindGaragesBinding,FindGaragesRepository>() {
 
-    var _binding: FragmentFindGaragesBinding?=null
-    val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        _binding = FragmentFindGaragesBinding.inflate(inflater,container,false)
+    override fun getViewModel() = FindGaragesViewModel::class.java
 
-        return binding.root
-    }
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )=FragmentFindGaragesBinding.inflate(inflater,container,false)
+    override fun getRepository()= FindGaragesRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,12 +33,8 @@ class FindGaragesFragment : Fragment() {
     }
 
     private fun manageClickListener() {
-
         val findGarageAdapter =FindGarageAdapter()
         binding.recyclerViewFindGarages.adapter = findGarageAdapter
-        binding.recyclerViewFindGarages.setLayoutManager(GridLayoutManager(requireContext(), 2))
-
     }
-
 
 }

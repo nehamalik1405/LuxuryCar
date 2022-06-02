@@ -48,14 +48,36 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manageListeners()
-
-
+        liveDataObserver()
     }
+
+    private fun liveDataObserver() {
+        viewModel.LoginResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarLoginPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        SessionManager.saveUserData(it.values)
+                        StartActivity(HomeActivity::class.java)
+                        requireActivity().finishAffinity()
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
+
 
     private fun manageListeners() {
 
         binding.txtViewRegister.setOnClickListener {
-            findNavController().navigate(R.id.registerBuyerAndSellerFragment)
+            findNavController().navigate(R.id.registerationType)
         }
 
         binding.btnLogin.setOnClickListener {
@@ -87,8 +109,8 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
 
     private fun isValidation(): Boolean {
 
-        email = binding.edtTextEmail.text.toString().trim()
-        password = binding.edtTextPassword.text.toString().trim()
+        email = binding.edtTextEmail.getTextInString()
+        password = binding.edtTextPassword.getTextInString()
 
 
         if (Utils.isEmptyOrNull(email)) {
@@ -106,40 +128,15 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
 
     }
 
-    private fun callLoginApi() {
-        login()
-
-        viewModel.LoginResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressBarLoginPage.visible(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        SessionManager.saveUserData(it.values)
-                        StartActivity(HomeActivity::class.java)
-                        requireActivity().finishAffinity()
-                    }
-                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-
-    }
-
-    private fun login() {
+    private fun callLoginApi()  {
 
         val jsonObject = JSONObject()
         try {
             jsonObject.put(Const.PARAM_EMAIL, email)
             jsonObject.put(Const.PARAM_PASSWARD, password)
-            jsonObject.put("device_id", getDeviceId())
-            jsonObject.put("device_token", "test")
-            jsonObject.put("device_type", "A")
+            jsonObject.put(Const.PARAM_DEVICE_ID, getDeviceId())
+            jsonObject.put(Const.PARAM_DEVICE_TOKEN, "test")
+            jsonObject.put(Const.PARAM_DEVICE_TYPE, "A")
         } catch (e: Exception) {
             e.printStackTrace()
         }

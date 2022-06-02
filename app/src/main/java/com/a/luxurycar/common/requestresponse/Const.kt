@@ -20,6 +20,11 @@ class Const {
         const val PARAM_LAST_NAME = "lastname"
         const val PARAM_Phone = "phone"
 
+        // params for login
+        const val PARAM_DEVICE_ID = "device_id"
+        const val PARAM_DEVICE_TOKEN = "device_token"
+        const val PARAM_DEVICE_TYPE = "device_type"
+
         //params for change password
         const val PARAM_OLD_PASSWARD = "old_password"
         const val PARAM_NEW_PASSWARD = "newpassword"

@@ -56,9 +56,46 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         setSelectionOnButton()
         callHomePageApi()
         manageSpinnerItemsLIst()
+        liveDataObserver()
         binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.productDetailFragment)
         }
+    }
+
+    private fun liveDataObserver() {
+        viewModel.AdvertiserSuggestedListResponse.observe(viewLifecycleOwner , androidx.lifecycle.Observer {
+            binding.progressBarHomePage.visible(it is Resource.Loading)
+            when (it) {
+
+                is Resource.Success -> {
+                    if(it != null) {
+
+                        //initiaize suggested list
+                        arrBannerList = arrayListOf()
+                        arrSuggestedList = arrayListOf()
+                        arrPremiumList = arrayListOf()
+                        arrPromotedList = arrayListOf()
+
+                        arrBannerList=it.values.data!!.banners!!.list
+
+                        arrSuggestedList=it.values.data!!.suggestedCars!!.list
+
+                        arrPremiumList=it.values.data!!.premiumCars!!.list
+
+                        arrPromotedList=it.values.data!!.promotedCars!!.list
+
+                        setSuggestedList()
+                        setPremiumList()
+                        setPromotedList()
+                        setViewPager()
+                        checkListNullability()
+
+                    }
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+
     }
 
     private fun manageSpinnerItemsLIst() {
@@ -158,45 +195,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
 
 
     }
-
-
-
     private fun callHomePageApi() {
         viewModel.getAdvertiserSuggestedListResponse()
-
-        viewModel.AdvertiserSuggestedListResponse.observe(viewLifecycleOwner , androidx.lifecycle.Observer {
-            binding.progressBarHomePage.visible(it is Resource.Loading)
-            when (it) {
-
-                is Resource.Success -> {
-                    if(it != null) {
-
-                        //initiaize suggested list
-                        arrBannerList = arrayListOf()
-                        arrSuggestedList = arrayListOf()
-                        arrPremiumList = arrayListOf()
-                        arrPromotedList = arrayListOf()
-
-                        arrBannerList=it.values.data!!.banners!!.list
-
-                        arrSuggestedList=it.values.data!!.suggestedCars!!.list
-
-                        arrPremiumList=it.values.data!!.premiumCars!!.list
-
-                        arrPromotedList=it.values.data!!.promotedCars!!.list
-
-                        setSuggestedList()
-                        setPremiumList()
-                        setPromotedList()
-                        setViewPager()
-                        checkListNullability()
-
-                    }
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-
     }
     private fun checkListNullability() {
         if (!arrSuggestedList.isEmpty()){

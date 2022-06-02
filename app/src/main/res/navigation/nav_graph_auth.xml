@@ -61,8 +61,8 @@
             app:destination="@id/otpVarificationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/registerBuyerAndSellerFragment"
-        android:name="com.a.luxurycar.code_files.ui.auth.fragment.RegisterBuyerAndSellerFragment"
+        android:id="@+id/registerationType"
+        android:name="com.a.luxurycar.code_files.ui.auth.fragment.RegistrationType"
         android:label="fragment_register_buyer_and_seller"
         tools:layout="@layout/fragment_register_buyer_and_seller" />
     <fragment

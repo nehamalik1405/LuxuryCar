@@ -6,16 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.NewEnquiryFormRepository
+import com.a.luxurycar.code_files.view_model.NewEnquiryFormViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentNewEnquiryFormStorageBinding
 
 
-class NewEnquiryFormStorageFragment : Fragment() {
+class NewEnquiryFormStorageFragment : BaseFragment<NewEnquiryFormViewModel,FragmentNewEnquiryFormStorageBinding,NewEnquiryFormRepository>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_enquiry_form_storage, container, false)
-    }
 
+    override fun getViewModel() = NewEnquiryFormViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentNewEnquiryFormStorageBinding.inflate(inflater,container,false)
+
+    override fun getRepository()= NewEnquiryFormRepository(ApiAdapter.buildApi(ApiService::class.java))
 }

@@ -1,14 +1,18 @@
 package com.a.luxurycar.code_files.ui.add_car.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.AddCarRepository
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
 import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
+import com.a.luxurycar.code_files.view_model.AddCarViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.databinding.FragmentAddCarStepTwoBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,20 +22,17 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class AddCarStepTwo : Fragment(),OnMapReadyCallback {
+class AddCarStepTwo : BaseFragment<AddCarViewModel, FragmentAddCarStepTwoBinding, AddCarRepository>(),OnMapReadyCallback {
     private lateinit var map: GoogleMap
     lateinit var list:ArrayList<ProductDetailImageModel>
     var page = ""
-    var _binding: FragmentAddCarStepTwoBinding?=null
-    val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
 
-        _binding = FragmentAddCarStepTwoBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+    override fun getViewModel()=AddCarViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentAddCarStepTwoBinding.inflate(inflater,container,false)
+    override fun getRepository()= AddCarRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

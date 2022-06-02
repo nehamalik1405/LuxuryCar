@@ -35,6 +35,10 @@ fun View.hideKeyboard() {
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }
+fun EditText.AddTextChangedListener(edtTextFirst:EditText,edtTextSecond:EditText){
+    addTextChangedListener(GenericTextWatcher(edtTextFirst,
+        edtTextSecond))
+}
 fun JSONObject.convertJsonToRequestBody() : RequestBody {
     return (RequestBody.create(
         "application/json; charset=utf-8".toMediaTypeOrNull(),

@@ -9,6 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.ContactRepository
+import com.a.luxurycar.code_files.view_model.ContactViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.utils.Utils
 import com.a.luxurycar.common.utils.getStringFromResource
 import com.a.luxurycar.common.utils.getTextInString
@@ -21,26 +26,23 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class ContactFragment : Fragment(), OnMapReadyCallback {
+class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, ContactRepository>(),
+    OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
-    var _binding: FragmentContactBinding? = null
-    val binding get() = _binding!!
-
     var firstName = ""
     var lastName = ""
     var email = ""
     var phone = ""
     var description = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        _binding = FragmentContactBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun getViewModel() = ContactViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ) = FragmentContactBinding.inflate(inflater, container, false)
 
+    override fun getRepository() = ContactRepository((ApiAdapter.buildApi(ApiService::class.java)))
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -107,6 +109,5 @@ class ContactFragment : Fragment(), OnMapReadyCallback {
         map.addMarker(MarkerOptions().position(india).title("India location"))
         map.moveCamera(CameraUpdateFactory.newLatLng(india))
     }
-
 
 }

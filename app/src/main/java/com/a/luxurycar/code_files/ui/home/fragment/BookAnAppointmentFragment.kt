@@ -6,15 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.a.luxurycar.R
-class BookAnAppointmentFragment : Fragment() {
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.BookAnAppointmentRepository
+import com.a.luxurycar.code_files.view_model.BookAnAppointmentViewmodel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentBookAnAppointmentBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_an_appointment, container, false)
-    }
+class BookAnAppointmentFragment : BaseFragment<BookAnAppointmentViewmodel,FragmentBookAnAppointmentBinding,BookAnAppointmentRepository>() {
+
+    override fun getViewModel()=BookAnAppointmentViewmodel::class.java
+        override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ) = FragmentBookAnAppointmentBinding.inflate(inflater,container,false)
+
+    override fun getRepository() = BookAnAppointmentRepository(ApiAdapter.buildApi(ApiService::class.java))
 
 
 }

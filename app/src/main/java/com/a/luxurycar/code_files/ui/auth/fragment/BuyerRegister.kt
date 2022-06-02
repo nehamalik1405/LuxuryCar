@@ -28,36 +28,55 @@ import com.a.luxurycar.databinding.FragmentRegisterBinding
 import org.json.JSONObject
 
 
-class BuyerRegister : BaseFragment<RegistrationViewModel, FragmentRegisterBinding,RegistrationRepository>() {
+class BuyerRegister :
+    BaseFragment<RegistrationViewModel, FragmentRegisterBinding, RegistrationRepository>() {
     var isShowPassword = false
-    var firstName=""
-    var lastName=""
-    var email= ""
-    var phone=""
-    var password=""
-    var confirm_password=""
+    var firstName = ""
+    var lastName = ""
+    var email = ""
+    var phone = ""
+    var password = ""
+    var confirmPassword = ""
     override fun getViewModel() = RegistrationViewModel::class.java
 
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentRegisterBinding.inflate(inflater,container,false)
+    ) = FragmentRegisterBinding.inflate(inflater, container, false)
 
-    override fun getRepository()= RegistrationRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository() =
+        RegistrationRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         manageListeners()
+        liveDataObserver()
 
+    }
+
+    private fun liveDataObserver() {
+        viewModel.RegisterResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarLoginPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+
+                        findNavController().popBackStack()
+                    }
+                    Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
     }
 
     private fun manageListeners() {
 
         binding.btnRegister.setOnClickListener {
             it.hideKeyboard()
-            if (isRegisterDataValid()){
+            if (isRegisterDataValid()) {
                 callRegisterApi()
             }
         }
@@ -97,31 +116,13 @@ class BuyerRegister : BaseFragment<RegistrationViewModel, FragmentRegisterBindin
     }
 
     private fun callRegisterApi() {
-        createRequestAndCallRegisterApi()
-
-        viewModel.RegisterResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressBarLoginPage.visible(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-
-                        findNavController().popBackStack()
-                    }
-                    Toast.makeText(requireContext(),it.values.message,Toast.LENGTH_LONG).show()
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-    }
-
-    private fun createRequestAndCallRegisterApi() {
         val jsonObject = JSONObject()
         try {
             jsonObject.put(Const.PARAM_FIRST_NAME, firstName)
             jsonObject.put(Const.PARAM_LAST_NAME, lastName)
             jsonObject.put(Const.PARAM_EMAIL, email)
             jsonObject.put(Const.PARAM_PASSWARD, password)
-            jsonObject.put(Const.PARAM_CONFIRM_PASSWARD, confirm_password)
+            jsonObject.put(Const.PARAM_CONFIRM_PASSWARD, confirmPassword)
             jsonObject.put(Const.PARAM_Phone, phone)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -137,37 +138,34 @@ class BuyerRegister : BaseFragment<RegistrationViewModel, FragmentRegisterBindin
         email = binding.edtTextEmail.text.toString().trim()
         phone = binding.edtTextMobileNo.text.toString().trim()
         password = binding.edtTextPassword.text.toString().trim()
-        confirm_password = binding.edtTextConfirmPassword.text.toString().trim()
+        confirmPassword = binding.edtTextConfirmPassword.text.toString().trim()
     }
+
     private fun isRegisterDataValid(): Boolean {
 
         getDataFromEditField()
         if (Utils.isEmptyOrNull(firstName)) {
             binding.edtTextFirstName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_first_name))
             return false
-        }
-        else if (Utils.isEmptyOrNull(lastName)) {
+        } else if (Utils.isEmptyOrNull(lastName)) {
             binding.edtTextLastName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_last_name))
             return false
-        }
-        else if (Utils.isEmptyOrNull(email)) {
+        } else if (Utils.isEmptyOrNull(email)) {
             binding.edtTextEmail.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_email))
             return false
         } else if (!isValidEmail(email)) {
             binding.edtTextEmail.showErrorAndSetFocus(getStringFromResource(R.string.error_invalid_email))
             return false
-        }
-        else if (Utils.isEmptyOrNull(phone)) {
+        } else if (Utils.isEmptyOrNull(phone)) {
             binding.edtTextMobileNo.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_mobile_no))
             return false
-        }
-        else if (Utils.isEmptyOrNull(password)) {
+        } else if (Utils.isEmptyOrNull(password)) {
             binding.edtTextPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_password))
             return false
-        } else if (Utils.isEmptyOrNull(confirm_password)) {
+        } else if (Utils.isEmptyOrNull(confirmPassword)) {
             binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_confirm_password))
             return false
-        } else if (!confirm_password.equals(password)) {
+        } else if (!confirmPassword.equals(password)) {
             binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_password_not_match))
             return false
         }

@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.AdvertiseWithUsRepository
+import com.a.luxurycar.code_files.view_model.AdvertiseWithUsViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentAdvertiseWithUsBinding
 
 
-class AdvertiseWithUsFragment : Fragment() {
+class AdvertiseWithUsFragment : BaseFragment<AdvertiseWithUsViewModel,FragmentAdvertiseWithUsBinding,AdvertiseWithUsRepository>() {
 
+    override fun getViewModel() = AdvertiseWithUsViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )=FragmentAdvertiseWithUsBinding.inflate(inflater,container,false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_advertise_with_us, container, false)
-    }
-
+    override fun getRepository() = AdvertiseWithUsRepository(ApiAdapter.buildApi(ApiService::class.java))
 }

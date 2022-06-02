@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.UpdateDetailRepository
 import com.a.luxurycar.code_files.ui.home.HomeActivity
@@ -37,50 +38,11 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         super.onViewCreated(view, savedInstanceState)
         manageSessionData()
         manageListenerEvent()
+        liveDataObserver()
 
     }
 
-    private fun manageListenerEvent() {
-        binding.btnSaveMyDetails.setOnClickListener {
-            onClickUpdateProfileBtn()
-        }
-    }
-
-    private fun onClickUpdateProfileBtn() {
-        firstName = binding.edtTextFirstName.text.toString().trim()
-        lastname = binding.edtTextLastName.text.toString().trim()
-        email = binding.edtTextEmail.text.toString().trim()
-        phone = binding.edtTextMobileNo.text.toString().trim()
-
-        if(isDataValid()) {
-            callUpdateDeatilApi()
-        }
-
-    }
-
-    private fun isDataValid(): Boolean {
-
-        if(Utils.isEmptyOrNull(firstName)) {
-            binding.edtTextFirstName.error = "Please enter first name."
-            binding.edtTextFirstName.requestFocus()
-            return false
-        } else if(Utils.isEmptyOrNull(lastname)) {
-            binding.edtTextLastName.error = "Please enter last name."
-            binding.edtTextLastName.requestFocus()
-            return false
-        } else if(Utils.isEmptyOrNull(phone)) {
-            binding.edtTextMobileNo.error = "Please enter mobile number."
-            binding.edtTextMobileNo.requestFocus()
-            return false
-        }
-        return true
-
-
-    }
-
-    private fun callUpdateDeatilApi() {
-        viewModel.getUpdateDetails(firstName,lastname,email,phone)
-
+    private fun liveDataObserver() {
         viewModel.UpdateDetailResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
@@ -98,7 +60,47 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
                 is Resource.Failure -> handleApiErrors(it)
             }
         })
+    }
 
+    private fun manageListenerEvent() {
+        binding.btnSaveMyDetails.setOnClickListener {
+            onClickUpdateProfileBtn()
+        }
+    }
+
+    private fun onClickUpdateProfileBtn() {
+        firstName = binding.edtTextFirstName.getTextInString()
+        lastname = binding.edtTextLastName.getTextInString()
+        email = binding.edtTextEmail.getTextInString()
+        phone = binding.edtTextMobileNo.getTextInString()
+
+        if(isDataValid()) {
+            callUpdateDeatilApi()
+        }
+
+    }
+
+    private fun isDataValid(): Boolean {
+
+        if(Utils.isEmptyOrNull(firstName)) {
+            binding.edtTextFirstName.error = getString(R.string.str_please_enter_your_first_name)
+            binding.edtTextFirstName.requestFocus()
+            return false
+        } else if(Utils.isEmptyOrNull(lastname)) {
+            binding.edtTextLastName.error = getString(R.string.str_please_enter_your_last_name)
+            binding.edtTextLastName.requestFocus()
+            return false
+        } else if(Utils.isEmptyOrNull(phone)) {
+            binding.edtTextMobileNo.error = getString(R.string.str_please_enter_your_mobile_number)
+            binding.edtTextMobileNo.requestFocus()
+            return false
+        }
+        return true
+
+    }
+
+    private fun callUpdateDeatilApi() {
+        viewModel.getUpdateDetails(firstName,lastname,email,phone)
     }
 
     private fun updateDataInSession() {

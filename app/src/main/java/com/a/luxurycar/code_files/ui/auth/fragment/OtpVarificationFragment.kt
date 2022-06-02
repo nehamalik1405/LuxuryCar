@@ -2,6 +2,7 @@ package com.a.luxurycar.code_files.ui.auth.fragment
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,8 +25,8 @@ import com.a.luxurycar.databinding.FragmentOtpVarificationBinding
 import org.json.JSONObject
 
 
-class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtpVarificationBinding,ForgotPasswordRepository>() {
-
+class OtpVarificationFragment :
+    BaseFragment<ForgotPasswordViewModel, FragmentOtpVarificationBinding, ForgotPasswordRepository>() {
 
 
     var edtTextCodeOne = ""
@@ -34,10 +35,11 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
     var edtTextCodeFour = ""
     var otpForVerify = ""
     var isResend = false
-
-    lateinit var countDownTimer : CountDownTimer
+    var email = ""
+    lateinit var countDownTimer: CountDownTimer
     var countDownTime = 30000L
     var counter = 30
+    lateinit var bundle: Bundle
 
 
     override fun getViewModel() = ForgotPasswordViewModel::class.java
@@ -45,27 +47,76 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ) = FragmentOtpVarificationBinding.inflate(inflater,container,false)
+    ) = FragmentOtpVarificationBinding.inflate(inflater, container, false)
 
-    override fun getRepository() = ForgotPasswordRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository() =
+        ForgotPasswordRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        email = arguments?.getString("email").toString()
+        bundle=Bundle()
+        bundle.putString("email",email)
+
         manageClickListener()
+        liveDataObserver()
         setResentOtpTimer()
 
 
+    }
+
+    private fun liveDataObserver() {
+        //varify otp respone observer
+        viewModel.VerifyOtpResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarVerifyOtpPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+
+                        findNavController().navigate(R.id.updatePasswordFragment,bundle)
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+
+        //send otp response observer
+        viewModel.SendOtpResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarVerifyOtpPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        findNavController().navigate(R.id.updatePasswordFragment,bundle)
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
     }
 
     private fun setResentOtpTimer() {
 
         var counter = 30
 
-        countDownTimer = object: CountDownTimer(countDownTime,1000){
+        countDownTimer = object : CountDownTimer(countDownTime, 1000) {
             override fun onTick(p0: Long) {
                 isResend = false
                 counter--
-                binding.txtViewResendTimer.setText("["+counter+"]")
+                binding.txtViewResendTimer.setText("[" + counter + "]")
 
             }
 
@@ -81,14 +132,14 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
     }
 
     private fun manageClickListener() {
+
         binding.btnVerify.setOnClickListener {
             it.hideKeyboard()
-            if(isValidId()){
+            if (isValidId()) {
                 callVerifyOtpApi()
             }
         }
         manageAutoFillEditText()
-
         binding.txtViewResendCode.setOnClickListener {
             resendOtpClickEvent()
         }
@@ -96,23 +147,25 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
     }
 
     private fun resendOtpClickEvent() {
-        if(isResend) {
+        if (isResend) {
             isResend = false
 
             var counter = 30
-            binding.txtViewResendCode.setTextColor(ContextCompat.getColor(requireContext(),R.color.sub_title_color))
+            binding.txtViewResendCode.setTextColor(ContextCompat.getColor(requireContext(),
+                R.color.sub_title_color))
             binding.txtViewResendCode.setText(R.string.str_resend_code_no_underline)
-            countDownTimer = object: CountDownTimer(countDownTime,1000){
+            countDownTimer = object : CountDownTimer(countDownTime, 1000) {
                 override fun onTick(p0: Long) {
 
                     isResend = false
                     counter--
-                    binding.txtViewResendTimer.setText(""+counter)
+                    binding.txtViewResendTimer.setText("" + counter)
 
                 }
 
                 override fun onFinish() {
-                    binding.txtViewResendCode.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                    binding.txtViewResendCode.setTextColor(ContextCompat.getColor(requireContext(),
+                        R.color.green))
                     binding.txtViewResendCode.setText(R.string.str_resend_code)
                     binding.txtViewResendTimer.setText("")
                     isResend = true
@@ -124,44 +177,30 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
         }
     }
 
-
     private fun manageAutoFillEditText() {
-        binding.edtTextCodeOne.addTextChangedListener(GenericTextWatcher( binding.edtTextCodeOne, binding.edtTextCodeTwo))
-        binding.edtTextCodeTwo.addTextChangedListener(GenericTextWatcher(binding.edtTextCodeTwo, binding.edtTextCodeThree))
-        binding.edtTextCodeThree.addTextChangedListener(GenericTextWatcher(binding.edtTextCodeThree,  binding.edtTextCodeFour))
-        binding.edtTextCodeFour.addTextChangedListener(GenericTextWatcher( binding.edtTextCodeFour, null))
+        binding.edtTextCodeOne.addTextChangedListener(GenericTextWatcher(binding.edtTextCodeOne,
+            binding.edtTextCodeTwo))
+        binding.edtTextCodeTwo.addTextChangedListener(GenericTextWatcher(binding.edtTextCodeTwo,
+            binding.edtTextCodeThree))
+        binding.edtTextCodeThree.addTextChangedListener(GenericTextWatcher(binding.edtTextCodeThree,
+            binding.edtTextCodeFour))
+        binding.edtTextCodeFour.addTextChangedListener(GenericTextWatcher(binding.edtTextCodeFour,
+            null))
 
 
         binding.edtTextCodeOne.setOnKeyListener(GenericKeyEvent(binding.edtTextCodeOne, null))
-        binding.edtTextCodeTwo.setOnKeyListener(GenericKeyEvent(binding.edtTextCodeTwo, binding.edtTextCodeOne))
-        binding.edtTextCodeThree.setOnKeyListener(GenericKeyEvent( binding.edtTextCodeThree, binding.edtTextCodeTwo))
-        binding.edtTextCodeFour.setOnKeyListener(GenericKeyEvent( binding.edtTextCodeFour,binding.edtTextCodeThree))
+        binding.edtTextCodeTwo.setOnKeyListener(GenericKeyEvent(binding.edtTextCodeTwo,
+            binding.edtTextCodeOne))
+        binding.edtTextCodeThree.setOnKeyListener(GenericKeyEvent(binding.edtTextCodeThree,
+            binding.edtTextCodeTwo))
+        binding.edtTextCodeFour.setOnKeyListener(GenericKeyEvent(binding.edtTextCodeFour,
+            binding.edtTextCodeThree))
 
     }
 
     private fun callVerifyOtpApi() {
-        callRequestForVerifyOpt()
-        viewModel.VerifyOtpResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressBarVerifyOtpPage.visible(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.updatePasswordFragment)
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
-                    }
-                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
-                    }
 
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-    }
-
-    private fun callRequestForVerifyOpt() {
         val jsonObject = JSONObject()
-        val email = SessionManager.getEmail()
         try {
             jsonObject.put(Const.PARAM_EMAIL, email)
             jsonObject.put(Const.PARAM_OTP, otpForVerify)
@@ -174,10 +213,8 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
 
     }
 
-
-
     private fun callResendOtpApi() {
-        val email = SessionManager.getEmail()
+
         val jsonObject = JSONObject()
         try {
             jsonObject.put(Const.PARAM_EMAIL, email)
@@ -187,48 +224,32 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
         }
         val body = jsonObject.convertJsonToRequestBody()
         viewModel.getSendOtpResponse(body)
-
-        viewModel.SendOtpResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressBarVerifyOtpPage.visible(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.otpVarificationFragment)
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
-                    }
-                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-
-
     }
 
-
     private fun isValidId(): Boolean {
-        edtTextCodeOne = binding.edtTextCodeOne.text.toString().trim()
-        edtTextCodeTwo = binding.edtTextCodeTwo.text.toString().trim()
-        edtTextCodeThree = binding.edtTextCodeThree.text.toString().trim()
-        edtTextCodeFour = binding.edtTextCodeFour.text.toString().trim()
+        edtTextCodeOne = binding.edtTextCodeOne.getTextInString()
+        edtTextCodeTwo = binding.edtTextCodeTwo.getTextInString()
+        edtTextCodeThree = binding.edtTextCodeThree.getTextInString()
+        edtTextCodeFour = binding.edtTextCodeFour.getTextInString()
         otpForVerify = edtTextCodeOne + edtTextCodeTwo + edtTextCodeThree + edtTextCodeFour
 
-        if(Utils.isEmptyOrNull(otpForVerify)) {
-            Toast.makeText(requireContext(), "Please enter OTP.", Toast.LENGTH_LONG).show()
+        if (Utils.isEmptyOrNull(otpForVerify)) {
+
+            Toast.makeText(requireContext(),
+                getString(R.string.str_please_enter_otp),
+                Toast.LENGTH_LONG).show()
             //findNavController().navigate(R.id.updatePasswordFragment)
             return false
-        }else if(otpForVerify.length < 4) {
-            Toast.makeText(requireContext(), "Please enter proper otp.", Toast.LENGTH_LONG).show()
+        } else if (otpForVerify.length < 4) {
+            Toast.makeText(requireContext(),
+                getString(R.string.str_please_enter_proper_otp),
+                Toast.LENGTH_LONG).show()
             //findNavController().navigate(R.id.updatePasswordFragment)
             return false
         }
 
         return true
     }
-
 
 
 }

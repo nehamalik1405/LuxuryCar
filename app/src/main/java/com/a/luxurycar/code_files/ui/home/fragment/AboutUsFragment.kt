@@ -6,16 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.AboutUsRepository
+import com.a.luxurycar.code_files.view_model.AboutUsViewModel
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.databinding.FragmentAboutUsBinding
 
-class AboutUsFragment : Fragment() {
+class AboutUsFragment : BaseFragment<AboutUsViewModel,FragmentAboutUsBinding,AboutUsRepository>() {
 
+    override fun getViewModel()= AboutUsViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentAboutUsBinding.inflate(inflater,container,false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about_us, container, false)
-    }
+    override fun getRepository() = AboutUsRepository(ApiAdapter.buildApi(ApiService::class.java))
 
 }

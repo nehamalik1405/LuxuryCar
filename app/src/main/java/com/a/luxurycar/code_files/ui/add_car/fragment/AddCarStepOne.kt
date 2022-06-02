@@ -20,9 +20,14 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.base.BaseFragment
+import com.a.luxurycar.code_files.repository.AddCarRepository
 import com.a.luxurycar.code_files.ui.add_car.adapter.AddMultipleImageAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.AddMultipleImageModel
+import com.a.luxurycar.code_files.view_model.AddCarViewModel
 import com.a.luxurycar.common.helper.AlertDialogHelper
+import com.a.luxurycar.common.requestresponse.ApiAdapter
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.databinding.FragmentAddCarStepOneBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -37,7 +42,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddCarStepOne : Fragment(), OnMapReadyCallback {
+class AddCarStepOne :
+    BaseFragment<AddCarViewModel, FragmentAddCarStepOneBinding, AddCarRepository>(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     var PICK_IMAGE_MULTIPLE = 321
     var CAMERA_REQUEST = 122
@@ -51,18 +57,13 @@ class AddCarStepOne : Fragment(), OnMapReadyCallback {
     }
 
     lateinit var listImage: ArrayList<AddMultipleImageModel>
-    var _binding: FragmentAddCarStepOneBinding? = null
-    val binding get() = _binding!!
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-
-        _binding = FragmentAddCarStepOneBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun getViewModel()=AddCarViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentAddCarStepOneBinding.inflate(inflater,container,false)
+    override fun getRepository()= AddCarRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -146,9 +147,6 @@ class AddCarStepOne : Fragment(), OnMapReadyCallback {
         }
     }
 
-
-    // var image_uri: String? = ""
-
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -156,16 +154,12 @@ class AddCarStepOne : Fragment(), OnMapReadyCallback {
             galleryAddPic()
         } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == AppCompatActivity.RESULT_OK) {
 
-
             if (data != null) {
                 if (data?.getClipData() != null) {
                     val count = data.clipData!!.itemCount
 
                     for (i in 0..count - 1) {
                         val contentURI = data.clipData!!.getItemAt(i).uri
-
-                        //val subStrig= path.subSequence(10,path.length)
-                        //Log.e("path",subStrig.toString())
                         val image_uri = contentURI.toString()
                         file = File(getPath(contentURI))
                         val imageName = file.name
@@ -179,15 +173,9 @@ class AddCarStepOne : Fragment(), OnMapReadyCallback {
                     val contentURI = data.data
                     val image_uri = contentURI.toString()
 
-                    //val pathName = contentURI?.path
-                    //pathName?.substring(pathName.lastIndexOf("/") + 1)
-
-
-
+                    //get the image name
                      file = File(getPath(contentURI))
-                    val imageName = file.name
-
-
+                     val imageName = file.name
 
                     listImage.add(AddMultipleImageModel(image_uri, imageName))
                     setImageRecyclerView()
@@ -404,18 +392,6 @@ class AddCarStepOne : Fragment(), OnMapReadyCallback {
         map.addMarker(MarkerOptions().position(india).title("India location"))
         map.moveCamera(CameraUpdateFactory.newLatLng(india))
     }
-
-
-    private fun selectMultipleImages() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
-            PICK_IMAGE_MULTIPLE)
-    }
-
-
 
 
 }

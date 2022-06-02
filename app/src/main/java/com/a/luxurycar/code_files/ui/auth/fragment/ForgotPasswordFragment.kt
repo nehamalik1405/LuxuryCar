@@ -40,6 +40,28 @@ class ForgotPasswordFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manageOnClickListener()
+        liveDataObserver()
+    }
+
+    private fun liveDataObserver() {
+        viewModel.SendOtpResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarForgotPasswordPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        val bundle = Bundle()
+                        bundle.putString("email", email)
+                        findNavController().navigate(R.id.otpVarificationFragment,bundle)
+                    }
+                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
     }
 
     private fun manageOnClickListener() {
@@ -52,32 +74,6 @@ class ForgotPasswordFragment :
     }
 
     private fun callSendOtpApi() {
-        callRequestSendOtpApi()
-        passEmailToOtpPage()
-        viewModel.SendOtpResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressBarForgotPasswordPage.visible(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.otpVarificationFragment)
-                    }
-                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-
-    }
-
-    private fun passEmailToOtpPage() {
-        SessionManager.setEmail(email)
-    }
-
-    private fun callRequestSendOtpApi() {
         val jsonObject = JSONObject()
         try {
             jsonObject.put(Const.PARAM_EMAIL, email)
