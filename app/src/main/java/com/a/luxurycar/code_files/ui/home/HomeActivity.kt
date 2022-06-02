@@ -489,7 +489,7 @@ class HomeActivity : AppCompatActivity() {
                 return true
             }
         })
-
+       // binding.navViewLeft.setupWithNavController(navController)
     }
 
     private fun setBottomNavigation() {
@@ -509,31 +509,6 @@ class HomeActivity : AppCompatActivity() {
                 }
                 else if(itemId == R.id.nav_follow_us) {
                     onButtonShowPopupWindowClick(findViewById(R.id.nav_follow_us))
-
-
-                    /* val imgYouTube = findViewById<ImageView>(R.id.imgViewYoutube)
-                    val imgViewLinkedIn = findViewById<ImageView>(R.id.imgViewLinkedIn)
-                    val imgViewInstagram = findViewById<ImageView>(R.id.imgViewInstagram)
-                    val imgViewFacebook = findViewById<ImageView>(R.id.imgViewFacebook)
-
-                    imgYouTube.setOnClickListener {
-                        consLayout.visibility = View.GONE
-                       Toast.makeText(applicationContext,"you tube",Toast.LENGTH_LONG).show()
-                     }
-                    imgViewLinkedIn.setOnClickListener {
-                        consLayout.visibility = View.GONE
-                        Toast.makeText(applicationContext,"Linkedin",Toast.LENGTH_LONG).show()
-                    }
-                    imgViewInstagram.setOnClickListener {
-                        consLayout.visibility = View.GONE
-                        Toast.makeText(applicationContext,"Instagram",Toast.LENGTH_LONG).show()
-                    }
-                    imgViewFacebook.setOnClickListener {
-                        consLayout.visibility = View.GONE
-                        Toast.makeText(applicationContext,"Facebook",Toast.LENGTH_LONG).show()
-                    }
-
-                }*/
                 }
             true
         }
