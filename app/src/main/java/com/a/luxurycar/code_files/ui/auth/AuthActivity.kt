@@ -21,7 +21,7 @@ class AuthActivity : AppCompatActivity() {
 
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        navController =findNavController(R.id.fragment)
+        navController =findNavController(R.id.authNavHostFragment)
 
         appBarConfiguration= AppBarConfiguration(
             setOf(

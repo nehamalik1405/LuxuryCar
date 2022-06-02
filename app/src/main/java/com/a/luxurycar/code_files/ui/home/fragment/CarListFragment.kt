@@ -32,10 +32,7 @@ class CarListFragment :BaseFragment<CarListViewModel, FragmentCarListBinding,Car
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val carListAdapter = CarListAdapter(requireContext())
-        val numberOfColumns = 2
-
         binding.recyclerviewCarList.adapter = carListAdapter
-        binding.recyclerviewCarList.setLayoutManager(GridLayoutManager(requireContext(), numberOfColumns))
     }
 
 }

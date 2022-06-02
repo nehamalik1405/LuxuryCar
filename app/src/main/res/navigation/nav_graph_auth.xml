@@ -10,7 +10,7 @@
         android:id="@+id/loginFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -22,7 +22,7 @@
         android:id="@+id/registerFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.BuyerRegister"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -31,7 +31,7 @@
         android:id="@+id/forgotPassword"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" >
+        tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgotPassword_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -43,7 +43,7 @@
         android:id="@+id/otpVarificationFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.OtpVarificationFragment"
         android:label="fragment_otp_varification"
-        tools:layout="@layout/fragment_otp_varification" >
+        tools:layout="@layout/fragment_otp_varification">
         <action
             android:id="@+id/action_otpVarificationFragment_to_forgotPassword"
             app:destination="@id/forgotPassword" />
@@ -55,7 +55,7 @@
         android:id="@+id/updatePasswordFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.UpdatePasswordFragment"
         android:label="fragment_update_password"
-        tools:layout="@layout/fragment_update_password" >
+        tools:layout="@layout/fragment_update_password">
         <action
             android:id="@+id/action_updatePasswordFragment_to_otpVarificationFragment"
             app:destination="@id/otpVarificationFragment" />

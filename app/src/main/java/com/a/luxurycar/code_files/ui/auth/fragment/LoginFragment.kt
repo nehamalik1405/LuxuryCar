@@ -31,7 +31,7 @@ import com.a.luxurycar.databinding.FragmentLoginBinding
 import org.json.JSONObject
 
 
-class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRepository>() {
+class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRepository>() {
     var isShowPassword = false
     var email = ""
     var password = ""
@@ -41,9 +41,9 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )=FragmentLoginBinding.inflate(inflater,container,false)
+    ) = FragmentLoginBinding.inflate(inflater, container, false)
 
-    override fun getRepository()= LoginRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository() = LoginRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,34 +53,24 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
     }
 
     private fun manageListeners() {
+
         binding.txtViewRegister.setOnClickListener {
             findNavController().navigate(R.id.registerBuyerAndSellerFragment)
         }
+
         binding.btnLogin.setOnClickListener {
             it.hideKeyboard()
-           if (isValidation()) {
-               callLoginApi()
-           }
-            binding.txtViewForgotPassword.setOnClickListener {
-                findNavController().navigate(R.id.forgotPassword)
+            if (isValidation()) {
+                callLoginApi()
             }
-
-            /*binding.edtTextPassword.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
-                if (actionId == EditorInfo.IME_ACTION_DONE ||
-                    event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                    if (isValidation()) {
-                        callLoginApi()
-                    }
-                    return@OnEditorActionListener true
-                }
-                false
-            })
-*/
-
         }
+
+
         binding.txtViewForgotPassword.setOnClickListener {
             findNavController().navigate(R.id.forgotPassword)
         }
+
+
         binding.imgViewEye.setOnClickListener {
             isShowPassword = !isShowPassword
             if (isShowPassword) {
@@ -97,7 +87,6 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
 
     private fun isValidation(): Boolean {
 
-        //  val emailPattern: String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         email = binding.edtTextEmail.text.toString().trim()
         password = binding.edtTextPassword.text.toString().trim()
 
@@ -126,11 +115,12 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
                         SessionManager.saveUserData(it.values)
-                          StartActivity(HomeActivity::class.java)
-                          requireActivity().finishAffinity()
+                        StartActivity(HomeActivity::class.java)
+                        requireActivity().finishAffinity()
                     }
                     if (it.values != null && !it.values.message.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
                     }
 
 
@@ -147,7 +137,7 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
         try {
             jsonObject.put(Const.PARAM_EMAIL, email)
             jsonObject.put(Const.PARAM_PASSWARD, password)
-            jsonObject.put("device_id", "test")
+            jsonObject.put("device_id", getDeviceId())
             jsonObject.put("device_token", "test")
             jsonObject.put("device_type", "A")
         } catch (e: Exception) {
@@ -157,10 +147,13 @@ class LoginFragment :  BaseFragment<LoginViewModel, FragmentLoginBinding, LoginR
         viewModel.getLoginResponse(body)
 
     }
-    fun getDeviceId(context:Context):String?{
-        return Settings.Secure.getString(context.contentResolver,Settings.Secure.ANDROID_ID)
-    }
 
+    fun getDeviceId(): String? {
+        return Settings.Secure.getString(
+            requireContext().contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
+    }
 
 
 }

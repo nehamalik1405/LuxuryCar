@@ -12,7 +12,7 @@ import com.a.luxurycar.databinding.FragmentRegisterBuyerAndSellerBinding
 
 class RegisterBuyerAndSellerFragment : Fragment() {
     var _binding: FragmentRegisterBuyerAndSellerBinding? = null
-    val binding get() = _binding!!;
+    val binding get() = _binding!!
 
 
     override fun onCreateView(
@@ -25,12 +25,20 @@ class RegisterBuyerAndSellerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        manageClickListeners()
+    }
+
+    private fun manageClickListeners() {
+
         binding.btnBuyer.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)
         }
+
         binding.btnSeller.setOnClickListener {
             findNavController().navigate(R.id.sellerRegisterFragment)
         }
+
     }
 
 }

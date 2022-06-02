@@ -70,7 +70,7 @@ class OtpVarificationFragment : BaseFragment<ForgotPasswordViewModel,FragmentOtp
             }
 
             override fun onFinish() {
-                binding.txtViewResendCode.setTextColor(ContextCompat.getColor(requireContext(),R.color.color_blue))
+                binding.txtViewResendCode.SetTextColor(R.color.color_blue)
                 binding.txtViewResendCode.setText(R.string.str_resend_code)
                 binding.txtViewResendTimer.setText("")
                 isResend = true

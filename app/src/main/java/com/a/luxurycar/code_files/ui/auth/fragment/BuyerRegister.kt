@@ -59,9 +59,6 @@ class BuyerRegister : BaseFragment<RegistrationViewModel, FragmentRegisterBindin
             it.hideKeyboard()
             if (isRegisterDataValid()){
                 callRegisterApi()
-               /* Toast.makeText(requireContext(),"Registration Successfully",Toast.LENGTH_LONG).show()
-                startActivity(Intent(requireContext(), HomeActivity::class.java))
-                (context as AuthActivity).finish()*/
             }
         }
 
@@ -107,8 +104,7 @@ class BuyerRegister : BaseFragment<RegistrationViewModel, FragmentRegisterBindin
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
-                        //SessionManager.setAuthorizationToken(it.values.data?.accessToken?:"")
-                       // findNavController().navigate(R.id.nav_choosePhotoFragment)
+
                         findNavController().popBackStack()
                     }
                     Toast.makeText(requireContext(),it.values.message,Toast.LENGTH_LONG).show()

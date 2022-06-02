@@ -89,7 +89,6 @@ class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpda
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.loginFragment)
                     }
                     if (it.values != null && !it.values.message.isNullOrEmpty()) {
