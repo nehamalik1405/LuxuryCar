@@ -13,14 +13,14 @@ import okhttp3.RequestBody
 
 class ChangePasswordViewModel(val repository:ChangePasswordRepository):BaseViewModel(repository) {
 
-    private val _ChangePasswordResponse: MutableLiveData<Resource<ChangePasswordModel>> = MutableLiveData()
-    val ChangePasswordResponse: LiveData<Resource<ChangePasswordModel>>
-        get() = _ChangePasswordResponse
+    private val _changePasswordResponse: MutableLiveData<Resource<ChangePasswordModel>> = MutableLiveData()
+    val changePasswordResponse: LiveData<Resource<ChangePasswordModel>>
+        get() = _changePasswordResponse
 
     fun getRegisterResponse(body: RequestBody) = viewModelScope.launch {
 
-        _ChangePasswordResponse.value = Resource.Loading
-        _ChangePasswordResponse.value = repository.getChangePasswordResponse(body)
+        _changePasswordResponse.value = Resource.Loading
+        _changePasswordResponse.value = repository.getChangePasswordResponse(body)
 
     }
 

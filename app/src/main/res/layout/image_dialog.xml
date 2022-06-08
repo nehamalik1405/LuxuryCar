@@ -5,8 +5,8 @@
     android:layout_gravity="center"
     android:gravity="center"
     >
-<ImageView
-    android:id="@+id/imgViewCarDialog"
+<com.jsibbold.zoomage.ZoomageView
+    android:id="@+id/imgViewCar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="fitXY"

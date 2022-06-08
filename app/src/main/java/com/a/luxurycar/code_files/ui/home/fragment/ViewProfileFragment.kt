@@ -43,7 +43,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
     }
 
     private fun liveDataObserver() {
-        viewModel.UpdateDetailResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.updateDetailResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {

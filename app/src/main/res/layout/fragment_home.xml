@@ -135,10 +135,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-
-
               <!--  <ImageView
                     android:id="@+id/imgViewDownSelectedMake"
                     android:layout_width="wrap_content"
@@ -451,7 +447,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
-            android:text="Suggested Listing"
+            android:text="@string/str_suggested_listing"
             android:textSize="@dimen/margin_17sp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
@@ -487,7 +483,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
-            android:text="Premium Listing"
+            android:text="@string/str_premium_listing"
             android:visibility="gone"
             android:textSize="@dimen/margin_17sp"
             android:layout_marginStart="@dimen/margin_15_dp"
@@ -523,7 +519,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
-            android:text="Promoted List"
+            android:text="@string/str_promoted_list"
             android:textSize="@dimen/margin_17sp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"

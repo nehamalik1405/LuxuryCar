@@ -66,7 +66,7 @@
                 style="@style/buttonFieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_45dp"
-                android:text="Buyer"
+                android:text="@string/str_buyer"
                 android:layout_marginTop="@dimen/margin_20_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +77,7 @@
                 style="@style/disableButtonFieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_45dp"
-                android:text="Seller"
+                android:text="@string/str_seller"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnBuyer" />

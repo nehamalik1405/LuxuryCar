@@ -60,7 +60,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Head Office:-"
+        android:text="@string/str_head_office"
         android:textAllCaps="true"
        style="@style/TextViewSubTitle"
         android:textSize="@dimen/margin_16sp"
@@ -70,7 +70,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Town Square Dubai"
+        android:text="@string/str_town_square_dubai"
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         style="@style/TextViewSubTitle"
@@ -83,15 +83,16 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="+91 "
+          android:text="@string/str_91"
           android:textSize="@dimen/margin_16sp"
           style="@style/TextViewSubTitle"
           />
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_5dp"
           android:textSize="@dimen/margin_16sp"
-          android:text="999 999 9999"
+          android:text="@string/str_999_999_9999"
           style="@style/TextViewSubTitle"
           />
     </LinearLayout>
@@ -107,7 +108,7 @@
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         android:layout_marginTop="@dimen/margin_10_dp"
-        android:text="53"
+        android:text="@string/str_53"
         android:textColor="@color/light_black"
         app:layout_constraintTop_toBottomOf="@+id/cardViewImageSeller"
         app:layout_constraintStart_toStartOf="@+id/cardViewImageSeller"/>
@@ -120,7 +121,7 @@
         style="@style/TextViewSubTitle"
         android:layout_marginTop="@dimen/margin_10_dp"
         android:layout_marginStart="@dimen/margin_10_dp"
-        android:text="For rent"
+        android:text="@string/str_for_rent"
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         android:textColor="@color/text_color_grey"
@@ -134,7 +135,7 @@
         style="@style/TextViewSubTitle"
         android:layout_marginStart="@dimen/margin_20_dp"
         android:layout_marginTop="@dimen/margin_10_dp"
-        android:text="30"
+        android:text="@string/str_30"
         android:textColor="@color/light_black"
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
@@ -149,7 +150,7 @@
         style="@style/TextViewSubTitle"
         android:layout_marginTop="@dimen/margin_10_dp"
         android:layout_marginStart="@dimen/margin_10_dp"
-        android:text="For sale"
+        android:text="@string/str_for_sale"
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         android:textColor="@color/text_color_grey"
@@ -166,7 +167,7 @@
         android:layout_marginTop="@dimen/margin_10_dp"
         android:layout_marginStart="@dimen/margin_10_dp"
         android:layout_marginEnd="@dimen/margin_10_dp"
-        android:text="Lorem Ipsum is simply dummy text of the printing and type industry. Lorem Ipsum has been the industry's standards dummy text ever seen the 1500s, whwn an unknown."
+        android:text="@string/str_lorem_ipsum_is_simply_dummy_text_of_the_printing_and_type_industry_lorem_ipsum_has_been_the_industry_s_standards_dummy_text_ever_seen_the_1500s_whwn_an_unknown"
         android:textColor="@color/light_black"
         app:layout_constraintTop_toBottomOf="@+id/txtViewForRentValue"
         app:layout_constraintStart_toStartOf="parent"
@@ -197,7 +198,7 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="For Sale"
+               android:text="@string/str_for_sale"
                android:fontFamily="@font/muli_bold"
                android:textColor="@color/black"
                android:textSize="@dimen/txt_size_14sp"
@@ -222,7 +223,7 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="For Rent"
+               android:text="@string/title_for_rent"
                android:fontFamily="@font/muli_bold"
                android:textColor="@color/black"
                android:textSize="@dimen/txt_size_14sp"
@@ -248,7 +249,7 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Buyer Enquiries"
+               android:text="@string/str_buyer_enquiries"
                android:textSize="@dimen/txt_size_14sp"
                android:fontFamily="@font/muli_bold"
                android:textColor="@color/black"
@@ -261,6 +262,7 @@
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"/>
        </androidx.constraintlayout.widget.ConstraintLayout>
+
        <ImageView
            android:id="@+id/imgViewFilterList"
            android:layout_width="@dimen/margin_25_dp"

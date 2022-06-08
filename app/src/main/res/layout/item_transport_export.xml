@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/muli_semi_bold"
-                android:text="Step"
+                android:text="@string/str_step"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/margin_14sp" />
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/muli_semi_bold"
-                android:text="1"
+                android:text="@string/str_1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/margin_14sp" />
         </LinearLayout>
@@ -76,7 +76,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:fontFamily="@font/muli_semi_bold"
-                android:text="Find a Car"
+                android:text="@string/str_find_a_car"
                 android:textColor="@color/black"
                 android:textSize="@dimen/margin_14sp" />
         </LinearLayout>
@@ -91,7 +91,7 @@
         android:layout_below="@+id/linLayoutFindACar"
         android:layout_marginTop="@dimen/margin_5dp"
         android:fontFamily="@font/muli_semi_bold"
-        android:text="Select your car/s from our listing or from any other website and provide our team with the URL link."
+        android:text="@string/str_select_your_car_s_from_our_listing_or_from_any_other_website_and_provide_our_team_with_the_url_link"
         android:textColor="@color/description_color"
         android:textSize="@dimen/margin_13dp" />
 

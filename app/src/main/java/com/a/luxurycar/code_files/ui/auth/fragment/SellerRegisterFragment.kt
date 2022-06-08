@@ -2,6 +2,9 @@ package com.a.luxurycar.code_files.ui.auth.fragment
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,11 +13,9 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,14 +25,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
-import com.a.luxurycar.code_files.repository.RegistrationRepository
-import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.code_files.repository.SellerRepository
 import com.a.luxurycar.code_files.ui.home.HomeActivity
-import com.a.luxurycar.code_files.ui.home.HomeActivity.Companion.REQUEST_SELECT_IMAGE_IN_ALBUM
-import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
-import com.a.luxurycar.code_files.view_model.RegistrationViewModel
+import com.a.luxurycar.code_files.view_model.SellerViewModel
+import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AlertDialogHelper
-import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
@@ -40,44 +38,70 @@ import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentSellerRegisterBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.coroutines.coroutineContext
 
-class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSellerRegisterBinding, RegistrationRepository>() {
+
+class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegisterBinding, SellerRepository>() {
     var isShowPassword = false
     var isShowConfirmPassword = false
+    var company = "Hero Motors"
     var firstName=""
     var lastName=""
     var email= ""
     var address=""
     var password=""
     var confirmPassword=""
-
+    var description = ""
+    var image_uri = ""
     companion object {
         private val REQUEST_TAKE_PHOTO = 321
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 123
     }
-    override fun getViewModel() = RegistrationViewModel::class.java
+    override fun getViewModel() = SellerViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     )= FragmentSellerRegisterBinding.inflate(inflater,container,false)
-    override fun getRepository()= RegistrationRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository()= SellerRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manageListeners()
+        liveDataObserver()
     }
+    private fun liveDataObserver() {
+        viewModel.sellerRegisterResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarSellerSignUpPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                      /*  startActivity(Intent(requireContext(), SellerDeshboardActivity::class.java))
+                        (context as AuthActivity).finish()*/
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
+                    }else{
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
+                    }
 
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
     private fun manageListeners() {
         binding.btnRegister.setOnClickListener {
             it.hideKeyboard()
+          //createImageInMultipartAndSendToServer()
             if (isRegisterDataValid()){
-                startActivity(Intent(requireContext(), SellerDeshboardActivity::class.java))
-                 (context as AuthActivity).finish()
+                callSellerRegisterApi()
             }
         }
 
@@ -114,7 +138,40 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
             }
         }
     }
+    private fun callSellerRegisterApi() {
+        val jsonObject = JSONObject()
+        val myRandomValues = (8000000000..9000000000).random()
+        try {
+           // jsonObject.put(Const.PARAM_FIRST_NAME, firstName)
+            //jsonObject.put(Const.PARAM_LAST_NAME, lastName)
+            jsonObject.put(Const.SELLER_COMPANY_NAME, company)
+            jsonObject.put(Const.SELLER_PARAM_EMAIL, email)
+            jsonObject.put(Const.SELLER_PARAM_PASSWARD, password)
+            jsonObject.put(Const.SELLER_PARAM_CONFIRM_PASSWARD, confirmPassword)
+            jsonObject.put(Const.SELLER_PARAM_Phone, "8057623211")
+            jsonObject.put(Const.SELLER_PARAM_LOCATION, address)
+            jsonObject.put(Const.SELLER_PARAM_DESCRIPTION, description)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
+        val body = jsonObject.convertJsonToRequestBody()
+        viewModel.getSellerRegisterResponse(body)
+    }
+    private fun createImageInMultipartAndSendToServer() {
+
+        var sellerImage: MultipartBody.Part? = null
+
+        try {
+            var file = FileUtil.from(LuxuryCarApplication.instance, Uri.parse(image_uri))
+            val surveyBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            sellerImage = MultipartBody.Part.createFormData("image", file!!.name, surveyBody)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        viewModel.getUpdateSellerImage(sellerImage!!)
+    }
     private fun getDataFromEditField() {
         firstName = binding.edtTextFirstName.getTextInString()
         lastName = binding.edtTextLastName.getTextInString()
@@ -122,6 +179,7 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
         address = binding.edtTextAddress.getTextInString()
         password = binding.edtTextPassword.getTextInString()
         confirmPassword = binding.edtTextConfirmPassword.getTextInString()
+        description = binding.edtTextDescription.getTextInString()
     }
     private fun isRegisterDataValid(): Boolean {
 
@@ -154,7 +212,11 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
         } else if (!confirmPassword.equals(password)) {
             binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_password_not_match))
             return false
+        }else if (Utils.isEmptyOrNull(description)) {
+            binding.edtTextDescription.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_description))
+            return false
         }
+
         return true
     }
 
@@ -236,8 +298,7 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
 
                     for (i in 0..count - 1) {
                         val contentURI = data.clipData!!.getItemAt(i).uri
-                        val image_uri = contentURI.toString()
-                        SessionManager.setImageUrl(image_uri)
+                        image_uri = contentURI.toString()
                         setPhoto()
                     }
 
@@ -245,8 +306,7 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
                     // if single image is selected
 
                     val contentURI = data.data
-                    val image_uri = contentURI.toString()
-                    SessionManager.setImageUrl(image_uri)
+                     image_uri = contentURI.toString()
                     setPhoto()
                 }
 
@@ -258,14 +318,14 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
     }
 
     private fun setPhoto() {
-        val image_Url = SessionManager.getImageUrl()
         binding.imgViewImageLogo.visibility = View.GONE
         binding.imgViewShowImage.visibility = View.VISIBLE
         //Picasso.get().load(image_Url.toString()).transform(CircleTransform()).into(imgViewProfile)
         // Picasso.get().load(image_Url.toString()).into(imageViewProfilePhoto)
-        if(image_Url != null){
+
+        if(image_uri != null){
             Glide.with(this)
-                .load(image_Url.toString())
+                .load(image_uri.toString())
                 .centerCrop()
                 .into(binding.imgViewShowImage)
         }
@@ -433,8 +493,7 @@ class SellerRegisterFragment : BaseFragment<RegistrationViewModel, FragmentSelle
         if (currentPhotoPath.isNotEmpty()) {
             val f = File(currentPhotoPath)
             //image_uri = compressTheImageBeforeSendingToServer(currentPhotoPath).toString()
-            val image_uri = Uri.fromFile(f).toString()
-            SessionManager.setImageUrl(image_uri)
+            image_uri = Uri.fromFile(f).toString()
             setPhoto()
         }
     }

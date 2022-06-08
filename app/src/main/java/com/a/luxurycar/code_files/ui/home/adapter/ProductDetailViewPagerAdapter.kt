@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.a.luxurycar.R
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.item_image.view.*
 
 class ProductDetailViewPagerAdapter(val context:Context,val list:ArrayList<ProductDetailImageModel>):RecyclerView.Adapter<ProductDetailViewPagerAdapter.ViewiewHolder>() {
     lateinit var productDetailImageModelList:ArrayList<ProductDetailImageModel>
+    var onItemClick:((ProductDetailImageModel) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewiewHolder {
         /* val view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false);
           return  ViewiewHolder(view);*/
@@ -33,51 +36,20 @@ class ProductDetailViewPagerAdapter(val context:Context,val list:ArrayList<Produ
         productDetailImageModelList  = arrayListOf()
         val item = list[position]
 
+        //Toast.makeText(context,"$position", Toast.LENGTH_LONG).show()
         //SessionManager.setViewPagerItem(item.image.toString())
         item.image?.let { Picasso.get().load(it).into(holder.imgViewItem) };
         holder.imgViewItem.setOnClickListener {
-            //tis line for current item
-         /* val currntItemList = mutableListOf<ProductDetailImageModel>()
-            currntItemList.add(ProductDetailImageModel(item.image))*/
-
-            // remove duplicate item in list
-            for (listItem in list) {
-                if (!productDetailImageModelList.contains(listItem)) {
-                    productDetailImageModelList.add(listItem)
-                    notifyItemChanged(position)
-
-                }
-            }
-
-            val dialog = Dialog(context, android.R.style.Theme_Light)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setContentView(R.layout.fragment_view_pager_details_image);
-            val imageCarViewpager = dialog.findViewById<ViewPager2>(R.id.imgViewCarDialog)
-            val tab = dialog.findViewById<TabLayout>(R.id.tab_layout)
-            val productDetailViewPagerAdapter = ProductDetailViewPagerAdapter(context,
-                productDetailImageModelList as ArrayList<ProductDetailImageModel>)
-           // productDetailImageModelList.clear()
-            imageCarViewpager.adapter= productDetailViewPagerAdapter
-            TabLayoutMediator(tab, imageCarViewpager) { tab, position ->
-
-            }.attach()
-
-            val imageBack = dialog.findViewById<ImageView>(R.id.imgViewBack)
-
-            //item.image?.let { Picasso.get().load(it).into(imageCarDialog) };
-            dialog.show();
-            imageBack.setOnClickListener {
-                dialog.dismiss()
-            }
-
-
-
+            onItemClick?.invoke(ProductDetailImageModel())
         }
+
+
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
+
 
     inner  class ViewiewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

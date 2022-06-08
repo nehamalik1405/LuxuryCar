@@ -67,7 +67,7 @@ class OtpVarificationFragment :
 
     private fun liveDataObserver() {
         //varify otp respone observer
-        viewModel.VerifyOtpResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.verifyOtpResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarVerifyOtpPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
@@ -88,7 +88,7 @@ class OtpVarificationFragment :
         })
 
         //send otp response observer
-        viewModel.SendOtpResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.sendOtpResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarVerifyOtpPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {

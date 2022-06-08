@@ -24,7 +24,7 @@
           android:layout_margin="@dimen/margin_10_dp"
           android:fontFamily="@font/muli_semi_bold"
           android:gravity="center"
-          android:text="Find Garages"
+          android:text="@string/str_find_garages"
           android:textColor="@color/white"
           android:textSize="@dimen/txt_size_15sp" />
 
@@ -51,7 +51,7 @@
               android:layout_height="@dimen/margin_40dp"
               android:layout_gravity="center_vertical"
               android:backgroundTint="@color/white"
-              android:hint="Enter a location or Company name"
+              android:hint="@string/str_enter_a_location_or_company_name"
               android:textSize="@dimen/margin_13sp"
               android:textColor="@color/black"
               android:textColorHint="@color/sub_title_color"

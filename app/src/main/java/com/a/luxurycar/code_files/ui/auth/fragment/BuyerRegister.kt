@@ -1,9 +1,7 @@
 package com.a.luxurycar.code_files.ui.auth.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,24 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
-import com.a.luxurycar.code_files.repository.RegistrationRepository
-import com.a.luxurycar.code_files.ui.auth.AuthActivity
-import com.a.luxurycar.code_files.ui.home.HomeActivity
-import com.a.luxurycar.code_files.view_model.RegistrationViewModel
-import com.a.luxurycar.common.helper.SessionManager
+import com.a.luxurycar.code_files.repository.BuyerRegistrationRepository
+import com.a.luxurycar.code_files.view_model.BuyerRegistrationViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.common.requestresponse.Resource
 import com.a.luxurycar.common.utils.*
-import com.a.luxurycar.common.utils.Utils.Companion.getDeviceId
 import com.a.luxurycar.common.utils.Utils.Companion.isValidEmail
 import com.a.luxurycar.databinding.FragmentRegisterBinding
 import org.json.JSONObject
 
 
 class BuyerRegister :
-    BaseFragment<RegistrationViewModel, FragmentRegisterBinding, RegistrationRepository>() {
+    BaseFragment<BuyerRegistrationViewModel, FragmentRegisterBinding, BuyerRegistrationRepository>() {
     var isShowPassword = false
     var firstName = ""
     var lastName = ""
@@ -37,8 +31,7 @@ class BuyerRegister :
     var phone = ""
     var password = ""
     var confirmPassword = ""
-    override fun getViewModel() = RegistrationViewModel::class.java
-
+    override fun getViewModel() = BuyerRegistrationViewModel::class.java
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -46,18 +39,18 @@ class BuyerRegister :
     ) = FragmentRegisterBinding.inflate(inflater, container, false)
 
     override fun getRepository() =
-        RegistrationRepository(ApiAdapter.buildApi(ApiService::class.java))
+        BuyerRegistrationRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         manageListeners()
         liveDataObserver()
-
     }
 
+
+
     private fun liveDataObserver() {
-        viewModel.RegisterResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.registerResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {

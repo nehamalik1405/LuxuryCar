@@ -13,38 +13,38 @@ import okhttp3.RequestBody
 class ForgotPasswordViewModel(val repository: ForgotPasswordRepository): BaseViewModel(repository) {
 
     // send otp viewmodel
-    private val _SendOtpResponse: MutableLiveData<Resource<OtpModel>> = MutableLiveData()
-    val SendOtpResponse: LiveData<Resource<OtpModel>>
-        get() = _SendOtpResponse
+    private val _sendOtpResponse: MutableLiveData<Resource<OtpModel>> = MutableLiveData()
+    val sendOtpResponse: LiveData<Resource<OtpModel>>
+        get() = _sendOtpResponse
 
     fun getSendOtpResponse(body: RequestBody) = viewModelScope.launch {
 
-        _SendOtpResponse.value = Resource.Loading
-        _SendOtpResponse.value = repository.getSendOtpResponse(body)
+        _sendOtpResponse.value = Resource.Loading
+        _sendOtpResponse.value = repository.getSendOtpResponse(body)
 
     }
 
     // verify otp viewmodel
-    private val _VerifyOtpResponse: MutableLiveData<Resource<OtpModel>> = MutableLiveData()
-    val VerifyOtpResponse: LiveData<Resource<OtpModel>>
-        get() = _VerifyOtpResponse
+    private val _verifyOtpResponse: MutableLiveData<Resource<OtpModel>> = MutableLiveData()
+    val verifyOtpResponse: LiveData<Resource<OtpModel>>
+        get() = _verifyOtpResponse
 
     fun getVerifyOtpResponse(body: RequestBody) = viewModelScope.launch {
 
-        _VerifyOtpResponse.value = Resource.Loading
-        _VerifyOtpResponse.value = repository.getVerifyResponse(body)
+        _verifyOtpResponse.value = Resource.Loading
+        _verifyOtpResponse.value = repository.getVerifyResponse(body)
 
     }
 
     // update password  viewmodel
-    private val _UpdatePasswordResponse: MutableLiveData<Resource<OtpModel>> = MutableLiveData()
-    val UpdatePasswordResponse: LiveData<Resource<OtpModel>>
-        get() = _UpdatePasswordResponse
+    private val _updatePasswordResponse: MutableLiveData<Resource<OtpModel>> = MutableLiveData()
+    val updatePasswordResponse: LiveData<Resource<OtpModel>>
+        get() = _updatePasswordResponse
 
     fun getUpdatePasswordResponse(email:String,new_password:String,confirm_password:String) = viewModelScope.launch {
 
-        _UpdatePasswordResponse.value = Resource.Loading
-        _UpdatePasswordResponse.value = repository.getUpdatePasswordResponse(email,new_password,confirm_password)
+        _updatePasswordResponse.value = Resource.Loading
+        _updatePasswordResponse.value = repository.getUpdatePasswordResponse(email,new_password,confirm_password)
 
     }
 }

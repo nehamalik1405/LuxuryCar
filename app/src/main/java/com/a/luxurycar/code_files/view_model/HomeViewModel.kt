@@ -12,14 +12,14 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(val repository: HomeRepository): BaseViewModel(repository){
 
-    private val _AdvertiserSuggestedListResponse: MutableLiveData<Resource<AdvertiserSuggestedListModel>> = MutableLiveData()
-    val AdvertiserSuggestedListResponse: LiveData<Resource<AdvertiserSuggestedListModel>>
-        get() = _AdvertiserSuggestedListResponse
+    private val _advertiserSuggestedListResponse: MutableLiveData<Resource<AdvertiserSuggestedListModel>> = MutableLiveData()
+    val advertiserSuggestedListResponse: LiveData<Resource<AdvertiserSuggestedListModel>>
+        get() = _advertiserSuggestedListResponse
 
     fun getAdvertiserSuggestedListResponse() = viewModelScope.launch {
 
-        _AdvertiserSuggestedListResponse.value = Resource.Loading
-        _AdvertiserSuggestedListResponse.value =repository.getAdvertiserSuggestedListResponse()
+        _advertiserSuggestedListResponse.value = Resource.Loading
+        _advertiserSuggestedListResponse.value =repository.getAdvertiserSuggestedListResponse()
 
     }
 

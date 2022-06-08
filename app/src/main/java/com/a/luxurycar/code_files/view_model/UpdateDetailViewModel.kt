@@ -13,14 +13,14 @@ import okhttp3.RequestBody
 class UpdateDetailViewModel(val repository: UpdateDetailRepository):BaseViewModel(repository) {
 
     //login response
-    private val _UpdateDetailResponse: MutableLiveData<Resource<UpdateDetailsModel>> = MutableLiveData()
-    val UpdateDetailResponse: LiveData<Resource<UpdateDetailsModel>>
-        get() = _UpdateDetailResponse
+    private val _updateDetailResponse: MutableLiveData<Resource<UpdateDetailsModel>> = MutableLiveData()
+    val updateDetailResponse: LiveData<Resource<UpdateDetailsModel>>
+        get() = _updateDetailResponse
 
     fun getUpdateDetails(firstName:String,lastName:String,email:String,phone:String) = viewModelScope.launch {
 
-        _UpdateDetailResponse.value = Resource.Loading
-        _UpdateDetailResponse.value = repository.getUpdateDetails(firstName,lastName,email,phone)
+        _updateDetailResponse.value = Resource.Loading
+        _updateDetailResponse.value = repository.getUpdateDetails(firstName,lastName,email,phone)
 
     }
 }

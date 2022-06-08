@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact us"
+                android:text="@string/str_contact_us"
                 android:textSize="@dimen/margin_14sp"
                 android:textColor="@color/light_black"
                 android:fontFamily="@font/muli_semi_bold"
@@ -32,7 +32,7 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Confirm the make,model,specification and budget of the vehicle you're after and any specialrequirement you have."
+    android:text="@string/str_confirm_the_make_model_specification_and_budget_of_the_vehicle_you_re_after_and_any_specialrequirement_you_have"
     android:fontFamily="@font/muli_semi_bold"
     android:gravity="center"
     android:textSize="@dimen/margin_13dp"

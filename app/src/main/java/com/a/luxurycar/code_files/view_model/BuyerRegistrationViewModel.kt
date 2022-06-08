@@ -4,30 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.a.luxurycar.code_files.base.BaseViewModel
-import com.a.luxurycar.code_files.repository.AuthRepository
-import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
+import com.a.luxurycar.code_files.repository.BuyerRegistrationRepository
+
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.common.requestresponse.Resource
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 
-class AuthViewModel(val repository: AuthRepository) : BaseViewModel(repository) {
+class BuyerRegistrationViewModel(val repository: BuyerRegistrationRepository): BaseViewModel(repository) {
 
-    //login response
-    private val _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
-    val LoginResponse: LiveData<Resource<LoginResponse>>
-        get() = _loginResponse
-
-    fun getLoginResponse(body: RequestBody) = viewModelScope.launch {
-
-        _loginResponse.value = Resource.Loading
-        _loginResponse.value = repository.getLoginResponse(body)
-
-    }
-
-    // registration response
     private val _registerResponse: MutableLiveData<Resource<RegistrationResponse>> = MutableLiveData()
-    val RegisterResponse: LiveData<Resource<RegistrationResponse>>
+    val registerResponse: LiveData<Resource<RegistrationResponse>>
         get() = _registerResponse
 
     fun getRegisterResponse(body: RequestBody) = viewModelScope.launch {
@@ -36,7 +23,4 @@ class AuthViewModel(val repository: AuthRepository) : BaseViewModel(repository) 
         _registerResponse.value = repository.getRegisterResponse(body)
 
     }
-
-
-
 }

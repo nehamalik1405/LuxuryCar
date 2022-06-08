@@ -2,12 +2,14 @@ package com.a.luxurycar.common.requestresponse
 
 
 
+import com.a.luxurycar.code_files.ui.auth.model.UploadSellerImage
 import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.AdvertiserSuggestedListModel
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateDetailsModel
+import okhttp3.MultipartBody
 
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -19,9 +21,19 @@ interface ApiService {
     @POST("login")
     suspend fun getLoginResponse(@Body body: RequestBody): LoginResponse
 
-    // registration api
+    // Buyer registration api
     @POST("buyers/registerAccount")
     suspend fun getRegisterResponse(@Body body: RequestBody): RegistrationResponse
+
+    // seller registration api
+    @POST("sellers/registerAccount")
+    suspend fun getSellerRegisterResponse(@Body body: RequestBody): RegistrationResponse
+    // upload seller image
+    @Multipart
+    @POST("sellers/updateImage")
+    suspend fun updateSellerImage(
+        @Part image: MultipartBody.Part
+    ): UploadSellerImage
 
     // change password api
     @POST("users/changePassword")

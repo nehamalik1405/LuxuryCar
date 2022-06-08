@@ -12,13 +12,24 @@ class Const {
 
 
 
-        // params for register athlete
+        // params for register
         const val PARAM_EMAIL = "email"
         const val PARAM_PASSWARD = "password"
         const val PARAM_CONFIRM_PASSWARD = "password_confirmation"
         const val PARAM_FIRST_NAME = "firstname"
         const val PARAM_LAST_NAME = "lastname"
         const val PARAM_Phone = "phone"
+
+        // params for seller register
+        const val SELLER_COMPANY_NAME = "company_name"
+        const val SELLER_PARAM_EMAIL = "email"
+        const val SELLER_PARAM_PASSWARD = "password"
+        const val SELLER_PARAM_CONFIRM_PASSWARD = "password_confirmation"
+        const val SELLER_PARAM_FIRST_NAME = "firstname"
+        const val SELLER_PARAM_LAST_NAME = "lastname"
+        const val SELLER_PARAM_Phone = "phone"
+        const val SELLER_PARAM_LOCATION = "location"
+        const val SELLER_PARAM_DESCRIPTION = "description"
 
         // params for login
         const val PARAM_DEVICE_ID = "device_id"

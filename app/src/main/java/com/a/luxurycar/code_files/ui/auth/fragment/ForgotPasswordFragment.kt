@@ -44,7 +44,7 @@ class ForgotPasswordFragment :
     }
 
     private fun liveDataObserver() {
-        viewModel.SendOtpResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.sendOtpResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarForgotPasswordPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {

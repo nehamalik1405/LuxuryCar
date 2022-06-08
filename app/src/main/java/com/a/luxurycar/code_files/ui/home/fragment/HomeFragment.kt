@@ -63,12 +63,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
     }
 
     private fun liveDataObserver() {
-        viewModel.AdvertiserSuggestedListResponse.observe(viewLifecycleOwner , androidx.lifecycle.Observer {
+        viewModel.advertiserSuggestedListResponse.observe(viewLifecycleOwner , androidx.lifecycle.Observer {
             binding.progressBarHomePage.visible(it is Resource.Loading)
             when (it) {
 
                 is Resource.Success -> {
-                    if(it != null) {
+                    if(it != null && it.values.status == 1) {
 
                         //initiaize suggested list
                         arrBannerList = arrayListOf()
@@ -90,6 +90,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
                         setViewPager()
                         checkListNullability()
 
+                    }
+                    else{
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is Resource.Failure -> handleApiErrors(it)

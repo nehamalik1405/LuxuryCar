@@ -75,7 +75,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Physical inspection"
+                    android:text="@string/str_physical_inspection"
                     android:textColor="@color/white"
                     android:layout_gravity="center_vertical"
                     android:textSize="@dimen/margin_13sp"
@@ -100,7 +100,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="360-degree vehicle checks"
+                    android:text="@string/str__360_degree_vehicle_checks"
                     android:textColor="@color/white"
                     android:fontFamily="@font/muli_semi_bold"
                     android:textSize="@dimen/margin_13sp"
@@ -125,7 +125,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comprehensive computer diagnostics"
+                    android:text="@string/str_comprehensive_computer_diagnostics"
                     android:textColor="@color/white"
                     android:fontFamily="@font/muli_semi_bold"
                     android:textSize="@dimen/margin_13sp"
@@ -150,7 +150,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Digital vehicle reports"
+                    android:text="@string/str_digital_vehicle_reports"
                     android:textColor="@color/white"
                     android:fontFamily="@font/muli_semi_bold"
                     android:textSize="@dimen/margin_13sp"
@@ -177,7 +177,7 @@
                     android:id="@+id/btnEnquire"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Enquire"
+                    android:text="@string/str_enquire"
                     android:textSize="@dimen/margin_14sp"
                     android:textColor="@color/black"
                     android:textAllCaps="true"
@@ -191,7 +191,7 @@
                     android:id="@+id/btnBookNo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Book Now"
+                    android:text="@string/str_book_now"
                     android:textSize="@dimen/margin_14sp"
                     android:textAllCaps="true"
                     android:fontFamily="@font/muli_semi_bold"

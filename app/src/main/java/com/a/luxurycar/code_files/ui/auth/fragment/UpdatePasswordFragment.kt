@@ -41,7 +41,7 @@ class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpda
     }
 
     private fun liveDataObserver() {
-        viewModel.UpdatePasswordResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.updatePasswordResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarUpdatePasswordPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {

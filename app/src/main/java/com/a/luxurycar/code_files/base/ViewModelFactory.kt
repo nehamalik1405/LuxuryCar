@@ -14,7 +14,7 @@ class ViewModelFactory(
 
         return when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(repository = repository as LoginRepository) as T
-            modelClass.isAssignableFrom(RegistrationViewModel::class.java) -> RegistrationViewModel(repository = repository as RegistrationRepository) as T
+            modelClass.isAssignableFrom(BuyerRegistrationViewModel::class.java) -> BuyerRegistrationViewModel(repository = repository as BuyerRegistrationRepository) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(repository = repository as HomeRepository) as T
             modelClass.isAssignableFrom(CarListViewModel::class.java) -> CarListViewModel(repository = repository as CarListRepository) as T
             modelClass.isAssignableFrom(TransportExportViewModel::class.java) -> TransportExportViewModel(repository = repository as TransportExportRepository) as T
@@ -39,6 +39,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(SellerHomeViewModel::class.java) -> SellerHomeViewModel(repository = repository as SellerHomeRepository) as T
             modelClass.isAssignableFrom(AddCarViewModel::class.java) -> AddCarViewModel(repository = repository as AddCarRepository) as T
             modelClass.isAssignableFrom(SellYourCarViewModel::class.java) -> SellYourCarViewModel(repository = repository as SellYourCarRepository) as T
+            modelClass.isAssignableFrom(SellerViewModel::class.java) -> SellerViewModel(repository = repository as SellerRepository) as T
 
 
             else -> {

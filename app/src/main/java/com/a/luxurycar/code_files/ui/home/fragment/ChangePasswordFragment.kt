@@ -45,7 +45,7 @@ class ChangePasswordFragment :
     }
 
     private fun liveDataObserver() {
-        viewModel.ChangePasswordResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.changePasswordResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarChangePasswordPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {

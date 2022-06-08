@@ -13,14 +13,14 @@ import okhttp3.RequestBody
 
 class LoginViewModel(val repository: LoginRepository) : BaseViewModel(repository){
 
-    private val _LoginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
-    val LoginResponse: LiveData<Resource<LoginResponse>>
-        get() = _LoginResponse
+    private val _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
+    val loginResponse: LiveData<Resource<LoginResponse>>
+        get() = _loginResponse
 
     fun getLoginResponse(body: RequestBody) = viewModelScope.launch {
 
-        _LoginResponse.value = Resource.Loading
-        _LoginResponse.value = repository.getLoginResponse(body)
+        _loginResponse.value = Resource.Loading
+        _loginResponse.value = repository.getLoginResponse(body)
 
     }
 
