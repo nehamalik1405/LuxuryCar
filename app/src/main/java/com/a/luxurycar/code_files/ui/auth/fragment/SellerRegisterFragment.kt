@@ -63,8 +63,6 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
     var phone = ""
     var description = ""
     var image_uri = ""
-    var type = ""
-    lateinit var bundle:Bundle
 
     override fun getViewModel() = SellerViewModel::class.java
     override fun getFragmentBinding(
@@ -75,9 +73,7 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        type = arguments?.getString(Const.KEY_TYPE).toString()
-        bundle = Bundle()
-        bundle.putString(Const.KEY_TYPE,type)
+
         manageListeners()
         liveDataObserver()
     }
@@ -109,8 +105,7 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
 
 
         binding.txtViewLogin.setOnClickListener {
-
-            findNavController().navigate(R.id.loginFragment,bundle)
+            findNavController().navigate(R.id.loginFragment)
         }
         binding.imgViewEyePassword.setOnClickListener {
             isShowPassword = !isShowPassword

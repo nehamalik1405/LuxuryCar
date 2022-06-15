@@ -40,7 +40,7 @@ class ForgotPasswordFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manageOnClickListener()
-        liveDataObserver()
+
     }
 
     private fun liveDataObserver() {
@@ -74,6 +74,7 @@ class ForgotPasswordFragment :
     }
 
     private fun callSendOtpApi() {
+        liveDataObserver()
         val jsonObject = JSONObject()
         try {
             jsonObject.put(Const.PARAM_EMAIL, email)

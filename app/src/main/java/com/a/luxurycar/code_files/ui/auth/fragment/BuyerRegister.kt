@@ -36,14 +36,12 @@ class BuyerRegister :
     var phone = ""
     var password = ""
     var confirmPassword = ""
-    var type =""
     var country_id = ""
     var stateId = ""
     var cityId = ""
     lateinit var arrListCountryHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrListStateHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrListCityHashMap: ArrayList<HashMap<String, String>>
-    lateinit var bundle:Bundle
     override fun getViewModel() = BuyerRegistrationViewModel::class.java
 
     override fun getFragmentBinding(
@@ -57,7 +55,6 @@ class BuyerRegister :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         callCountryList()
-        getAndSetBundli()
         manageListeners()
         liveDataObserver()
     }
@@ -116,11 +113,7 @@ class BuyerRegister :
 
     }
 
-    private fun getAndSetBundli() {
-        type = arguments?.getString(Const.KEY_TYPE).toString()
-        bundle = Bundle()
-        bundle.putString(Const.KEY_TYPE,type)
-    }
+
 
 
     private fun liveDataObserver() {
@@ -129,13 +122,13 @@ class BuyerRegister :
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
+                        findNavController().navigate(R.id.loginFragment)
 
-                        //findNavController().popBackStack()
-                        findNavController().navigate(R.id.loginFragment,bundle)
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
                     }
-                    else{
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
+
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
                     }
 
                 }
@@ -202,7 +195,7 @@ class BuyerRegister :
             }
 
         binding.txtViewLogin.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment,bundle)
+            findNavController().navigate(R.id.loginFragment)
         }
 
         binding.imgViewEyePassword.setOnClickListener {

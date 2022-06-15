@@ -6,14 +6,13 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.LoginRepository
+import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
 import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.LoginViewModel
@@ -45,63 +44,54 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        type = arguments?.getString(Const.KEY_TYPE).toString()
+
         manageListeners()
-        setLoginType()
         liveDataObserver()
 
 
     }
 
-    private fun setLoginType() {
-         if (type != null){
-             binding.txtViewLoginTitle.text = "$type Log In"
-         }else{
-             binding.txtViewLoginTitle.text = "Log In"
-         }
-
-
-
-    }
 
     private fun liveDataObserver() {
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1 && it.values.data.user.role == "Buyer") {
-                        SessionManager.saveUserData(it.values)
-                        SessionManager.setFullName(it.values.data.user.fullname)
-                        if (it.values.data.user.company_name != null){
-                            SessionManager.setCompanyName(it.values.data.user.company_name)
+                    if (it.values.status != null && it.values.status == 1) {
+
+                        val user = it.values.data.user
+                        val loginResponse = LoginCommonResponse(
+                            firstname = user.firstname,
+                            lastname = user.lastname,
+                            fullName = user.fullname,
+                            email = user.email,
+                            companyName = user.company_name,
+                            phone = user.phone,
+                            role = user.role,
+                            image = user.image,
+                            id = user.id,
+                            description = user.description,
+                            location = user.location,
+                        )
+
+                        SessionManager.saveUserData(loginResponse)
+                        SessionManager.setAuthorizationToken(it.values.data.accessToken)
+                        SessionManager.setUserRole(user.role)
+
+                        if(user.role.equals(Const.KEY_BUYER, true)) {
+                            StartActivity(HomeActivity::class.java)
+                        } else {
+                            StartActivity(SellerDeshboardActivity::class.java)
                         }
-                        SessionManager.setFirstName(it.values.data.user.firstname)
-                        SessionManager.setLastName(it.values.data.user.lastname)
-                        SessionManager.setEmail(it.values.data.user.email)
-                        SessionManager.setPhone(it.values.data.user.phone)
-                        SessionManager.setImageUrl(it.values.data.user.image)
-                        StartActivity(HomeActivity::class.java)
                         requireActivity().finishAffinity()
+
+                    }
+
+                    if(!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
                             .show()
                     }
-                    else if (it.values.status != null && it.values.status == 1 && it.values.data.user.role == "Seller") {
-                        SessionManager.saveUserData(it.values)
-                        if (it.values.data.user.company_name != null){
-                            SessionManager.setCompanyName(it.values.data.user.company_name)
-                        }
-                        SessionManager.setEmail(it.values.data.user.email)
-                        SessionManager.setPhone(it.values.data.user.phone)
-                        SessionManager.setImageUrl(it.values.data.user.image)
-                        StartActivity(SellerDeshboardActivity::class.java)
-                        requireActivity().finishAffinity()
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                    else {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
+
 
 
                 }
@@ -114,7 +104,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
     private fun manageListeners() {
 
         binding.txtViewRegister.setOnClickListener {
-            if (type == "Customer"){
+            /*if (type == "Customer"){
                val bundle = Bundle()
                 bundle.putString(Const.KEY_TYPE, type)
                 findNavController().navigate(R.id.registerFragment,bundle)
@@ -123,7 +113,8 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
                 val bundle = Bundle()
                 bundle.putString(Const.KEY_TYPE, type)
                 findNavController().navigate(R.id.sellerRegisterFragment,bundle)
-            }
+            }*/
+            findNavController().navigate(R.id.nav_registerationType)
         }
 
         binding.btnLogin.setOnClickListener {

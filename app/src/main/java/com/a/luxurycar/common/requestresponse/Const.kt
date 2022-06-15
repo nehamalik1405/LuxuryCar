@@ -52,6 +52,9 @@ class Const {
         const val GENDER_FEMALE = "Female"
         const val GENDER_OTHERS = "Others"
 
+        const val KEY_BUYER = "Buyer"
+        const val KEY_SELLER = "Seller"
+
 
 
 

@@ -86,8 +86,11 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
 
     }
     private fun setBuyerDetail() {
-        val fullName = SessionManager.getFullName()
-        val email = SessionManager.getEmail()
+
+        val userData = SessionManager.getUserData()
+
+        val fullName = userData?.fullName
+        val email = userData?.email
         setPhoto()
 
         if(fullName !=null && email != null){
@@ -124,13 +127,15 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
                 is Resource.Success -> {
 
                     if(it.values != null && it.values.status == 1) {
-                        SessionManager.setImageUrl(it.values.buyerProfileData?.image.toString())
-                        Toast.makeText(
-                            requireContext(),
-                            it.values.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
+                        val updatedImage = it.values.buyerProfileData?.image
+                        val loginResponse = SessionManager.getUserData()?.apply {
+                            image = updatedImage!!
+                        }
+                        SessionManager.saveUserData(loginResponse!!)
+                    }
+
+
+                    if(!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(
                             requireContext(),
                             it.values.message,
@@ -213,7 +218,8 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
     }
 
     private fun setPhoto() {
-        val image = SessionManager.getImageUrl()
+        val userData = SessionManager.getUserData()
+        val image = userData?.image
         Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
     }
 

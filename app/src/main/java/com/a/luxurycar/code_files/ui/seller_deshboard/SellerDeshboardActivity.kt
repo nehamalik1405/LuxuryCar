@@ -54,13 +54,13 @@ class SellerDeshboardActivity : AppCompatActivity() {
     private fun setRightHeader() {
 
         val header = binding.navViewRightSeller.getHeaderView(0)
-        val sellerData = SessionManager.getUserData()
+        val userData = SessionManager.getUserData()
         val txtViewEmail = header.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = header.findViewById<TextView>(R.id.txtViewHeaderUserName)
         //setPhoto()
-        if (sellerData != null) {
-            textViewUserName.text=sellerData.data.user.company_name
-            txtViewEmail.text=sellerData.data.user.email
+        if (userData != null) {
+            textViewUserName.text=userData.fullName
+            txtViewEmail.text=userData.email
         }
 
     }

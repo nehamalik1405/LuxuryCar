@@ -32,6 +32,7 @@ import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Resource
 import com.a.luxurycar.common.utils.FileUtil
+import com.a.luxurycar.common.utils.Utils
 import com.a.luxurycar.common.utils.handleApiErrors
 import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentSellerProfileBinding
@@ -85,8 +86,9 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
 
 
     private fun setSellerDetail() {
-        val companyName = SessionManager.getCompanyName()
-        val email = SessionManager.getEmail()
+        val userData = SessionManager.getUserData()
+        val companyName = userData?.companyName
+        val email = userData?.email
         if(companyName !=null && email != null){
             binding.txtViewUsername.text = companyName
             binding.txtViewEmail.text =  email
@@ -184,15 +186,20 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
                 is Resource.Success -> {
 
                     if(it.values != null && it.values.status == 1) {
-                        SessionManager.setImageUrl(it.values.data?.image.toString())
-                        SessionManager.setLocation(it.values.data?.location.toString())
-                        SessionManager.setDescription(it.values.data?.description.toString())
-                                Toast.makeText(
-                                requireContext(),
-                            it.values.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
+
+                            val updatedImage = it.values.data?.image
+                            val updatedLocation = it.values.data?.image
+                            val updatedDescription = it.values.data?.image
+                            val loginResponse = SessionManager.getUserData()?.apply {
+                                image = updatedImage!!
+                                location = updatedLocation!!
+                                description = updatedDescription!!
+                            }
+                            SessionManager.saveUserData(loginResponse!!)
+
+                    }
+
+                    if(!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(
                             requireContext(),
                             it.values.message,
@@ -208,8 +215,9 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
 
     }
     private fun setPhoto() {
-        val image = SessionManager.getImageUrl()
-        if (image != ""){
+        val userData = SessionManager.getUserData()
+        val image = userData?.image
+        if (!Utils.isEmptyOrNull(image)){
             Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
         }
     }

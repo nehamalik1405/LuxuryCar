@@ -25,6 +25,9 @@ import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.UpdateDetailRepository
+import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
+import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
+import com.a.luxurycar.code_files.ui.auth.model.country.Data
 import com.a.luxurycar.code_files.ui.home.adapter.BuyerViewpagerAdapter
 import com.a.luxurycar.code_files.view_model.UpdateDetailViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
@@ -70,6 +73,9 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
     lateinit var arrListCountryHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrListStateHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrListCityHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrCountry: ArrayList<Data>
+    lateinit var arrState: ArrayList<Data>
+    lateinit var arrCity: ArrayList<Data>
     lateinit var bundle:Bundle
 
     companion object {
@@ -94,11 +100,13 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         liveDataObserver()
     }
     private fun setBuyerDetail() {
-        val fullName = SessionManager.getFullName()
-        val firstName = SessionManager.getFirstName()
-        val lastName = SessionManager.getLastName()
-        val email = SessionManager.getEmail()
-        val phone = SessionManager.getPhone()
+
+        val userData = SessionManager.getUserData()
+
+        val firstName = userData?.firstname
+        val lastName = userData?.lastname
+        val email = userData?.email
+        val phone = userData?.phone
         setPhoto()
         binding.edtTextFirstName.setText(firstName)
         binding.edtTextLastName.setText(lastName)
@@ -107,11 +115,59 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
 
 
 
+
+
         /* if (buyerData != null) {
              binding.txtViewUsername.text = buyerData.data.user.fullname
              binding.txtViewEmail.text =  buyerData.data.user.email
          }*/
     }
+
+    private fun getCountrySelectedPosition(): Int {
+        val userCountry = SessionManager.getUserData()?.country
+        if (userCountry != null) {
+            for (i in 0 until arrCountry.size) {
+                if (arrCountry[i].id == userCountry?.id) {
+                    country_id = arrCountry[i].id.toString()
+                    callStateListApi()
+                    return (i+1)
+                    break
+                }
+            }
+        }
+        return 0
+    }
+
+
+    private fun getStateSelectedPosition(): Int {
+        val userState = SessionManager.getUserData()?.state
+        if (userState != null) {
+            for (i in 0 until arrState.size) {
+                if (arrState[i].id == userState?.id) {
+                    stateId = arrState[i].id.toString()
+                    callCityListApi()
+                    return (i+1)
+                    break
+                }
+            }
+        }
+        return 0
+    }
+
+    private fun getCitySelectedPosition(): Int {
+        val userCity = SessionManager.getUserData()?.city
+        if (userCity != null) {
+            for (i in 0 until arrCity.size) {
+                if (arrCity[i].id == userCity?.id) {
+                    cityId = arrCity[i].id.toString()
+                    return (i+1)
+                    break
+                }
+            }
+        }
+        return 0
+    }
+
     private fun createImageInMultipartAndSendToServer() {
 
         var buyerImage: MultipartBody.Part? = null
@@ -135,13 +191,15 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                 is Resource.Success -> {
 
                     if(it.values != null && it.values.status == 1) {
-                        SessionManager.setImageUrl(it.values.buyerProfileData?.image.toString())
-                        Toast.makeText(
-                            requireContext(),
-                            it.values.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
+                        val updatedImage = it.values.buyerProfileData?.image
+                        val loginResponse = SessionManager.getUserData()?.apply {
+                            image = updatedImage!!
+                        }
+                        SessionManager.saveUserData(loginResponse!!)
+                    }
+
+
+                    if(!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(
                             requireContext(),
                             it.values.message,
@@ -156,6 +214,9 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         })
 
     }
+
+
+
     private fun callCountryList() {
         viewModel.getCountryList()
         viewModel.countryResponse.observe(viewLifecycleOwner, Observer {
@@ -172,7 +233,8 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
 
                     if (it.values.status == 1) {
                         binding.progressBarUpdateDetailPage.visible(isHidden)
-                        if (it != null) {
+                        if (it.values != null) {
+                            arrCountry = it.values.data
                             for (item in it.values.data) {
                                 val hashMap = java.util.HashMap<String, String>()
                                 hashMap.put(Const.KEY_ID, "" + item.id)
@@ -194,6 +256,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                     adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
                     //attaching data adapter to spinner
                     binding.spinnerCountry.setAdapter(adapter)
+                    binding.spinnerCountry.setSelection(getCountrySelectedPosition())
 
 
                 }
@@ -216,15 +279,25 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
 
+                        val user = it.values.data.user
+                        val loginResponse = LoginCommonResponse(
+                            firstname = user.firstname,
+                            lastname = user.lastname,
+                            fullName = user.fullname,
+                            email = user.email,
+                            companyName = user.company_name,
+                            phone = user.phone,
+                            role = user.role,
+                            image = user.image,
+                            id = user.id,
+                            description = user.description,
+                            location = user.location,
+                            country = user.country,
+                            state = user.state,
+                            city = user.city
+                        )
+                        SessionManager.saveUserData(loginResponse)
 
-
-
-                        SessionManager.setFirstName(it.values.data.user.firstname)
-                        SessionManager.setLastName(it.values.data.user.lastname)
-                        SessionManager.setFullName(it.values.data.user.firstname+" "+it.values.data.user.lastname)
-                        SessionManager.setEmail(it.values.data.user.email)
-                        SessionManager.setPhone(it.values.data.user.phone)
-                        SessionManager.setImageUrl(it.values.data.user.image)
                         findNavController().navigate(R.id.nav_home)
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
                     }
@@ -345,8 +418,9 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                     if (it.values.status == 1) {
                         binding.progressBarUpdateDetailPage.visible(isHidden)
 
-                        if (it != null) {
+                        if (it.values != null) {
 
+                            arrCity = it.values.data
 
                             for (item in it.values.data) {
                                 val hashMap = java.util.HashMap<String, String>()
@@ -369,7 +443,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                     adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
                     //attaching data adapter to spinner
                     binding.spinnerCity.setAdapter(adapter)
-
+                    binding.spinnerCity.setSelection(getCitySelectedPosition())
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
@@ -396,9 +470,9 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                     if (it.values.status == 1) {
                         binding.progressBarUpdateDetailPage.visible(isHidden)
 
-                        if (it != null) {
+                        if (it.values != null) {
 
-
+                            arrState = it.values.data
                             for (item in it.values.data) {
                                 val hashMap = java.util.HashMap<String, String>()
 
@@ -420,7 +494,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                     adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
                     //attaching data adapter to spinner
                     binding.spinnerState.setAdapter(adapter)
-
+                    binding.spinnerState.setSelection(getStateSelectedPosition())
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
@@ -533,7 +607,8 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
     }
 
     private fun setPhoto() {
-        val image = SessionManager.getImageUrl()
+        val userData = SessionManager.getUserData()
+        val image = userData?.image
         Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
     }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/nav_registerationType">
+    app:startDestination="@id/loginFragment">
 
 
     <fragment
@@ -18,6 +18,7 @@
             android:id="@+id/action_loginFragment_to_forgotPassword"
             app:destination="@id/forgotPassword" />
     </fragment>
+
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.BuyerRegister"
@@ -39,6 +40,7 @@
             android:id="@+id/action_forgotPassword_to_otpVarificationFragment"
             app:destination="@id/otpVarificationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/otpVarificationFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.OtpVarificationFragment"
@@ -51,6 +53,7 @@
             android:id="@+id/action_otpVarificationFragment_to_updatePasswordFragment"
             app:destination="@id/updatePasswordFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/updatePasswordFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.UpdatePasswordFragment"
@@ -60,14 +63,17 @@
             android:id="@+id/action_updatePasswordFragment_to_otpVarificationFragment"
             app:destination="@id/otpVarificationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_registerationType"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.RegistrationType"
         android:label="fragment_register_buyer_and_seller"
         tools:layout="@layout/fragment_register_buyer_and_seller" />
+
     <fragment
         android:id="@+id/sellerRegisterFragment"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.SellerRegisterFragment"
         android:label="fragment_seller_register"
         tools:layout="@layout/fragment_seller_register" />
+
 </navigation>

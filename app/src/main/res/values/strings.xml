@@ -10,8 +10,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_register"> <u>Register</u></string>
     <string name="letsRegister_title">Let"'"s Register</string>
-    <string name="letsLogin_title">Let"'"s Login</string>
-    <string name="register_page_message">By Login into your account, you will be able \n access your account</string>
+    <string name="letsLogin_title">Let"'"s Register</string>
+    <string name="register_page_message">By Register your account, you will be able to access your account</string>
     <string name="error_empty_first_name">Please enter first name.</string>
     <string name="error_empty_select_country">Please select country.</string>
     <string name="error_empty_select_city">Please select city.</string>

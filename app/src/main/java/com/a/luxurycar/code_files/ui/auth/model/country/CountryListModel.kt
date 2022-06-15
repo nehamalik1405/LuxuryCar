@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CountryListModel(
     @SerializedName("data")
-    val `data`: List<Data>,
+    val `data`: ArrayList<Data>,
     @SerializedName("message")
     val message: String,
     @SerializedName("status")

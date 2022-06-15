@@ -114,7 +114,7 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun setRightHeader() {
-      //  val userData = SessionManager.getUserData()
+        val userData = SessionManager.getUserData()
         val txtViewEmail = headerView.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = headerView.findViewById<TextView>(R.id.txtViewHeaderUserName)
         //setPhoto()
@@ -123,8 +123,8 @@ class HomeActivity : AppCompatActivity() {
             txtViewEmail.text=userData.data.user.email
         }*/
 
-        val fullName = SessionManager.getFullName()
-        val email = SessionManager.getEmail()
+        val fullName = userData!!.fullName
+        val email = userData.email
 
 
         if(fullName !=null && email != null){

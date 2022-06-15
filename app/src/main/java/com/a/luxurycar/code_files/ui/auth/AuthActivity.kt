@@ -12,21 +12,12 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
 
-    lateinit var navController: NavController
-    lateinit var appBarConfiguration: AppBarConfiguration
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        navController =findNavController(R.id.authNavHostFragment)
 
-        appBarConfiguration= AppBarConfiguration(
-            setOf(
-                R.id.loginFragment
-            )
-        )
+
     }
 }

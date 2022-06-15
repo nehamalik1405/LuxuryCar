@@ -30,12 +30,12 @@ class BuyerProfileDetailFragment : BaseFragment<BuyerMyProfileViewModel,Fragment
     }
 
     private fun setMyProfileDetail() {
+        val userData = SessionManager.getUserData()
 
-
-        val firstName = SessionManager.getFirstName()
-        val lastName = SessionManager.getLastName()
-        val email = SessionManager.getEmail()
-        val phone = SessionManager.getPhone()
+        val firstName = userData!!.firstname
+        val lastName = userData.lastname
+        val email = userData.email
+        val phone = userData.phone
         if (firstName != null && lastName != null && email != null && phone != null) {
             binding.txtViewShowUserName.text = firstName
             binding.txtViewShowUserSurName.text = lastName

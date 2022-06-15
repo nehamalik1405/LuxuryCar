@@ -31,9 +31,10 @@ class MyProfileDetailFragment : BaseFragment<SellerViewModel,FragmentMyProfileDe
 
     private fun setMyProfileDetail() {
 
-        val companyName = SessionManager.getCompanyName()
-        val email = SessionManager.getEmail()
-        val phone = SessionManager.getPhone()
+        val userData = SessionManager.getUserData()
+        val companyName = userData?.companyName
+        val email = userData?.email
+        val phone = userData?.phone
 
             binding.txtViewShowCompnayName.text = companyName.toString()
             binding.txtViewShowUserEmail.text = email.toString()

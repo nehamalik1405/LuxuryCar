@@ -24,6 +24,8 @@ import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.SellerRepository
+import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
+import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.SellerProfileViewpager
 import com.a.luxurycar.code_files.view_model.SellerViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
@@ -195,11 +197,12 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
     }
 
     private fun setSellerDetail() {
-        val company = SessionManager.getCompanyName()
-        val email = SessionManager.getEmail()
-        val phone = SessionManager.getPhone()
-        val location = SessionManager.getLocation()
-        val description = SessionManager.getDescription()
+        val userData = SessionManager.getUserData()
+        val company = userData?.companyName
+        val email = userData?.email
+        val phone = userData?.phone
+        val location = userData?.location
+        val description = userData?.description
 
         binding.edtTextCompanyName.setText(company)
         binding.edtTextEmail.setText(email)
@@ -273,12 +276,17 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
                 is Resource.Success -> {
 
                     if(it.values != null && it.values.status == 1) {
-                        Toast.makeText(
-                            requireContext(),
-                            it.values.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
+
+
+                        val userData = SessionManager.getUserData()
+                        userData?.image = it.values.data?.image
+                        if (userData != null) {
+                            SessionManager.saveUserData(userData)
+                        }
+                        setPhoto()
+                    }
+
+                    if(!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(
                             requireContext(),
                             it.values.message,
@@ -294,8 +302,9 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
 
     }
     private fun setPhoto() {
-        val image = SessionManager.getImageUrl()!!
-        if (image != "")
+        val userData = SessionManager.getUserData()
+        val image = userData?.image
+        if (!Utils.isEmptyOrNull(image))
         Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
     }
 
