@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.ChangePasswordRepository
@@ -49,11 +50,19 @@ class ChangePasswordFragment :
             binding.progressBarChangePasswordPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        StartActivity(HomeActivity::class.java)
-                        requireActivity().finishAffinity()
+                    if (it.values.status != null && it.values.status == 1 && it.values.data.role == "Buyer") {
+                       /* StartActivity(HomeActivity::class.java)
+                        requireActivity().finishAffinity()*/
+                        Toast.makeText(requireContext(),it.values.message, Toast.LENGTH_LONG).show()
+                        findNavController().navigate(R.id.nav_home)
                     }
-                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                    else if (it.values.status != null && it.values.status == 1 && it.values.data.role == "Seller"){
+                       /* StartActivity(HomeActivity::class.java)
+                        requireActivity().finishAffinity()*/
+                        Toast.makeText(requireContext(),it.values.message, Toast.LENGTH_LONG).show()
+                        findNavController().navigate(R.id.sellerHomeFragment)
+                    }
+                    else{
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
                             .show()
                     }

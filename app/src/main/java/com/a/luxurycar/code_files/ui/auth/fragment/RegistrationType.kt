@@ -11,11 +11,15 @@ import com.a.luxurycar.code_files.repository.BuyerRegistrationRepository
 import com.a.luxurycar.code_files.view_model.BuyerRegistrationViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.databinding.FragmentRegisterBuyerAndSellerBinding
 
 
 class RegistrationType :  BaseFragment<BuyerRegistrationViewModel, FragmentRegisterBuyerAndSellerBinding, BuyerRegistrationRepository>() {
 
+    lateinit var bundle: Bundle
+    val buyer = "Customer"
+    val seller = "Seller"
 
     override fun getViewModel() = BuyerRegistrationViewModel::class.java
 
@@ -38,11 +42,15 @@ class RegistrationType :  BaseFragment<BuyerRegistrationViewModel, FragmentRegis
     private fun manageClickListeners() {
 
         binding.btnBuyer.setOnClickListener {
-            findNavController().navigate(R.id.registerFragment)
+            bundle = Bundle()
+            bundle.putString(Const.KEY_TYPE, buyer)
+            findNavController().navigate(R.id.loginFragment,bundle)
         }
 
         binding.btnSeller.setOnClickListener {
-            findNavController().navigate(R.id.sellerRegisterFragment)
+            bundle = Bundle()
+            bundle.putString(Const.KEY_TYPE, seller)
+            findNavController().navigate(R.id.loginFragment,bundle)
         }
 
     }

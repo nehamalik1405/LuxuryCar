@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/margin_10_dp"
+    tools:context=".code_files.ui.seller_deshboard.fragment.MyProfileDetailFragment">
+
+   <TextView
+       android:id="@+id/txtViewMyProfile"
+       android:layout_width="@dimen/margin_0dp"
+       android:layout_height="wrap_content"
+       android:text="My Profile"
+       android:textSize="@dimen/margin_20_dp"
+       android:layout_marginTop="@dimen/margin_20_dp"
+       android:fontFamily="@font/muli_bold"
+       style="@style/TextViewHeading"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/txtViewCompanyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_15dp"
+        android:text="Company Name"
+        android:textColor="@color/light_black"
+       style="@style/TextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewMyProfile"
+        app:layout_constraintStart_toStartOf="parent"
+       />
+
+    <TextView
+        android:id="@+id/txtViewShowCompnayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Robert"
+        android:textColor="@color/text_hint"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toTopOf="@+id/txtViewCompanyName"
+        app:layout_constraintBottom_toBottomOf="@+id/txtViewCompanyName"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtViewMobileNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10_dp"
+        android:text="Mobile No."
+        android:textColor="@color/light_black"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewCompanyName"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/txtViewShowUserMobileNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_999_999_9999"
+        android:textColor="@color/text_hint"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toTopOf="@+id/txtViewMobileNumber"
+        app:layout_constraintBottom_toBottomOf="@+id/txtViewMobileNumber"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtViewEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10_dp"
+        android:text="Email Address"
+        android:textColor="@color/light_black"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewMobileNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/txtViewShowUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="robertpattinson@gmail.com"
+        android:textColor="@color/text_hint"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toTopOf="@+id/txtViewEmailAddress"
+        app:layout_constraintBottom_toBottomOf="@+id/txtViewEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+  <!--  <TextView
+        android:id="@+id/txtViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10_dp"
+        android:text="Password"
+        android:textColor="@color/light_black"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEmailAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/txtViewShowUserPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12345678"
+        android:textColor="@color/text_hint"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toTopOf="@+id/txtViewPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/txtViewPassword"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtViewConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10_dp"
+        android:text="Confirm Password"
+        android:textColor="@color/light_black"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewPassword"
+        app:layout_constraintStart_toStartOf="parent"
+       />
+
+    <TextView
+        android:id="@+id/txtViewShowUserConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12345678"
+        android:textColor="@color/text_hint"
+        style="@style/TextViewTitle"
+        app:layout_constraintTop_toTopOf="@+id/txtViewConfirmPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/txtViewConfirmPassword"
+        app:layout_constraintEnd_toEndOf="parent"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

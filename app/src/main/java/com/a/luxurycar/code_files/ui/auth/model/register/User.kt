@@ -31,5 +31,9 @@ data class User(
     @SerializedName("status")
     val status: String,
     @SerializedName("user_address")
-    val userAddress: Any
+    val userAddress: Any,
+    @SerializedName("country"      ) var country     : Country? = Country(),
+    @SerializedName("state"        ) var state       : State?   = State(),
+    @SerializedName("city"         ) var city        : City?    = City()
+
 )

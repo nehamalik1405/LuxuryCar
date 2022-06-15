@@ -79,6 +79,8 @@ class AddCarStepOne :
         binding.linLayoutAddPictures.setOnClickListener {
             openBottomSheet()
         }
+
+
     }
 
 

@@ -1,14 +1,15 @@
 package com.a.luxurycar.common.requestresponse
 
 
-
-import com.a.luxurycar.code_files.ui.auth.model.UploadSellerImage
+import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
+import com.a.luxurycar.code_files.ui.auth.model.seller.SellerRegistrationModel
 import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.AdvertiserSuggestedListModel
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
-import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateDetailsModel
+import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
+import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
 import okhttp3.MultipartBody
 
 import okhttp3.RequestBody
@@ -25,15 +26,41 @@ interface ApiService {
     @POST("buyers/registerAccount")
     suspend fun getRegisterResponse(@Body body: RequestBody): RegistrationResponse
 
+    //get country list
+    @GET("get-countries-list" )
+    suspend fun getCountryList(): CountryListModel
+
+    //get State list
+    @GET("states-list-by-country-id/{id}" )
+    suspend fun getStateList(@Path("id") state_Id: String): CountryListModel
+
+    //get cities list
+    @GET("cities-list-by-state-id/{id}" )
+    suspend fun getCitiesList(@Path("id") cityId: String): CountryListModel
+
     // seller registration api
     @POST("sellers/registerAccount")
-    suspend fun getSellerRegisterResponse(@Body body: RequestBody): RegistrationResponse
+    suspend fun getSellerRegisterResponse(@Body body: RequestBody): SellerRegistrationModel
+
+    //update seller details
+    @FormUrlEncoded
+    @PUT("sellers/update?company_name=Tata Motors 2 mn&email=tusharSharm2@braintechnosys.com&password=admin1234&password_confirmation=admin1234&phone=9878565200&location=https://google.com&description=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.")
+    suspend fun getUpdateSellerResponse(
+        @Field("company_name") company_name : String,
+        @Field("email") email : String,
+        @Field("password") password : String,
+        @Field("password_confirmation") password_confirmation : String,
+        @Field("phone") phone : String,
+        @Field("location") location : String,
+        @Field("description") description : String
+    ) : SellerRegistrationModel
+
     // upload seller image
     @Multipart
     @POST("sellers/updateImage")
     suspend fun updateSellerImage(
         @Part image: MultipartBody.Part
-    ): UploadSellerImage
+    ): UpdateSellerProfileImageModel
 
     // change password api
     @POST("users/changePassword")
@@ -55,13 +82,25 @@ interface ApiService {
 
     //update buyer details
     @FormUrlEncoded
-    @PUT("buyers/update?firstname=Radheshyam&lastname=Saraswat&email=shiwali@braintechnosys.biz&phone=9876543250")
+    @PUT("buyers/update?firstname=Radheshyam&lastname=Saraswat&email=radheshyam8@braintechnosys.biz&phone=9876543251&password=admin123&password_confirmation=admin123&country_id=2&state_id=1&city_id=1")
     suspend fun getUpdateDetails(@Field("firstname") firstname:String,
-                                        @Field("lastname") lastname:String,
-                                        @Field("email") email:String,
-                                        @Field("phone") phone:String): UpdateDetailsModel
+                                 @Field("lastname") lastname:String,
+                                 @Field("email") email:String,
+                                 @Field("phone") phone:String,
+                                 @Field("password") password:String,
+                                 @Field("password_confirmation") password_confirmation:String,
+                                 @Field("country_id") country_id:String,
+                                 @Field("state_id") state_id:String,
+                                 @Field("city_id") city_id:String): LoginResponse
 
-    //update buyer details
+    // upload buyer profile image
+    @Multipart
+    @POST("buyers/updateImage")
+    suspend fun getUploadBuyerProfileImage(
+        @Part image: MultipartBody.Part
+    ): UpdateBuyerProfileImageModel
+
+    //update buyer password
     @FormUrlEncoded
     @PUT("updatePassword?email=vandana@braintechnosys.biz&newpassword=admin1&newpassword_confirmation=admin1")
     suspend fun getUpdatePasswordResponse(@Field("email") email:String,

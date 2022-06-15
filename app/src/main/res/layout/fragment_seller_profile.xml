@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+    tools:context=".code_files.ui.seller_deshboard.fragment.SellerProfileFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/relLayUserProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/green">
+
+                    <RelativeLayout
+                        android:id="@+id/relLayUserProfileImage"
+                        android:layout_width="@dimen/margin_110_dp"
+                        android:layout_height="@dimen/margin_110_dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/margin_65_dp"
+                        android:layout_marginBottom="@dimen/margin_20_dp"
+                        android:background="@drawable/drawable_background_circle_shape">
+
+
+                        <ImageView
+                            android:id="@+id/imgViewUserProfile"
+                            android:layout_width="@dimen/margin_110_dp"
+                            android:layout_height="@dimen/margin_110_dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/drawable_background_circle_shape"
+                            android:backgroundTint="@color/white"
+                            android:scaleType="centerCrop" />
+
+
+                        <ImageView
+                            android:id="@+id/imgViewEditProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/margin_10_dp"
+                            android:src="@mipmap/ic_profile_edit" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/txtViewUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/relLayUserProfileImage"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/muli_bold"
+                        android:text="Robert Pattinson"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/txt_size_14sp" />
+
+                    <TextView
+                        android:id="@+id/txtViewEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtViewUsername"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/muli_bold"
+                        android:text="robertpattinson@gmail.com"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/txt_size_16sp" />
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabs"
+                        style="@style/AppTheme.TabStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtViewEmail"
+                        android:layout_marginTop="@dimen/margin_55_dp"
+                        android:textAlignment="center"
+                        app:tabGravity="fill"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@color/white" />
+
+
+                </RelativeLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_below="@+id/relLayUserProfile"
+                    android:layout_alignParentBottom="true" />
+
+
+            </RelativeLayout>
+        </ScrollView>
+    <ProgressBar
+        android:id="@+id/progressBarUploadProfileImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_50dp"
+        android:layout_centerInParent="true"/>
+    </RelativeLayout>

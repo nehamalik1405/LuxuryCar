@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/nav_registerationType">
 
 
     <fragment
@@ -61,7 +61,7 @@
             app:destination="@id/otpVarificationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/registerationType"
+        android:id="@+id/nav_registerationType"
         android:name="com.a.luxurycar.code_files.ui.auth.fragment.RegistrationType"
         android:label="fragment_register_buyer_and_seller"
         tools:layout="@layout/fragment_register_buyer_and_seller" />

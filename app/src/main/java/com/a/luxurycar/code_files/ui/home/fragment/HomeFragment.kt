@@ -1,5 +1,6 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ import java.util.*
 
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeRepository>() {
+    var isShowMoreOption = false
      lateinit var arrMakeListHashMap:ArrayList<HashMap<String, String>>
      lateinit var arrModelListHashMap:ArrayList<HashMap<String, String>>
      lateinit var arrYearFromListHashMap:ArrayList<HashMap<String, String>>
@@ -57,6 +59,30 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         callHomePageApi()
         manageSpinnerItemsLIst()
         liveDataObserver()
+        manageClickListener()
+
+    }
+
+    private fun manageClickListener() {
+        binding.txtViewMoreOptions.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding.txtViewMoreOptions.setOnClickListener {
+            isShowMoreOption = !isShowMoreOption
+            if(isShowMoreOption){
+                binding.consLayoutTransmissionType.visibility = View.VISIBLE
+                binding.txtViewMoreOptions.text =getString(R.string.str_less_options)
+            }else{
+                binding.consLayoutTransmissionType.visibility = View.GONE
+                binding.txtViewMoreOptions.text = getString(R.string.str_more_options)
+            }
+
+
+
+        }
+      /*  binding.txtViewLessOptions.setOnClickListener {
+            binding.consLayoutTransmissionType.visibility = View.GONE
+            binding.txtViewMoreOptions.visibility = View.VISIBLE
+            binding.txtViewLessOptions.visibility = View.GONE
+        }*/
         binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.productDetailFragment)
         }

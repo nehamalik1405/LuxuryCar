@@ -9,6 +9,7 @@ class Const {
         const val BASE_URL = "https://onlineprojectprogress.com/laravel/luxary_car/api/"
         const val KEY_ID = "id"
         const val KEY_NAME = "name"
+        const val KEY_TYPE = "key_type"
 
 
 
@@ -19,6 +20,9 @@ class Const {
         const val PARAM_FIRST_NAME = "firstname"
         const val PARAM_LAST_NAME = "lastname"
         const val PARAM_Phone = "phone"
+        const val PARAM_COUNTRY = "country_id"
+        const val PARAM_STATE = "state_id"
+        const val PARAM_CITY = "city_id"
 
         // params for seller register
         const val SELLER_COMPANY_NAME = "company_name"

@@ -78,7 +78,6 @@
             android:paddingEnd="@dimen/margin_10_dp"
             android:paddingTop="@dimen/margin_15_dp"
             android:paddingBottom="@dimen/margin_15_dp"
-
             >
             <LinearLayout
                 android:id="@+id/linLayoutToBuyToRent"
@@ -410,18 +409,155 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+
             </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/consLayoutTransmissionType"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/txtViewTransmissionType"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Transmission Type"
+                    android:textSize="@dimen/margin_14sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <CheckBox
+                    android:id="@+id/checkBoxManual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manual"
+                    android:textSize="@dimen/margin_14sp"
+                    android:textColor="@color/light_black"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType"
+                    app:layout_constraintStart_toStartOf="parent"/>
+                <CheckBox
+                    android:id="@+id/checkBoxAutomatic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Autometic"
+                    android:layout_marginStart="@dimen/margin_15dp"
+                    android:textSize="@dimen/margin_14sp"
+                    android:textColor="@color/light_black"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType"
+                    app:layout_constraintStart_toEndOf="@+id/checkBoxManual"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linLayoutKilometer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBoxManual">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutKilometerTo"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_marginEnd="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_background_spinner"
+                        >
+
+                        <Spinner
+                            android:id="@+id/spinnerKilometerTo"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutKilometerFrom"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_background_spinner"
+                        >
+
+                        <Spinner
+                            android:id="@+id/spinnerKilometerFrom"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectColor"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    app:layout_constraintTop_toBottomOf="@+id/linLayoutKilometer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/drawable_background_spinner"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectColor"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <TextView
                 android:id="@+id/txtViewMoreOptions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/more_options"
+                android:text="@string/str_more_options"
                 android:textSize="@dimen/margin_14sp"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_10_dp"
-                app:layout_constraintTop_toBottomOf="@+id/linLayoutPrice"/>
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutTransmissionType"/>
+            <TextView
+                android:id="@+id/txtViewLessOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_less_options"
+                android:visibility="gone"
+                android:textSize="@dimen/margin_14sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutTransmissionType"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSearch"

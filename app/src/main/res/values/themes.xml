@@ -36,6 +36,19 @@
     <style name="MyActionBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
     </style>
+    <style name="AppTheme.TabStyle" parent="Base.Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/AppTheme.TextStyle</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/yellow_color</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="android:background">@color/green</item>
+    </style>
+
+    <style name="AppTheme.TextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
 
     <style name="NavigationView"  parent="Base.Theme.AppCompat">
         <item name="android:listDivider">@color/black</item>
@@ -69,7 +82,7 @@
         <item name="hintTextColor">@color/sub_title_color</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:padding">@dimen/margin_5dp</item>
+        <item name="android:padding">@dimen/margin_10_dp</item>
         <item name="paddingStart">5dp</item>
         <item name="background">@drawable/drawable_rounder_edit_text_background</item>
 

@@ -10,4 +10,34 @@
         android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.SellerHomeFragment"
         android:label="fragment_seller_home"
         tools:layout="@layout/fragment_seller_home" />
+    <fragment
+        android:id="@+id/nav_change_password"
+        android:name="com.a.luxurycar.code_files.ui.home.fragment.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/nav_sellerProfileFragment"
+        android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.SellerProfileFragment"
+        android:label="fragment_seller_profile"
+        tools:layout="@layout/fragment_seller_profile" />
+    <fragment
+        android:id="@+id/myProfileDetailFragment"
+        android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.MyProfileDetailFragment"
+        android:label="fragment_my_profile_detail"
+        tools:layout="@layout/fragment_my_profile_detail" />
+    <fragment
+        android:id="@+id/sellerPaymentHistoryFragment"
+        android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.SellerPaymentHistoryFragment"
+        android:label="fragment_seller_payment_history"
+        tools:layout="@layout/fragment_seller_payment_history" />
+    <fragment
+        android:id="@+id/sellerSavedCarsFragment"
+        android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.SellerSavedCarsFragment"
+        android:label="fragment_seller_saved_cars"
+        tools:layout="@layout/fragment_seller_saved_cars" />
+    <fragment
+        android:id="@+id/nav_updateSellerProfileFragment"
+        android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.UpdateSellerProfileFragment"
+        android:label="fragment_update_seller_profile"
+        tools:layout="@layout/fragment_update_seller_profile" />
 </navigation>

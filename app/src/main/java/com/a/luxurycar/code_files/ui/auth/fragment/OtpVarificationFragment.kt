@@ -251,5 +251,4 @@ class OtpVarificationFragment :
         return true
     }
 
-
 }

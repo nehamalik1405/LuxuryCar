@@ -10,6 +10,7 @@ import com.a.luxurycar.MainActivity
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.code_files.ui.home.HomeActivity
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.utils.StartActivity
 import kotlinx.coroutines.*
@@ -18,15 +19,20 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        val user_role = SessionManager.getUserData()?.data?.user?.role
 
 
         // we used the postDelayed(Runnable, time) method
         // to send a message with a delayed time.
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000)
-            if(SessionManager.isUserLoggedIn()) {
+            if (user_role != null && user_role == "Buyer") {
                 StartActivity(HomeActivity::class.java)
-            } else {
+            }
+            else if (user_role != null && user_role == "Seller"){
+                    StartActivity(SellerDeshboardActivity::class.java)
+                }
+            else {
                 StartActivity(AuthActivity::class.java)
             }
             finish()

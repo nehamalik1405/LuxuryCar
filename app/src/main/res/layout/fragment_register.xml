@@ -31,7 +31,7 @@
                 android:layout_width="@dimen/margin_100_dp"
                 android:layout_height="@dimen/margin_100_dp"
                 android:layout_marginTop="@dimen/margin_20_dp"
-                android:src="@mipmap/ic_main_logo"
+                android:src="@mipmap/ic_login_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10_dp"
-                android:text="@string/str_sign_up_as_a_buyer"
+                android:text="@string/str_customer_sign_up"
                 style="@style/TextViewHeading"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_5dp"
+                android:textColor="@color/sub_title_color"
                 style="@style/TextViewSubTitle"
                 android:text="@string/str_please_enter_your_sign_up_details"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +78,7 @@
                    android:layout_width="0dp"
                    android:layout_height="@dimen/margin_45_dp"
                    android:inputType="text"
-                   android:layout_marginTop="@dimen/margin_5dp"
+                   android:layout_marginTop="@dimen/margin_10_dp"
                    android:layout_marginEnd="@dimen/margin_5dp"
                    android:hint="@string/title_first_name"
                    android:textColorHint="@color/sub_title_color"
@@ -105,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_45_dp"
                 android:inputType="text"
-                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
                 android:layout_marginStart="@dimen/margin_5dp"
                 android:hint="@string/title_sur_name"
                 android:textColorHint="@color/sub_title_color"
@@ -119,6 +120,92 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
+            <TextView
+                android:id="@+id/txtViewCountryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextViewTitle"
+                android:text="Country"
+                android:layout_marginTop="@dimen/margin_15dp"
+                android:layout_marginStart="@dimen/margin_1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtTextFirstName"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constLayoutCountryName"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_45_dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                android:background="@drawable/drawable_rounder_edit_text_background"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewCountryName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/constLayoutStateName"
+                >
+                <Spinner
+                    android:id="@+id/spinnerCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dropdown"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtViewStateName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State"
+                style="@style/TextViewTitle"
+                android:layout_marginStart="@dimen/margin_1dp"
+                app:layout_constraintStart_toStartOf="@+id/constLayoutStateName"
+                app:layout_constraintTop_toTopOf="@+id/txtViewCountryName"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constLayoutStateName"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_45_dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:background="@drawable/drawable_rounder_edit_text_background"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewCountryName"
+                app:layout_constraintStart_toEndOf="@+id/constLayoutCountryName"
+                app:layout_constraintBottom_toBottomOf="@+id/constLayoutCountryName"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+                <Spinner
+                    android:id="@+id/spinnerState"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dropdown"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtViewCityName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextViewTitle"
+                android:text="City"
+                android:layout_marginTop="@dimen/margin_15dp"
+                android:layout_marginStart="@dimen/margin_1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constLayoutCountryName"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constLayoutCity"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_45_dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:background="@drawable/drawable_rounder_edit_text_background"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewCityName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constLayoutCountryName"
+                >
+                <Spinner
+                    android:id="@+id/spinnerCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dropdown"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 
@@ -126,23 +213,23 @@
                    android:id="@+id/txtViewEmail"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="@dimen/margin_10_dp"
-                   android:text="@string/title_email"
+                   android:layout_marginTop="@dimen/margin_15dp"
+                   android:text="@string/hint_enter_email_address"
                    style="@style/TextViewTitle"
                    android:layout_marginStart="@dimen/margin_1dp"
                    app:autoSizeStepGranularity="2sp"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextFirstName" />
+                   app:layout_constraintTop_toBottomOf="@+id/constLayoutCity" />
 
                <EditText
                    android:id="@+id/edtTextEmail"
                    android:layout_width="0dp"
                    android:layout_height="@dimen/margin_45_dp"
-                   android:layout_marginTop="@dimen/margin_5dp"
+                   android:layout_marginTop="@dimen/margin_10_dp"
                    android:singleLine="true"
                    android:imeOptions="actionNext"
                    style="@style/EditTextField"
-                   android:hint="@string/title_email"
+                   android:hint="@string/hint_enter_email_address"
                    android:textColorHint="@color/sub_title_color"
                    android:background="@drawable/drawable_rounder_edit_text_background"
                    android:gravity="center_vertical"
@@ -155,30 +242,30 @@
                    android:id="@+id/txtViewMobileNo"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="@dimen/margin_10_dp"
-                   android:text="@string/title_mobile_number"
+                   android:layout_marginTop="@dimen/margin_15dp"
+                   android:text="@string/hint_phone_no"
                    style="@style/TextViewTitle"
                    android:layout_marginStart="@dimen/margin_1dp"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
 
-               <androidx.appcompat.widget.AppCompatEditText
-                   android:id="@+id/edtTextMobileNo"
-                   android:layout_width="0dp"
-                   android:layout_height="@dimen/margin_45_dp"
-                   android:layout_marginTop="@dimen/margin_5dp"
-                   style="@style/EditTextField"
-                   android:hint="@string/title_mobile_number"
-                   android:textColorHint="@color/sub_title_color"
-                   android:background="@drawable/drawable_rounder_edit_text_background"
-                   android:imeOptions="actionNext"
-                   android:maxLength="10"
-                   android:inputType="phone"
-                   android:gravity="center_vertical"
-                   app:layout_constraintTop_toBottomOf="@+id/txtViewMobileNo"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   />
+            <EditText
+                android:id="@+id/edtTextPhoneNo"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_45_dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                style="@style/EditTextField"
+                android:hint="@string/hint_phone_no"
+                android:textColorHint="@color/sub_title_color"
+                android:background="@drawable/drawable_rounder_edit_text_background"
+                android:gravity="center_vertical"
+                android:inputType="textEmailAddress"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewMobileNo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
 
 
@@ -186,18 +273,18 @@
                    android:id="@+id/txtViewPassword"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="@dimen/margin_10_dp"
+                   android:layout_marginTop="@dimen/margin_15dp"
                    android:text="@string/title_password"
                    style="@style/TextViewTitle"
                    android:layout_marginStart="@dimen/margin_1dp"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@+id/edtTextMobileNo" />
+                   app:layout_constraintTop_toBottomOf="@+id/edtTextPhoneNo" />
 
                <EditText
                    android:id="@+id/edtTextPassword"
                    android:layout_width="@dimen/margin_0dp"
                    android:layout_height="@dimen/margin_45_dp"
-                   android:layout_marginTop="@dimen/margin_5dp"
+                   android:layout_marginTop="@dimen/margin_10_dp"
                    style="@style/EditTextField"
                    android:maxLength="10"
                    android:hint="@string/title_password"
@@ -215,7 +302,7 @@
                 android:id="@+id/imgViewEyePassword"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="10dp"
+                android:padding="@dimen/margin_12dp"
                 android:layout_marginEnd="5dp"
                 android:src="@mipmap/ic_hide_icon"
                 app:layout_constraintEnd_toEndOf="@id/edtTextPassword"
@@ -258,7 +345,7 @@
                 android:id="@+id/imgViewEyeConfirmPassword"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="10dp"
+                android:padding="@dimen/margin_12dp"
                 android:layout_marginEnd="5dp"
                 android:src="@mipmap/ic_hide_icon"
                 app:layout_constraintEnd_toEndOf="@id/edtTextConfirmPassword"
@@ -266,50 +353,18 @@
                 app:layout_constraintBottom_toBottomOf="@id/edtTextConfirmPassword"
                 />
 
-
-            <TextView
-                android:id="@+id/txtViewDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10_dp"
-                android:text="@string/title_description"
-                style="@style/TextViewTitle"
-                android:layout_marginStart="@dimen/margin_1dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtTextConfirmPassword" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edtTextDescription"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/margin_100_dp"
-                android:layout_marginTop="@dimen/margin_5dp"
-                style="@style/EditTextField"
-                android:hint="@string/str_enter_your_message"
-                android:textColorHint="@color/sub_title_color"
-                android:background="@drawable/drawable_rounder_edit_text_background"
-                android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
-                android:lines="8"
-                android:minLines="6"
-                android:gravity="top|start"
-                android:maxLines="10"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewDescription"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnRegister"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_45_dp"
-                android:text="@string/title_sign_up"
+                android:text="@string/str_create_my_account"
                 android:layout_marginTop="@dimen/margin_30_dp"
                 android:textColor="@color/white"
                 style="@style/buttonFieldStyle"
                 android:textAllCaps="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtTextDescription"
+                app:layout_constraintTop_toBottomOf="@+id/edtTextPassword"
                 app:rippleColor="@color/white" />
 
 
@@ -357,7 +412,7 @@
 
 
     <ProgressBar
-        android:id="@+id/progressBarLoginPage"
+        android:id="@+id/progressBarRegisterPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"

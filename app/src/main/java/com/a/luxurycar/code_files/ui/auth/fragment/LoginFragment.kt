@@ -1,12 +1,8 @@
 package com.a.luxurycar.code_files.ui.auth.fragment
 
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.os.Bundle
 import android.provider.Settings
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +15,7 @@ import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.LoginRepository
 import com.a.luxurycar.code_files.ui.home.HomeActivity
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.LoginViewModel
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
@@ -35,6 +32,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
     var isShowPassword = false
     var email = ""
     var password = ""
+    var type = ""
 
     override fun getViewModel() = LoginViewModel::class.java
 
@@ -47,8 +45,23 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        type = arguments?.getString(Const.KEY_TYPE).toString()
         manageListeners()
+        setLoginType()
         liveDataObserver()
+
+
+    }
+
+    private fun setLoginType() {
+         if (type != null){
+             binding.txtViewLoginTitle.text = "$type Log In"
+         }else{
+             binding.txtViewLoginTitle.text = "Log In"
+         }
+
+
+
     }
 
     private fun liveDataObserver() {
@@ -56,12 +69,36 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
             binding.progressBarLoginPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
+                    if (it.values.status != null && it.values.status == 1 && it.values.data.user.role == "Buyer") {
                         SessionManager.saveUserData(it.values)
+                        SessionManager.setFullName(it.values.data.user.fullname)
+                        if (it.values.data.user.company_name != null){
+                            SessionManager.setCompanyName(it.values.data.user.company_name)
+                        }
+                        SessionManager.setFirstName(it.values.data.user.firstname)
+                        SessionManager.setLastName(it.values.data.user.lastname)
+                        SessionManager.setEmail(it.values.data.user.email)
+                        SessionManager.setPhone(it.values.data.user.phone)
+                        SessionManager.setImageUrl(it.values.data.user.image)
                         StartActivity(HomeActivity::class.java)
                         requireActivity().finishAffinity()
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
                     }
-                    if (it.values != null && !it.values.message.isNullOrEmpty()) {
+                    else if (it.values.status != null && it.values.status == 1 && it.values.data.user.role == "Seller") {
+                        SessionManager.saveUserData(it.values)
+                        if (it.values.data.user.company_name != null){
+                            SessionManager.setCompanyName(it.values.data.user.company_name)
+                        }
+                        SessionManager.setEmail(it.values.data.user.email)
+                        SessionManager.setPhone(it.values.data.user.phone)
+                        SessionManager.setImageUrl(it.values.data.user.image)
+                        StartActivity(SellerDeshboardActivity::class.java)
+                        requireActivity().finishAffinity()
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    else {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
                             .show()
                     }
@@ -77,7 +114,16 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
     private fun manageListeners() {
 
         binding.txtViewRegister.setOnClickListener {
-            findNavController().navigate(R.id.registerationType)
+            if (type == "Customer"){
+               val bundle = Bundle()
+                bundle.putString(Const.KEY_TYPE, type)
+                findNavController().navigate(R.id.registerFragment,bundle)
+            }
+            if (type == "Seller"){
+                val bundle = Bundle()
+                bundle.putString(Const.KEY_TYPE, type)
+                findNavController().navigate(R.id.sellerRegisterFragment,bundle)
+            }
         }
 
         binding.btnLogin.setOnClickListener {

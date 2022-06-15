@@ -53,19 +53,19 @@ import kotlin.coroutines.coroutineContext
 class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegisterBinding, SellerRepository>() {
     var isShowPassword = false
     var isShowConfirmPassword = false
-    var company = "Hero Motors"
+    var companyName = ""
     var firstName=""
     var lastName=""
     var email= ""
     var address=""
     var password=""
     var confirmPassword=""
+    var phone = ""
     var description = ""
     var image_uri = ""
-    companion object {
-        private val REQUEST_TAKE_PHOTO = 321
-        private val REQUEST_SELECT_IMAGE_IN_ALBUM = 123
-    }
+    var type = ""
+    lateinit var bundle:Bundle
+
     override fun getViewModel() = SellerViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -75,6 +75,9 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        type = arguments?.getString(Const.KEY_TYPE).toString()
+        bundle = Bundle()
+        bundle.putString(Const.KEY_TYPE,type)
         manageListeners()
         liveDataObserver()
     }
@@ -84,8 +87,7 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
-                      /*  startActivity(Intent(requireContext(), SellerDeshboardActivity::class.java))
-                        (context as AuthActivity).finish()*/
+                        findNavController().navigate(R.id.loginFragment)
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
                     }else{
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
@@ -105,13 +107,10 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
             }
         }
 
-        binding.relLayoutUploadPhoto.setOnClickListener {
-
-            openBottomSheet()
-        }
 
         binding.txtViewLogin.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment)
+
+            findNavController().navigate(R.id.loginFragment,bundle)
         }
         binding.imgViewEyePassword.setOnClickListener {
             isShowPassword = !isShowPassword
@@ -140,15 +139,12 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
     }
     private fun callSellerRegisterApi() {
         val jsonObject = JSONObject()
-        val myRandomValues = (8000000000..9000000000).random()
         try {
-           // jsonObject.put(Const.PARAM_FIRST_NAME, firstName)
-            //jsonObject.put(Const.PARAM_LAST_NAME, lastName)
-            jsonObject.put(Const.SELLER_COMPANY_NAME, company)
+            jsonObject.put(Const.SELLER_COMPANY_NAME, companyName)
             jsonObject.put(Const.SELLER_PARAM_EMAIL, email)
             jsonObject.put(Const.SELLER_PARAM_PASSWARD, password)
             jsonObject.put(Const.SELLER_PARAM_CONFIRM_PASSWARD, confirmPassword)
-            jsonObject.put(Const.SELLER_PARAM_Phone, "8057623211")
+            jsonObject.put(Const.SELLER_PARAM_Phone, phone)
             jsonObject.put(Const.SELLER_PARAM_LOCATION, address)
             jsonObject.put(Const.SELLER_PARAM_DESCRIPTION, description)
         } catch (e: Exception) {
@@ -173,23 +169,19 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
         viewModel.getUpdateSellerImage(sellerImage!!)
     }
     private fun getDataFromEditField() {
-        firstName = binding.edtTextFirstName.getTextInString()
-        lastName = binding.edtTextLastName.getTextInString()
+        companyName = binding.edtTextCompanyName.getTextInString()
         email = binding.edtTextEmail.getTextInString()
-        address = binding.edtTextAddress.getTextInString()
+        address = binding.edtTextLocation.getTextInString()
         password = binding.edtTextPassword.getTextInString()
+        phone = binding.edtTextPhoneNo.getTextInString()
         confirmPassword = binding.edtTextConfirmPassword.getTextInString()
         description = binding.edtTextDescription.getTextInString()
     }
     private fun isRegisterDataValid(): Boolean {
 
         getDataFromEditField()
-        if (Utils.isEmptyOrNull(firstName)) {
-            binding.edtTextFirstName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_first_name))
-            return false
-        }
-        else if (Utils.isEmptyOrNull(lastName)) {
-            binding.edtTextLastName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_last_name))
+        if (Utils.isEmptyOrNull(companyName)) {
+            binding.edtTextCompanyName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_company_name))
             return false
         }
         else if (Utils.isEmptyOrNull(email)) {
@@ -199,8 +191,16 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
             binding.edtTextEmail.showErrorAndSetFocus(getStringFromResource(R.string.error_invalid_email))
             return false
         }
+        else if (Utils.isEmptyOrNull(phone)) {
+            binding.edtTextPhoneNo.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_phone_number))
+            return false
+        }
+        else if (phone.length < 10) {
+            binding.edtTextPhoneNo.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_valid_number))
+            return false
+        }
         else if (Utils.isEmptyOrNull(address)) {
-            binding.edtTextAddress.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_address))
+            binding.edtTextLocation.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_address))
             return false
         }
         else if (Utils.isEmptyOrNull(password)) {
@@ -216,287 +216,16 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
             binding.edtTextDescription.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_description))
             return false
         }
-
         return true
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>,
-        grantResults: IntArray,
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            HomeActivity.REQUEST_SELECT_IMAGE_IN_ALBUM -> {
-
-                val permissionCheckRead = ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-
-                val permissionCheckWrite = ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
 
 
-                if (permissionCheckRead == 0 && permissionCheckWrite == 0) {
-                    selectImageInAlbum()
-                } else {
-                    AlertDialogHelper.showMessage(
-                        requireContext(),
-                        getString(R.string.camera_setting)
-                    )
-                }
-
-                return
-            }
-
-            REQUEST_TAKE_PHOTO -> {
-
-                val permissionCheckCamera = ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.CAMERA
-                )
-
-                val permissionCheckRead = ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-
-                val permissionCheckWrite = ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
 
 
-                if (permissionCheckCamera == 0 && permissionCheckRead == 0 && permissionCheckWrite == 0) {
-                    takePhotoFromCamera()
-                } else {
-                    AlertDialogHelper.showMessage(
-                        requireContext(),
-                        getString(R.string.camera_setting)
-                    )
-                }
-
-                return
-            }
-
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == AppCompatActivity.RESULT_OK) {
-            galleryAddPic()
-        } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == AppCompatActivity.RESULT_OK) {
-
-            Log.e("pick", "photo gallry")
-
-            if (data != null) {
-                if (data?.getClipData() != null) {
-                    val count = data.clipData!!.itemCount
-
-                    for (i in 0..count - 1) {
-                        val contentURI = data.clipData!!.getItemAt(i).uri
-                        image_uri = contentURI.toString()
-                        setPhoto()
-                    }
-
-                } else if (data?.getData() != null) {
-                    // if single image is selected
-
-                    val contentURI = data.data
-                     image_uri = contentURI.toString()
-                    setPhoto()
-                }
-
-            }
-
-        } else if (requestCode == 1 && resultCode == 1) {
-
-        }
-    }
-
-    private fun setPhoto() {
-        binding.imgViewImageLogo.visibility = View.GONE
-        binding.imgViewShowImage.visibility = View.VISIBLE
-        //Picasso.get().load(image_Url.toString()).transform(CircleTransform()).into(imgViewProfile)
-        // Picasso.get().load(image_Url.toString()).into(imageViewProfilePhoto)
-
-        if(image_uri != null){
-            Glide.with(this)
-                .load(image_uri.toString())
-                .centerCrop()
-                .into(binding.imgViewShowImage)
-        }
-
-    }
-
-    private fun openBottomSheet() {
-        // on below line we are inflating a layout file which we have created.
-        val view = layoutInflater.inflate(R.layout.alert_dialog_profile_picture, null)
-        val dialog = BottomSheetDialog(requireContext())
-        val linLayoutCamera = view.findViewById<LinearLayout>(R.id.linLayoutCamera)
-        val linLayoutGallery = view.findViewById<LinearLayout>(R.id.linLayoutGallery)
-
-        linLayoutCamera.setOnClickListener {
-            selectFromCameraPermission()
-            dialog.dismiss()
-        }
-
-        linLayoutGallery.setOnClickListener {
-            selectFromGalleryPermission()
-            dialog.dismiss()
-        }
-
-        dialog.setContentView(view)
-        dialog.show()
-    }
-    private fun selectFromCameraPermission() {
-
-        val permissionCheckCamera = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.CAMERA
-        )
-
-        val permissionCheckRead = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
-
-        val permissionCheckWrite = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
 
-            if (permissionCheckCamera == -1 || permissionCheckRead == -1 || permissionCheckWrite == -1) {
 
-                if (!Settings.System.canWrite(requireContext())) {
-                    requestPermissions(
-                        arrayOf(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.CAMERA
-                        ),REQUEST_TAKE_PHOTO
-                    )
-                } else {
-
-                    takePhotoFromCamera()
-                }
-            } else {
-                takePhotoFromCamera()
-            }
-        } else {
-            takePhotoFromCamera()
-        }
-
-    }
-    lateinit var currentPhotoPath: String
-    var photoFile: File? = null
-    var fileUri: Uri? = null
-    private fun takePhotoFromCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            .also { takePictureIntent ->
-                photoFile = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-                    null
-                }
-
-                photoFile?.also {
-                    fileUri = FileProvider.getUriForFile(
-                        requireContext(), "com.luxurycar.fileprovider",
-                        it
-                    )
-                    //AppLogger.d("asad_fileUri", "$fileUri")
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
-                }
-            }
-
-    }
-
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        // Create an image file name
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File =
-            context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
-        return File.createTempFile(
-            "JPEG_${timeStamp}_", /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
-        ).apply {
-            // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
-        }
-    }
-
-
-    private fun selectFromGalleryPermission() {
-
-        val permissionCheckRead = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
-
-        val permissionCheckWrite = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-
-            if (permissionCheckRead == -1 || permissionCheckWrite == -1) {
-
-                if (!Settings.System.canWrite(requireContext())) {
-                    requestPermissions(
-                        arrayOf(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.CAMERA
-                        ), REQUEST_SELECT_IMAGE_IN_ALBUM
-                    )
-                } else {
-
-
-                    selectImageInAlbum()
-
-                }
-            } else {
-
-                selectImageInAlbum()
-
-            }
-        } else {
-
-            selectImageInAlbum()
-
-        }
-    }
-
-    fun selectImageInAlbum() {
-        val photoPickerIntent = Intent(Intent.ACTION_PICK)
-        photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        photoPickerIntent.type = "image/*"
-        startActivityForResult(photoPickerIntent, HomeActivity.REQUEST_SELECT_IMAGE_IN_ALBUM)
-
-
-    }
-
-    private fun galleryAddPic() {
-
-        if (currentPhotoPath.isNotEmpty()) {
-            val f = File(currentPhotoPath)
-            //image_uri = compressTheImageBeforeSendingToServer(currentPhotoPath).toString()
-            image_uri = Uri.fromFile(f).toString()
-            setPhoto()
-        }
-    }
 
 
 

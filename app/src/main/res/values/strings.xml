@@ -10,9 +10,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_register"> <u>Register</u></string>
     <string name="letsRegister_title">Let"'"s Register</string>
-    <string name="register_page_message">By Creating an account, you will be able \n access your account</string>
+    <string name="letsLogin_title">Let"'"s Login</string>
+    <string name="register_page_message">By Login into your account, you will be able \n access your account</string>
     <string name="error_empty_first_name">Please enter first name.</string>
+    <string name="error_empty_select_country">Please select country.</string>
+    <string name="error_empty_select_city">Please select city.</string>
+    <string name="error_empty_select_state">Please select state.</string>
     <string name="error_empty_last_name">Please enter last name.</string>
+    <string name="error_empty_country_name">Please enter country name.</string>
+    <string name="error_empty_state_name">Please enter state name.</string>
+    <string name="error_empty_city_name">Please enter city name.</string>
     <string name="error_empty_email">Please enter email.</string>
     <string name="error_empty_mobile_no">Please enter mobile no.</string>
     <string name="error_empty_phone_no">Please enter phone number.</string>
@@ -21,6 +28,8 @@
     <string name="error_empty_enter_price">Please enter price.</string>
     <string name="error_empty_enter_subject">Please enter subject.</string>
     <string name="error_empty_address">Please enter address.</string>
+    <string name="error_empty_phone_number">Please enter phone number.</string>
+    <string name="error_empty_valid_number">Please enter valid phone number.</string>
     <string name="error_invalid_email">Please enter valid email.</string>
     <string name="error_empty_password">Please enter password.</string>
     <string name="error_empty_new_password">Please enter your new password.</string>
@@ -31,7 +40,7 @@
     <string name="titlr_login">Login</string>
     <string name="titlr_login_underline"> <u>Login</u></string>
     <string name="title_email">Email</string>
-    <string name="title_password">Password</string>
+    <string name="title_password">Enter Password</string>
     <string name="please_enter_your_login_details">Please Enter Your Login Details</string>
     <string name="title_forgot_password">Forgot Password?</string>
     <string name="johndeo_hotmail_com">johndeo@hotmail.com</string>
@@ -79,7 +88,8 @@
     <string name="menu_Inspecting">Inspecting</string>
 
     <string name="menu_sellur_car">Sell your Car</string>
-    <string name="more_options"><u>More Options +</u></string>
+    <string name="str_more_options"><u>More Options +</u></string>
+    <string name="str_less_options"><u>Less Options -</u></string>
 
 
     /////////////////////////
@@ -298,9 +308,18 @@
     <string name="str_find_a_car">Find a Car</string>
     <string name="str_select_your_car_s_from_our_listing_or_from_any_other_website_and_provide_our_team_with_the_url_link">Select your car/s from our listing or from any other website and provide our team with the URL link.</string>
     <string name="str_buyer_enquiries">Buyer Enquiries</string>
+    <string name="str_phone_number">Phone Number</string>
+    <string name="company_name">Company Name</string>
+    <string name="str_customer_sign_up">Customer Sign Up</string>
+    <string name="str_create_my_account">Create My Account</string>
+    <string name="str_your_name_company_name">Your Name/Company Name</string>
+    <string name="title_location">Location</string>
+    <string name="str_update">Update</string>
+
 
 
     <string-array name="countryCode">
+        <item>+917</item>
         <item>+91</item>
         <item>+1</item>
 

@@ -10,6 +10,17 @@ class SellerRepository(val api:ApiService):BaseRepository() {
     suspend fun getSellerRegisterResponse(body: RequestBody) = safeApiCall {
         api.getSellerRegisterResponse(body)
     }
+
+    suspend fun getUpdateSellerResponse(company_name:String,
+                                  email:String,
+                                  password:String,
+                                  password_confirmation:String,
+                                  phone:String,
+                                  location:String,
+                                  description:String) = safeApiCall{
+        api.getUpdateSellerResponse(company_name,email,password,password_confirmation,phone,location,description)
+    }
+
     suspend fun getUpdateSellerImage(
         part : MultipartBody.Part
     ) = safeApiCall {
