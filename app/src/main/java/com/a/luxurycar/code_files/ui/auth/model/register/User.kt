@@ -1,6 +1,9 @@
 package com.a.luxurycar.code_files.ui.auth.model.register
 
 
+import com.a.luxurycar.code_files.ui.auth.model.login.CityLogin
+import com.a.luxurycar.code_files.ui.auth.model.login.CountryLogin
+import com.a.luxurycar.code_files.ui.auth.model.login.StateLogin
 import com.google.gson.annotations.SerializedName
 
 data class User(
@@ -32,8 +35,8 @@ data class User(
     val status: String,
     @SerializedName("user_address")
     val userAddress: Any,
-    @SerializedName("country"      ) var country     : Country? = Country(),
-    @SerializedName("state"        ) var state       : State?   = State(),
-    @SerializedName("city"         ) var city        : City?    = City()
+    @SerializedName("country"      ) var country     : CountryLogin? = CountryLogin(),
+    @SerializedName("state"        ) var state       : StateLogin?   = StateLogin(),
+    @SerializedName("city"         ) var city        : CityLogin?    = CityLogin()
 
 )

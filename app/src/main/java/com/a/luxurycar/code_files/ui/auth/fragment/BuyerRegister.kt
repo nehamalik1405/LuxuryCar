@@ -12,8 +12,12 @@ import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.BuyerRegistrationRepository
+import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
+import com.a.luxurycar.code_files.ui.home.HomeActivity
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.BuyerRegistrationViewModel
 import com.a.luxurycar.common.helper.AdapterSpinner
+import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
@@ -122,7 +126,31 @@ class BuyerRegister :
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.loginFragment)
+                        val user = it.values.data.user
+                        val loginResponse = LoginCommonResponse(
+                            firstname = user.firstname,
+                            lastname = user.lastname,
+                            fullName = user.fullname,
+                            email = user.email,
+                            phone = user.phone,
+                            role = user.role,
+                            image = user.image,
+                            id = user.id,
+                            country = user.country,
+                            state = user.state,
+                            city = user.city
+                        )
+
+                        SessionManager.saveUserData(loginResponse)
+                        SessionManager.setAuthorizationToken(it.values.data.accessToken)
+                        SessionManager.setUserRole(user.role)
+
+                        if(user.role.equals(Const.KEY_BUYER, true)) {
+                            StartActivity(HomeActivity::class.java)
+                        } else {
+                            StartActivity(SellerDeshboardActivity::class.java)
+                        }
+                        requireActivity().finishAffinity()
 
                     }
 

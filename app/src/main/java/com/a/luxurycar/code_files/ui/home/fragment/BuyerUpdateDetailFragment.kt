@@ -28,8 +28,8 @@ import com.a.luxurycar.code_files.repository.UpdateDetailRepository
 import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
 import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.country.Data
+import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.ui.home.adapter.BuyerViewpagerAdapter
-import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.UpdateDetailViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AdapterSpinner
@@ -55,7 +55,8 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
-class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBuyerUpdateDetailBinding, UpdateDetailRepository>() {
+class BuyerUpdateDetailFragment :
+    BaseFragment<UpdateDetailViewModel, FragmentBuyerUpdateDetailBinding, UpdateDetailRepository>() {
     var image_uri: String? = ""
     var isShowPassword = false
     var firstName = ""
@@ -65,9 +66,9 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
     var city = ""
     var email = ""
     var phone = ""
-   // var password = ""
-  //  var confirmPassword = ""
-    var type ="Buyer"
+    var password = ""
+    var confirmPassword = ""
+    var type = "Buyer"
     var country_id = ""
     var stateId = ""
     var cityId = ""
@@ -77,7 +78,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
     lateinit var arrCountry: ArrayList<Data>
     lateinit var arrState: ArrayList<Data>
     lateinit var arrCity: ArrayList<Data>
-    lateinit var bundle:Bundle
+    lateinit var bundle: Bundle
 
     companion object {
         private val REQUEST_TAKE_PHOTO = 321
@@ -89,9 +90,10 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentBuyerUpdateDetailBinding.inflate(inflater,container,false)
+    ) = FragmentBuyerUpdateDetailBinding.inflate(inflater, container, false)
 
-    override fun getRepository() = UpdateDetailRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository() =
+        UpdateDetailRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -100,6 +102,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         setBuyerDetail()
         liveDataObserver()
     }
+
     private fun setBuyerDetail() {
 
         val userData = SessionManager.getUserData()
@@ -109,14 +112,10 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         val email = userData?.email
         val phone = userData?.phone
         setPhoto()
-        (activity as SellerDeshboardActivity?)?.setRightHeader()
         binding.edtTextFirstName.setText(firstName)
         binding.edtTextLastName.setText(lastName)
         binding.edtTextEmail.setText(email)
         binding.edtTextPhoneNo.setText(phone)
-
-
-
 
 
         /* if (buyerData != null) {
@@ -132,7 +131,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                 if (arrCountry[i].id == userCountry?.id) {
                     country_id = arrCountry[i].id.toString()
                     callStateListApi()
-                    return (i+1)
+                    return (i + 1)
                     break
                 }
             }
@@ -148,7 +147,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                 if (arrState[i].id == userState?.id) {
                     stateId = arrState[i].id.toString()
                     callCityListApi()
-                    return (i+1)
+                    return (i + 1)
                     break
                 }
             }
@@ -162,7 +161,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
             for (i in 0 until arrCity.size) {
                 if (arrCity[i].id == userCity?.id) {
                     cityId = arrCity[i].id.toString()
-                    return (i+1)
+                    return (i + 1)
                     break
                 }
             }
@@ -185,24 +184,28 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         viewModel.getUploadBuyerProfileImage(buyerImage!!)
         observeUploadAthleteImageCallback()
     }
+
     private fun observeUploadAthleteImageCallback() {
 
         viewModel.uploadBuyerProfileImage.observe(viewLifecycleOwner, Observer {
             binding.progressBarUpdateDetailPage.visible(it is Resource.Loading)
-            when(it) {
+            when (it) {
                 is Resource.Success -> {
 
-                    if(it.values != null && it.values.status == 1) {
+                    if (it.values != null && it.values.status == 1) {
                         val updatedImage = it.values.buyerProfileData?.image
                         val loginResponse = SessionManager.getUserData()?.apply {
                             image = updatedImage!!
                         }
                         SessionManager.saveUserData(loginResponse!!)
                         setPhoto()
+                        (requireActivity() as HomeActivity).setRightHeader()
+                        (requireActivity() as HomeActivity).setLeftHeader()
+                        findNavController().popBackStack()
                     }
 
 
-                    if(!Utils.isEmptyOrNull(it.values.message)) {
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(
                             requireContext(),
                             it.values.message,
@@ -217,7 +220,6 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         })
 
     }
-
 
 
     private fun callCountryList() {
@@ -270,8 +272,6 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         })
 
 
-
-
     }
 
 
@@ -300,12 +300,15 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                             city = user.city
                         )
                         SessionManager.saveUserData(loginResponse)
+                        (requireActivity() as HomeActivity).setRightHeader()
+                        (requireActivity() as HomeActivity).setLeftHeader()
+                        findNavController().popBackStack()
 
-                        findNavController().navigate(R.id.nav_home)
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
                     }
-                    else{
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
+
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
                     }
 
                 }
@@ -374,33 +377,6 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                 }
 
             }
-
-      /*  binding.imgViewEyePassword.setOnClickListener {
-            isShowPassword = !isShowPassword
-            if (isShowPassword) {
-                binding.edtTextPassword.transformationMethod = null
-                binding.imgViewEyePassword.setImageResource(R.mipmap.ic_show_icon)
-                binding.edtTextPassword.setSelection(binding.edtTextPassword.length())
-            } else {
-                binding.edtTextPassword.transformationMethod = PasswordTransformationMethod()
-                binding.imgViewEyePassword.setImageResource(R.mipmap.ic_hide_icon)
-                binding.edtTextPassword.setSelection(binding.edtTextPassword.length())
-            }
-        }
-
-        binding.imgViewEyeConfirmPassword.setOnClickListener {
-            isShowPassword = !isShowPassword
-            if (isShowPassword) {
-                binding.edtTextConfirmPassword.transformationMethod = null
-                binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_show_icon)
-                binding.edtTextConfirmPassword.setSelection(binding.edtTextPassword.length())
-            } else {
-                binding.edtTextConfirmPassword.transformationMethod = PasswordTransformationMethod()
-                binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_hide_icon)
-                binding.edtTextConfirmPassword.setSelection(binding.edtTextConfirmPassword.length())
-            }
-
-        }*/
 
 
     }
@@ -510,7 +486,15 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
 
     private fun callUpdateDetailApi() {
 
-        viewModel.getBuyerUpdateDetails(firstName,lastName,email,phone,country_id,stateId,cityId)
+        viewModel.getBuyerUpdateDetails(
+            firstName,
+            lastName,
+            email,
+            phone,
+            country_id,
+            stateId,
+            cityId
+        )
     }
 
     private fun getDataFromEditField() {
@@ -521,8 +505,6 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         //  city = binding.edtTextCityName.getTextInString()
         email = binding.edtTextEmail.getTextInString()
         phone = binding.edtTextPhoneNo.getTextInString()
-    /*    password = binding.edtTextPassword.getTextInString()
-        confirmPassword = binding.edtTextConfirmPassword.getTextInString()*/
     }
 
     private fun isUpdateDataValid(): Boolean {
@@ -534,17 +516,26 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         } else if (Utils.isEmptyOrNull(lastName)) {
             binding.edtTextLastName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_last_name))
             return false
-        }
-        else if (country_id == "0") {
-            Toast.makeText(requireContext(), getStringFromResource(R.string.error_empty_select_country), Toast.LENGTH_LONG).show()
+        } else if (country_id == "0") {
+            Toast.makeText(
+                requireContext(),
+                getStringFromResource(R.string.error_empty_select_country),
+                Toast.LENGTH_LONG
+            ).show()
             return false
-        }
-        else if (stateId== "0") {
-            Toast.makeText(requireContext(), getStringFromResource(R.string.error_empty_select_state), Toast.LENGTH_LONG).show()
+        } else if (stateId == "0") {
+            Toast.makeText(
+                requireContext(),
+                getStringFromResource(R.string.error_empty_select_state),
+                Toast.LENGTH_LONG
+            ).show()
             return false
-        }
-        else if (cityId == "0") {
-            Toast.makeText(requireContext(), getStringFromResource(R.string.error_empty_select_city), Toast.LENGTH_LONG).show()
+        } else if (cityId == "0") {
+            Toast.makeText(
+                requireContext(),
+                getStringFromResource(R.string.error_empty_select_city),
+                Toast.LENGTH_LONG
+            ).show()
             return false
         } else if (Utils.isEmptyOrNull(email)) {
             binding.edtTextEmail.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_email))
@@ -555,21 +546,11 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         } else if (Utils.isEmptyOrNull(phone)) {
             binding.edtTextPhoneNo.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_mobile_no))
             return false
-        }
-        else if (phone.length < 10) {
+        } else if (phone.length < 10) {
             binding.edtTextPhoneNo.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_valid_number))
             return false
         }
-      /*  else if (Utils.isEmptyOrNull(password)) {
-            binding.edtTextPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_password))
-            return false
-        } else if (Utils.isEmptyOrNull(confirmPassword)) {
-            binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_confirm_password))
-            return false
-        } else if (!confirmPassword.equals(password)) {
-            binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_password_not_match))
-            return false
-        }*/
+
         return true
     }
 
@@ -612,10 +593,9 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
     private fun setPhoto() {
         val userData = SessionManager.getUserData()
         val image = userData?.image
+        if(!Utils.isEmptyOrNull(image))
         Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
     }
-
-
 
 
     private fun openBottomSheet() {
@@ -703,8 +683,10 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                     )
                     //AppLogger.d("asad_fileUri", "$fileUri")
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
-                    startActivityForResult(takePictureIntent,
-                        REQUEST_TAKE_PHOTO)
+                    startActivityForResult(
+                        takePictureIntent,
+                        REQUEST_TAKE_PHOTO
+                    )
                 }
             }
 

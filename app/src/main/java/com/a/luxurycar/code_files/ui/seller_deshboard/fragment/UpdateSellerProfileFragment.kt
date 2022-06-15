@@ -73,18 +73,49 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
         super.onViewCreated(view, savedInstanceState)
         setSellerDetail()
         manageListeners()
-        liveDataObserver()
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if(requestCode == REQUEST_TAKE_PHOTO) {
+            selectFromCameraPermission()
+        } else if(requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
+            selectFromGalleryPermission()
+        }
+
     }
 
     private fun liveDataObserver() {
-        viewModel.sellerRegisterResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.sellerUpdateResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarSavedSellerUpdateProfile.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.nav_home_seller)
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
-                    }else{
+
+                        val user = it.values.data?.user
+                        val loginResponse = LoginCommonResponse(
+                            email = user?.email,
+                            companyName = user?.companyName,
+                            phone = user?.phone,
+                            role = user?.role!!,
+                            image = user.image,
+                            id = user?.id!!,
+                            description = user.description,
+                            location = user.location,
+                        )
+                        SessionManager.saveUserData(loginResponse)
+                        (requireActivity() as SellerDeshboardActivity).setRightHeader()
+                        findNavController().popBackStack()
+
+                    }
+
+                    if(!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
                     }
 
@@ -133,7 +164,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
         }*/
     }
     private fun callSellerUpdateApi() {
-
+        liveDataObserver()
     viewModel.getUpdateSellerDetailResponse(companyName,email,phone,location,description)
 
     }
@@ -275,16 +306,11 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
 
                         val userData = SessionManager.getUserData()
                         userData!!.image = it.values.data?.image
-                        userData.companyName = it.values.data?.companyName
-                        userData.email = it.values.data?.email
-                        userData.phone = it.values.data?.phone
-                        userData.location = it.values.data?.location
-                        userData.description = it.values.data?.description
 
-                        if (userData != null) {
-                            SessionManager.saveUserData(userData)
-                        }
-                        //setPhoto()
+                        SessionManager.saveUserData(userData)
+                        setPhoto()
+                        findNavController().popBackStack()
+
                     }
 
                     if(!Utils.isEmptyOrNull(it.values.message)) {

@@ -7,6 +7,6 @@ data class UpdateBuyerProfileImageModel (
 
   @SerializedName("status"           ) var status           : Int?              = null,
   @SerializedName("message"          ) var message          : String?           = null,
-  @SerializedName("buyerProfileData" ) var buyerProfileData : BuyerProfileData? = BuyerProfileData()
+  @SerializedName("data" ) var buyerProfileData : BuyerProfileData? = BuyerProfileData()
 
 )

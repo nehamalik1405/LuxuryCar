@@ -26,10 +26,13 @@ import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.SellerRepository
+import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
 import com.a.luxurycar.code_files.ui.home.HomeActivity
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.SellerViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AlertDialogHelper
+import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
@@ -83,8 +86,29 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.loginFragment)
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
+                        val user = it.values.data.user
+                        val loginResponse = LoginCommonResponse(
+                            email = user.email,
+                            companyName = user.company_name,
+                            phone = user.phone,
+                            role = user.role,
+                            image = user.image,
+                            id = user.id,
+                            description = user.description,
+                            location = user.location,
+                        )
+
+                        SessionManager.saveUserData(loginResponse)
+                        SessionManager.setAuthorizationToken(it.values.data.accessToken)
+                        SessionManager.setUserRole(user.role)
+
+                        if(user.role.equals(Const.KEY_BUYER, true)) {
+                            StartActivity(HomeActivity::class.java)
+                        } else {
+                            StartActivity(SellerDeshboardActivity::class.java)
+                        }
+                        requireActivity().finishAffinity()
+
                     }else{
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG).show()
                     }

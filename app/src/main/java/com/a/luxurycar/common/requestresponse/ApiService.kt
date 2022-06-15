@@ -10,6 +10,7 @@ import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.Adver
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.UpdateSellerProfileModel
 import okhttp3.MultipartBody
 
 import okhttp3.RequestBody
@@ -44,14 +45,14 @@ interface ApiService {
 
     //update seller details
     @FormUrlEncoded
-    @PUT("sellers/update?company_name=Tata Motors 2 mn&email=tusharSharm2@braintechnosys.com&password=admin1234&password_confirmation=admin1234&phone=9878565200&location=https://google.com&description=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.")
+    @PUT("sellers/update")
     suspend fun getUpdateSellerResponse(
         @Field("company_name") company_name : String,
         @Field("email") email : String,
         @Field("phone") phone : String,
         @Field("location") location : String,
         @Field("description") description : String
-    ) : SellerRegistrationModel
+    ) : UpdateSellerProfileModel
 
     // upload seller image
     @Multipart
@@ -80,7 +81,7 @@ interface ApiService {
 
     //update buyer details
     @FormUrlEncoded
-    @PUT("buyers/update?firstname=Radheshyam&lastname=Saraswat&email=radheshyam8@braintechnosys.biz&phone=9876543251&password=admin123&password_confirmation=admin123&country_id=2&state_id=1&city_id=1")
+    @PUT("buyers/update")
     suspend fun getUpdateDetails(@Field("firstname") firstname:String,
                                  @Field("lastname") lastname:String,
                                  @Field("email") email:String,
@@ -99,7 +100,7 @@ interface ApiService {
 
     //update buyer password
     @FormUrlEncoded
-    @PUT("updatePassword?email=vandana@braintechnosys.biz&newpassword=admin1&newpassword_confirmation=admin1")
+    @PUT("updatePassword")
     suspend fun getUpdatePasswordResponse(@Field("email") email:String,
                                  @Field("newpassword") newpassword:String,
                                  @Field("newpassword_confirmation") newpassword_confirmation:String): OtpModel

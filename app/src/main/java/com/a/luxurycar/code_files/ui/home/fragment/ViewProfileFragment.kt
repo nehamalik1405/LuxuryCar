@@ -70,6 +70,10 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+
         setViewPager()
         setBuyerDetail()
         manageClickListener()
@@ -93,10 +97,16 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         val fullName = userData?.fullName
         val email = userData?.email
         setPhoto()
-        (activity as SellerDeshboardActivity?)?.setRightHeader()
+        (activity as HomeActivity?)?.setRightHeader()
 
-        if(fullName !=null && email != null){
+        if(!Utils.isEmptyOrNull(fullName)) {
             binding.txtViewUsername.text = fullName
+        } else if(!Utils.isEmptyOrNull(userData?.firstname)) {
+            binding.txtViewUsername.text = userData?.firstname + " "+userData?.lastname
+        }
+
+
+        if(!Utils.isEmptyOrNull(email)) {
             binding.txtViewEmail.text =  email
         }
 
@@ -174,13 +184,15 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
             tab.text = tabName
 
         }.attach()
-    }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
         buyerViewpagerAdapter.setOnTabChangeListener(object : BuyerViewpagerAdapter.OnTabChangeListener {
             override fun onTabChange(BuyerProfileDetailFragment: Boolean) {
             }
         })
+    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
     }
 
 
@@ -223,6 +235,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
     private fun setPhoto() {
         val userData = SessionManager.getUserData()
         val image = userData?.image
+        (!Utils.isEmptyOrNull(image))
         Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
     }
 

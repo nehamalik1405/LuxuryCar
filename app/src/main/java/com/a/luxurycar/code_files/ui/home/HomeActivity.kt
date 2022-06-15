@@ -119,7 +119,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun setLeftHeader() {
+     fun setLeftHeader() {
         val userData = SessionManager.getUserData()
         val txtViewEmail = leftHeaderView.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = leftHeaderView.findViewById<TextView>(R.id.txtViewHeaderUserName)
@@ -130,15 +130,23 @@ class HomeActivity : AppCompatActivity() {
         val image = userData.image
 
 
-        if(!Utils.isEmptyOrNull(fullName) && !Utils.isEmptyOrNull(email) && !Utils.isEmptyOrNull(email)){
+        if(!Utils.isEmptyOrNull(fullName)) {
             textViewUserName.text = fullName
+        } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
+            textViewUserName.text = userData?.firstname +" " +userData?.lastname
+        }
+
+        if(!Utils.isEmptyOrNull(email)) {
             txtViewEmail.text =  email
+        }
+
+        if(!Utils.isEmptyOrNull(image)) {
             Picasso.get().load(image).transform(CircleTransform()).into(userImage)
         }
     }
 
 
-    private fun setRightHeader() {
+     fun setRightHeader() {
         val userData = SessionManager.getUserData()
         val txtViewEmail = rightHeaderView.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = rightHeaderView.findViewById<TextView>(R.id.txtViewHeaderUserName)
@@ -149,16 +157,25 @@ class HomeActivity : AppCompatActivity() {
             txtViewEmail.text=userData.data.user.email
         }*/
 
-        val fullName = userData!!.fullName
+         val fullName = userData!!.fullName
         val email = userData.email
         val image = userData.image
 
+         if(!Utils.isEmptyOrNull(fullName)) {
+             textViewUserName.text = fullName
+         } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
+             textViewUserName.text = userData?.firstname +" " +userData?.lastname
+         }
 
-        if(!Utils.isEmptyOrNull(fullName) && !Utils.isEmptyOrNull(email) && !Utils.isEmptyOrNull(email)){
-            textViewUserName.text = fullName
-            txtViewEmail.text =  email
-            Picasso.get().load(image).transform(CircleTransform()).into(userImage)
-        }
+         if(!Utils.isEmptyOrNull(email)) {
+             txtViewEmail.text =  email
+         }
+
+         if(!Utils.isEmptyOrNull(image)) {
+             Picasso.get().load(image).transform(CircleTransform()).into(userImage)
+         }
+
+
 
     }
 

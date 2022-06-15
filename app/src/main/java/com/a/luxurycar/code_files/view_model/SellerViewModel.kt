@@ -7,6 +7,7 @@ import com.a.luxurycar.code_files.base.BaseViewModel
 import com.a.luxurycar.code_files.repository.SellerRepository
 import com.a.luxurycar.code_files.ui.auth.model.seller.SellerRegistrationModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.UpdateSellerProfileModel
 import com.a.luxurycar.common.requestresponse.Resource
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -31,6 +32,13 @@ class SellerViewModel(val repository: SellerRepository):BaseViewModel(repository
  /*   private val _sellerUpdateDetailResponse: MutableLiveData<Resource<SellerRegistrationModel>> = MutableLiveData()
     val sellerUpdateDetailResponse: LiveData<Resource<SellerRegistrationModel>>
         get() = _sellerUpdateDetailResponse*/
+
+
+
+    private val _sellerUpdateResponse: MutableLiveData<Resource<UpdateSellerProfileModel>> = MutableLiveData()
+    val sellerUpdateResponse: LiveData<Resource<UpdateSellerProfileModel>>
+        get() = _sellerUpdateResponse
+
     fun getUpdateSellerDetailResponse(company_name:String,
                           email:String,
                           phone:String,
@@ -38,8 +46,8 @@ class SellerViewModel(val repository: SellerRepository):BaseViewModel(repository
                           description:String)
         = viewModelScope.launch {
 
-     _sellerRegisterResponse.value = Resource.Loading
-     _sellerRegisterResponse.value =
+        _sellerUpdateResponse.value = Resource.Loading
+        _sellerUpdateResponse.value =
         repository.getUpdateSellerResponse(company_name, email, phone, location, description)
 
         }
