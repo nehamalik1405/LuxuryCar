@@ -98,6 +98,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         val email = userData?.email
         setPhoto()
         (activity as HomeActivity?)?.setRightHeader()
+        (activity as HomeActivity?)?.setLeftHeader()
 
         if(!Utils.isEmptyOrNull(fullName)) {
             binding.txtViewUsername.text = fullName
@@ -110,7 +111,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
             binding.txtViewEmail.text =  email
         }
 
-       /* if (buyerData != null) {
+       /*if (buyerData != null) {
             binding.txtViewUsername.text = buyerData.data.user.fullname
             binding.txtViewEmail.text =  buyerData.data.user.email
         }*/

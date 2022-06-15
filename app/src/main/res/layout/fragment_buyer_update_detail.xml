@@ -157,6 +157,7 @@
                     android:id="@+id/spinnerCountry"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_5dp"
                     android:spinnerMode="dropdown"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -185,6 +186,7 @@
                     android:id="@+id/spinnerState"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_5dp"
                     android:spinnerMode="dropdown"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -212,6 +214,7 @@
                     android:id="@+id/spinnerCity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_5dp"
                     android:spinnerMode="dropdown"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
