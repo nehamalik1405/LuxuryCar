@@ -10,7 +10,6 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,34 +24,29 @@ import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.SellerRepository
 import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
-import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
-import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.SellerProfileViewpager
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.SellerViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.CircleTransform
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
-import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.common.requestresponse.Resource
 import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentUpdateSellerProfileBinding
-
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdateSellerProfileBinding,SellerRepository>() {
-    var isShowPassword = false
-    var isShowConfirmPassword = false
+   // var isShowPassword = false
+ //   var isShowConfirmPassword = false
     var companyName = ""
     var firstName=""
     var lastName=""
@@ -113,7 +107,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
 
 
 
-        binding.imgViewEyePassword.setOnClickListener {
+       /* binding.imgViewEyePassword.setOnClickListener {
             isShowPassword = !isShowPassword
             if (isShowPassword) {
                 binding.edtTextPassword.transformationMethod = null
@@ -136,11 +130,11 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
                 binding.imgViewEyeConfirmPassword.setImageResource(R.mipmap.ic_hide_icon)
                 binding.edtTextConfirmPassword.setSelection(binding.edtTextConfirmPassword.length())
             }
-        }
+        }*/
     }
     private fun callSellerUpdateApi() {
 
-    viewModel.getUpdateSellerDetailResponse(companyName,email,password,confirmPassword,phone,location,description)
+    viewModel.getUpdateSellerDetailResponse(companyName,email,phone,location,description)
 
     }
 
@@ -149,8 +143,8 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
         phone = binding.edtTextPhoneNo.getTextInString()
         email = binding.edtTextEmail.getTextInString()
         location = binding.edtTextLocation.getTextInString()
-        password = binding.edtTextPassword.getTextInString()
-        confirmPassword = binding.edtTextConfirmPassword.getTextInString()
+       /* password = binding.edtTextPassword.getTextInString()
+        confirmPassword = binding.edtTextConfirmPassword.getTextInString()*/
         description = binding.edtTextDescription.getTextInString()
     }
     private fun isUpdateDataValid(): Boolean {
@@ -180,7 +174,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
             binding.edtTextLocation.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_address))
             return false
         }
-        else if (Utils.isEmptyOrNull(password)) {
+      /*  else if (Utils.isEmptyOrNull(password)) {
             binding.edtTextPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_password))
             return false
         } else if (Utils.isEmptyOrNull(confirmPassword)) {
@@ -189,7 +183,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
         } else if (!confirmPassword.equals(password)) {
             binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_password_not_match))
             return false
-        }else if (Utils.isEmptyOrNull(description)) {
+        }*/else if (Utils.isEmptyOrNull(description)) {
             binding.edtTextDescription.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_description))
             return false
         }
@@ -211,6 +205,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
         binding.edtTextDescription.setText(description)
 
         setPhoto()
+        (activity as SellerDeshboardActivity?)?.setRightHeader()
           //  binding.txtViewUsername.text = sellerData.data.user.company_name
          //   binding.txtViewEmail.text =  sellerData.data.user.email
 
@@ -279,11 +274,17 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
 
 
                         val userData = SessionManager.getUserData()
-                        userData?.image = it.values.data?.image
+                        userData!!.image = it.values.data?.image
+                        userData.companyName = it.values.data?.companyName
+                        userData.email = it.values.data?.email
+                        userData.phone = it.values.data?.phone
+                        userData.location = it.values.data?.location
+                        userData.description = it.values.data?.description
+
                         if (userData != null) {
                             SessionManager.saveUserData(userData)
                         }
-                        setPhoto()
+                        //setPhoto()
                     }
 
                     if(!Utils.isEmptyOrNull(it.values.message)) {

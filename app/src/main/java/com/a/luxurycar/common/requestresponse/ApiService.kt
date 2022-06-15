@@ -48,8 +48,6 @@ interface ApiService {
     suspend fun getUpdateSellerResponse(
         @Field("company_name") company_name : String,
         @Field("email") email : String,
-        @Field("password") password : String,
-        @Field("password_confirmation") password_confirmation : String,
         @Field("phone") phone : String,
         @Field("location") location : String,
         @Field("description") description : String
@@ -87,8 +85,7 @@ interface ApiService {
                                  @Field("lastname") lastname:String,
                                  @Field("email") email:String,
                                  @Field("phone") phone:String,
-                                 @Field("password") password:String,
-                                 @Field("password_confirmation") password_confirmation:String,
+
                                  @Field("country_id") country_id:String,
                                  @Field("state_id") state_id:String,
                                  @Field("city_id") city_id:String): LoginResponse

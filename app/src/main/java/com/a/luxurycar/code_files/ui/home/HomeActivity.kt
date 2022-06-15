@@ -33,12 +33,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.common.helper.AlertDialogHelper
+import com.a.luxurycar.common.helper.CircleTransform
 import com.a.luxurycar.common.helper.SessionManager
+import com.a.luxurycar.common.utils.Utils
 import com.a.luxurycar.databinding.ActivityHomeBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.io.File
@@ -56,8 +59,10 @@ class HomeActivity : AppCompatActivity() {
     lateinit var imgViewOpenProfile: ImageView
     lateinit var consLayout:ConstraintLayout
     lateinit var imageViewProfilePhoto:ImageView
-    lateinit var navView:NavigationView
-    lateinit var headerView: View
+    lateinit var navViewRight:NavigationView
+    lateinit var navViewLeft:NavigationView
+    lateinit var leftHeaderView: View
+    lateinit var rightHeaderView: View
     val REQUEST_CODE = 100
 
     var isShow = false
@@ -79,8 +84,10 @@ class HomeActivity : AppCompatActivity() {
         consLayout = findViewById<ConstraintLayout>(R.id.popupLayout)
         imageViewMenu = findViewById(R.id.imgViewMenu)
         imgViewOpenProfile = findViewById(R.id.imgViewOpenProfile)
-        navView = findViewById(R.id.navViewRight)
-        headerView  = navView.getHeaderView(0)
+        navViewRight = findViewById(R.id.navViewRight)
+        navViewLeft = findViewById(R.id.navViewLeft)
+        leftHeaderView  = navViewLeft.getHeaderView(0)
+        rightHeaderView  = navViewRight.getHeaderView(0)
         navViewRight.setItemIconTintList(null)
 
         menageClickEvents()
@@ -88,6 +95,7 @@ class HomeActivity : AppCompatActivity() {
         setLeftNavView()
         setRightNavView()
         setRightHeader()
+        setLeftHeader()
 
         navController.popBackStack(R.id.nav_home, false)
 
@@ -111,12 +119,30 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    private fun setLeftHeader() {
+        val userData = SessionManager.getUserData()
+        val txtViewEmail = leftHeaderView.findViewById<TextView>(R.id.textViewHeaderEmail)
+        val textViewUserName = leftHeaderView.findViewById<TextView>(R.id.txtViewHeaderUserName)
+        val userImage = leftHeaderView.findViewById<ImageView>(R.id.imgViewUserProfile)
+        //setPhoto()
+        val fullName = userData!!.fullName
+        val email = userData.email
+        val image = userData.image
+
+
+        if(!Utils.isEmptyOrNull(fullName) && !Utils.isEmptyOrNull(email) && !Utils.isEmptyOrNull(email)){
+            textViewUserName.text = fullName
+            txtViewEmail.text =  email
+            Picasso.get().load(image).transform(CircleTransform()).into(userImage)
+        }
+    }
 
 
     private fun setRightHeader() {
         val userData = SessionManager.getUserData()
-        val txtViewEmail = headerView.findViewById<TextView>(R.id.textViewHeaderEmail)
-        val textViewUserName = headerView.findViewById<TextView>(R.id.txtViewHeaderUserName)
+        val txtViewEmail = rightHeaderView.findViewById<TextView>(R.id.textViewHeaderEmail)
+        val textViewUserName = rightHeaderView.findViewById<TextView>(R.id.txtViewHeaderUserName)
+        val userImage = rightHeaderView.findViewById<ImageView>(R.id.imgViewUserProfile)
         //setPhoto()
      /*  if (userData != null) {
            textViewUserName.text=userData.data.user.fullname
@@ -125,11 +151,13 @@ class HomeActivity : AppCompatActivity() {
 
         val fullName = userData!!.fullName
         val email = userData.email
+        val image = userData.image
 
 
-        if(fullName !=null && email != null){
+        if(!Utils.isEmptyOrNull(fullName) && !Utils.isEmptyOrNull(email) && !Utils.isEmptyOrNull(email)){
             textViewUserName.text = fullName
             txtViewEmail.text =  email
+            Picasso.get().load(image).transform(CircleTransform()).into(userImage)
         }
 
     }

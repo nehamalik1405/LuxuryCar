@@ -29,6 +29,7 @@ import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
 import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.country.Data
 import com.a.luxurycar.code_files.ui.home.adapter.BuyerViewpagerAdapter
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.UpdateDetailViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AdapterSpinner
@@ -64,8 +65,8 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
     var city = ""
     var email = ""
     var phone = ""
-    var password = ""
-    var confirmPassword = ""
+   // var password = ""
+  //  var confirmPassword = ""
     var type ="Buyer"
     var country_id = ""
     var stateId = ""
@@ -108,6 +109,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         val email = userData?.email
         val phone = userData?.phone
         setPhoto()
+        (activity as SellerDeshboardActivity?)?.setRightHeader()
         binding.edtTextFirstName.setText(firstName)
         binding.edtTextLastName.setText(lastName)
         binding.edtTextEmail.setText(email)
@@ -196,6 +198,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                             image = updatedImage!!
                         }
                         SessionManager.saveUserData(loginResponse!!)
+                        setPhoto()
                     }
 
 
@@ -372,7 +375,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
 
             }
 
-        binding.imgViewEyePassword.setOnClickListener {
+      /*  binding.imgViewEyePassword.setOnClickListener {
             isShowPassword = !isShowPassword
             if (isShowPassword) {
                 binding.edtTextPassword.transformationMethod = null
@@ -397,7 +400,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
                 binding.edtTextConfirmPassword.setSelection(binding.edtTextConfirmPassword.length())
             }
 
-        }
+        }*/
 
 
     }
@@ -507,7 +510,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
 
     private fun callUpdateDetailApi() {
 
-        viewModel.getBuyerUpdateDetails(firstName,lastName,email,phone,password,confirmPassword,country_id,stateId,cityId)
+        viewModel.getBuyerUpdateDetails(firstName,lastName,email,phone,country_id,stateId,cityId)
     }
 
     private fun getDataFromEditField() {
@@ -518,8 +521,8 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         //  city = binding.edtTextCityName.getTextInString()
         email = binding.edtTextEmail.getTextInString()
         phone = binding.edtTextPhoneNo.getTextInString()
-        password = binding.edtTextPassword.getTextInString()
-        confirmPassword = binding.edtTextConfirmPassword.getTextInString()
+    /*    password = binding.edtTextPassword.getTextInString()
+        confirmPassword = binding.edtTextConfirmPassword.getTextInString()*/
     }
 
     private fun isUpdateDataValid(): Boolean {
@@ -557,7 +560,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
             binding.edtTextPhoneNo.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_valid_number))
             return false
         }
-        else if (Utils.isEmptyOrNull(password)) {
+      /*  else if (Utils.isEmptyOrNull(password)) {
             binding.edtTextPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_password))
             return false
         } else if (Utils.isEmptyOrNull(confirmPassword)) {
@@ -566,7 +569,7 @@ class BuyerUpdateDetailFragment : BaseFragment<UpdateDetailViewModel, FragmentBu
         } else if (!confirmPassword.equals(password)) {
             binding.edtTextConfirmPassword.showErrorAndSetFocus(getStringFromResource(R.string.error_password_not_match))
             return false
-        }
+        }*/
         return true
     }
 

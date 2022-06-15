@@ -24,13 +24,11 @@ class UpdateDetailViewModel(val repository: UpdateDetailRepository):BaseViewMode
                               lastName:String,
                               email:String,
                               phone:String,
-                              password:String,
-                              password_confirmation:String,
                               country_id:String,
                               state_id:String,
                               city_id:String) = viewModelScope.launch {
         _buyerUpdateDetailResponse.value = Resource.Loading
-        _buyerUpdateDetailResponse.value = repository.getUpdateDetails(firstName,lastName,email,phone,password, password_confirmation, country_id, state_id, city_id)
+        _buyerUpdateDetailResponse.value = repository.getUpdateDetails(firstName,lastName,email,phone,country_id, state_id, city_id)
 
     }
 

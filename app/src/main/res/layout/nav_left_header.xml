@@ -5,10 +5,11 @@
     android:layout_height="wrap_content"
     android:background="@color/green"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
 
     <RelativeLayout
         android:id="@+id/relLayUserProfileImage"
@@ -64,6 +65,5 @@
             android:layout_marginTop="@dimen/margin_2dp"
             android:text="@string/nav_header_subtitle" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.SellerRepository
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.SellerProfileViewpager
 import com.a.luxurycar.code_files.view_model.SellerViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
@@ -94,6 +95,7 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
             binding.txtViewEmail.text =  email
         }
         setPhoto()
+        (activity as SellerDeshboardActivity?)?.setRightHeader()
        /* if (sellerData != null) {
             binding.txtViewUsername.text = sellerData.data.user.company_name
             binding.txtViewEmail.text =  sellerData.data.user.email
@@ -188,15 +190,15 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
                     if(it.values != null && it.values.status == 1) {
 
                             val updatedImage = it.values.data?.image
-                            val updatedLocation = it.values.data?.image
-                            val updatedDescription = it.values.data?.image
+                            val updatedLocation = it.values.data?.location
+                            val updatedDescription = it.values.data?.description
                             val loginResponse = SessionManager.getUserData()?.apply {
                                 image = updatedImage!!
                                 location = updatedLocation!!
                                 description = updatedDescription!!
                             }
                             SessionManager.saveUserData(loginResponse!!)
-
+                       // setPhoto()
                     }
 
                     if(!Utils.isEmptyOrNull(it.values.message)) {

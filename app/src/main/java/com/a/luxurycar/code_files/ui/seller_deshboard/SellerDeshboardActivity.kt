@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -14,9 +15,11 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.common.helper.CircleTransform
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.databinding.ActivitySellerDeshboardBinding
 import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.toolbar.*
 
 
@@ -51,16 +54,19 @@ class SellerDeshboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun setRightHeader() {
+    public fun setRightHeader() {
 
         val header = binding.navViewRightSeller.getHeaderView(0)
         val userData = SessionManager.getUserData()
         val txtViewEmail = header.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = header.findViewById<TextView>(R.id.txtViewHeaderUserName)
+        val userImage = header.findViewById<ImageView>(R.id.imgViewUserProfile)
         //setPhoto()
         if (userData != null) {
-            textViewUserName.text=userData.fullName
+            textViewUserName.text=userData.companyName
             txtViewEmail.text=userData.email
+            val image = userData.image
+            Picasso.get().load(image).transform(CircleTransform()).into(userImage)
         }
 
     }

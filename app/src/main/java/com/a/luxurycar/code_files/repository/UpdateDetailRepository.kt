@@ -11,9 +11,8 @@ class UpdateDetailRepository(val api:ApiService): BaseRepository() {
                                  lastName:String,
                                  email:String,
                                  phone:String,
-                                 password:String,
-                                 password_confirmation:String,country_id:String,state_id:String,city_id:String) = safeApiCall {
-        api.getUpdateDetails(firstName,lastName,email,phone,password,password_confirmation,country_id, state_id, city_id)
+                                 country_id:String,state_id:String,city_id:String) = safeApiCall {
+        api.getUpdateDetails(firstName,lastName,email,phone,country_id, state_id, city_id)
     }
 
     suspend fun getUploadBuyerProfileImage(

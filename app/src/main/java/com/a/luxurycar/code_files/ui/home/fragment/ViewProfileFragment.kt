@@ -24,6 +24,7 @@ import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.UpdateDetailRepository
 import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.code_files.ui.home.adapter.BuyerViewpagerAdapter
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.SellerProfileViewpager
 import com.a.luxurycar.code_files.view_model.UpdateDetailViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
@@ -92,6 +93,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         val fullName = userData?.fullName
         val email = userData?.email
         setPhoto()
+        (activity as SellerDeshboardActivity?)?.setRightHeader()
 
         if(fullName !=null && email != null){
             binding.txtViewUsername.text = fullName
@@ -132,6 +134,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
                             image = updatedImage!!
                         }
                         SessionManager.saveUserData(loginResponse!!)
+                        setPhoto()
                     }
 
 

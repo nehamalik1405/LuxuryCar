@@ -13,12 +13,10 @@ class SellerRepository(val api:ApiService):BaseRepository() {
 
     suspend fun getUpdateSellerResponse(company_name:String,
                                   email:String,
-                                  password:String,
-                                  password_confirmation:String,
                                   phone:String,
                                   location:String,
                                   description:String) = safeApiCall{
-        api.getUpdateSellerResponse(company_name,email,password,password_confirmation,phone,location,description)
+        api.getUpdateSellerResponse(company_name,email,phone,location,description)
     }
 
     suspend fun getUpdateSellerImage(

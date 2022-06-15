@@ -33,8 +33,6 @@ class SellerViewModel(val repository: SellerRepository):BaseViewModel(repository
         get() = _sellerUpdateDetailResponse*/
     fun getUpdateSellerDetailResponse(company_name:String,
                           email:String,
-                          password:String,
-                          password_confirmation:String,
                           phone:String,
                           location:String,
                           description:String)
@@ -42,7 +40,7 @@ class SellerViewModel(val repository: SellerRepository):BaseViewModel(repository
 
      _sellerRegisterResponse.value = Resource.Loading
      _sellerRegisterResponse.value =
-        repository.getUpdateSellerResponse(company_name, email, password, password_confirmation, phone, location, description)
+        repository.getUpdateSellerResponse(company_name, email, phone, location, description)
 
         }
 

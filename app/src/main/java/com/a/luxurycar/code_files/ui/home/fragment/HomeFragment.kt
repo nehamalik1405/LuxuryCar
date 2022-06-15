@@ -240,6 +240,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
             binding.txtViewPromotedListing.visibility =View.VISIBLE
             binding.imgViewPromotedRightArrow.visibility =View.VISIBLE
         }
+        if (!arrBannerList.isEmpty()){
+            binding.cardViewImageViewPager.visibility =View.VISIBLE
+            binding.cardViewImageViewPager.visibility =View.VISIBLE
+        }
     }
     private fun setSelectionOnButton() {
         binding.btnToBuy.setOnClickListener{

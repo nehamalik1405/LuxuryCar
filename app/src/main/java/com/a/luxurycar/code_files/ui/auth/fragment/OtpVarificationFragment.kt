@@ -92,11 +92,10 @@ class OtpVarificationFragment :
             binding.progressBarVerifyOtpPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        findNavController().navigate(R.id.updatePasswordFragment,bundle)
+                   /* if (it.values.status != null && it.values.status == 1) {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
                             .show()
-                    }
+                    }*/
                     if (it.values != null && !it.values.message.isNullOrEmpty()) {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
                             .show()
