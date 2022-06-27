@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Luxury Car</string>
 
+    <string name="facebook_app_id">1057734138461125</string>
+    <string name="fb_login_protocol_scheme">fb1057734138461125</string>
+    <string name="facebook_client_token">2fc78b08581641dcd42a0c13d9553119</string>
     <!-- common messages -->
     <string name="app_exit">Exit</string>
     <string name="title_ok">OK</string>
@@ -315,7 +318,38 @@
     <string name="str_your_name_company_name">Your Name/Company Name</string>
     <string name="title_location">Location</string>
     <string name="str_update">Update</string>
-
+    <string name="str_more_deatils_non_mandatory"><u>+More Deatils (non-mandatory)</u></string>
+    <string name="str_less_deatils_non_mandatory"><u>-Less Deatils (non-mandatory)</u></string>
+    <string name="str_sell_car">Sell Car</string>
+    <string name="str_rent_car">Rent Car</string>
+    <string name="str_city">City</string>
+    <string name="str_mandatory_star">*</string>
+    <string name="str_price">Price</string>
+    <string name="str_weekly_price">Weekly Price</string>
+    <string name="str_monthly_price">Monthly Price</string>
+    <string name="str_regional_specification">Regional Specification</string>
+    <string name="str_exteriour_colour">Exteriour Colour</string>
+    <string name="title_transmission_type">Transmission type</string>
+    <string name="str_horsepower">Horsepower</string>
+    <string name="str_seller_type">Seller type</string>
+    <string name="str_full_service_history">Full service history</string>
+    <string name="str_no_of_cylinders">No. of cylinders</string>
+    <string name="str_interior_colour">Interior colour</string>
+    <string name="str_fuel_type">Fuel type</string>
+    <string name="str_body_type">Body type</string>
+    <string name="str_body_condition">Body condition</string>
+    <string name="str_mechanical_condition">Mechanical condition</string>
+    <string name="str_steering_side">Steering side</string>
+    <string name="str_warranty">Warranty</string>
+    <string name="str_assign_sale_person">Assign sale person</string>
+    <string name="str_919800000000_jhonedeo_gmail_com">+919800000000,jhonedeo@gmail.com</string>
+    <string name="str_add_pictures">Add pictures</string>
+    <string name="str_upload_multiple_images_or_draging_or_droping_on_the_dashed_line">Upload Multiple Images or draging or droping on the dashed line</string>
+    <string name="str_enter_title">Enter title</string>
+    <string name="str_describe_your_car_for_sale">Describe your car for sale</string>
+    <string name="str_location_your_car">Location your car</string>
+    <string name="str_enter_location">Enter location</string>
+    <string name="str_next">NEXT</string>
 
 
     <string-array name="countryCode">

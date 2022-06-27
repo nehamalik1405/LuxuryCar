@@ -2,6 +2,7 @@ package com.a.luxurycar.code_files.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.a.luxurycar.code_files.base.BaseViewModel
 import com.a.luxurycar.code_files.repository.AuthRepository
@@ -22,7 +23,6 @@ class AuthViewModel(val repository: AuthRepository) : BaseViewModel(repository) 
 
         _loginResponse.value = Resource.Loading
         _loginResponse.value = repository.getLoginResponse(body)
-
     }
 
     // registration response

@@ -2,7 +2,7 @@ package com.a.luxurycar.code_files.ui.add_car.fragment
 
 import android.Manifest
 import android.content.Intent
-import android.database.Cursor
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,22 +12,29 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
-import com.a.luxurycar.code_files.repository.AddCarRepository
+import com.a.luxurycar.code_files.repository.AddCarStepOneRepository
 import com.a.luxurycar.code_files.ui.add_car.adapter.AddMultipleImageAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.AddMultipleImageModel
-import com.a.luxurycar.code_files.view_model.AddCarViewModel
+import com.a.luxurycar.code_files.view_model.AddCarStepOneViewModel
+import com.a.luxurycar.common.helper.AdapterSpinner
 import com.a.luxurycar.common.helper.AlertDialogHelper
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.common.requestresponse.Const
+import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.handleApiErrors
+import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentAddCarStepOneBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -36,6 +43,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.fragment_add_car_step_one.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -43,8 +51,13 @@ import java.util.*
 
 
 class AddCarStepOne :
-    BaseFragment<AddCarViewModel, FragmentAddCarStepOneBinding, AddCarRepository>(), OnMapReadyCallback {
+    BaseFragment<AddCarStepOneViewModel, FragmentAddCarStepOneBinding, AddCarStepOneRepository>(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
+    lateinit var arrMakeListHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrCitiesListHashMap: ArrayList<HashMap<String, String>>
+    var makeId = ""
+    var cityId = ""
+    var isShowMoreDetails = false
     var PICK_IMAGE_MULTIPLE = 321
     var CAMERA_REQUEST = 122
     var MY_CAMERA_PERMISSION_CODE = 100
@@ -58,26 +71,193 @@ class AddCarStepOne :
 
     lateinit var listImage: ArrayList<AddMultipleImageModel>
 
-    override fun getViewModel()=AddCarViewModel::class.java
+    override fun getViewModel()=AddCarStepOneViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     )= FragmentAddCarStepOneBinding.inflate(inflater,container,false)
-    override fun getRepository()= AddCarRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository()= AddCarStepOneRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listImage = arrayListOf()
+        //selectRadioButtonId()
         manageClickListeners()
-
+        callMakeListApi()
+        callCitiesListApi()
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+
+    }
+
+
+
+    private fun callCitiesListApi() {
+       viewModel.getAddCarStepCitiesResponse("1")
+
+        viewModel.citiesListResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            arrCitiesListHashMap = ArrayList()
+            val hashMapDefaultitem = HashMap<String, String>()
+            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
+            arrCitiesListHashMap.add(hashMapDefaultitem)
+
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+
+            when (it) {
+                is Resource.Success -> {
+
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            for (item in it.values.data) {
+                                val hashMap = java.util.HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name.toString())
+                                arrCitiesListHashMap.add(hashMap)
+                            }
+                        }
+                    }
+
+
+                    val adapter = AdapterSpinner(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        arrCitiesListHashMap
+                    )
+
+
+                    //Drop down layout style - list view with radio button
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                    //attaching data adapter to spinner
+                    binding.spinnerSelectCity.setAdapter(adapter)
+
+
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
+
+    private fun callMakeListApi() {
+        viewModel.getMakeListResponse()
+
+      viewModel.makeListResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+          arrMakeListHashMap = ArrayList()
+          val hashMapDefaultitem = HashMap<String, String>()
+          hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+          hashMapDefaultitem.put(Const.KEY_NAME, "Select")
+          arrMakeListHashMap.add(hashMapDefaultitem)
+
+          binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+
+          when (it) {
+              is Resource.Success -> {
+
+                  if (it.values.status == 1) {
+                      binding.progressbarAddCarStepOne.visible(isHidden)
+                      if (it.values != null) {
+                          for (item in it.values.data) {
+                              val hashMap = java.util.HashMap<String, String>()
+                              hashMap.put(Const.KEY_ID, "" + item.id)
+                              hashMap.put(Const.KEY_NAME, item.name.toString())
+                              arrMakeListHashMap.add(hashMap)
+                          }
+                      }
+                  }
+
+
+                  val adapter = AdapterSpinner(
+                      requireContext(),
+                      android.R.layout.simple_spinner_item,
+                      arrMakeListHashMap
+                  )
+
+
+                  //Drop down layout style - list view with radio button
+                  adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                  //attaching data adapter to spinner
+                  binding.spinnerSelectMake.setAdapter(adapter)
+
+
+
+              }
+              is Resource.Failure -> handleApiErrors(it)
+          }
+      })
 
     }
 
     private fun manageClickListeners() {
         binding.linLayoutAddPictures.setOnClickListener {
             openBottomSheet()
+        }
+
+        binding.spinnerSelectMake.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    makeId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+
+                }
+
+            }
+
+        binding.spinnerSelectCity.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    cityId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+
+                }
+
+            }
+
+        binding.radioButtonSellCar.setOnClickListener {
+
+            if(binding.radioButtonSellCar.isChecked) {
+                binding.txtViewPrice.text = "Price"
+                binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.GONE
+            }
+
+        }
+        binding.radioButtonRentCar.setOnClickListener {
+
+            if(binding.radioButtonRentCar.isChecked) {
+                binding.txtViewPrice.text = "Daily Price"
+                binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.VISIBLE
+            }
+
+        }
+
+        binding.txtViewMoreDetailsAndLessDetails.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding.txtViewMoreDetailsAndLessDetails.setOnClickListener {
+            isShowMoreDetails = !isShowMoreDetails
+            if(isShowMoreDetails){
+                binding.cardViewSecondPartCarDetails.visibility = View.VISIBLE
+                binding.txtViewMoreDetailsAndLessDetails.text =getString(R.string.str_less_deatils_non_mandatory)
+            }else{
+                binding.cardViewSecondPartCarDetails.visibility = View.GONE
+                binding.txtViewMoreDetailsAndLessDetails.text = getString(R.string.str_more_deatils_non_mandatory)
+            }
+
+
+
         }
 
 

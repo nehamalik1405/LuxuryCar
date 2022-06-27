@@ -37,8 +37,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/margin_20_dp"
-        android:layout_marginStart="@dimen/margin_10_dp"
-        android:layout_marginEnd="@dimen/margin_10_dp"
         app:layout_constraintTop_toBottomOf="@id/linLayoutTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -48,7 +46,6 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_45_dp"
             android:layout_weight="1"
-            android:background="@drawable/drawable_tab_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/consLayoutTabForRent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -149,15 +146,50 @@
 
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/viewLineTabBootom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/consLayoutForTab"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <View
+        <View
+            android:id="@+id/viewLineStep1"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/yellow_color" />
+        <View
+            android:id="@+id/viewLineStep2"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/green" />
+        <View
+            android:id="@+id/viewLineStep3"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/green" />
+        <View
+            android:id="@+id/viewLineStep4"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/green" />
+    </LinearLayout>
+
+   <!-- <View
         android:id="@+id/viewLineTabBootom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/consLayoutForTab"
-        android:background="@color/green" />
+        android:background="@color/green" />-->
 
 
     <fragment

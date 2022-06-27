@@ -152,7 +152,6 @@ class Utils {
 
 
             val view = activity.currentFocus
-
             if (view != null) {
                 val imm =
                     activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

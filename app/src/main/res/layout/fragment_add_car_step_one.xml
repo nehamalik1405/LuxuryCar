@@ -24,6 +24,51 @@
             android:textSize="@dimen/margin_17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewCarType"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            app:cardCornerRadius="@dimen/margin_10_dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewTellUsAboutYourCar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <RadioGroup
+                android:id="@+id/radioGroupButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F5F8"
+                android:paddingStart="@dimen/margin_25_dp"
+                android:paddingEnd="@dimen/margin_25_dp"
+               android:paddingTop="@dimen/margin_5dp"
+                android:paddingBottom="@dimen/margin_5dp"
+                android:orientation="horizontal"
+                 >
+
+                <RadioButton
+                    android:id="@+id/radioButtonSellCar"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/txt_size_15sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/str_sell_car" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonRentCar"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/txt_size_15sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_rent_car" />
+            </RadioGroup>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewCarDetails"
@@ -33,14 +78,14 @@
             app:cardCornerRadius="@dimen/margin_10_dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewTellUsAboutYourCar">
+            app:layout_constraintTop_toBottomOf="@+id/cardViewCarType">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#F1F5F8"
                 android:padding="@dimen/margin_15dp">
-
+<!--
                 <TextView
                     android:id="@+id/txtViewEnterChasisNumber"
                     style="@style/TextViewTitle"
@@ -85,7 +130,8 @@
                     android:textSize="@dimen/txt_size_12sp"
                     app:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtEnterChasisNumber" />
+                    app:layout_constraintTop_toBottomOf="@+id/edtEnterChasisNumber" />-->
+
 
                 <TextView
                     android:id="@+id/txtViewCity"
@@ -93,15 +139,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20_dp"
-                    android:text="City"
+                    android:text="@string/str_city"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewThisNumberWillNotShowOnYourAd" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewCity"
                     app:layout_constraintTop_toTopOf="@+id/txtViewCity" />
@@ -123,7 +169,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +182,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Make"
+                    android:text="@string/str_make"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewCity"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectMake"
                     app:layout_constraintTop_toTopOf="@+id/txtViewCity" />
@@ -145,7 +191,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewMake"
                     app:layout_constraintTop_toTopOf="@+id/txtViewMake" />
@@ -167,7 +213,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -184,7 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Model"
+                    android:text="@string/str_model"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectMake" />
 
@@ -192,7 +238,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewModel"
                     app:layout_constraintTop_toTopOf="@+id/txtViewModel" />
@@ -228,7 +274,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Year"
+                    android:text="@string/title_year"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewModel"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectYear"
                     app:layout_constraintTop_toTopOf="@+id/txtViewModel" />
@@ -237,7 +283,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewYear"
                     app:layout_constraintTop_toTopOf="@+id/txtViewYear" />
@@ -275,7 +321,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Kilometers"
+                    android:text="@string/str_kilometers"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectModel" />
 
@@ -283,7 +329,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewKilometers"
                     app:layout_constraintTop_toTopOf="@+id/txtViewKilometers" />
@@ -311,30 +357,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <!--  <TextView
-                          android:id="@+id/imgViewYearFrom"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_marginStart="@dimen/margin_10_dp"
-                          android:text="@string/title_year_from"
-                          android:textSize="14sp"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintStart_toStartOf="parent"
-                          app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-                      <ImageView
-                          android:id="@+id/imgViewDownYearFrom"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_marginEnd="@dimen/margin_15dp"
-                          android:src="@mipmap/ic_down_arrow"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintEnd_toEndOf="parent"
-                          app:layout_constraintTop_toTopOf="parent" />
-        -->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -343,7 +365,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price"
+                    android:text="@string/str_price"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewKilometers"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectPrice"
                     app:layout_constraintTop_toTopOf="@+id/txtViewKilometers" />
@@ -352,7 +374,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewPrice"
                     app:layout_constraintTop_toTopOf="@+id/txtViewPrice" />
@@ -382,6 +404,108 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+              <!--  weekly price and monthly price-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/consLayoutWeeklyAndMonthlyPrice"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectKilometers"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/txtViewWeeklyPrice"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_weekly_price"
+                        app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_mandatory_star"
+                        android:textColor="#B64B71"
+                        app:layout_constraintStart_toEndOf="@+id/txtViewWeeklyPrice"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewWeeklyPrice" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutSelectWeeklyPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginEnd="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectMonthlyPrice"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtViewWeeklyPrice">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectWeeklyPrice"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtViewMonthlyPrice"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_monthly_price"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtViewWeeklyPrice"
+                        app:layout_constraintStart_toStartOf="@+id/conLayoutSelectMonthlyPrice"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewWeeklyPrice" />
+
+                    <TextView
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_mandatory_star"
+                        android:textColor="#B64B71"
+                        app:layout_constraintStart_toEndOf="@+id/txtViewMonthlyPrice"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewMonthlyPrice" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutSelectMonthlyPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_marginStart="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectWeeklyPrice"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/conLayoutSelectWeeklyPrice"
+                        app:layout_constraintTop_toTopOf="@+id/conLayoutSelectWeeklyPrice">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectMonthlyPrice"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <!--regional specification and exteriour colour-->
 
                 <TextView
@@ -390,15 +514,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Regional Specification"
+                    android:text="@string/str_regional_specification"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectPrice" />
+                    app:layout_constraintTop_toBottomOf="@+id/consLayoutWeeklyAndMonthlyPrice" />
 
                 <TextView
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewRegionalSpecification"
                     app:layout_constraintTop_toTopOf="@+id/txtViewRegionalSpecification" />
@@ -434,7 +558,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Exteriour Colour"
+                    android:text="@string/str_exteriour_colour"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewRegionalSpecification"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectExteriourColour"
                     app:layout_constraintTop_toTopOf="@+id/txtViewRegionalSpecification" />
@@ -443,7 +567,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewExteriourColour"
                     app:layout_constraintTop_toTopOf="@+id/txtViewExteriourColour" />
@@ -481,7 +605,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Transmission type"
+                    android:text="@string/title_transmission_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectExteriourColour" />
 
@@ -489,7 +613,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewTransmissionType"
                     app:layout_constraintTop_toTopOf="@+id/txtViewTransmissionType" />
@@ -525,7 +649,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Horsepower"
+                    android:text="@string/str_horsepower"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewTransmissionType"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectHorsepower"
                     app:layout_constraintTop_toTopOf="@+id/txtViewTransmissionType" />
@@ -534,7 +658,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewHorsepower"
                     app:layout_constraintTop_toTopOf="@+id/txtViewHorsepower" />
@@ -571,7 +695,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Seller type"
+                    android:text="@string/str_seller_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectHorsepower" />
 
@@ -579,7 +703,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*"
+                    android:text="@string/str_mandatory_star"
                     android:textColor="#B64B71"
                     app:layout_constraintStart_toEndOf="@+id/txtViewSellerType"
                     app:layout_constraintTop_toTopOf="@+id/txtViewSellerType" />
@@ -591,7 +715,7 @@
                     android:layout_marginTop="@dimen/margin_5dp"
                     android:layout_marginEnd="@dimen/margin_5dp"
                     android:background="@drawable/drawable_rounder_edit_text_background"
-                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectPrice"
+                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectFullServiceHistory"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewSellerType">
 
@@ -610,10 +734,65 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <TextView
+                    android:id="@+id/txtViewFullServiceHistory"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_full_service_history"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtViewSellerType"
+                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectFullServiceHistory"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewSellerType" />
+
+                <TextView
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_mandatory_star"
+                    android:textColor="#B64B71"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewFullServiceHistory"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewFullServiceHistory" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutSelectFullServiceHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectSellerType"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectSellerType"
+                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectSellerType">
+
+                    <Spinner
+                        android:id="@+id/spinnerSelectFullServiceHistory"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtViewMoreDetailsAndLessDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextViewTitle"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:text="@string/str_more_deatils_non_mandatory"
+            android:layout_marginEnd="@dimen/margin_15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewCarDetails"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewSecondPartCarDetails"
@@ -621,9 +800,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20_dp"
             app:cardCornerRadius="@dimen/margin_10_dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewCarDetails">
+            app:layout_constraintTop_toBottomOf="@+id/txtViewMoreDetailsAndLessDetails">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -638,7 +818,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No. of cylinders"
+                    android:text="@string/str_no_of_cylinders"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -672,7 +852,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Interior colour"
+                    android:text="@string/str_interior_colour"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewNumberOfCylinders"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectInteriorColour"
                     app:layout_constraintTop_toTopOf="@+id/txtViewNumberOfCylinders" />
@@ -711,7 +891,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Fuel type"
+                    android:text="@string/str_fuel_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectInteriorColour" />
 
@@ -747,7 +927,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Body type"
+                    android:text="@string/str_body_type"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewFuelType"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectBodyType"
                     app:layout_constraintTop_toTopOf="@+id/txtViewFuelType" />
@@ -788,7 +968,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Body condition"
+                    android:text="@string/str_body_condition"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectBodyType" />
 
@@ -824,7 +1004,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mechanical condition"
+                    android:text="@string/str_mechanical_condition"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewBodyCondition"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectMechanicalCondition"
                     app:layout_constraintTop_toTopOf="@+id/txtViewBodyCondition" />
@@ -864,7 +1044,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="Body condition"
+                    android:text="@string/str_steering_side"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectMechanicalCondition" />
 
@@ -900,7 +1080,7 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Warranty"
+                    android:text="@string/str_warranty"
                     app:layout_constraintBottom_toBottomOf="@+id/txtViewSteeringSide"
                     app:layout_constraintStart_toStartOf="@+id/conLayoutSelectWarranty"
                     app:layout_constraintTop_toTopOf="@+id/txtViewSteeringSide" />
@@ -959,7 +1139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/muli_semi_bold"
-                    android:text="Assign sale person"
+                    android:text="@string/str_assign_sale_person"
                     android:textSize="@dimen/txt_size_12sp"
                     app:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1007,8 +1187,8 @@
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="+919800000000,jhonedeo@gmail.com"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:text="@string/str_919800000000_jhonedeo_gmail_com"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewJohneeDeo" />
 
@@ -1023,6 +1203,8 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:layout_marginEnd="@dimen/margin_10_dp"
             android:background="@drawable/drawable_background_dash_for_add_picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -1063,7 +1245,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Add pictures" />
+                        android:text="@string/str_add_pictures" />
                 </LinearLayout>
 
 
@@ -1073,7 +1255,8 @@
                     android:layout_width="@dimen/margin_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10_dp"
-                    android:text="Upload Multiple Images or draging or droping on the dashed line"
+                    android:gravity="center_horizontal"
+                    android:text="@string/str_upload_multiple_images_or_draging_or_droping_on_the_dashed_line"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linLayoutAddPictures" />
@@ -1128,7 +1311,7 @@
                     android:singleLine="true"
                     android:imeOptions="actionNext"
                     style="@style/EditTextField"
-                    android:hint="Enter title"
+                    android:hint="@string/str_enter_title"
                     android:textColorHint="@color/sub_title_color"
                     android:background="@drawable/drawable_rounder_edit_text_background"
                     android:gravity="center_vertical"
@@ -1142,7 +1325,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10_dp"
-                    android:text="Describe your car for sale"
+                    android:text="@string/str_describe_your_car_for_sale"
                     style="@style/TextViewTitle"
                     android:layout_marginStart="@dimen/margin_1dp"
                     app:autoSizeStepGranularity="2sp"
@@ -1196,7 +1379,7 @@
                     android:id="@+id/txtViewLocationYourCar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_title"
+                    android:text="@string/str_location_your_car"
                     style="@style/TextViewTitle"
                     android:layout_marginStart="@dimen/margin_1dp"
                     app:autoSizeStepGranularity="2sp"
@@ -1212,7 +1395,7 @@
                     android:singleLine="true"
                     android:imeOptions="actionNext"
                     style="@style/EditTextField"
-                    android:hint="Enter location"
+                    android:hint="@string/str_enter_location"
                     android:textColorHint="@color/sub_title_color"
                     android:background="@drawable/drawable_rounder_edit_text_background"
                     android:gravity="center_vertical"
@@ -1244,7 +1427,7 @@
             android:id="@+id/btnNext"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_50dp"
-            android:text="NEXT"
+            android:text="@string/str_next"
             android:layout_marginTop="@dimen/margin_30_dp"
             android:textColor="@color/white"
             style="@style/buttonFieldStyle"
@@ -1255,6 +1438,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardViewLocationYourCar"
             app:rippleColor="@color/white" />
+        <ProgressBar
+            android:id="@+id/progressbarAddCarStepOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

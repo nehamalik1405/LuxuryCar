@@ -1,6 +1,8 @@
 package com.a.luxurycar.common.requestresponse
 
 
+import com.a.luxurycar.code_files.ui.add_car.model.cities_list.CitiesListModel
+import com.a.luxurycar.code_files.ui.add_car.model.make_list_model.MakeListModel
 import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
@@ -104,4 +106,14 @@ interface ApiService {
     suspend fun getUpdatePasswordResponse(@Field("email") email:String,
                                  @Field("newpassword") newpassword:String,
                                  @Field("newpassword_confirmation") newpassword_confirmation:String): OtpModel
+
+    // seller car get makes list
+    @GET("get-makes-list")
+    suspend fun getMakeListResponse() : MakeListModel
+
+    // seller car get makes list
+    @GET("cities-list-by-country-id/{id}")
+    suspend fun getAddCarStepCitiesResponse(@Path("id") city_Id: String) : CitiesListModel
+
+
 }
