@@ -50,13 +50,17 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddCarStepOne :
+class AddCarStepOneFragment :
     BaseFragment<AddCarStepOneViewModel, FragmentAddCarStepOneBinding, AddCarStepOneRepository>(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     lateinit var arrMakeListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrCitiesListHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrBodyTypeListHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrCarModelListHashMap: ArrayList<HashMap<String, String>>
     var makeId = ""
     var cityId = ""
+    var bodyTypeId = ""
+    var carModelId = ""
     var isShowMoreDetails = false
     var PICK_IMAGE_MULTIPLE = 321
     var CAMERA_REQUEST = 122
@@ -90,10 +94,171 @@ class AddCarStepOne :
 
     }
 
+    private fun manageClickListeners() {
+        binding.linLayoutAddPictures.setOnClickListener {
+            openBottomSheet()
+        }
+
+        binding.spinnerSelectMake.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    makeId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    if (makeId != "0"){
+                        callBodyTypeApi()
+                    }
+
+                }
+
+            }
+
+        binding.spinnerSelectBodyType.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    bodyTypeId = arrBodyTypeListHashMap[position].get(Const.KEY_ID).toString()
+                    if (makeId != "0") {
+                        callCarModelTypeApi()
+                    }
+                }
+
+            }
+        binding.spinnerSelectModel.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    carModelId = arrBodyTypeListHashMap[position].get(Const.KEY_ID).toString()
+
+                }
+
+            }
+
+
+        binding.spinnerSelectCity.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    cityId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+
+                }
+
+            }
+
+        binding.radioButtonSellCar.setOnClickListener {
+
+            if(binding.radioButtonSellCar.isChecked) {
+                binding.txtViewPrice.text = "Price"
+                binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.GONE
+            }
+
+        }
+
+        binding.radioButtonRentCar.setOnClickListener {
+
+            if(binding.radioButtonRentCar.isChecked) {
+                binding.txtViewPrice.text = "Daily Price"
+                binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.VISIBLE
+            }
+
+        }
+
+        binding.txtViewMoreDetailsAndLessDetails.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding.txtViewMoreDetailsAndLessDetails.setOnClickListener {
+            isShowMoreDetails = !isShowMoreDetails
+            if(isShowMoreDetails){
+                binding.cardViewSecondPartCarDetails.visibility = View.VISIBLE
+                binding.txtViewMoreDetailsAndLessDetails.text =getString(R.string.str_less_deatils_non_mandatory)
+            }else{
+                binding.cardViewSecondPartCarDetails.visibility = View.GONE
+                binding.txtViewMoreDetailsAndLessDetails.text = getString(R.string.str_more_deatils_non_mandatory)
+            }
+
+
+
+        }
+
+
+    }
+
+    private fun callCarModelTypeApi() {
+        viewModel.getCarModelResponse(bodyTypeId)
+        viewModel.carModelResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            arrCarModelListHashMap = ArrayList()
+            val hashMapDefaultitem = HashMap<String, String>()
+            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select Model")
+            arrCarModelListHashMap.add(hashMapDefaultitem)
+
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+
+            when (it) {
+                is Resource.Success -> {
+
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            for (item in it.values.data) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrCarModelListHashMap.add(hashMap)
+                            }
+                        }
+                    }
+
+
+                    val adapter = AdapterSpinner(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        arrCarModelListHashMap
+                    )
+
+
+                    //Drop down layout style - list view with radio button
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                    //attaching data adapter to spinner
+                    binding.spinnerSelectModel.setAdapter(adapter)
+
+
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+
+        })
+    }
 
 
     private fun callCitiesListApi() {
-       viewModel.getAddCarStepCitiesResponse("1")
+        viewModel.getAddCarStepCitiesResponse("1")
 
         viewModel.citiesListResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             arrCitiesListHashMap = ArrayList()
@@ -142,127 +307,97 @@ class AddCarStepOne :
 
     private fun callMakeListApi() {
         viewModel.getMakeListResponse()
+        viewModel.makeListResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            arrMakeListHashMap = ArrayList()
+            val hashMapDefaultitem = HashMap<String, String>()
+            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
+            arrMakeListHashMap.add(hashMapDefaultitem)
 
-      viewModel.makeListResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-          arrMakeListHashMap = ArrayList()
-          val hashMapDefaultitem = HashMap<String, String>()
-          hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-          hashMapDefaultitem.put(Const.KEY_NAME, "Select")
-          arrMakeListHashMap.add(hashMapDefaultitem)
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
 
-          binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
 
-          when (it) {
-              is Resource.Success -> {
-
-                  if (it.values.status == 1) {
-                      binding.progressbarAddCarStepOne.visible(isHidden)
-                      if (it.values != null) {
-                          for (item in it.values.data) {
-                              val hashMap = java.util.HashMap<String, String>()
-                              hashMap.put(Const.KEY_ID, "" + item.id)
-                              hashMap.put(Const.KEY_NAME, item.name.toString())
-                              arrMakeListHashMap.add(hashMap)
-                          }
-                      }
-                  }
-
-
-                  val adapter = AdapterSpinner(
-                      requireContext(),
-                      android.R.layout.simple_spinner_item,
-                      arrMakeListHashMap
-                  )
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            for (item in it.values.data) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name.toString())
+                                arrMakeListHashMap.add(hashMap)
+                            }
+                        }
+                    }
 
 
-                  //Drop down layout style - list view with radio button
-                  adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                  //attaching data adapter to spinner
-                  binding.spinnerSelectMake.setAdapter(adapter)
+                    val adapter = AdapterSpinner(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        arrMakeListHashMap
+                    )
+
+
+                    //Drop down layout style - list view with radio button
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                    //attaching data adapter to spinner
+                    binding.spinnerSelectMake.setAdapter(adapter)
 
 
 
-              }
-              is Resource.Failure -> handleApiErrors(it)
-          }
-      })
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
 
     }
+    private fun callBodyTypeApi() {
+        viewModel.getBodyTypeResponse(makeId)
+        viewModel.bodyTypeResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            arrBodyTypeListHashMap = ArrayList()
+            val hashMapDefaultitem = HashMap<String, String>()
+            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
+            arrBodyTypeListHashMap.add(hashMapDefaultitem)
 
-    private fun manageClickListeners() {
-        binding.linLayoutAddPictures.setOnClickListener {
-            openBottomSheet()
-        }
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
 
-        binding.spinnerSelectMake.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {
+            when (it) {
+                is Resource.Success -> {
+
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            for (item in it.values.data) {
+                                val hashMap = java.util.HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name.toString())
+                                arrBodyTypeListHashMap.add(hashMap)
+                            }
+                        }
+                    }
+
+
+                    val adapter = AdapterSpinner(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        arrBodyTypeListHashMap
+                    )
+
+
+                    //Drop down layout style - list view with radio button
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                    //attaching data adapter to spinner
+                    binding.spinnerSelectBodyType.setAdapter(adapter)
+
+
+
                 }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    p1: View?,
-                    position: Int,
-                    p3: Long,
-                ) {
-                    makeId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
-
-                }
-
+                is Resource.Failure -> handleApiErrors(it)
             }
-
-        binding.spinnerSelectCity.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    p1: View?,
-                    position: Int,
-                    p3: Long,
-                ) {
-                    cityId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
-
-                }
-
-            }
-
-        binding.radioButtonSellCar.setOnClickListener {
-
-            if(binding.radioButtonSellCar.isChecked) {
-                binding.txtViewPrice.text = "Price"
-                binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.GONE
-            }
-
-        }
-        binding.radioButtonRentCar.setOnClickListener {
-
-            if(binding.radioButtonRentCar.isChecked) {
-                binding.txtViewPrice.text = "Daily Price"
-                binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.VISIBLE
-            }
-
-        }
-
-        binding.txtViewMoreDetailsAndLessDetails.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        binding.txtViewMoreDetailsAndLessDetails.setOnClickListener {
-            isShowMoreDetails = !isShowMoreDetails
-            if(isShowMoreDetails){
-                binding.cardViewSecondPartCarDetails.visibility = View.VISIBLE
-                binding.txtViewMoreDetailsAndLessDetails.text =getString(R.string.str_less_deatils_non_mandatory)
-            }else{
-                binding.cardViewSecondPartCarDetails.visibility = View.GONE
-                binding.txtViewMoreDetailsAndLessDetails.text = getString(R.string.str_more_deatils_non_mandatory)
-            }
-
-
-
-        }
-
-
+        })
     }
-
 
 
     override fun onRequestPermissionsResult(

@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/addCarStepOne"
-        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepOne"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepOneFragment"
         android:label="fragment_add_car_step_one"
         tools:layout="@layout/fragment_add_car_step_one" />
     <fragment
         android:id="@+id/addCarStepTwo"
-        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepTwo"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepTwoFragment"
         android:label="fragment_add_car_step_two"
         tools:layout="@layout/fragment_add_car_step_two" />
     <fragment
         android:id="@+id/addCarStepThree"
-        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepThree"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepThreeFragment"
         android:label="fragment_add_car_step_three"
         tools:layout="@layout/fragment_add_car_step_three" />
     <fragment
         android:id="@+id/addCarStepFour"
-        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepFour"
+        android:name="com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepFourFragment"
         android:label="fragment_add_car_step_four"
         tools:layout="@layout/fragment_add_car_step_four" />
 </navigation>

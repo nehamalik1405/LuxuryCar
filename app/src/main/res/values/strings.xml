@@ -186,7 +186,7 @@
     <string name="str_your_listing_will_be_recovered_by_thousand_of_niche_hnw_buyers_from_around_world">Your listing will be recovered by thousand of niche HNW buyers from around world</string>
     <string name="str_featured_for_7_days_to_promoting_your_listing_on_the_homepage_and_searches">Featured for 7 days to promoting your listing on the homepage and searches</string>
     <string name="title_select_basic">Select Basic</string>
-    <string name="str_please_note_all_prices_are_exclusive_of_vat">*Please note, all prices are exclusive of VAT.</string>
+    <string name="str_please_note_all_prices_are_exclusive_of_vat">*Please note, all prices above are exclusive of VAT.</string>
     <string name="str_active_for_60_days">Active for 60 days</string>
     <string name="str_listing_to_be_shown_on_landing_page">Listing to be shown on landing page</string>
     <string name="str_listing_to_be_added_to_dedicated_space_pinned_at_the_top_of_relevent_searches">Listing to be added to dedicated space pinned at the top of relevent searches</string>
@@ -328,7 +328,7 @@
     <string name="str_weekly_price">Weekly Price</string>
     <string name="str_monthly_price">Monthly Price</string>
     <string name="str_regional_specification">Regional Specification</string>
-    <string name="str_exteriour_colour">Exteriour Colour</string>
+    <string name="str_exteriour_colour">Exteriour colour</string>
     <string name="title_transmission_type">Transmission type</string>
     <string name="str_horsepower">Horsepower</string>
     <string name="str_seller_type">Seller type</string>

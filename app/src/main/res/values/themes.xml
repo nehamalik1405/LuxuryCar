@@ -72,6 +72,13 @@
         <item name="android:textSize">@dimen/txt_size_15sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/muli_bold</item>
+    </style>
+
+    <style name="AddCarTextViewHeadingTitle" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/txt_size_17sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/muli_bold</item>
+
 
 
     </style>

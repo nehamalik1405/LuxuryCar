@@ -1,6 +1,8 @@
 package com.a.luxurycar.common.requestresponse
 
 
+import com.a.luxurycar.code_files.ui.add_car.model.body_type.BodyTypeListModel
+import com.a.luxurycar.code_files.ui.add_car.model.car_model.CarModelListModel
 import com.a.luxurycar.code_files.ui.add_car.model.cities_list.CitiesListModel
 import com.a.luxurycar.code_files.ui.add_car.model.make_list_model.MakeListModel
 import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
@@ -113,7 +115,15 @@ interface ApiService {
 
     // seller car get makes list
     @GET("cities-list-by-country-id/{id}")
-    suspend fun getAddCarStepCitiesResponse(@Path("id") city_Id: String) : CitiesListModel
+    suspend fun getAddCarStepCitiesResponse(@Path("id") cityId: String) : CitiesListModel
+
+    // seller car get body type list
+    @GET("body-types-list-by-make-id/{id}")
+    suspend fun getBodyTypeResponse(@Path("id") makeId: String) : BodyTypeListModel
+
+    // seller car get car model list
+    @GET("car-models-list-by-body-type-id/{id}")
+    suspend fun getCarModelResponse(@Path("id") bodyTypeId: String) : CarModelListModel
 
 
 }

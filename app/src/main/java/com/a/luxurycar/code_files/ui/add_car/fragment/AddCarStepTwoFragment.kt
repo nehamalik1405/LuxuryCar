@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class AddCarStepTwo : BaseFragment<AddCarViewModel, FragmentAddCarStepTwoBinding, AddCarRepository>(),OnMapReadyCallback {
+class AddCarStepTwoFragment : BaseFragment<AddCarViewModel, FragmentAddCarStepTwoBinding, AddCarRepository>(),OnMapReadyCallback {
     private lateinit var map: GoogleMap
     lateinit var list:ArrayList<ProductDetailImageModel>
     var page = ""
@@ -62,7 +62,7 @@ class AddCarStepTwo : BaseFragment<AddCarViewModel, FragmentAddCarStepTwoBinding
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 page = (position + 1).toString()
-                binding.txtViewPageCounter.text  = "$page/${list.size}"
+               // binding.txtViewPageCounter.text  = "$page/${list.size}"
             }
 
             override fun onPageScrollStateChanged(state: Int) {

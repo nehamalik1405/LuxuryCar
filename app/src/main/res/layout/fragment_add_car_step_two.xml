@@ -8,7 +8,7 @@
     android:fillViewport="true"
     android:paddingBottom="@dimen/margin_20_dp"
     android:scrollbars="none"
-    tools:context=".code_files.ui.add_car.fragment.AddCarStepTwo">
+    tools:context=".code_files.ui.add_car.fragment.AddCarStepTwoFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,12 +27,12 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerProductDetailPage"
                 android:layout_width="@dimen/margin_0dp"
-                android:layout_height="@dimen/margin_220_dp"
+                android:layout_height="@dimen/margin_230_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+         <!--   <TextView
                 android:id="@+id/txtViewPageCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:textSize="@dimen/margin_14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/viewPagerProductDetailPage"
                 app:layout_constraintStart_toStartOf="parent" />
-
+-->
             <ImageView
                 android:id="@+id/imgViewBack"
                 android:layout_width="wrap_content"
@@ -54,13 +54,14 @@
                 android:src="@mipmap/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imgViewShare"
+                app:layout_constraintBottom_toBottomOf="@+id/imgViewShare"
 
                 />
 
             <ImageView
                 android:id="@+id/imgViewShare"
-                android:layout_width="@dimen/margin_60_dp"
-                android:layout_height="@dimen/margin_60_dp"
+                android:layout_width="@dimen/margin_55_dp"
+                android:layout_height="@dimen/margin_55_dp"
                 android:layout_marginTop="@dimen/margin_10_dp"
                 android:layout_marginEnd="@dimen/margin_15_dp"
                 android:padding="@dimen/margin_5dp"
@@ -70,8 +71,8 @@
 
             <ImageView
                 android:id="@+id/imgViewHeart"
-                android:layout_width="@dimen/margin_60_dp"
-                android:layout_height="@dimen/margin_60_dp"
+                android:layout_width="@dimen/margin_55_dp"
+                android:layout_height="@dimen/margin_55_dp"
                 android:layout_marginTop="@dimen/margin_10_dp"
                 android:layout_marginEnd="@dimen/margin_10_dp"
                 android:padding="@dimen/margin_5dp"
@@ -86,10 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_15_dp"
                 android:layout_marginTop="@dimen/margin_10_dp"
-                android:fontFamily="@font/muli_bold"
+                style="@style/TextViewHeading"
                 android:text="Chevrolet Comoro 2-door"
-                android:textColor="@color/black"
-                android:textSize="@dimen/margin_14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewPagerProductDetailPage" />
 
@@ -99,10 +98,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_15_dp"
                 android:layout_marginTop="@dimen/margin_5dp"
-                android:fontFamily="@font/muli_bold"
+                style="@style/AddCarTextViewHeadingTitle"
                 android:text="AED 175,000"
                 android:textColor="@color/green"
-                android:textSize="@dimen/margin_14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtViewChevroletComoro" />
 
@@ -138,7 +136,6 @@
                 android:layout_marginEnd="@dimen/margin_30_dp"
                 android:layout_marginBottom="@dimen/margin_10_dp"
                 android:fontFamily="@font/muli_semi_bold"
-                android:padding="@dimen/margin_0dp"
                 android:text="Call"
                 android:textColor="@color/white"
                 android:textSize="@dimen/margin_14sp"
@@ -167,7 +164,6 @@
                 android:layout_marginEnd="@dimen/margin_30_dp"
                 android:layout_marginBottom="@dimen/margin_10_dp"
                 android:fontFamily="@font/muli_semi_bold"
-                android:padding="@dimen/margin_0dp"
                 android:text="Email"
                 android:textColor="@color/green"
                 android:textSize="@dimen/margin_14sp"
@@ -178,17 +174,45 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ImageView
+            android:id="@+id/imgViewEnd"
+            android:layout_width="@dimen/margin_40dp"
+            android:layout_height="@dimen/margin_40dp"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            android:layout_marginEnd="@dimen/margin_20_dp"
+            android:src="@drawable/lamborghini"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
 
+        <TextView
+            android:id="@+id/txtViewExoticCars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_15dp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:text="@string/str_exotic_cars"
+            android:textColor="@color/description_color"
+            android:textSize="@dimen/txt_size_12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewEnd" />
+
+        <ImageView
+            android:id="@+id/imgViewVolksWagen"
+            android:layout_width="@dimen/margin_40dp"
+            android:layout_height="@dimen/margin_40dp"
+            android:layout_marginTop="@dimen/margin_20_dp"
+            android:layout_marginEnd="@dimen/margin_20_dp"
+            android:src="@drawable/volkswagen2"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewEnd"
+            app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
         <TextView
             android:id="@+id/txtViewDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_15dp"
-            android:fontFamily="@font/muli_bold"
+           style="@style/AddCarTextViewHeadingTitle"
             android:text="Details"
-            android:textColor="@color/black"
-            android:textSize="@dimen/margin_14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnCall" />
 
@@ -198,10 +222,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_10_dp"
+            style="@style/TextViewTitle"
             android:fontFamily="@font/muli_semi_bold"
             android:text="Make"
-            android:textColor="@color/black"
-            android:textSize="@dimen/margin_13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewDetails" />
 
@@ -212,7 +235,7 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
-            android:text="XYZ"
+            android:text="Chevrolet"
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -238,7 +261,7 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
-            android:text="XYZ Model"
+            android:text="Camaro"
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -264,7 +287,7 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
-            android:text="2016"
+            android:text="2021"
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -290,7 +313,7 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
-            android:text="71000"
+            android:text="71,000"
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -302,10 +325,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
-            android:fontFamily="@font/muli_semi_bold"
+            style="@style/TextViewTitle"
             android:text="Price"
-            android:textColor="@color/black"
-            android:textSize="@dimen/margin_13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewKilometers" />
 
@@ -328,11 +349,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
-            android:layout_marginEnd="@dimen/margin_15_dp"
-            android:text="AED 168,000"
-            android:textColor="@color/description_color"
-            android:textSize="@dimen/margin_13sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/TextViewTitle"
+            android:fontFamily="@font/muli_semi_bold"
+            android:text="Regional Specification"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewPrice" />
 
         <TextView
@@ -341,12 +361,38 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
-            android:fontFamily="@font/muli_semi_bold"
-            android:text="Transmission Type"
-            android:textColor="@color/black"
+            android:layout_marginEnd="@dimen/margin_15_dp"
+            android:text="5 Star (Global NCAP)"
+            android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewPrice" />
+
+        <TextView
+            android:id="@+id/txtViewExteriorColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_15_dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            style="@style/TextViewTitle"
+            android:fontFamily="@font/muli_semi_bold"
+            android:text="Exterior Color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewRegionalSpecification" />
+
+        <TextView
+            android:id="@+id/txtViewExteriorColorType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_15_dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_marginEnd="@dimen/margin_15_dp"
+            android:text="Red"
+            android:textColor="@color/description_color"
+            android:textSize="@dimen/margin_13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewRegionalSpecification" />
+
 
         <TextView
             android:id="@+id/txtViewTransmissionType"
@@ -354,12 +400,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
+            style="@style/TextViewTitle"
             android:fontFamily="@font/muli_semi_bold"
             android:text="Transmission Type"
-            android:textColor="@color/black"
-            android:textSize="@dimen/margin_13sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewRegionalSpecification" />
+            app:layout_constraintTop_toBottomOf="@+id/txtViewExteriorColor" />
 
         <TextView
             android:id="@+id/txtViewTransmissionTypeManual"
@@ -368,13 +413,37 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_5dp"
             android:layout_marginEnd="@dimen/margin_15_dp"
-            android:text="Manual"
+            android:text="Automatic"
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewRegionalSpecification" />
+            app:layout_constraintTop_toBottomOf="@+id/txtViewExteriorColorType" />
 
 
+        <TextView
+            android:id="@+id/txtViewHoursePower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_15_dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            style="@style/TextViewTitle"
+            android:fontFamily="@font/muli_semi_bold"
+            android:text="Hourse Power"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType" />
+
+        <TextView
+            android:id="@+id/txtViewHoursePowerType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_15_dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_marginEnd="@dimen/margin_15_dp"
+            android:text="RPM"
+            android:textColor="@color/description_color"
+            android:textSize="@dimen/margin_13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType" />
 
 
 
@@ -383,11 +452,11 @@
             android:id="@+id/viewLine2"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="3dp"
-            android:layout_marginTop="@dimen/margin_30_dp"
+            android:layout_marginTop="@dimen/margin_15dp"
             android:background="@color/light_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType" />
+            app:layout_constraintTop_toBottomOf="@+id/txtViewHoursePower" />
 
         <TextView
             android:id="@+id/txtViewDescription"
@@ -396,9 +465,7 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Description"
-            android:fontFamily="@font/muli_bold"
-            android:textColor="@color/black"
-            android:textSize="@dimen/margin_14sp"
+            style="@style/AddCarTextViewHeadingTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewLine2" />
 
@@ -443,9 +510,7 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_15_dp"
             android:text="Location"
-            android:fontFamily="@font/muli_bold"
-            android:textColor="@color/black"
-            android:textSize="@dimen/margin_14sp"
+            style="@style/AddCarTextViewHeadingTitle"
             app:layout_constraintStart_toEndOf="@+id/imgViewLocation"
             app:layout_constraintTop_toBottomOf="@+id/viewLine3" />
 

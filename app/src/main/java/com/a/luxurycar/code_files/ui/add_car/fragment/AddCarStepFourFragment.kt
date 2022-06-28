@@ -13,7 +13,7 @@ import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.databinding.FragmentAddCarStepFourBinding
 
 
-class AddCarStepFour : BaseFragment<AddCarViewModel,FragmentAddCarStepFourBinding,AddCarRepository>() {
+class AddCarStepFourFragment : BaseFragment<AddCarViewModel,FragmentAddCarStepFourBinding,AddCarRepository>() {
 
     override fun getViewModel()=AddCarViewModel::class.java
     override fun getFragmentBinding(

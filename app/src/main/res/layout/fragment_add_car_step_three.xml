@@ -6,7 +6,7 @@
     android:fillViewport="true"
     android:clipToPadding="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".code_files.ui.add_car.fragment.AddCarStepThree">
+    tools:context=".code_files.ui.add_car.fragment.AddCarStepThreeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,15 +20,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_select_the_bundle_is_right_for_you"
-            android:textSize="@dimen/margin_20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/muli_bold"
+            style="@style/AddCarTextViewHeadingTitle"
+            android:layout_marginTop="@dimen/margin_0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewCarBelowSelectTheBundleIsRightForYou"
+            android:id="@+id/cardViewBasicPlan"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20_dp"
@@ -37,16 +36,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/consLayoutBasicPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F1F4FB"
+                android:background="@color/cardview_color"
                 android:paddingBottom="@dimen/margin_30_dp"
                 >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/consLayoutCurve"
+                    android:id="@+id/consLayoutBasicCurve"
                     android:layout_width="@dimen/margin_0dp"
-                    android:layout_height="@dimen/margin_50dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/drawable_arc"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -55,9 +55,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title_basic"
-                        android:textSize="@dimen/txt_size_20sp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/muli_bold"
+                        style="@style/TextViewHeading"
+                        android:layout_marginTop="@dimen/margin_15dp"
+                        android:layout_marginBottom="@dimen/margin_15dp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -69,9 +69,9 @@
                     android:id="@+id/consLayoutFree"
                     android:layout_width="@dimen/margin_0dp"
                     android:layout_height="wrap_content"
-                    android:background="#545454"
+                    android:background="@color/color_background_black"
                     android:layout_marginTop="@dimen/margin_20_dp"
-                    app:layout_constraintTop_toBottomOf="@+id/consLayoutCurve"
+                    app:layout_constraintTop_toBottomOf="@+id/consLayoutBasicCurve"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
@@ -80,9 +80,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title_free"
-                        android:textSize="@dimen/txt_size_20sp"
+                        style="@style/TextViewHeading"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/muli_bold"
                         android:layout_marginTop="@dimen/margin_10_dp"
                         android:layout_marginBottom="@dimen/margin_10_dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +108,7 @@
                     android:layout_marginStart="@dimen/margin_10_dp"
                     android:layout_marginEnd="@dimen/margin_30_dp"
                     android:text="@string/str_active_for_30_days"
+                    android:textColor="@color/description_color"
                     style="@style/TextViewTitle"
                     app:layout_constraintTop_toTopOf="@+id/imgViewRightCheck"
                     app:layout_constraintStart_toEndOf="@+id/imgViewRightCheck"
@@ -134,6 +134,7 @@
                     android:layout_marginTop="@dimen/margin_15dp"
                     android:text="@string/str_your_listing_will_be_recovered_by_thousand_of_niche_hnw_buyers_from_around_world"
                     style="@style/TextViewTitle"
+                    android:textColor="@color/description_color"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewActiveFor30Days"
                     app:layout_constraintStart_toEndOf="@+id/imgViewYourListingWillBeRecoverByThousandOfNicheHNWBuyersFromAroundWorld"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -158,18 +159,18 @@
                     android:layout_marginEnd="@dimen/margin_30_dp"
                     android:text="@string/str_featured_for_7_days_to_promoting_your_listing_on_the_homepage_and_searches"
                     style="@style/TextViewTitle"
+                    android:textColor="@color/description_color"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewYourListingWillBeRecoverByThousandOfNicheHNWBuyersFromAroundWorld"
                     app:layout_constraintStart_toEndOf="@+id/imgViewFeaturedFor7DaysToPromotingYourListing"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSelectBasic"
                     android:layout_width="@dimen/margin_0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/margin_55_dp"
                     android:text="@string/title_select_basic"
                     android:textSize="@dimen/txt_size_15sp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/muli_bold"
-                    android:textAllCaps="false"
+                   style="@style/TextViewSubTitle"
                     android:background="@drawable/drawable_background_border"
                     android:layout_marginTop="@dimen/margin_20_dp"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewFeaturedFor7DaysToPromotingYourListing"
@@ -182,15 +183,16 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewpremium"
+            android:id="@+id/cardViewpremiumPlan"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20_dp"
             app:cardCornerRadius="@dimen/margin_10_dp"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewCarBelowSelectTheBundleIsRightForYou"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewBasicPlan"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/consLayoutPremiumPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/green"
@@ -200,9 +202,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/consLayoutPremiumCurve"
                     android:layout_width="@dimen/margin_0dp"
-                    android:layout_height="@dimen/margin_50dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/drawable_arc_for_yellow_background"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
@@ -210,9 +211,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title_premium"
-                        android:textSize="@dimen/txt_size_20sp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/muli_bold"
+                        style="@style/TextViewHeading"
+                        android:layout_marginTop="@dimen/margin_15dp"
+                        android:layout_marginBottom="@dimen/margin_15dp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -235,9 +236,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title_aed_249"
-                        android:textSize="@dimen/txt_size_20sp"
+                       style="@style/TextViewHeading"
                         android:textColor="@color/green"
-                        android:fontFamily="@font/muli_bold"
                         android:layout_marginTop="@dimen/margin_10_dp"
                         android:layout_marginBottom="@dimen/margin_10_dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -398,15 +398,13 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSelectPremium"
                     android:layout_width="@dimen/margin_0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/margin_55_dp"
                     android:text="@string/str_select_premium"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/txt_size_15sp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/muli_bold"
-                    android:background="@drawable/drawable_button_background"
-                    android:backgroundTint="@color/yellow_color"
+                    style="@style/TextViewSubTitle"
+                    android:background="@drawable/drawable_selected_premium_background"
                     android:layout_marginTop="@dimen/margin_20_dp"
                     app:layout_constraintTop_toBottomOf="@+id/txtView1xsocialmediapostacrossallchannels"
                     app:layout_constraintStart_toStartOf="@+id/imgView1xsocialmediapostacrossallchannels"
@@ -426,7 +424,7 @@
             android:fontFamily="@font/muli_semi_bold"
             android:text="@string/str_please_note_all_prices_are_exclusive_of_vat"
             android:layout_marginTop="@dimen/margin_20_dp"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewpremium"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewpremiumPlan"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

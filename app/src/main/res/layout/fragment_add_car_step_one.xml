@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:fillViewport="true"
-    tools:context=".code_files.ui.add_car.fragment.AddCarStepOne">
+    tools:context=".code_files.ui.add_car.fragment.AddCarStepOneFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,11 +17,10 @@
             android:id="@+id/txtViewTellUsAboutYourCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/AddCarTextViewHeadingTitle"
+            android:layout_marginTop="@dimen/margin_0dp"
             android:layout_marginStart="@dimen/margin_10_dp"
-            android:fontFamily="@font/muli_bold"
             android:text="@string/str_tell_us_about_your_car"
-            android:textColor="@color/black"
-            android:textSize="@dimen/margin_17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <androidx.cardview.widget.CardView
@@ -950,7 +949,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1174,11 +1173,9 @@
                     android:id="@+id/txtViewJohneeDeo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="@style/TextViewSubTitle"
                     android:layout_marginTop="@dimen/margin_10_dp"
-                    android:fontFamily="@font/muli_bold"
                     android:text="@string/title_jhone_deo"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/txt_size_15sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectAssignSalePerson" />
 
@@ -1203,8 +1200,8 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20_dp"
-            android:layout_marginStart="@dimen/margin_10_dp"
-            android:layout_marginEnd="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_5dp"
+            android:layout_marginEnd="@dimen/margin_5dp"
             android:background="@drawable/drawable_background_dash_for_add_picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
