@@ -5,6 +5,7 @@ import com.a.luxurycar.code_files.ui.add_car.model.body_type.BodyTypeListModel
 import com.a.luxurycar.code_files.ui.add_car.model.car_model.CarModelListModel
 import com.a.luxurycar.code_files.ui.add_car.model.cities_list.CitiesListModel
 import com.a.luxurycar.code_files.ui.add_car.model.make_list_model.MakeListModel
+import com.a.luxurycar.code_files.ui.add_car.model.sell_car_step_one_basic_list.SellCarStepOneBasicListModel
 import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
@@ -125,5 +126,9 @@ interface ApiService {
     @GET("car-models-list-by-body-type-id/{id}")
     suspend fun getCarModelResponse(@Path("id") bodyTypeId: String) : CarModelListModel
 
+
+    // seller car get car model list
+    @GET("sell-car-step-1-basic-list")
+    suspend fun getSellCarStepOneResponse() : SellCarStepOneBasicListModel
 
 }

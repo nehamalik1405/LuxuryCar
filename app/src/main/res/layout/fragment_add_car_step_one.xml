@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,8 +7,10 @@
     android:clipToPadding="false"
     android:fillViewport="true"
     tools:context=".code_files.ui.add_car.fragment.AddCarStepOneFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_20_dp">
@@ -259,7 +261,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -304,7 +306,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -344,17 +346,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewKilometers">
 
-                    <Spinner
-                        android:id="@+id/spinnerSelectKilometers"
-                        android:layout_width="@dimen/margin_0_dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/margin_2dp"
-                        android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                    <EditText
+                        android:id="@+id/edtTextKilometers"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45_dp"
+                        android:inputType="number"
+                        android:hint="Enter Kilometers"
+                        android:textColorHint="@color/sub_title_color"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        style="@style/EditTextField"
+                        android:imeOptions="actionNext"
+                        android:gravity="center_vertical"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -389,17 +396,23 @@
                     app:layout_constraintStart_toEndOf="@+id/conLayoutSelectKilometers"
                     app:layout_constraintTop_toTopOf="@+id/conLayoutSelectKilometers">
 
-                    <Spinner
-                        android:id="@+id/spinnerSelectPrice"
-                        android:layout_width="@dimen/margin_0_dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/margin_2dp"
-                        android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                    <EditText
+                        android:id="@+id/edtTextPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45_dp"
+                        android:inputType="number"
+                        android:hint="Enter Price"
+                        android:textColorHint="@color/sub_title_color"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        style="@style/EditTextField"
+                        android:imeOptions="actionNext"
+                        android:gravity="center_vertical"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -444,17 +457,22 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtViewWeeklyPrice">
 
-                        <Spinner
-                            android:id="@+id/spinnerSelectWeeklyPrice"
-                            android:layout_width="@dimen/margin_0_dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/margin_2dp"
-                            android:backgroundTint="@color/gray_600"
-                            android:spinnerMode="dialog"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
+                        <EditText
+                            android:id="@+id/edtTextWeeklyPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/margin_45_dp"
+                            android:inputType="number"
+                            android:hint="Enter Price"
+                            android:textColorHint="@color/sub_title_color"
+                            android:background="@drawable/drawable_rounder_edit_text_background"
+                            style="@style/EditTextField"
+                            android:imeOptions="actionNext"
+                            android:gravity="center_vertical"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -489,17 +507,22 @@
                         app:layout_constraintStart_toEndOf="@+id/conLayoutSelectWeeklyPrice"
                         app:layout_constraintTop_toTopOf="@+id/conLayoutSelectWeeklyPrice">
 
-                        <Spinner
-                            android:id="@+id/spinnerSelectMonthlyPrice"
-                            android:layout_width="@dimen/margin_0_dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/margin_2dp"
-                            android:backgroundTint="@color/gray_600"
-                            android:spinnerMode="dialog"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
+                        <EditText
+                            android:id="@+id/edtTextMonthlyPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/margin_45_dp"
+                            android:inputType="number"
+                            android:hint="Enter Price"
+                            android:textColorHint="@color/sub_title_color"
+                            android:background="@drawable/drawable_rounder_edit_text_background"
+                            style="@style/EditTextField"
+                            android:imeOptions="actionNext"
+                            android:gravity="center_vertical"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -543,7 +566,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -588,7 +611,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -634,7 +657,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -679,7 +702,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -724,7 +747,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -769,7 +792,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -838,7 +861,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -873,7 +896,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -912,7 +935,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -989,7 +1012,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1026,7 +1049,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1065,7 +1088,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1102,7 +1125,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1435,16 +1458,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardViewLocationYourCar"
             app:rippleColor="@color/white" />
-        <ProgressBar
-            android:id="@+id/progressbarAddCarStepOne"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/progressbarAddCarStepOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
