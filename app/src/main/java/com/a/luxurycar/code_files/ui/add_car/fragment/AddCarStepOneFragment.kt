@@ -2,6 +2,7 @@ package com.a.luxurycar.code_files.ui.add_car.fragment
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
@@ -13,13 +14,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
@@ -27,14 +28,15 @@ import com.a.luxurycar.code_files.repository.AddCarStepOneRepository
 import com.a.luxurycar.code_files.ui.add_car.adapter.AddMultipleImageAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.AddMultipleImageModel
 import com.a.luxurycar.code_files.view_model.AddCarStepOneViewModel
+import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AdapterSpinner
 import com.a.luxurycar.common.helper.AlertDialogHelper
+import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.common.requestresponse.Resource
-import com.a.luxurycar.common.utils.handleApiErrors
-import com.a.luxurycar.common.utils.visible
+import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentAddCarStepOneBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -43,7 +45,16 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.fragment_add_car_step_one.*
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -52,9 +63,13 @@ import kotlin.collections.ArrayList
 
 
 class AddCarStepOneFragment :
-    BaseFragment<AddCarStepOneViewModel, FragmentAddCarStepOneBinding, AddCarStepOneRepository>(), OnMapReadyCallback {
+    BaseFragment<AddCarStepOneViewModel, FragmentAddCarStepOneBinding, AddCarStepOneRepository>(),
+    OnMapReadyCallback {
+    private var image_uri: String=""
     private lateinit var map: GoogleMap
+    lateinit var listOfMultipPartImages :ArrayList<MultipartBody.Part>
     lateinit var arrMakeListHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrYearListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrCitiesListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrBodyTypeListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrCarModelListHashMap: ArrayList<HashMap<String, String>>
@@ -62,7 +77,8 @@ class AddCarStepOneFragment :
     lateinit var arrColorListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrHorsePowerListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrMechanicalConditionListHashMap: ArrayList<HashMap<String, String>>
-   // lateinit var arrRegionalSpecificationList: ArrayList<String>
+
+    // lateinit var arrRegionalSpecificationList: ArrayList<String>
     lateinit var arrRegionalSpecificationListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrTransMissionTypeListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrSellerTypeListHashMap: ArrayList<HashMap<String, String>>
@@ -71,30 +87,59 @@ class AddCarStepOneFragment :
     lateinit var arrFuelTypeListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrSteeringListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrWarrantyListHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrsalePersonListHashMap: ArrayList<HashMap<String, String>>
 
+    var chasisNumber = ""
     var makeId = ""
+    var makeName = ""
     var cityId = ""
+    var cityName = ""
     var bodyTypeId = ""
+    var bodyTypeName = ""
     var carModelId = ""
+    var carModelName = ""
+    var kiloMetere = ""
+    var price = ""
+    var weeklyPrice = ""
+    var monthlyPrice = ""
     var bodyConditionId = ""
-    var interiorColor = ""
-    var exteriourColor = ""
+    var bodyConditionName = ""
+    var interiorColorId = ""
+    var interiorColorName = ""
+    var exteriourColorId = ""
+    var exteriourColorName = ""
     var horsePowerId = ""
-    var  mechanicalConditionId = ""
-    var  regionalSpecificationNAme = ""
+    var horsePowerName = ""
+    var mechanicalConditionId = ""
+    var mechanicalConditionName = ""
+    var regionalSpecificationName = ""
     var transmissionTypeName = ""
     var sellerTypeName = ""
+    var yearName = ""
     var fullServiceHistoryName = ""
     var numberOfCylinderName = ""
     var fuelTypeName = ""
     var steeringSideName = ""
     var warrantyName = ""
+    var salePersonId = ""
+    var salePersonName = ""
+    var title = ""
+    var description = ""
+    var locationUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462560.30119248916!2d54.94729410040116!3d25.076381469564634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sin!4v1656315325167!5m2!1sen!2sin"
+    var tourUrl = ""
+    var rent = "No"
+    var sellerId = ""
+    var idForImageUpload = ""
+
     var isShowMoreDetails = false
     var PICK_IMAGE_MULTIPLE = 321
     var CAMERA_REQUEST = 122
     var MY_CAMERA_PERMISSION_CODE = 100
     var imageName = ""
-    lateinit var file:File
+    lateinit var file: File
+
+    private var actualImage: File?=null
+    private var compressedImage: File? = null
 
     companion object {
         private val REQUEST_TAKE_PHOTO = 321
@@ -103,25 +148,142 @@ class AddCarStepOneFragment :
 
     lateinit var listImage: ArrayList<AddMultipleImageModel>
 
-    override fun getViewModel()=AddCarStepOneViewModel::class.java
+    override fun getViewModel() = AddCarStepOneViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentAddCarStepOneBinding.inflate(inflater,container,false)
-    override fun getRepository()= AddCarStepOneRepository(ApiAdapter.buildApi(ApiService::class.java))
+    ) = FragmentAddCarStepOneBinding.inflate(inflater, container, false)
+
+    override fun getRepository() =
+        AddCarStepOneRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         listImage = arrayListOf()
         //selectRadioButtonId()
         manageClickListeners()
         callMakeListApi()
         callCitiesListApi()
         callSellCarStepOneBasicListApi()
+        callSalePersonApi()
+        getPreviousYearList()
         observeSellCarStepOneBasicListResponse()
+        observeAddCarStepOneImageApiResponse()
+        observeAddCarStepOneApiResponse()
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
+    }
+
+    private fun observeAddCarStepOneImageApiResponse() {
+
+
+    }
+
+    private fun observeAddCarStepOneApiResponse() {
+        viewModel.addCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+
+                        idForImageUpload = it.values.data.carAds.id.toString()
+
+                        callUploadMultipleImagesApi()
+                    }
+
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
+
+    private fun callSalePersonApi() {
+    viewModel.getSalePersonResponse("73")
+
+        viewModel.salePersonResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            arrsalePersonListHashMap = ArrayList()
+            val hashMapDefaultitem = HashMap<String, String>()
+            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select Person Name")
+            arrsalePersonListHashMap.add(hashMapDefaultitem)
+
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+
+            when (it) {
+                is Resource.Success -> {
+
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            for (item in it.values.data) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.firstname+" "+item.lastname)
+                                arrsalePersonListHashMap.add(hashMap)
+                            }
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+
+                    val adapter = AdapterSpinner(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        arrsalePersonListHashMap
+                    )
+
+
+                    //Drop down layout style - list view with radio button
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                    //attaching data adapter to spinner
+                    binding.spinnerSelectAssignSalePerson.setAdapter(adapter)
+
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+
+    }
+
+    private fun getPreviousYearList() {
+        val list = arrayListOf<String>()
+        arrYearListHashMap = ArrayList()
+
+        //default item for all list
+        val hashMapDefaultitem = HashMap<String, String>()
+        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem.put(Const.KEY_NAME, "Select Year")
+
+        //add default item
+        arrYearListHashMap.add(hashMapDefaultitem)
+
+
+        val prevYear = Calendar.getInstance()
+        list.add(prevYear[Calendar.YEAR].toString())
+        var i = 1
+        for (i in i until 50) {
+            prevYear.add(Calendar.YEAR, -1)
+            list.add(prevYear[Calendar.YEAR].toString())
+            i.dec()
+        }
+        for (item in list) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "")
+            hashMap.put(Const.KEY_NAME, item)
+            arrYearListHashMap.add(hashMap)
+        }
     }
 
     private fun observeSellCarStepOneBasicListResponse() {
@@ -140,49 +302,49 @@ class AddCarStepOneFragment :
                             //add regional specification
                             for (item in it.values.data.regionalSpecifications) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
+                                hashMap.put(Const.KEY_ID, "")
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrRegionalSpecificationListHashMap.add(hashMap)
                             }
                             //add transmission type specification
                             for (item in it.values.data.transmissionTypes) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
+                                hashMap.put(Const.KEY_ID, "")
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrTransMissionTypeListHashMap.add(hashMap)
                             }
                             //add seller type
                             for (item in it.values.data.sellerType) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
+                                hashMap.put(Const.KEY_ID, "")
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrSellerTypeListHashMap.add(hashMap)
                             }
                             //add full service history
                             for (item in it.values.data.fullServiceHistory) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
+                                hashMap.put(Const.KEY_ID, "")
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrFullServiceHistoryListHashMap.add(hashMap)
                             }
                             //add number of cylinders
                             for (item in it.values.data.numberOfCylinders) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
-                                hashMap.put(Const.KEY_NAME, item.toString())
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
                                 arrNumberOfCylinderListHashMap.add(hashMap)
                             }
                             //add fuel type
                             for (item in it.values.data.fuelType) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
+                                hashMap.put(Const.KEY_ID, "")
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrFuelTypeListHashMap.add(hashMap)
                             }
                             //add steering side
                             for (item in it.values.data.steeringSide) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
+                                hashMap.put(Const.KEY_ID, "")
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrSteeringListHashMap.add(hashMap)
                             }
@@ -190,7 +352,7 @@ class AddCarStepOneFragment :
                             //add warranty side
                             for (item in it.values.data.warranty) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" )
+                                hashMap.put(Const.KEY_ID, "")
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrWarrantyListHashMap.add(hashMap)
                             }
@@ -201,7 +363,7 @@ class AddCarStepOneFragment :
                                 hashMap.put(Const.KEY_NAME, item.name)
                                 arrBodyConditionListHashMap.add(hashMap)
                             }
-                            // add color
+                            //add color
                             for (item in it.values.data.colors) {
                                 val hashMap = HashMap<String, String>()
                                 hashMap.put(Const.KEY_ID, "" + item.id)
@@ -209,7 +371,7 @@ class AddCarStepOneFragment :
                                 arrColorListHashMap.add(hashMap)
                             }
 
-                            // add house power
+                            //add house power
                             for (item in it.values.data.horsePower) {
                                 val hashMap = HashMap<String, String>()
                                 hashMap.put(Const.KEY_ID, "" + item.id)
@@ -217,7 +379,7 @@ class AddCarStepOneFragment :
                                 arrHorsePowerListHashMap.add(hashMap)
                             }
 
-                            // add mechanical condition
+                            //add mechanical condition
                             for (item in it.values.data.mechanicalConditions) {
                                 val hashMap = HashMap<String, String>()
                                 hashMap.put(Const.KEY_ID, "" + item.id)
@@ -235,7 +397,7 @@ class AddCarStepOneFragment :
     }
 
     private fun setSpinnerAdapterAndDropdown() {
-        val adapterRegionalSpecification =AdapterSpinner(requireContext(),
+        val adapterRegionalSpecification = AdapterSpinner(requireContext(),
             android.R.layout.simple_spinner_item, arrRegionalSpecificationListHashMap)
 
 
@@ -281,15 +443,23 @@ class AddCarStepOneFragment :
             android.R.layout.simple_spinner_item,
             arrMechanicalConditionListHashMap
         )
+        val adapterYear = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrYearListHashMap
+        )
 
-
+//Drop down layout style - list view for YEAR LIST
+        adapterYear.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectYear.setAdapter(adapterYear)
 
         //Drop down layout style - list view for body condition
         adapterBodyCondition.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
         //attaching data adapter to spinner
         binding.spinnerSelectBodyCondition.setAdapter(adapterBodyCondition)
 
-        //Drop down layout style - list view
+        //Drop down layout style - list view for regional specification
         adapterRegionalSpecification.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
         //attaching data adapter to spinner
         binding.spinnerSelectRegionalSpecification.setAdapter(adapterRegionalSpecification)
@@ -356,6 +526,7 @@ class AddCarStepOneFragment :
         arrHorsePowerListHashMap = ArrayList()
         arrMechanicalConditionListHashMap = ArrayList()
 
+
         arrRegionalSpecificationListHashMap = ArrayList()
         arrTransMissionTypeListHashMap = ArrayList()
         arrSellerTypeListHashMap = ArrayList()
@@ -387,12 +558,22 @@ class AddCarStepOneFragment :
     }
 
     private fun callSellCarStepOneBasicListApi() {
-     viewModel.getSellCarStepOneResponse()
+        viewModel.getSellCarStepOneResponse()
     }
 
     private fun manageClickListeners() {
         binding.linLayoutAddPictures.setOnClickListener {
             openBottomSheet()
+        }
+
+        binding.btnNext.setOnClickListener {
+
+
+                if (validation()) {
+                    addCarStepOnePostApi()
+                }
+
+
         }
 
         binding.spinnerSelectMake.onItemSelectedListener =
@@ -407,9 +588,27 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
                     makeId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
-                    if (makeId != "0"){
+                    makeName = arrMakeListHashMap[position].get(Const.KEY_NAME).toString()
+                    if (makeId != "0") {
                         callBodyTypeApi()
                     }
+
+                }
+
+            }
+
+        binding.spinnerSelectYear.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    yearName = arrYearListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -433,6 +632,7 @@ class AddCarStepOneFragment :
                 }
 
             }
+
         binding.spinnerSelectModel.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -445,6 +645,7 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
                     carModelId = arrCarModelListHashMap[position].get(Const.KEY_ID).toString()
+                    carModelName = arrCarModelListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -462,7 +663,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    cityId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    cityId = arrCitiesListHashMap[position].get(Const.KEY_ID).toString()
+                    cityName = arrCitiesListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -479,7 +681,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    bodyConditionId = arrBodyConditionListHashMap[position].get(Const.KEY_ID).toString()
+                    bodyConditionId =
+                        arrBodyConditionListHashMap[position].get(Const.KEY_ID).toString()
 
                 }
 
@@ -496,7 +699,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    regionalSpecificationNAme = arrRegionalSpecificationListHashMap.get(position).toString()
+                    regionalSpecificationName =
+                        arrRegionalSpecificationListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -513,7 +717,7 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    transmissionTypeName = arrTransMissionTypeListHashMap.get(position).toString()
+                    transmissionTypeName = arrTransMissionTypeListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -530,7 +734,7 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    sellerTypeName = arrSellerTypeListHashMap.get(position).toString()
+                    sellerTypeName = arrSellerTypeListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -547,7 +751,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    fullServiceHistoryName = arrFullServiceHistoryListHashMap.get(position).toString()
+                    fullServiceHistoryName =
+                        arrFullServiceHistoryListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -564,7 +769,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    numberOfCylinderName = arrNumberOfCylinderListHashMap.get(position).toString()
+
+                    numberOfCylinderName =  arrNumberOfCylinderListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -581,7 +787,7 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    fuelTypeName = arrFuelTypeListHashMap.get(position).toString()
+                    fuelTypeName = arrFuelTypeListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -598,7 +804,7 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    steeringSideName = arrSteeringListHashMap.get(position).toString()
+                    steeringSideName = arrSteeringListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -615,7 +821,7 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    warrantyName = arrWarrantyListHashMap.get(position).toString()
+                    warrantyName = arrWarrantyListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -632,7 +838,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    exteriourColor = arrColorListHashMap[position].get(Const.KEY_ID).toString()
+                    exteriourColorId = arrColorListHashMap[position].get(Const.KEY_ID).toString()
+                    exteriourColorName = arrColorListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -649,7 +856,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    interiorColor = arrColorListHashMap[position].get(Const.KEY_ID).toString()
+                    interiorColorId = arrColorListHashMap[position].get(Const.KEY_ID).toString()
+                    interiorColorName = arrColorListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -667,6 +875,7 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
                     horsePowerId = arrHorsePowerListHashMap[position].get(Const.KEY_ID).toString()
+                    horsePowerName = arrHorsePowerListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -683,7 +892,29 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    mechanicalConditionId = arrMechanicalConditionListHashMap[position].get(Const.KEY_ID).toString()
+                    mechanicalConditionId =
+                        arrMechanicalConditionListHashMap[position].get(Const.KEY_ID).toString()
+
+                }
+
+            }
+
+        binding.spinnerSelectAssignSalePerson.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    salePersonId = arrsalePersonListHashMap[position].get(Const.KEY_ID).toString()
+                    salePersonName = arrMakeListHashMap[position].get(Const.KEY_NAME).toString()
+                    if (makeId != "0") {
+                        callBodyTypeApi()
+                    }
 
                 }
 
@@ -691,7 +922,8 @@ class AddCarStepOneFragment :
 
         binding.radioButtonSellCar.setOnClickListener {
 
-            if(binding.radioButtonSellCar.isChecked) {
+            if (binding.radioButtonSellCar.isChecked) {
+                rent = "No"
                 binding.txtViewPrice.text = "Price"
                 binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.GONE
             }
@@ -700,7 +932,8 @@ class AddCarStepOneFragment :
 
         binding.radioButtonRentCar.setOnClickListener {
 
-            if(binding.radioButtonRentCar.isChecked) {
+            if (binding.radioButtonRentCar.isChecked) {
+                rent = "Yes"
                 binding.txtViewPrice.text = "Daily Price"
                 binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.VISIBLE
             }
@@ -710,19 +943,145 @@ class AddCarStepOneFragment :
         binding.txtViewMoreDetailsAndLessDetails.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         binding.txtViewMoreDetailsAndLessDetails.setOnClickListener {
             isShowMoreDetails = !isShowMoreDetails
-            if(isShowMoreDetails){
+            if (isShowMoreDetails) {
                 binding.cardViewSecondPartCarDetails.visibility = View.VISIBLE
-                binding.txtViewMoreDetailsAndLessDetails.text =getString(R.string.str_less_deatils_non_mandatory)
-            }else{
+                binding.txtViewMoreDetailsAndLessDetails.text =
+                    getString(R.string.str_less_deatils_non_mandatory)
+            } else {
                 binding.cardViewSecondPartCarDetails.visibility = View.GONE
-                binding.txtViewMoreDetailsAndLessDetails.text = getString(R.string.str_more_deatils_non_mandatory)
+                binding.txtViewMoreDetailsAndLessDetails.text =
+                    getString(R.string.str_more_deatils_non_mandatory)
             }
-
 
 
         }
 
 
+    }
+
+    private fun callUploadMultipleImagesApi() {
+        viewModel.getMultipleUploadImagesResponse(idForImageUpload,arrOfImageList)
+    }
+
+    private fun addCarStepOnePostApi() {
+        sellerId = SessionManager.getUserData()?.id.toString()
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put(Const.PARAM_VIN_CHEESIS_NUMBER,chasisNumber)
+            jsonObject.put(Const.PARAM_CITY_ID,cityId)
+            jsonObject.put(Const.PARAM_MAKE_ID,makeId)
+            jsonObject.put(Const.PARAM_BODY_TYPE_ID,bodyTypeId)
+            jsonObject.put(Const.PARAM_CAR_MODEL_ID,carModelId)
+            jsonObject.put(Const.PARAM_CAR_YEAR,yearName)
+            jsonObject.put(Const.PARAM_RUN_KILOMETERS,kiloMetere)
+            jsonObject.put(Const.PARAM_PRICE,price)
+            jsonObject.put(Const.PARAM_REGIONAL_SPECIFICATION,regionalSpecificationName)
+            jsonObject.put(Const.PARAM_EXTERIOR_COLOR_ID,exteriourColorId)
+            jsonObject.put(Const.PARAM_TRANSMISSION_TYPE,transmissionTypeName)
+            jsonObject.put(Const.PARAM_HORSE_POWER_Id,horsePowerId)
+            jsonObject.put(Const.PARAM_SELLER_TYPE,sellerTypeName)
+            jsonObject.put(Const.PARAM_FULL_SERVICE_HISTORY,fullServiceHistoryName)
+            jsonObject.put(Const.PARAM_NO_OF_CYLINDERS,numberOfCylinderName)
+            jsonObject.put(Const.PARAM_INTERIOR_COLOR_ID,interiorColorId)
+            jsonObject.put(Const.PARAM_FUEL_TYPE,fuelTypeName)
+            jsonObject.put(Const.PARAM_BODY_CONDITION_ID,bodyConditionId)
+            jsonObject.put(Const.PARAM_MECHANICAL_CONDITION_ID,mechanicalConditionId)
+            jsonObject.put(Const.PARAM_STEERING_TYPE,steeringSideName)
+            jsonObject.put(Const.PARAM_WARRENTY,warrantyName)
+            jsonObject.put(Const.PARAM_SALES_PERSON_ID,salePersonId)
+            jsonObject.put(Const.PARAM_TITLE,title)
+            jsonObject.put(Const.PARAM_DESCRIPTION,description)
+            jsonObject.put(Const.PARAM_LOCATION_URL,locationUrl)
+            jsonObject.put(Const.PARAM_TOUR_URL,tourUrl)
+            jsonObject.put(Const.PARAM_RENT,rent)
+            jsonObject.put(Const.PARAM_DAILY_RENT_PRICE,price)
+            jsonObject.put(Const.PARAM_WEEKLY_RENT_PRICE,weeklyPrice)
+            jsonObject.put(Const.PARAM_MONTHLY_RENT_PRICE,monthlyPrice)
+            jsonObject.put(Const.PARAM_SELLER_ID,sellerId)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        val body = jsonObject.convertJsonToRequestBody()
+        viewModel.getAddCarStepOneResponse(body)
+    }
+
+    private fun validation(): Boolean {
+
+        getDataFromEditText()
+
+        if (cityName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_city), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (makeName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_make), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (carModelName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_car_model), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (yearName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_year), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (kiloMetere.isNullOrEmpty()) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_kilometers), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (price.isNullOrEmpty()) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_price), Toast.LENGTH_LONG).show()
+            return false
+        }
+          else if (weeklyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE){
+              Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_weekly_price), Toast.LENGTH_LONG).show()
+              return false
+          }
+            else if (monthlyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE){
+              Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_monthly_price), Toast.LENGTH_LONG).show()
+              return false
+          }
+
+        else if (regionalSpecificationName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_regional_specification), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (exteriourColorName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_exteriour_colour), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (transmissionTypeName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_transmission_type), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (horsePowerName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_horse_power), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (sellerTypeName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_seller_type), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (fullServiceHistoryName.equals("Select",true)) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_full_service_history), Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (title.isNullOrEmpty()) {
+            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_title), Toast.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
+
+    private fun getDataFromEditText() {
+        chasisNumber = binding.edtEnterChasisNumber.getTextInString()
+        kiloMetere = binding.edtTextKilometers.getTextInString()
+        price = binding.edtTextPrice.getTextInString()
+        weeklyPrice = binding.edtTextWeeklyPrice.getTextInString()
+        monthlyPrice = binding.edtTextMonthlyPrice.getTextInString()
+        title = binding.edtTextTitle.getTextInString()
     }
 
     private fun callCarModelTypeApi() {
@@ -765,7 +1124,6 @@ class AddCarStepOneFragment :
                     binding.spinnerSelectModel.setAdapter(adapter)
 
 
-
                 }
                 is Resource.Failure -> handleApiErrors(it)
             }
@@ -799,9 +1157,9 @@ class AddCarStepOneFragment :
                                 arrCitiesListHashMap.add(hashMap)
                             }
                         }
-                    }
-                    else{
-                        Toast.makeText(requireContext(),it.values.message,Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
                     }
 
 
@@ -816,7 +1174,6 @@ class AddCarStepOneFragment :
                     adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
                     //attaching data adapter to spinner
                     binding.spinnerSelectCity.setAdapter(adapter)
-
 
 
                 }
@@ -849,9 +1206,9 @@ class AddCarStepOneFragment :
                                 arrMakeListHashMap.add(hashMap)
                             }
                         }
-                    }
-                   else{
-                       Toast.makeText(requireContext(),it.values.message,Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
                     }
 
 
@@ -868,13 +1225,13 @@ class AddCarStepOneFragment :
                     binding.spinnerSelectMake.setAdapter(adapter)
 
 
-
                 }
                 is Resource.Failure -> handleApiErrors(it)
             }
         })
 
     }
+
     private fun callBodyTypeApi() {
         viewModel.getBodyTypeResponse(makeId)
         viewModel.bodyTypeResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -913,7 +1270,6 @@ class AddCarStepOneFragment :
                     adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
                     //attaching data adapter to spinner
                     binding.spinnerSelectBodyType.setAdapter(adapter)
-
 
 
                 }
@@ -991,43 +1347,40 @@ class AddCarStepOneFragment :
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == AppCompatActivity.RESULT_OK) {
-            galleryAddPic()
-        } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == AppCompatActivity.RESULT_OK) {
+
+            try {
+                actualImage = photoFile
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            compressImage()
+
+
+        }
+
+        else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == AppCompatActivity.RESULT_OK) {
 
             if (data != null) {
-                if (data?.getClipData() != null) {
-                    val count = data.clipData!!.itemCount
 
-                    for (i in 0..count - 1) {
-                        val contentURI = data.clipData!!.getItemAt(i).uri
-                        val image_uri = contentURI.toString()
-                        file = File(getPath(contentURI))
-                        val imageName = file.name
-                        listImage.add(AddMultipleImageModel(image_uri, imageName))
-                        setImageRecyclerView()
 
+                if (data.getData() != null) {
+                    // if single image is selected
+
+                    try {
+                        actualImage = FileUtil.from(requireContext(), data.data)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
                     }
 
-                } else if (data?.getData() != null) {
+                    compressImage()
 
-                    val contentURI = data.data
-                    val image_uri = contentURI.toString()
-
-                    //get the image name
-                     file = File(getPath(contentURI))
-                     val imageName = file.name
-
-                    listImage.add(AddMultipleImageModel(image_uri, imageName))
-                    setImageRecyclerView()
 
                 }
 
             }
-
-        } else if (requestCode == 1 && resultCode == 1) {
+        }
 
         }
-    }
 
     private fun getPath(contentURI: Uri?): String {
         var result = ""
@@ -1067,6 +1420,7 @@ class AddCarStepOneFragment :
         dialog.setContentView(view)
         dialog.show()
     }
+
     private fun selectFromCameraPermission() {
 
         val permissionCheckCamera = ContextCompat.checkSelfPermission(
@@ -1095,7 +1449,7 @@ class AddCarStepOneFragment :
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.CAMERA
-                        ),REQUEST_TAKE_PHOTO
+                        ), REQUEST_TAKE_PHOTO
                     )
                 } else {
 
@@ -1109,6 +1463,7 @@ class AddCarStepOneFragment :
         }
 
     }
+
     lateinit var currentPhotoPath: String
     var photoFile: File? = null
     var fileUri: Uri? = null
@@ -1213,25 +1568,71 @@ class AddCarStepOneFragment :
             //image_uri = compressTheImageBeforeSendingToServer(currentPhotoPath).toString()
             val image_uri = Uri.fromFile(f).toString()
 
-            listImage.add(AddMultipleImageModel(image_uri,imageName))
+            listImage.add(AddMultipleImageModel(image_uri, imageName))
             setImageRecyclerView()
 
         }
     }
 
     private fun setImageRecyclerView() {
-        val addMultipleImageAdapter = AddMultipleImageAdapter(requireContext(),listImage)
+        val addMultipleImageAdapter = AddMultipleImageAdapter(requireContext(), listImage)
         binding.recyclerviewMultipleImageUpload.adapter = addMultipleImageAdapter
         binding.recyclerviewMultipleImageUpload.setNestedScrollingEnabled(false);
-        binding.recyclerviewMultipleImageUpload.setLayoutManager(GridLayoutManager(requireContext(), 2))
+        binding.recyclerviewMultipleImageUpload.setLayoutManager(GridLayoutManager(requireContext(),
+            2))
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        map=googleMap
-        val india = LatLng(     23.63936, 79.14712)
+        map = googleMap
+        val india = LatLng(23.63936, 79.14712)
         map.addMarker(MarkerOptions().position(india).title("India location"))
         map.moveCamera(CameraUpdateFactory.newLatLng(india))
     }
 
+    val arrOfImageList:ArrayList<MultipartBody.Part> = ArrayList()
+    private fun compressImage() {
+        actualImage?.let { imageFile ->
+
+                lifecycleScope.launch(Dispatchers.Main) {
+
+                    compressedImage = Compressor.compress(requireContext(), imageFile) {
+                        resolution(600, 540)
+                        quality(30)
+                        format(Bitmap.CompressFormat.JPEG)
+                        size(1024000)
+
+                    }
+                    delay(5000)
+                  //  image_uri = compressedImage!!.absolutePath
+
+
+                    createMutiPartForm()
+
+            }
+
+
+        }
+
+    }
+
+    fun createMutiPartForm():MultipartBody.Part{
+        var image: MultipartBody.Part? = null
+
+        try {
+            var file = FileUtil.from(LuxuryCarApplication.instance, Uri.fromFile(compressedImage))
+            val surveyBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), image_uri)
+            image = MultipartBody.Part.createFormData("image[]", file!!.name, surveyBody)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return  image!!
+    }
 
 }
+
+
+
+
+
+
+

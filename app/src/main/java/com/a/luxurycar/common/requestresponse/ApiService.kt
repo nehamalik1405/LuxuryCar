@@ -1,11 +1,14 @@
 package com.a.luxurycar.common.requestresponse
 
 
+import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_one.AddCarStepOneModel
 import com.a.luxurycar.code_files.ui.add_car.model.body_type.BodyTypeListModel
 import com.a.luxurycar.code_files.ui.add_car.model.car_model.CarModelListModel
 import com.a.luxurycar.code_files.ui.add_car.model.cities_list.CitiesListModel
 import com.a.luxurycar.code_files.ui.add_car.model.make_list_model.MakeListModel
+import com.a.luxurycar.code_files.ui.add_car.model.sale_person.SalePersonModelList
 import com.a.luxurycar.code_files.ui.add_car.model.sell_car_step_one_basic_list.SellCarStepOneBasicListModel
+import com.a.luxurycar.code_files.ui.add_car.model.upload_images.AddCarStepOneUploadImagesModel
 import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
@@ -41,6 +44,7 @@ interface ApiService {
     suspend fun getStateList(@Path("id") state_Id: String): CountryListModel
 
     //get cities list
+    //@GET("cities-list-by-country-id/{id}" )
     @GET("cities-list-by-state-id/{id}" )
     suspend fun getCitiesList(@Path("id") cityId: String): CountryListModel
 
@@ -130,5 +134,19 @@ interface ApiService {
     // seller car get car model list
     @GET("sell-car-step-1-basic-list")
     suspend fun getSellCarStepOneResponse() : SellCarStepOneBasicListModel
+
+    // seller car get car model list
+    @GET("get-sales-person-list-by-seller-id/{id}")
+    suspend fun getSalePersonResponse(@Path("id") salePersonId: String) : SalePersonModelList
+
+
+    // seller car get car model list
+    @POST("sell-car/step-1")
+    suspend fun getAddCarStepOneResponse(@Body body: RequestBody) : AddCarStepOneModel
+
+    // seller car upload multiple images
+    @Multipart
+    @GET("sell-car/step-2/{id}")
+    suspend fun getMultipleUploadImagesResponse(@Path("id") id: String, @Part image: ArrayList<MultipartBody.Part>) : AddCarStepOneUploadImagesModel
 
 }

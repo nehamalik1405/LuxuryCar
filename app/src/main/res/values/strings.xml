@@ -40,6 +40,22 @@
     <string name="error_empty_confirm_password">Please enter confirm password.</string>
     <string name="error_password_not_match">Please enter the same  password.</string>
     <string name="error_empty_description">Please enter your message.</string>
+    <string name="error_empty_city">Please select the city.</string>
+    <string name="error_empty_make">Please select the make.</string>
+    <string name="error_empty_car_model">Please select the model.</string>
+    <string name="error_empty_year">Please select the year.</string>
+    <string name="error_empty_kilometers">Please select the kilometers.</string>
+    <string name="error_empty_price">Please select the price.</string>
+    <string name="error_empty_regional_specification">Please select the regional specification.</string>
+    <string name="error_empty_weekly_price">Please select the weekly price.</string>
+    <string name="error_empty_monthly_price">Please select the monthly price.</string>
+    <string name="error_empty_exteriour_colour">Please select the exteriour colour.</string>
+    <string name="error_empty_transmission_type">Please select the transmission type.</string>
+    <string name="error_empty_horse_power">Please select the horse power.</string>
+    <string name="error_empty_seller_type">Please select the seller type.</string>
+    <string name="error_empty_full_service_history">Please select the full serive history.</string>
+    <string name="error_empty_title">Please enter the title.</string>
+
     <string name="titlr_login">Login</string>
     <string name="titlr_login_underline"> <u>Login</u></string>
     <string name="title_email">Email</string>
@@ -344,7 +360,7 @@
     <string name="str_assign_sale_person">Assign sale person</string>
     <string name="str_919800000000_jhonedeo_gmail_com">+919800000000,jhonedeo@gmail.com</string>
     <string name="str_add_pictures">Add pictures</string>
-    <string name="str_upload_multiple_images_or_draging_or_droping_on_the_dashed_line">Upload Multiple Images or draging or droping on the dashed line</string>
+    <string name="str_upload_multiple_images">Upload Multiple Images</string>
     <string name="str_enter_title">Enter title</string>
     <string name="str_describe_your_car_for_sale">Describe your car for sale</string>
     <string name="str_location_your_car">Location your car</string>

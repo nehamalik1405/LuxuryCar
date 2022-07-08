@@ -9,6 +9,7 @@
     tools:context=".code_files.ui.add_car.fragment.AddCarStepOneFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:fillViewport="true"
         android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -86,7 +87,6 @@
                 android:layout_height="wrap_content"
                 android:background="#F1F5F8"
                 android:padding="@dimen/margin_15dp">
-<!--
                 <TextView
                     android:id="@+id/txtViewEnterChasisNumber"
                     style="@style/TextViewTitle"
@@ -98,7 +98,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="@dimen/margin_20_dp"
                     android:layout_height="@dimen/margin_20_dp"
                     android:layout_marginStart="@dimen/margin_10_dp"
@@ -131,7 +131,7 @@
                     android:textSize="@dimen/txt_size_12sp"
                     app:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtEnterChasisNumber" />-->
+                    app:layout_constraintTop_toBottomOf="@+id/edtEnterChasisNumber" />
 
 
                 <TextView
@@ -142,7 +142,7 @@
                     android:layout_marginTop="@dimen/margin_20_dp"
                     android:text="@string/str_city"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewThisNumberWillNotShowOnYourAd" />
 
                 <TextView
                     style="@style/TextViewTitle"
@@ -170,7 +170,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -214,7 +214,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -261,7 +261,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -306,7 +306,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -566,7 +566,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -611,7 +611,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -657,7 +657,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -702,7 +702,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -747,7 +747,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -792,7 +792,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -861,7 +861,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -896,7 +896,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -935,7 +935,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -972,7 +972,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1012,7 +1012,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1049,7 +1049,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1088,7 +1088,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1125,7 +1125,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
                         android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1276,7 +1276,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10_dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/str_upload_multiple_images_or_draging_or_droping_on_the_dashed_line"
+                    android:text="@string/str_upload_multiple_images"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linLayoutAddPictures" />
