@@ -8,6 +8,8 @@ data class Data(
     val bodyConditions: List<BodyCondition>,
     @SerializedName("colors")
     val colors: List<Color>,
+    @SerializedName("body_types")
+    val body_types: List<BodyType>,
     @SerializedName("fuel_type")
     val fuelType: List<String>,
     @SerializedName("full_service_history")

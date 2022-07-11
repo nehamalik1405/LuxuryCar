@@ -56,6 +56,7 @@ class Const {
         const val KEY_SELLER = "Seller"
 
       //param for add car
+      const val PARAM_CAR_ADS_ID = "car_ads_id"
       const val PARAM_VIN_CHEESIS_NUMBER = "vin"
       const val PARAM_CITY_ID = "city_id"
       const val PARAM_MAKE_ID = "make_id"

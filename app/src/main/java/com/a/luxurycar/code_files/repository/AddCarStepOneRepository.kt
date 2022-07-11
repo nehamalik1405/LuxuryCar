@@ -14,8 +14,8 @@ class AddCarStepOneRepository(val api:ApiService):BaseRepository(){
     suspend fun getBodyTypeResponse(makeId: String) = safeApiCall {
         api.getBodyTypeResponse(makeId)
     }
-    suspend fun getCarModelResponse(bodyTypeId: String) = safeApiCall {
-        api.getCarModelResponse(bodyTypeId)
+    suspend fun getCarModelResponse(makeId: String) = safeApiCall {
+        api.getCarModelResponse(makeId)
     }
     suspend fun getSellCarStepOneResponse() = safeApiCall {
         api.getSellCarStepOneResponse()
@@ -32,7 +32,7 @@ class AddCarStepOneRepository(val api:ApiService):BaseRepository(){
         api.getAddCarStepOneResponse(body)
     }
 
-    suspend fun getMultipleUploadImagesResponse(id:String, image: ArrayList<MultipartBody.Part>) = safeApiCall {
+    suspend fun getMultipleUploadImagesResponse(id:RequestBody, image: ArrayList<MultipartBody.Part>) = safeApiCall {
         api.getMultipleUploadImagesResponse(id,image)
     }
 

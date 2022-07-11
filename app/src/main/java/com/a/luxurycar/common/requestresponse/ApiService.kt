@@ -8,6 +8,7 @@ import com.a.luxurycar.code_files.ui.add_car.model.cities_list.CitiesListModel
 import com.a.luxurycar.code_files.ui.add_car.model.make_list_model.MakeListModel
 import com.a.luxurycar.code_files.ui.add_car.model.sale_person.SalePersonModelList
 import com.a.luxurycar.code_files.ui.add_car.model.sell_car_step_one_basic_list.SellCarStepOneBasicListModel
+import com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.AddCarStepThreeListingPlanModel
 import com.a.luxurycar.code_files.ui.add_car.model.upload_images.AddCarStepOneUploadImagesModel
 import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
@@ -127,8 +128,8 @@ interface ApiService {
     suspend fun getBodyTypeResponse(@Path("id") makeId: String) : BodyTypeListModel
 
     // seller car get car model list
-    @GET("car-models-list-by-body-type-id/{id}")
-    suspend fun getCarModelResponse(@Path("id") bodyTypeId: String) : CarModelListModel
+    @GET("car-models-list-by-make-id/{id}")
+    suspend fun getCarModelResponse(@Path("id") makeId: String) : CarModelListModel
 
 
     // seller car get car model list
@@ -146,7 +147,10 @@ interface ApiService {
 
     // seller car upload multiple images
     @Multipart
-    @GET("sell-car/step-2/{id}")
-    suspend fun getMultipleUploadImagesResponse(@Path("id") id: String, @Part image: ArrayList<MultipartBody.Part>) : AddCarStepOneUploadImagesModel
+    @POST("sell-car/step-1/image-upload")
+    suspend fun getMultipleUploadImagesResponse(@Part(Const.PARAM_CAR_ADS_ID) id: RequestBody?, @Part image: ArrayList<MultipartBody.Part>) : AddCarStepOneUploadImagesModel
 
+    //seller car plan list
+    @GET("sell-car/step-3")
+    suspend fun getAddSellerListingPlan(): AddCarStepThreeListingPlanModel
 }

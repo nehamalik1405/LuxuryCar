@@ -46,9 +46,9 @@ class AddCarStepOneViewModel(val repository: AddCarStepOneRepository):BaseViewMo
     val carModelResponse: LiveData<Resource<CarModelListModel>>
         get() = _carModelResponse
 
-    fun  getCarModelResponse(bodyTypeId: String) = viewModelScope.launch {
+    fun  getCarModelResponse(makeId: String) = viewModelScope.launch {
         _carModelResponse.value = Resource.Loading
-        _carModelResponse.value = repository. getCarModelResponse(bodyTypeId)
+        _carModelResponse.value = repository. getCarModelResponse(makeId)
     }
 
     private val _sellCarStepOneResponse: MutableLiveData<Resource<SellCarStepOneBasicListModel>> = MutableLiveData()
@@ -94,7 +94,7 @@ class AddCarStepOneViewModel(val repository: AddCarStepOneRepository):BaseViewMo
     val getMultipleImageResponse: LiveData<Resource<AddCarStepOneUploadImagesModel>>
         get() = _getMultipleImageResponse
 
-    fun getMultipleUploadImagesResponse(id:String, image: ArrayList<MultipartBody.Part>) = viewModelScope.launch {
+    fun getMultipleUploadImagesResponse(id:RequestBody, image: ArrayList<MultipartBody.Part>) = viewModelScope.launch {
         _getMultipleImageResponse.value = Resource.Loading
         _getMultipleImageResponse.value = repository.getMultipleUploadImagesResponse(id, image)
     }

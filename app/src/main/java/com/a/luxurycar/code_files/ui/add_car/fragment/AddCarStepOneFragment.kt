@@ -207,6 +207,7 @@ class AddCarStepOneFragment :
     }
 
     private fun callSalePersonApi() {
+        val id = SessionManager.getUserData()?.id.toString()
     viewModel.getSalePersonResponse("73")
 
         viewModel.salePersonResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -264,7 +265,7 @@ class AddCarStepOneFragment :
         //default item for all list
         val hashMapDefaultitem = HashMap<String, String>()
         hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem.put(Const.KEY_NAME, "Select Year")
+        hashMapDefaultitem.put(Const.KEY_NAME, "Select")
 
         //add default item
         arrYearListHashMap.add(hashMapDefaultitem)
@@ -313,6 +314,14 @@ class AddCarStepOneFragment :
                                 hashMap.put(Const.KEY_NAME, item)
                                 arrTransMissionTypeListHashMap.add(hashMap)
                             }
+                            //add body type
+                            for (item in it.values.data.body_types) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrBodyTypeListHashMap.add(hashMap)
+                            }
+
                             //add seller type
                             for (item in it.values.data.sellerType) {
                                 val hashMap = HashMap<String, String>()
@@ -448,6 +457,17 @@ class AddCarStepOneFragment :
             android.R.layout.simple_spinner_item,
             arrYearListHashMap
         )
+        val adapterBodyType = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrBodyTypeListHashMap
+        )
+
+
+        //Drop down layout style - list view for body type
+        adapterBodyType.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data body type adapter to spinner
+        binding.spinnerSelectBodyType.setAdapter(adapterBodyType)
 
 //Drop down layout style - list view for YEAR LIST
         adapterYear.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
@@ -525,7 +545,7 @@ class AddCarStepOneFragment :
         arrColorListHashMap = ArrayList()
         arrHorsePowerListHashMap = ArrayList()
         arrMechanicalConditionListHashMap = ArrayList()
-
+        arrBodyTypeListHashMap = ArrayList()
 
         arrRegionalSpecificationListHashMap = ArrayList()
         arrTransMissionTypeListHashMap = ArrayList()
@@ -542,6 +562,7 @@ class AddCarStepOneFragment :
         hashMapDefaultitem.put(Const.KEY_NAME, "Select")
 
         //add default item
+        arrBodyTypeListHashMap.add(hashMapDefaultitem)
         arrBodyConditionListHashMap.add(hashMapDefaultitem)
         arrColorListHashMap.add(hashMapDefaultitem)
         arrHorsePowerListHashMap.add(hashMapDefaultitem)
@@ -590,7 +611,7 @@ class AddCarStepOneFragment :
                     makeId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
                     makeName = arrMakeListHashMap[position].get(Const.KEY_NAME).toString()
                     if (makeId != "0") {
-                        callBodyTypeApi()
+                        callCarModelTypeApi()
                     }
 
                 }
@@ -626,9 +647,9 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
                     bodyTypeId = arrBodyTypeListHashMap[position].get(Const.KEY_ID).toString()
-                    if (bodyTypeId != "0") {
+                   /* if (bodyTypeId != "0") {
                         callCarModelTypeApi()
-                    }
+                    }*/
                 }
 
             }
@@ -912,9 +933,9 @@ class AddCarStepOneFragment :
                 ) {
                     salePersonId = arrsalePersonListHashMap[position].get(Const.KEY_ID).toString()
                     salePersonName = arrMakeListHashMap[position].get(Const.KEY_NAME).toString()
-                    if (makeId != "0") {
+                   /* if (makeId != "0") {
                         callBodyTypeApi()
-                    }
+                    }*/
 
                 }
 
@@ -944,11 +965,11 @@ class AddCarStepOneFragment :
         binding.txtViewMoreDetailsAndLessDetails.setOnClickListener {
             isShowMoreDetails = !isShowMoreDetails
             if (isShowMoreDetails) {
-                binding.cardViewSecondPartCarDetails.visibility = View.VISIBLE
+                binding.consLayoutSecondPartCarDetails.visibility = View.VISIBLE
                 binding.txtViewMoreDetailsAndLessDetails.text =
                     getString(R.string.str_less_deatils_non_mandatory)
             } else {
-                binding.cardViewSecondPartCarDetails.visibility = View.GONE
+                binding.consLayoutSecondPartCarDetails.visibility = View.GONE
                 binding.txtViewMoreDetailsAndLessDetails.text =
                     getString(R.string.str_more_deatils_non_mandatory)
             }
@@ -960,7 +981,10 @@ class AddCarStepOneFragment :
     }
 
     private fun callUploadMultipleImagesApi() {
-        viewModel.getMultipleUploadImagesResponse(idForImageUpload,arrOfImageList)
+
+        var UserId: RequestBody? = null
+        UserId = RequestBody.create("text/plain".toMediaTypeOrNull(), idForImageUpload.toString())
+        viewModel.getMultipleUploadImagesResponse(UserId,arrOfImageList)
     }
 
     private fun addCarStepOnePostApi() {
@@ -1085,12 +1109,13 @@ class AddCarStepOneFragment :
     }
 
     private fun callCarModelTypeApi() {
-        viewModel.getCarModelResponse(bodyTypeId)
+        viewModel.getCarModelResponse(makeId)
+
         viewModel.carModelResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             arrCarModelListHashMap = ArrayList()
             val hashMapDefaultitem = HashMap<String, String>()
             hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "Select Model")
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
             arrCarModelListHashMap.add(hashMapDefaultitem)
 
             binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
@@ -1259,17 +1284,7 @@ class AddCarStepOneFragment :
                     }
 
 
-                    val adapter = AdapterSpinner(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        arrBodyTypeListHashMap
-                    )
 
-
-                    //Drop down layout style - list view with radio button
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                    //attaching data adapter to spinner
-                    binding.spinnerSelectBodyType.setAdapter(adapter)
 
 
                 }
@@ -1575,7 +1590,7 @@ class AddCarStepOneFragment :
     }
 
     private fun setImageRecyclerView() {
-        val addMultipleImageAdapter = AddMultipleImageAdapter(requireContext(), listImage)
+        val addMultipleImageAdapter = AddMultipleImageAdapter(requireContext(), arrayOfImages)
         binding.recyclerviewMultipleImageUpload.adapter = addMultipleImageAdapter
         binding.recyclerviewMultipleImageUpload.setNestedScrollingEnabled(false);
         binding.recyclerviewMultipleImageUpload.setLayoutManager(GridLayoutManager(requireContext(),
@@ -1590,6 +1605,7 @@ class AddCarStepOneFragment :
     }
 
     val arrOfImageList:ArrayList<MultipartBody.Part> = ArrayList()
+    val arrayOfImages:ArrayList<Image> = ArrayList()
     private fun compressImage() {
         actualImage?.let { imageFile ->
 
@@ -1602,11 +1618,13 @@ class AddCarStepOneFragment :
                         size(1024000)
 
                     }
-                    delay(5000)
+                    delay(1000)
                   //  image_uri = compressedImage!!.absolutePath
 
 
-                    createMutiPartForm()
+                    arrOfImageList.add(createMutiPartForm())
+                    arrayOfImages.add(Image(compressedImage!!.absolutePath,if(arrayOfImages.isEmpty()) 1 else arrayOfImages.size))
+                    setImageRecyclerView()
 
             }
 
@@ -1620,8 +1638,8 @@ class AddCarStepOneFragment :
 
         try {
             var file = FileUtil.from(LuxuryCarApplication.instance, Uri.fromFile(compressedImage))
-            val surveyBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), image_uri)
-            image = MultipartBody.Part.createFormData("image[]", file!!.name, surveyBody)
+            val surveyBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            image = MultipartBody.Part.createFormData("images[]", file!!.name, surveyBody)
         } catch (e: IOException) {
             e.printStackTrace()
         }
