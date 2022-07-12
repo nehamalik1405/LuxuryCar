@@ -8,18 +8,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.repository.AddCarStepThreeRepository
+import com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepThreeFragment
 import kotlinx.android.synthetic.main.item_plan_list.view.*
 import com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.Data
 import com.a.luxurycar.code_files.view_model.AddCarStepThreeViewModel
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.utils.SetTextColor
 
-class SellerPlanListAdapter(val context: Context,val list:List<Data>): RecyclerView.Adapter<SellerPlanListAdapter.ViewHolder>() {
+class SellerPlanListAdapter(
+    val context: Context,
+    val list: ArrayList<Data>,
+    val addCarStepThreeFragment: AddCarStepThreeFragment
+) :
+    RecyclerView.Adapter<SellerPlanListAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.getContext()).inflate(R.layout.item_plan_list, parent, false);
+            LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_plan_list, parent, false);
         return ViewHolder(view)
     }
 
@@ -27,11 +34,13 @@ class SellerPlanListAdapter(val context: Context,val list:List<Data>): RecyclerV
 
         val item = list[position]
 
-            holder.txtViewBasic.text = item.title
-            holder.txtViewPrice.text = item.price
-            holder.txtViewContent.setText(Html.fromHtml(item.content).toString())
-            holder.btnSelectPlan.setText("Select "+item.title)
-        if (item.isSelected){
+        holder.txtViewBasic.text = item.title
+        holder.txtViewPrice.text = item.price
+        holder.txtViewContent.setText(Html.fromHtml(item.content).toString())
+        holder.btnSelectPlan.setText("Select " + item.title)
+
+
+        if (item.isSelected) {
             holder.consLayoutBasicPlan.setBackgroundResource(R.color.green)
             holder.consLayoutBasicCurve.setBackgroundResource(R.drawable.drawable_arc_for_yellow_background)
             holder.txtViewContent.SetTextColor(R.color.white)
@@ -43,8 +52,7 @@ class SellerPlanListAdapter(val context: Context,val list:List<Data>): RecyclerV
             holder.btnSelectPlan.setBackgroundResource(R.drawable.drawable_selected_premium_background)
             //  binding.btnSelectPremium.setBackgroundResource(R.drawable.drawable_background_border)
 
-        }
-        else{
+        } else {
             holder.consLayoutBasicPlan.setBackgroundResource(R.color.cardview_color)
             holder.consLayoutBasicCurve.setBackgroundResource(R.drawable.drawable_arc)
             holder.txtViewContent.SetTextColor(R.color.description_color)
@@ -56,33 +64,33 @@ class SellerPlanListAdapter(val context: Context,val list:List<Data>): RecyclerV
         }
 
         holder.consLayoutBasicPlan.setOnClickListener {
-           for(i in 0..list.size-1){
-               list[i].isSelected = false
-           }
-            list[position].isSelected = true
+            for (i in 0..list.size - 1) {
+                list[i].isSelected = false
+            }
+            item.isSelected = true
+            list[position] = item
             notifyDataSetChanged()
         }
         holder.btnSelectPlan.setOnClickListener {
 
-         if(item.isSelected){
-             val id =item.id
-             val status=item.status
-             callAddCarStepThreePlanApi(id.toString(),status)
-         }
-        }
+            if (item.isSelected) {
+                val id = item.id
+                val status = item.status
+                addCarStepThreeFragment.onItemClickListner(id.toString(), status)
+            }
+
 
         }
-
-    private fun callAddCarStepThreePlanApi(id: String, status: String) {
-
 
     }
+
+
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val txtViewBasic = itemView.txtViewBasic
         val txtViewPrice = itemView.txtViewPrice
@@ -93,9 +101,7 @@ class SellerPlanListAdapter(val context: Context,val list:List<Data>): RecyclerV
         val consLayoutFree = itemView.consLayoutFree
 
 
-
     }
-
 
 
 }

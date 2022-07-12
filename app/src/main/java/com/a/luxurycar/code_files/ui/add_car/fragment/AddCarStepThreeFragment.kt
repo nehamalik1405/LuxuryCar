@@ -10,7 +10,6 @@ import com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.Data
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.AddCarStepThreeRepository
 import com.a.luxurycar.code_files.ui.add_car.adapter.SellerPlanListAdapter
-import com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.AddCarStepThreeListingPlanModel
 import com.a.luxurycar.code_files.view_model.AddCarStepThreeViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
@@ -44,7 +43,7 @@ class AddCarStepThreeFragment :
     }
 
     private fun setSellerPlanListOnRecyclerView() {
-        val sellerPlanListAdapter = SellerPlanListAdapter(requireContext(),planList)
+        val sellerPlanListAdapter = SellerPlanListAdapter(requireContext(),planList as ArrayList<Data>,this@AddCarStepThreeFragment /* = java.util.ArrayList<com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.Data> */)
         binding.recyclerViewSelectedPlan.adapter = sellerPlanListAdapter
     }
 
@@ -79,6 +78,11 @@ class AddCarStepThreeFragment :
 
     private fun manageClickListenerEvent() {
 
+
+    }
+
+    fun onItemClickListner(value: String, status: String) {
+    Toast.makeText(requireContext(),"${value.toString()}",Toast.LENGTH_SHORT).show()
 
     }
 }
