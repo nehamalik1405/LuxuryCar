@@ -55,6 +55,7 @@
     <string name="error_empty_seller_type">Please select the seller type.</string>
     <string name="error_empty_full_service_history">Please select the full serive history.</string>
     <string name="error_empty_title">Please enter the title.</string>
+    <string name="error_empty_description_message">Please enter the description.</string>
 
     <string name="titlr_login">Login</string>
     <string name="titlr_login_underline"> <u>Login</u></string>

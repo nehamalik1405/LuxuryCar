@@ -179,6 +179,30 @@ class AddCarStepOneFragment :
 
     private fun observeAddCarStepOneImageApiResponse() {
 
+        viewModel.getMultipleImageResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.addCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+                when (it) {
+                    is Resource.Success -> {
+                        if (it.values.status != null && it.values.status == 1) {
+                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                                .show()
+                            val bundle = Bundle()
+                            bundle.putString("id",idForImageUpload)
+                            findNavController().navigate(R.id.addCarStepTwo,bundle)
+
+                        }
+
+                        if (!Utils.isEmptyOrNull(it.values.message)) {
+                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+
+                    }
+                    is Resource.Failure -> handleApiErrors(it)
+                }
+            })
+        })
 
     }
 
@@ -193,10 +217,8 @@ class AddCarStepOneFragment :
 
                         idForImageUpload = it.values.data.carAds.id.toString()
 
-                        val bundle = Bundle()
-                        bundle.putString("car_ads_id", idForImageUpload)
-                        findNavController().navigate(R.id.addCarStepTwo,bundle)
                         callUploadMultipleImagesApi()
+
                     }
 
                     if (!Utils.isEmptyOrNull(it.values.message)) {
@@ -1117,6 +1139,12 @@ class AddCarStepOneFragment :
                 Toast.LENGTH_LONG).show()
             return false
         }
+        else if (description.isNullOrEmpty()) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_description_message),
+                Toast.LENGTH_LONG).show()
+            return false
+        }
         return true
     }
 
@@ -1127,6 +1155,7 @@ class AddCarStepOneFragment :
         weeklyPrice = binding.edtTextWeeklyPrice.getTextInString()
         monthlyPrice = binding.edtTextMonthlyPrice.getTextInString()
         title = binding.edtTextTitle.getTextInString()
+        description = binding.edtTextDescription.getTextInString()
     }
 
     private fun callCarModelTypeApi() {

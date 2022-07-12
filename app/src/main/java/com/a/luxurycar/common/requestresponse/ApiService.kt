@@ -2,6 +2,7 @@ package com.a.luxurycar.common.requestresponse
 
 
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_one.AddCarStepOneModel
+import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.AddCarStepTwoResponse
 import com.a.luxurycar.code_files.ui.add_car.model.body_type.BodyTypeListModel
 import com.a.luxurycar.code_files.ui.add_car.model.car_model.CarModelListModel
 import com.a.luxurycar.code_files.ui.add_car.model.cities_list.CitiesListModel
@@ -152,7 +153,7 @@ interface ApiService {
 
     //seller car plan list
     @GET("sell-car/step-2/{id}")
-    suspend fun getAddCarStepTwoResponse(@Path("id") id:String)
+    suspend fun getAddCarStepTwoResponse(@Path("id") id:String): AddCarStepTwoResponse
 
     //seller car plan list
     @GET("sell-car/step-3")
