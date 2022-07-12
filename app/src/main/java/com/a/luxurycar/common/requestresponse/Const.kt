@@ -88,6 +88,8 @@ class Const {
       const val PARAM_WEEKLY_RENT_PRICE = "weekly_rent_price"
       const val PARAM_MONTHLY_RENT_PRICE = "monthly_rent_price"
       const val PARAM_SELLER_ID = "seller_id"
+      const val PARAM_LISTING_PLAN_ID = "listing_plan_id"
+      const val PARAM_STATUS = "status"
 
 
 

@@ -138,6 +138,7 @@ class AddCarStepOneFragment :
     var MY_CAMERA_PERMISSION_CODE = 100
     var imageName = ""
     lateinit var file: File
+    lateinit var bundle:Bundle
 
     private var actualImage: File? = null
     private var compressedImage: File? = null
@@ -199,6 +200,7 @@ class AddCarStepOneFragment :
         }
 
         binding.btnNext.setOnClickListener {
+            findNavController().navigate(R.id.addCarStepTwo)
             if (validation()) {
                 addCarStepOnePostApi()
             }
@@ -602,7 +604,7 @@ class AddCarStepOneFragment :
                         if (it.values.status != null && it.values.status == 1) {
                             Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
                                 .show()
-                            val bundle = Bundle()
+                             bundle = Bundle()
                             bundle.putString("id",idForImageUpload)
                             findNavController().navigate(R.id.addCarStepTwo,bundle)
 

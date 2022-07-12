@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
+import com.a.luxurycar.MainActivity
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.AddCarStepTwoRepository
+import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.Data
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
 import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
@@ -45,6 +47,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
         super.onViewCreated(view, savedInstanceState)
         callSellCarStepTwoApi()
         observeSellCarStepTwoApiResponse()
+        (activity as AddCarActivity?)?.currentDestination()
        // setViewPager()
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)

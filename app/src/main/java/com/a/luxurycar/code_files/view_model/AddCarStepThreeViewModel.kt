@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.a.luxurycar.code_files.base.BaseViewModel
 import com.a.luxurycar.code_files.repository.AddCarStepThreeRepository
+import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_three_plan_response.AddCarStepThreeSelectedPlanResponse
 import com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.AddCarStepThreeListingPlanModel
 import com.a.luxurycar.common.requestresponse.Resource
 import kotlinx.coroutines.launch
@@ -23,8 +24,14 @@ class AddCarStepThreeViewModel(val repository: AddCarStepThreeRepository):BaseVi
 
     }
 
-    fun getAddSellerPlan(body: RequestBody)= viewModelScope.launch {
-        repository.getAddSellerPlan(body)
+    private val _getAddCarStepThreeSelectedPlan: MutableLiveData<Resource<AddCarStepThreeSelectedPlanResponse>> = MutableLiveData()
+    val getAddCarStepThreeSelectedPlan: LiveData<Resource<AddCarStepThreeSelectedPlanResponse>>
+        get() = _getAddCarStepThreeSelectedPlan
+
+    fun getAddCarStepThreeSelectedPlan(body: RequestBody)= viewModelScope.launch {
+
+        _getAddCarStepThreeSelectedPlan.value = Resource.Loading
+        _getAddCarStepThreeSelectedPlan.value =repository.getAddCarStepThreeSelectedPlan(body)
     }
 
 }

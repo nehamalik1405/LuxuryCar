@@ -13,10 +13,13 @@ import com.a.luxurycar.code_files.ui.add_car.adapter.SellerPlanListAdapter
 import com.a.luxurycar.code_files.view_model.AddCarStepThreeViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.convertJsonToRequestBody
 import com.a.luxurycar.common.utils.handleApiErrors
 import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentAddCarStepThreeBinding
+import org.json.JSONObject
 
 
 class AddCarStepThreeFragment :
@@ -36,10 +39,33 @@ class AddCarStepThreeFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         planList = arrayListOf()
-        manageClickListenerEvent()
         callSellCarStepThreeApi()
         observeSellerStepThreeResponse()
+        observeAddCarStepThreeSelectedPlanResponse()
 
+    }
+
+    private fun observeAddCarStepThreeSelectedPlanResponse() {
+        viewModel.getAddCarStepThreeSelectedPlan.observe(viewLifecycleOwner, Observer {
+
+            binding.progressBarForAddCarStepThree.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+
+                    }
+                    else{
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+
+        })
     }
 
     private fun setSellerPlanListOnRecyclerView() {
@@ -56,8 +82,8 @@ class AddCarStepThreeFragment :
 
                         planList=it.values.data
                         setSellerPlanListOnRecyclerView()
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
-                            .show()
+                       /* Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()*/
 
                     }
                    else{
@@ -75,14 +101,17 @@ class AddCarStepThreeFragment :
      viewModel.getAddSellerListingPlan()
     }
 
+    fun onItemClickListner(listPlanId: String, status: String) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put(Const.PARAM_LISTING_PLAN_ID, listPlanId)
+            jsonObject.put(Const.PARAM_STATUS, status)
 
-    private fun manageClickListenerEvent() {
-
-
-    }
-
-    fun onItemClickListner(value: String, status: String) {
-    Toast.makeText(requireContext(),"${value.toString()}",Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        val body = jsonObject.convertJsonToRequestBody()
+        viewModel.getAddCarStepThreeSelectedPlan(body)
 
     }
 }

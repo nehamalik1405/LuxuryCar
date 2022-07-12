@@ -10,9 +10,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepOneFragment
 import com.a.luxurycar.databinding.ActivityAddCarBinding
 
 class AddCarActivity : AppCompatActivity() {
+    var fragment: AddCarStepOneFragment? = null
     lateinit var binding: ActivityAddCarBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
@@ -26,10 +28,13 @@ class AddCarActivity : AppCompatActivity() {
     lateinit var viewLineStep3 : View
     lateinit var viewLineStep4 : View
     lateinit var stepTextViewAddCar:TextView
+    var id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddCarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        fragment = AddCarStepOneFragment()
+         id = fragment?.idForImageUpload.toString()
 
 
         navController = findNavController(R.id.nav_host_fragment_content_main_for_add_car)
@@ -48,6 +53,38 @@ class AddCarActivity : AppCompatActivity() {
         viewLineStep4 = findViewById(R.id.viewLineStep4)
 
         manageClickListener()
+
+    }
+     fun currentDestination(){
+          if(navController.currentDestination?.id == R.id.addCarStepOne){
+         stepTextViewAddCar.setText("Add car step-1")
+              stepTextViewAddCar.setText("Add car step-1")
+              viewLineStep1.setBackgroundResource(R.color.yellow_color)
+              viewLineStep2.setBackgroundResource(R.color.green)
+              viewLineStep3.setBackgroundResource(R.color.green)
+              viewLineStep4.setBackgroundResource(R.color.green)
+         }
+         if(navController.currentDestination?.id == R.id.addCarStepTwo){
+             stepTextViewAddCar.setText("Add car step-2")
+             viewLineStep1.setBackgroundResource(R.color.green)
+             viewLineStep2.setBackgroundResource(R.color.yellow_color)
+             viewLineStep3.setBackgroundResource(R.color.green)
+             viewLineStep4.setBackgroundResource(R.color.green)
+         }
+         if(navController.currentDestination?.id == R.id.addCarStepThree){
+             stepTextViewAddCar.setText("Add car step-3")
+             viewLineStep1.setBackgroundResource(R.color.green)
+             viewLineStep2.setBackgroundResource(R.color.green)
+             viewLineStep3.setBackgroundResource(R.color.yellow_color)
+             viewLineStep4.setBackgroundResource(R.color.green)
+         }
+         if(navController.currentDestination?.id == R.id.addCarStepFour){
+             stepTextViewAddCar.setText("Add car step-4")
+             viewLineStep1.setBackgroundResource(R.color.green)
+             viewLineStep2.setBackgroundResource(R.color.green)
+             viewLineStep3.setBackgroundResource(R.color.green)
+             viewLineStep4.setBackgroundResource(R.color.yellow_color)
+         }
     }
 
 
@@ -60,38 +97,40 @@ class AddCarActivity : AppCompatActivity() {
             viewLineStep2.setBackgroundResource(R.color.green)
             viewLineStep3.setBackgroundResource(R.color.green)
             viewLineStep4.setBackgroundResource(R.color.green)
-
             navController.navigate(R.id.addCarStepOne)
         }
-        step2.setOnClickListener {
-           // if(navController.currentDestination?.id == R.id.addCarStepTwo){
+        if (!id.isNullOrEmpty()){
+            step2.setOnClickListener {
+                // if(navController.currentDestination?.id == R.id.addCarStepTwo){
                 stepTextViewAddCar.setText("Add car step-2")
                 viewLineStep1.setBackgroundResource(R.color.green)
                 viewLineStep2.setBackgroundResource(R.color.yellow_color)
                 viewLineStep3.setBackgroundResource(R.color.green)
                 viewLineStep4.setBackgroundResource(R.color.green)
-            //}
+                //}
 
 
-            navController.navigate(R.id.addCarStepTwo)
+                navController.navigate(R.id.addCarStepTwo)
 
+            }
+            step3.setOnClickListener {
+                stepTextViewAddCar.setText("Add car step-3")
+                viewLineStep1.setBackgroundResource(R.color.green)
+                viewLineStep2.setBackgroundResource(R.color.green)
+                viewLineStep3.setBackgroundResource(R.color.yellow_color)
+                viewLineStep4.setBackgroundResource(R.color.green)
+                navController.navigate(R.id.addCarStepThree)
+            }
+            step4.setOnClickListener {
+                stepTextViewAddCar.setText("Add car step-4")
+                viewLineStep1.setBackgroundResource(R.color.green)
+                viewLineStep2.setBackgroundResource(R.color.green)
+                viewLineStep3.setBackgroundResource(R.color.green)
+                viewLineStep4.setBackgroundResource(R.color.yellow_color)
+                navController.navigate(R.id.addCarStepFour)
+            }
         }
-        step3.setOnClickListener {
-            stepTextViewAddCar.setText("Add car step-3")
-            viewLineStep1.setBackgroundResource(R.color.green)
-            viewLineStep2.setBackgroundResource(R.color.green)
-            viewLineStep3.setBackgroundResource(R.color.yellow_color)
-            viewLineStep4.setBackgroundResource(R.color.green)
-            navController.navigate(R.id.addCarStepThree)
-        }
-        step4.setOnClickListener {
-            stepTextViewAddCar.setText("Add car step-4")
-            viewLineStep1.setBackgroundResource(R.color.green)
-            viewLineStep2.setBackgroundResource(R.color.green)
-            viewLineStep3.setBackgroundResource(R.color.green)
-            viewLineStep4.setBackgroundResource(R.color.yellow_color)
-            navController.navigate(R.id.addCarStepFour)
-        }
+
 
     }
 

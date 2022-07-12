@@ -9,8 +9,8 @@ class AddCarStepThreeRepository(val api:ApiService):BaseRepository() {
     suspend fun getAddSellerListingPlan()= safeApiCall {
         api.getAddSellerListingPlan()
     }
-    suspend fun getAddSellerPlan(body: RequestBody) = safeApiCall {
-        api.getAddSellerPlan(body)
+    suspend fun getAddCarStepThreeSelectedPlan(body: RequestBody) = safeApiCall {
+        api.getAddCarStepThreeSelectedPlan(body)
     }
 
 }

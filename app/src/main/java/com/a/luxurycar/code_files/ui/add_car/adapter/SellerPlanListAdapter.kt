@@ -69,7 +69,7 @@ class SellerPlanListAdapter(
             }
             item.isSelected = true
             list[position] = item
-            notifyDataSetChanged()
+           notifyItemChanged(position)
         }
         holder.btnSelectPlan.setOnClickListener {
 
