@@ -50,7 +50,7 @@
         <activity
             android:name=".code_files.ui.add_car.AddCarActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustNothing">
 
 
 
