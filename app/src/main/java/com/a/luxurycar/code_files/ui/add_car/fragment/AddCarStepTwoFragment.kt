@@ -45,7 +45,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
         super.onViewCreated(view, savedInstanceState)
         callSellCarStepTwoApi()
         observeSellCarStepTwoApiResponse()
-        setViewPager()
+       // setViewPager()
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 

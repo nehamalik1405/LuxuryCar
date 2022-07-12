@@ -165,6 +165,7 @@ class AddCarStepOneFragment :
         //selectRadioButtonId()
         manageClickListeners()
         callMakeListApi()
+        initializeAllSellCarStepOneListAndDefaultItem()
         callCitiesListApi()
         callSellCarStepOneBasicListApi()
         callSalePersonApi()
@@ -172,440 +173,24 @@ class AddCarStepOneFragment :
         observeSellCarStepOneBasicListResponse()
         observeAddCarStepOneImageApiResponse()
         observeAddCarStepOneApiResponse()
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
     }
 
-    private fun observeAddCarStepOneImageApiResponse() {
-
-        viewModel.getMultipleImageResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            viewModel.addCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
-                when (it) {
-                    is Resource.Success -> {
-                        if (it.values.status != null && it.values.status == 1) {
-                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
-                                .show()
-                            val bundle = Bundle()
-                            bundle.putString("id",idForImageUpload)
-                            findNavController().navigate(R.id.addCarStepTwo,bundle)
-
-                        }
-
-                        if (!Utils.isEmptyOrNull(it.values.message)) {
-                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
-                                .show()
-                        }
-
-                    }
-                    is Resource.Failure -> handleApiErrors(it)
-                }
-            })
-        })
-
-    }
-
-    private fun observeAddCarStepOneApiResponse() {
-        viewModel.addCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    if (it.values.status != null && it.values.status == 1) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
-                            .show()
-
-                        idForImageUpload = it.values.data.carAds.id.toString()
-
-                        callUploadMultipleImagesApi()
-
-                    }
-
-                    if (!Utils.isEmptyOrNull(it.values.message)) {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
-                            .show()
-                    }
-
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-    }
-
-    private fun callSalePersonApi() {
-        val id = SessionManager.getUserData()?.id.toString()
-        viewModel.getSalePersonResponse("73")
-
-        viewModel.salePersonResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            arrsalePersonListHashMap = ArrayList()
-            val hashMapDefaultitem = HashMap<String, String>()
-            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "Select Person Name")
-            arrsalePersonListHashMap.add(hashMapDefaultitem)
-
-            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
-
-            when (it) {
-                is Resource.Success -> {
-
-                    if (it.values.status == 1) {
-                        binding.progressbarAddCarStepOne.visible(isHidden)
-                        if (it.values != null) {
-                            for (item in it.values.data) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.firstname + " " + item.lastname)
-                                arrsalePersonListHashMap.add(hashMap)
-                            }
-                        }
-                    } else {
-                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
-                            .show()
-                    }
-
-
-                    val adapter = AdapterSpinner(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        arrsalePersonListHashMap
-                    )
-
-
-                    //Drop down layout style - list view with radio button
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                    //attaching data adapter to spinner
-                    binding.spinnerSelectAssignSalePerson.setAdapter(adapter)
-
-
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-
-    }
-
-    private fun getPreviousYearList() {
-        val list = arrayListOf<String>()
-        arrYearListHashMap = ArrayList()
-
-        //default item for all list
-        val hashMapDefaultitem = HashMap<String, String>()
-        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem.put(Const.KEY_NAME, "Select")
-
-        //add default item
-        arrYearListHashMap.add(hashMapDefaultitem)
-
-
-        val prevYear = Calendar.getInstance()
-        list.add(prevYear[Calendar.YEAR].toString())
-        var i = 1
-        for (i in i until 50) {
-            prevYear.add(Calendar.YEAR, -1)
-            list.add(prevYear[Calendar.YEAR].toString())
-            i.dec()
-        }
-        for (item in list) {
-            val hashMap = HashMap<String, String>()
-            hashMap.put(Const.KEY_ID, "")
-            hashMap.put(Const.KEY_NAME, item)
-            arrYearListHashMap.add(hashMap)
-        }
-    }
-
-    private fun observeSellCarStepOneBasicListResponse() {
-
-        viewModel.sellCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            initializeAllSellCarStepOneListAndDefaultItem()
-
-            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
-
-            when (it) {
-                is Resource.Success -> {
-
-                    if (it.values.status == 1) {
-                        binding.progressbarAddCarStepOne.visible(isHidden)
-                        if (it.values != null) {
-                            //add regional specification
-                            for (item in it.values.data.regionalSpecifications) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrRegionalSpecificationListHashMap.add(hashMap)
-                            }
-                            //add transmission type specification
-                            for (item in it.values.data.transmissionTypes) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrTransMissionTypeListHashMap.add(hashMap)
-                            }
-                            //add body type
-                            for (item in it.values.data.body_types) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name)
-                                arrBodyTypeListHashMap.add(hashMap)
-                            }
-
-                            //add seller type
-                            for (item in it.values.data.sellerType) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrSellerTypeListHashMap.add(hashMap)
-                            }
-                            //add full service history
-                            for (item in it.values.data.fullServiceHistory) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrFullServiceHistoryListHashMap.add(hashMap)
-                            }
-                            //add number of cylinders
-                            for (item in it.values.data.numberOfCylinders) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrNumberOfCylinderListHashMap.add(hashMap)
-                            }
-                            //add fuel type
-                            for (item in it.values.data.fuelType) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrFuelTypeListHashMap.add(hashMap)
-                            }
-                            //add steering side
-                            for (item in it.values.data.steeringSide) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrSteeringListHashMap.add(hashMap)
-                            }
-
-                            //add warranty side
-                            for (item in it.values.data.warranty) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
-                                arrWarrantyListHashMap.add(hashMap)
-                            }
-                            //add body condition
-                            for (item in it.values.data.bodyConditions) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name)
-                                arrBodyConditionListHashMap.add(hashMap)
-                            }
-                            //add color
-                            for (item in it.values.data.colors) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name)
-                                arrColorListHashMap.add(hashMap)
-                            }
-
-                            //add house power
-                            for (item in it.values.data.horsePower) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name)
-                                arrHorsePowerListHashMap.add(hashMap)
-                            }
-
-                            //add mechanical condition
-                            for (item in it.values.data.mechanicalConditions) {
-                                val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name)
-                                arrMechanicalConditionListHashMap.add(hashMap)
-                            }
-                        }
-                    }
-                    setSpinnerAdapterAndDropdown()
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-
-    }
-
-    private fun setSpinnerAdapterAndDropdown() {
-        val adapterRegionalSpecification = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrRegionalSpecificationListHashMap)
-
-
-        val adapterTransMissionTypeList = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrTransMissionTypeListHashMap)
-
-        val adapterSellerTypeList = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrSellerTypeListHashMap)
-
-        val adapterFullServiceHistoryList = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrFullServiceHistoryListHashMap)
-
-        val adapterNumberOfCylinderList = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrNumberOfCylinderListHashMap)
-
-        val adapterFuelTypeList = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrFuelTypeListHashMap)
-
-        val adapterSteeringList = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrSteeringListHashMap)
-
-
-        val adapterWarrantyList = AdapterSpinner(requireContext(),
-            android.R.layout.simple_spinner_item, arrWarrantyListHashMap)
-
-        val adapterBodyCondition = AdapterSpinner(
+    private fun addCarModelAdapter() {
+        val adapter = AdapterSpinner(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            arrBodyConditionListHashMap
-        )
-        val adapterColor = AdapterSpinner(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            arrColorListHashMap
-        )
-        val adapterHorsePower = AdapterSpinner(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            arrHorsePowerListHashMap
-        )
-        val adapterMechanicalCondition = AdapterSpinner(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            arrMechanicalConditionListHashMap
-        )
-        val adapterYear = AdapterSpinner(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            arrYearListHashMap
-        )
-        val adapterBodyType = AdapterSpinner(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            arrBodyTypeListHashMap
+            arrCarModelListHashMap
         )
 
 
-        //Drop down layout style - list view for body type
-        adapterBodyType.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data body type adapter to spinner
-        binding.spinnerSelectBodyType.setAdapter(adapterBodyType)
-
-//Drop down layout style - list view for YEAR LIST
-        adapterYear.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //Drop down layout style - list view with radio button
+        adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
         //attaching data adapter to spinner
-        binding.spinnerSelectYear.setAdapter(adapterYear)
-
-        //Drop down layout style - list view for body condition
-        adapterBodyCondition.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectBodyCondition.setAdapter(adapterBodyCondition)
-
-        //Drop down layout style - list view for regional specification
-        adapterRegionalSpecification.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectRegionalSpecification.setAdapter(adapterRegionalSpecification)
-
-        //Drop down layout style - list view
-        adapterTransMissionTypeList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectTransmissionType.setAdapter(adapterTransMissionTypeList)
-
-        //Drop down layout style - list view
-        adapterSellerTypeList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectSellerType.setAdapter(adapterSellerTypeList)
-
-        //Drop down layout style - list view
-        adapterFullServiceHistoryList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectFullServiceHistory.setAdapter(adapterFullServiceHistoryList)
-
-        //Drop down layout style - list view
-        adapterNumberOfCylinderList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectNumberOfCylinders.setAdapter(adapterNumberOfCylinderList)
-
-        //Drop down layout style - list view
-        adapterFuelTypeList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectFuelType.setAdapter(adapterFuelTypeList)
-
-        //Drop down layout style - list view
-        adapterSteeringList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectSteeringSide.setAdapter(adapterSteeringList)
-
-        //Drop down layout style - list view
-        adapterWarrantyList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectWarranty.setAdapter(adapterWarrantyList)
-
-
-        //Drop down layout style - list view
-        adapterColor.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectExteriourColour.setAdapter(adapterColor)
-        binding.spinnerSelectInteriorColour.setAdapter(adapterColor)
-
-        //Drop down layout style - list view
-        adapterHorsePower.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectHorsepower.setAdapter(adapterHorsePower)
-
-        //Drop down layout style - list view
-        adapterMechanicalCondition.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-        //attaching data adapter to spinner
-        binding.spinnerSelectMechanicalCondition.setAdapter(adapterMechanicalCondition)
-
-    }
-
-    private fun initializeAllSellCarStepOneListAndDefaultItem() {
-        //initialize the list
-
-        arrBodyConditionListHashMap = ArrayList()
-        arrColorListHashMap = ArrayList()
-        arrHorsePowerListHashMap = ArrayList()
-        arrMechanicalConditionListHashMap = ArrayList()
-        arrBodyTypeListHashMap = ArrayList()
-
-        arrRegionalSpecificationListHashMap = ArrayList()
-        arrTransMissionTypeListHashMap = ArrayList()
-        arrSellerTypeListHashMap = ArrayList()
-        arrFullServiceHistoryListHashMap = ArrayList()
-        arrNumberOfCylinderListHashMap = ArrayList()
-        arrFuelTypeListHashMap = ArrayList()
-        arrSteeringListHashMap = ArrayList()
-        arrWarrantyListHashMap = ArrayList()
-
-        //default item for all list
-        val hashMapDefaultitem = HashMap<String, String>()
-        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem.put(Const.KEY_NAME, "Select")
-
-        //add default item
-        arrBodyTypeListHashMap.add(hashMapDefaultitem)
-        arrBodyConditionListHashMap.add(hashMapDefaultitem)
-        arrColorListHashMap.add(hashMapDefaultitem)
-        arrHorsePowerListHashMap.add(hashMapDefaultitem)
-        arrMechanicalConditionListHashMap.add(hashMapDefaultitem)
-
-        arrTransMissionTypeListHashMap.add(hashMapDefaultitem)
-        arrRegionalSpecificationListHashMap.add(hashMapDefaultitem)
-        arrSellerTypeListHashMap.add(hashMapDefaultitem)
-        arrFullServiceHistoryListHashMap.add(hashMapDefaultitem)
-        arrNumberOfCylinderListHashMap.add(hashMapDefaultitem)
-        arrFuelTypeListHashMap.add(hashMapDefaultitem)
-        arrSteeringListHashMap.add(hashMapDefaultitem)
-        arrWarrantyListHashMap.add(hashMapDefaultitem)
-    }
-
-    private fun callSellCarStepOneBasicListApi() {
-        viewModel.getSellCarStepOneResponse()
+        binding.spinnerSelectModel.setAdapter(adapter)
     }
 
     private fun manageClickListeners() {
@@ -1007,6 +592,456 @@ class AddCarStepOneFragment :
 
 
     }
+    private fun observeAddCarStepOneImageApiResponse() {
+
+        viewModel.getMultipleImageResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.addCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+                when (it) {
+                    is Resource.Success -> {
+                        if (it.values.status != null && it.values.status == 1) {
+                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                                .show()
+                            val bundle = Bundle()
+                            bundle.putString("id",idForImageUpload)
+                            findNavController().navigate(R.id.addCarStepTwo,bundle)
+
+                        }
+
+                        if (!Utils.isEmptyOrNull(it.values.message)) {
+                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+
+                    }
+                    is Resource.Failure -> handleApiErrors(it)
+                }
+            })
+        })
+
+    }
+
+    private fun observeAddCarStepOneApiResponse() {
+        viewModel.addCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+
+                        idForImageUpload = it.values.data.carAds.id.toString()
+
+                        callUploadMultipleImagesApi()
+
+                    }
+
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
+
+    private fun callSalePersonApi() {
+        val id = SessionManager.getUserData()?.id.toString()
+        viewModel.getSalePersonResponse("73")
+
+        viewModel.salePersonResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            arrsalePersonListHashMap = ArrayList()
+            val hashMapDefaultitem = HashMap<String, String>()
+            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select Person Name")
+            arrsalePersonListHashMap.add(hashMapDefaultitem)
+
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+
+            when (it) {
+                is Resource.Success -> {
+
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            for (item in it.values.data) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.firstname + " " + item.lastname)
+                                arrsalePersonListHashMap.add(hashMap)
+                            }
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+
+                    val adapter = AdapterSpinner(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        arrsalePersonListHashMap
+                    )
+
+
+                    //Drop down layout style - list view with radio button
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                    //attaching data adapter to spinner
+                    binding.spinnerSelectAssignSalePerson.setAdapter(adapter)
+
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+
+    }
+
+    private fun getPreviousYearList() {
+        val list = arrayListOf<String>()
+        arrYearListHashMap = ArrayList()
+
+        //default item for all list
+        val hashMapDefaultitem = HashMap<String, String>()
+        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem.put(Const.KEY_NAME, "Select")
+
+        //add default item
+        arrYearListHashMap.add(hashMapDefaultitem)
+
+
+        val prevYear = Calendar.getInstance()
+        list.add(prevYear[Calendar.YEAR].toString())
+        var i = 1
+        for (i in i until 50) {
+            prevYear.add(Calendar.YEAR, -1)
+            list.add(prevYear[Calendar.YEAR].toString())
+            i.dec()
+        }
+        for (item in list) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "")
+            hashMap.put(Const.KEY_NAME, item)
+            arrYearListHashMap.add(hashMap)
+        }
+    }
+
+    private fun observeSellCarStepOneBasicListResponse() {
+
+        viewModel.sellCarStepOneResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+
+            when (it) {
+                is Resource.Success -> {
+
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            //add regional specification
+                            for (item in it.values.data.regionalSpecifications) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrRegionalSpecificationListHashMap.add(hashMap)
+                            }
+                            //add transmission type specification
+                            for (item in it.values.data.transmissionTypes) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrTransMissionTypeListHashMap.add(hashMap)
+                            }
+                            //add body type
+                            for (item in it.values.data.body_types) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrBodyTypeListHashMap.add(hashMap)
+                            }
+
+                            //add seller type
+                            for (item in it.values.data.sellerType) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrSellerTypeListHashMap.add(hashMap)
+                            }
+                            //add full service history
+                            for (item in it.values.data.fullServiceHistory) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrFullServiceHistoryListHashMap.add(hashMap)
+                            }
+                            //add number of cylinders
+                            for (item in it.values.data.numberOfCylinders) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrNumberOfCylinderListHashMap.add(hashMap)
+                            }
+                            //add fuel type
+                            for (item in it.values.data.fuelType) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrFuelTypeListHashMap.add(hashMap)
+                            }
+                            //add steering side
+                            for (item in it.values.data.steeringSide) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrSteeringListHashMap.add(hashMap)
+                            }
+
+                            //add warranty side
+                            for (item in it.values.data.warranty) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "")
+                                hashMap.put(Const.KEY_NAME, item)
+                                arrWarrantyListHashMap.add(hashMap)
+                            }
+                            //add body condition
+                            for (item in it.values.data.bodyConditions) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrBodyConditionListHashMap.add(hashMap)
+                            }
+                            //add color
+                            for (item in it.values.data.colors) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrColorListHashMap.add(hashMap)
+                            }
+
+                            //add house power
+                            for (item in it.values.data.horsePower) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrHorsePowerListHashMap.add(hashMap)
+                            }
+
+                            //add mechanical condition
+                            for (item in it.values.data.mechanicalConditions) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrMechanicalConditionListHashMap.add(hashMap)
+                            }
+                        }
+                    }
+                    setSpinnerAdapterAndDropdown()
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+
+    }
+
+    private fun setSpinnerAdapterAndDropdown() {
+        val adapterRegionalSpecification = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrRegionalSpecificationListHashMap)
+
+
+        val adapterTransMissionTypeList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrTransMissionTypeListHashMap)
+
+        val adapterSellerTypeList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrSellerTypeListHashMap)
+
+        val adapterFullServiceHistoryList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrFullServiceHistoryListHashMap)
+
+        val adapterNumberOfCylinderList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrNumberOfCylinderListHashMap)
+
+        val adapterFuelTypeList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrFuelTypeListHashMap)
+
+        val adapterSteeringList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrSteeringListHashMap)
+
+
+        val adapterWarrantyList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrWarrantyListHashMap)
+
+        val adapterBodyCondition = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrBodyConditionListHashMap
+        )
+        val adapterColor = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrColorListHashMap
+        )
+        val adapterHorsePower = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrHorsePowerListHashMap
+        )
+        val adapterMechanicalCondition = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrMechanicalConditionListHashMap
+        )
+        val adapterYear = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrYearListHashMap
+        )
+        val adapterBodyType = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrBodyTypeListHashMap
+        )
+
+
+        //Drop down layout style - list view for body type
+        adapterBodyType.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data body type adapter to spinner
+        binding.spinnerSelectBodyType.setAdapter(adapterBodyType)
+
+       //Drop down layout style - list view for year
+        adapterYear.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectYear.setAdapter(adapterYear)
+
+        //Drop down layout style - list view for body condition
+        adapterBodyCondition.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectBodyCondition.setAdapter(adapterBodyCondition)
+
+        //Drop down layout style - list view for regional specification
+        adapterRegionalSpecification.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectRegionalSpecification.setAdapter(adapterRegionalSpecification)
+
+        //Drop down layout style - list view for transmission type
+        adapterTransMissionTypeList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectTransmissionType.setAdapter(adapterTransMissionTypeList)
+
+        //Drop down layout style - list view for seller type
+        adapterSellerTypeList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectSellerType.setAdapter(adapterSellerTypeList)
+
+        //Drop down layout style - list view for full service history
+        adapterFullServiceHistoryList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectFullServiceHistory.setAdapter(adapterFullServiceHistoryList)
+
+        //Drop down layout style - list view for cylinder
+        adapterNumberOfCylinderList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectNumberOfCylinders.setAdapter(adapterNumberOfCylinderList)
+
+        //Drop down layout style - list view for fuel type
+        adapterFuelTypeList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectFuelType.setAdapter(adapterFuelTypeList)
+
+        //Drop down layout style - list view for steering
+        adapterSteeringList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectSteeringSide.setAdapter(adapterSteeringList)
+
+        //Drop down layout style - list view for warranty
+        adapterWarrantyList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectWarranty.setAdapter(adapterWarrantyList)
+
+
+        //Drop down layout style - list view for exteriour color
+        adapterColor.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectExteriourColour.setAdapter(adapterColor)
+        binding.spinnerSelectInteriorColour.setAdapter(adapterColor)
+
+        //Drop down layout style - list view for horse power
+        adapterHorsePower.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectHorsepower.setAdapter(adapterHorsePower)
+
+        //Drop down layout style - list view for mechanical condition
+        adapterMechanicalCondition.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectMechanicalCondition.setAdapter(adapterMechanicalCondition)
+
+    }
+
+    private fun initializeAllSellCarStepOneListAndDefaultItem() {
+        //initialize the list
+        arrCitiesListHashMap = ArrayList()
+        arrCarModelListHashMap = ArrayList()
+        arrBodyConditionListHashMap = ArrayList()
+        arrColorListHashMap = ArrayList()
+        arrHorsePowerListHashMap = ArrayList()
+        arrMechanicalConditionListHashMap = ArrayList()
+        arrBodyTypeListHashMap = ArrayList()
+
+        arrRegionalSpecificationListHashMap = ArrayList()
+        arrTransMissionTypeListHashMap = ArrayList()
+        arrSellerTypeListHashMap = ArrayList()
+        arrFullServiceHistoryListHashMap = ArrayList()
+        arrNumberOfCylinderListHashMap = ArrayList()
+        arrFuelTypeListHashMap = ArrayList()
+        arrSteeringListHashMap = ArrayList()
+        arrWarrantyListHashMap = ArrayList()
+
+
+        //default item for all list
+        val hashMapDefaultitem = HashMap<String, String>()
+        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem.put(Const.KEY_NAME, "Select")
+
+        //add default item
+        arrCitiesListHashMap.add(hashMapDefaultitem)
+        arrCarModelListHashMap.add(hashMapDefaultitem)
+        arrBodyTypeListHashMap.add(hashMapDefaultitem)
+        arrBodyConditionListHashMap.add(hashMapDefaultitem)
+        arrColorListHashMap.add(hashMapDefaultitem)
+        arrHorsePowerListHashMap.add(hashMapDefaultitem)
+        arrMechanicalConditionListHashMap.add(hashMapDefaultitem)
+
+        arrTransMissionTypeListHashMap.add(hashMapDefaultitem)
+        arrRegionalSpecificationListHashMap.add(hashMapDefaultitem)
+        arrSellerTypeListHashMap.add(hashMapDefaultitem)
+        arrFullServiceHistoryListHashMap.add(hashMapDefaultitem)
+        arrNumberOfCylinderListHashMap.add(hashMapDefaultitem)
+        arrFuelTypeListHashMap.add(hashMapDefaultitem)
+        arrSteeringListHashMap.add(hashMapDefaultitem)
+        arrWarrantyListHashMap.add(hashMapDefaultitem)
+        addCitiesAdapter()
+        addCarModelAdapter()
+    }
+
+    private fun addCitiesAdapter() {
+        val adapter = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrCitiesListHashMap
+        )
+
+
+        //Drop down layout style - list view with radio button
+        adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerSelectCity.setAdapter(adapter)
+    }
+
+    private fun callSellCarStepOneBasicListApi() {
+        viewModel.getSellCarStepOneResponse()
+    }
 
     private fun callUploadMultipleImagesApi() {
 
@@ -1162,11 +1197,6 @@ class AddCarStepOneFragment :
         viewModel.getCarModelResponse(makeId)
 
         viewModel.carModelResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            arrCarModelListHashMap = ArrayList()
-            val hashMapDefaultitem = HashMap<String, String>()
-            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
-            arrCarModelListHashMap.add(hashMapDefaultitem)
 
             binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
 
@@ -1186,19 +1216,6 @@ class AddCarStepOneFragment :
                     }
 
 
-                    val adapter = AdapterSpinner(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        arrCarModelListHashMap
-                    )
-
-
-                    //Drop down layout style - list view with radio button
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                    //attaching data adapter to spinner
-                    binding.spinnerSelectModel.setAdapter(adapter)
-
-
                 }
                 is Resource.Failure -> handleApiErrors(it)
             }
@@ -1211,11 +1228,6 @@ class AddCarStepOneFragment :
         viewModel.getAddCarStepCitiesResponse("1")
 
         viewModel.citiesListResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            arrCitiesListHashMap = ArrayList()
-            val hashMapDefaultitem = HashMap<String, String>()
-            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
-            arrCitiesListHashMap.add(hashMapDefaultitem)
 
             binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
 
@@ -1236,19 +1248,6 @@ class AddCarStepOneFragment :
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
                             .show()
                     }
-
-
-                    val adapter = AdapterSpinner(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        arrCitiesListHashMap
-                    )
-
-
-                    //Drop down layout style - list view with radio button
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                    //attaching data adapter to spinner
-                    binding.spinnerSelectCity.setAdapter(adapter)
 
 
                 }
@@ -1298,40 +1297,6 @@ class AddCarStepOneFragment :
                     adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
                     //attaching data adapter to spinner
                     binding.spinnerSelectMake.setAdapter(adapter)
-
-
-                }
-                is Resource.Failure -> handleApiErrors(it)
-            }
-        })
-
-    }
-
-    private fun callBodyTypeApi() {
-        viewModel.getBodyTypeResponse(makeId)
-        viewModel.bodyTypeResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            arrBodyTypeListHashMap = ArrayList()
-            val hashMapDefaultitem = HashMap<String, String>()
-            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
-            arrBodyTypeListHashMap.add(hashMapDefaultitem)
-
-            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
-
-            when (it) {
-                is Resource.Success -> {
-
-                    if (it.values.status == 1) {
-                        binding.progressbarAddCarStepOne.visible(isHidden)
-                        if (it.values != null) {
-                            for (item in it.values.data) {
-                                val hashMap = java.util.HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name.toString())
-                                arrBodyTypeListHashMap.add(hashMap)
-                            }
-                        }
-                    }
 
 
                 }
@@ -1725,6 +1690,38 @@ class AddCarStepOneFragment :
         }
 
     }*/
+    private fun callBodyTypeApi() {
+        viewModel.getBodyTypeResponse(makeId)
+        viewModel.bodyTypeResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            arrBodyTypeListHashMap = ArrayList()
+            val hashMapDefaultitem = HashMap<String, String>()
+            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+            hashMapDefaultitem.put(Const.KEY_NAME, "Select")
+            arrBodyTypeListHashMap.add(hashMapDefaultitem)
+
+            binding.progressbarAddCarStepOne.visible(it is Resource.Loading)
+
+            when (it) {
+                is Resource.Success -> {
+
+                    if (it.values.status == 1) {
+                        binding.progressbarAddCarStepOne.visible(isHidden)
+                        if (it.values != null) {
+                            for (item in it.values.data) {
+                                val hashMap = java.util.HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name.toString())
+                                arrBodyTypeListHashMap.add(hashMap)
+                            }
+                        }
+                    }
+
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
 
 }
 

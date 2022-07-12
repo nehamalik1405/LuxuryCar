@@ -158,4 +158,8 @@ interface ApiService {
     //seller car plan list
     @GET("sell-car/step-3")
     suspend fun getAddSellerListingPlan(): AddCarStepThreeListingPlanModel
+
+    //seller car plan list
+    @POST("sell-car/step-3")
+    suspend fun getAddSellerPlan(@Body body: RequestBody)
 }

@@ -52,8 +52,6 @@
             android:exported="true"
             android:windowSoftInputMode="adjustNothing">
 
-
-
         </activity>
         <activity
             android:name=".code_files.ui.seller_deshboard.SellerDeshboardActivity"

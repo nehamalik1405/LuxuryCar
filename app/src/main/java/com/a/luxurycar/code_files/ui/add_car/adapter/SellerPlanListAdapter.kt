@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
-import com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.AddCarStepThreeListingPlanModel
+import com.a.luxurycar.code_files.repository.AddCarStepThreeRepository
 import kotlinx.android.synthetic.main.item_plan_list.view.*
 import com.a.luxurycar.code_files.ui.add_car.model.step_three_listing_plan.Data
+import com.a.luxurycar.code_files.view_model.AddCarStepThreeViewModel
+import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.utils.SetTextColor
 
 class SellerPlanListAdapter(val context: Context,val list:List<Data>): RecyclerView.Adapter<SellerPlanListAdapter.ViewHolder>() {
@@ -53,15 +55,28 @@ class SellerPlanListAdapter(val context: Context,val list:List<Data>): RecyclerV
             holder.btnSelectPlan.setBackgroundResource(R.drawable.drawable_background_border)
         }
 
-        holder.btnSelectPlan.setOnClickListener {
+        holder.consLayoutBasicPlan.setOnClickListener {
            for(i in 0..list.size-1){
                list[i].isSelected = false
            }
             list[position].isSelected = true
             notifyDataSetChanged()
         }
+        holder.btnSelectPlan.setOnClickListener {
+
+         if(item.isSelected){
+             val id =item.id
+             val status=item.status
+             callAddCarStepThreePlanApi(id.toString(),status)
+         }
+        }
 
         }
+
+    private fun callAddCarStepThreePlanApi(id: String, status: String) {
+
+
+    }
 
     override fun getItemCount(): Int {
         return list.size

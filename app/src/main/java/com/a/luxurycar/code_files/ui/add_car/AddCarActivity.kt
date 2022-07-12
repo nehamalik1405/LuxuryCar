@@ -64,11 +64,14 @@ class AddCarActivity : AppCompatActivity() {
             navController.navigate(R.id.addCarStepOne)
         }
         step2.setOnClickListener {
-            stepTextViewAddCar.setText("Add car step-2")
-            viewLineStep1.setBackgroundResource(R.color.green)
-            viewLineStep2.setBackgroundResource(R.color.yellow_color)
-            viewLineStep3.setBackgroundResource(R.color.green)
-            viewLineStep4.setBackgroundResource(R.color.green)
+           // if(navController.currentDestination?.id == R.id.addCarStepTwo){
+                stepTextViewAddCar.setText("Add car step-2")
+                viewLineStep1.setBackgroundResource(R.color.green)
+                viewLineStep2.setBackgroundResource(R.color.yellow_color)
+                viewLineStep3.setBackgroundResource(R.color.green)
+                viewLineStep4.setBackgroundResource(R.color.green)
+            //}
+
 
             navController.navigate(R.id.addCarStepTwo)
 
