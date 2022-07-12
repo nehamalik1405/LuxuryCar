@@ -151,6 +151,10 @@ interface ApiService {
     suspend fun getMultipleUploadImagesResponse(@Part(Const.PARAM_CAR_ADS_ID) id: RequestBody?, @Part image: ArrayList<MultipartBody.Part>) : AddCarStepOneUploadImagesModel
 
     //seller car plan list
+    @GET("sell-car/step-2/{id}")
+    suspend fun getAddCarStepTwoResponse(@Path("id") id:String)
+
+    //seller car plan list
     @GET("sell-car/step-3")
     suspend fun getAddSellerListingPlan(): AddCarStepThreeListingPlanModel
 }

@@ -45,6 +45,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(BuyerMyProfileViewModel::class.java) -> BuyerMyProfileViewModel(repository = repository as BuyerMyProfileRepository) as T
             modelClass.isAssignableFrom(AddCarStepOneViewModel::class.java) -> AddCarStepOneViewModel(repository = repository as AddCarStepOneRepository) as T
             modelClass.isAssignableFrom(AddCarStepThreeViewModel::class.java) -> AddCarStepThreeViewModel(repository = repository as AddCarStepThreeRepository) as T
+            modelClass.isAssignableFrom(AddCarStepTwoViewModel::class.java) -> AddCarStepTwoViewModel(repository = repository as AddCarStepTwoRepository) as T
 
 
             else -> {

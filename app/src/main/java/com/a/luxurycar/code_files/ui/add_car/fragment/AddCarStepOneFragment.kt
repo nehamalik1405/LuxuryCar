@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
@@ -59,15 +60,14 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class AddCarStepOneFragment :
     BaseFragment<AddCarStepOneViewModel, FragmentAddCarStepOneBinding, AddCarStepOneRepository>(),
     OnMapReadyCallback {
-    private var image_uri: String=""
+    private var image_uri: String = ""
     private lateinit var map: GoogleMap
-    lateinit var listOfMultipPartImages :ArrayList<MultipartBody.Part>
+    lateinit var listOfMultipPartImages: ArrayList<MultipartBody.Part>
     lateinit var arrMakeListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrYearListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrCitiesListHashMap: ArrayList<HashMap<String, String>>
@@ -125,7 +125,8 @@ class AddCarStepOneFragment :
     var salePersonName = ""
     var title = ""
     var description = ""
-    var locationUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462560.30119248916!2d54.94729410040116!3d25.076381469564634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sin!4v1656315325167!5m2!1sen!2sin"
+    var locationUrl =
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462560.30119248916!2d54.94729410040116!3d25.076381469564634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sin!4v1656315325167!5m2!1sen!2sin"
     var tourUrl = ""
     var rent = "No"
     var sellerId = ""
@@ -138,7 +139,7 @@ class AddCarStepOneFragment :
     var imageName = ""
     lateinit var file: File
 
-    private var actualImage: File?=null
+    private var actualImage: File? = null
     private var compressedImage: File? = null
 
     companion object {
@@ -192,6 +193,9 @@ class AddCarStepOneFragment :
 
                         idForImageUpload = it.values.data.carAds.id.toString()
 
+                        val bundle = Bundle()
+                        bundle.putString("car_ads_id", idForImageUpload)
+                        findNavController().navigate(R.id.addCarStepTwo,bundle)
                         callUploadMultipleImagesApi()
                     }
 
@@ -208,7 +212,7 @@ class AddCarStepOneFragment :
 
     private fun callSalePersonApi() {
         val id = SessionManager.getUserData()?.id.toString()
-    viewModel.getSalePersonResponse("73")
+        viewModel.getSalePersonResponse("73")
 
         viewModel.salePersonResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             arrsalePersonListHashMap = ArrayList()
@@ -228,7 +232,7 @@ class AddCarStepOneFragment :
                             for (item in it.values.data) {
                                 val hashMap = HashMap<String, String>()
                                 hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.firstname+" "+item.lastname)
+                                hashMap.put(Const.KEY_NAME, item.firstname + " " + item.lastname)
                                 arrsalePersonListHashMap.add(hashMap)
                             }
                         }
@@ -583,18 +587,14 @@ class AddCarStepOneFragment :
     }
 
     private fun manageClickListeners() {
-        binding.linLayoutAddPictures.setOnClickListener {
+        binding.consLayoutUploadImage.setOnClickListener {
             openBottomSheet()
         }
 
         binding.btnNext.setOnClickListener {
-
-
-                if (validation()) {
-                    addCarStepOnePostApi()
-                }
-
-
+            if (validation()) {
+                addCarStepOnePostApi()
+            }
         }
 
         binding.spinnerSelectMake.onItemSelectedListener =
@@ -647,9 +647,9 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
                     bodyTypeId = arrBodyTypeListHashMap[position].get(Const.KEY_ID).toString()
-                   /* if (bodyTypeId != "0") {
-                        callCarModelTypeApi()
-                    }*/
+                    /* if (bodyTypeId != "0") {
+                         callCarModelTypeApi()
+                     }*/
                 }
 
             }
@@ -738,7 +738,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    transmissionTypeName = arrTransMissionTypeListHashMap[position].get(Const.KEY_NAME).toString()
+                    transmissionTypeName =
+                        arrTransMissionTypeListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -755,7 +756,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    sellerTypeName = arrSellerTypeListHashMap[position].get(Const.KEY_NAME).toString()
+                    sellerTypeName =
+                        arrSellerTypeListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -791,7 +793,8 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
 
-                    numberOfCylinderName =  arrNumberOfCylinderListHashMap[position].get(Const.KEY_NAME).toString()
+                    numberOfCylinderName =
+                        arrNumberOfCylinderListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -825,7 +828,8 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
-                    steeringSideName = arrSteeringListHashMap[position].get(Const.KEY_NAME).toString()
+                    steeringSideName =
+                        arrSteeringListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -860,7 +864,8 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
                     exteriourColorId = arrColorListHashMap[position].get(Const.KEY_ID).toString()
-                    exteriourColorName = arrColorListHashMap[position].get(Const.KEY_NAME).toString()
+                    exteriourColorName =
+                        arrColorListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -896,7 +901,8 @@ class AddCarStepOneFragment :
                     p3: Long,
                 ) {
                     horsePowerId = arrHorsePowerListHashMap[position].get(Const.KEY_ID).toString()
-                    horsePowerName = arrHorsePowerListHashMap[position].get(Const.KEY_NAME).toString()
+                    horsePowerName =
+                        arrHorsePowerListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
 
@@ -933,9 +939,9 @@ class AddCarStepOneFragment :
                 ) {
                     salePersonId = arrsalePersonListHashMap[position].get(Const.KEY_ID).toString()
                     salePersonName = arrMakeListHashMap[position].get(Const.KEY_NAME).toString()
-                   /* if (makeId != "0") {
-                        callBodyTypeApi()
-                    }*/
+                    /* if (makeId != "0") {
+                         callBodyTypeApi()
+                     }*/
 
                 }
 
@@ -984,44 +990,44 @@ class AddCarStepOneFragment :
 
         var UserId: RequestBody? = null
         UserId = RequestBody.create("text/plain".toMediaTypeOrNull(), idForImageUpload.toString())
-        viewModel.getMultipleUploadImagesResponse(UserId,arrOfImageList)
+        viewModel.getMultipleUploadImagesResponse(UserId, arrOfImageList)
     }
 
     private fun addCarStepOnePostApi() {
         sellerId = SessionManager.getUserData()?.id.toString()
         val jsonObject = JSONObject()
         try {
-            jsonObject.put(Const.PARAM_VIN_CHEESIS_NUMBER,chasisNumber)
-            jsonObject.put(Const.PARAM_CITY_ID,cityId)
-            jsonObject.put(Const.PARAM_MAKE_ID,makeId)
-            jsonObject.put(Const.PARAM_BODY_TYPE_ID,bodyTypeId)
-            jsonObject.put(Const.PARAM_CAR_MODEL_ID,carModelId)
-            jsonObject.put(Const.PARAM_CAR_YEAR,yearName)
-            jsonObject.put(Const.PARAM_RUN_KILOMETERS,kiloMetere)
-            jsonObject.put(Const.PARAM_PRICE,price)
-            jsonObject.put(Const.PARAM_REGIONAL_SPECIFICATION,regionalSpecificationName)
-            jsonObject.put(Const.PARAM_EXTERIOR_COLOR_ID,exteriourColorId)
-            jsonObject.put(Const.PARAM_TRANSMISSION_TYPE,transmissionTypeName)
-            jsonObject.put(Const.PARAM_HORSE_POWER_Id,horsePowerId)
-            jsonObject.put(Const.PARAM_SELLER_TYPE,sellerTypeName)
-            jsonObject.put(Const.PARAM_FULL_SERVICE_HISTORY,fullServiceHistoryName)
-            jsonObject.put(Const.PARAM_NO_OF_CYLINDERS,numberOfCylinderName)
-            jsonObject.put(Const.PARAM_INTERIOR_COLOR_ID,interiorColorId)
-            jsonObject.put(Const.PARAM_FUEL_TYPE,fuelTypeName)
-            jsonObject.put(Const.PARAM_BODY_CONDITION_ID,bodyConditionId)
-            jsonObject.put(Const.PARAM_MECHANICAL_CONDITION_ID,mechanicalConditionId)
-            jsonObject.put(Const.PARAM_STEERING_TYPE,steeringSideName)
-            jsonObject.put(Const.PARAM_WARRENTY,warrantyName)
-            jsonObject.put(Const.PARAM_SALES_PERSON_ID,salePersonId)
-            jsonObject.put(Const.PARAM_TITLE,title)
-            jsonObject.put(Const.PARAM_DESCRIPTION,description)
-            jsonObject.put(Const.PARAM_LOCATION_URL,locationUrl)
-            jsonObject.put(Const.PARAM_TOUR_URL,tourUrl)
-            jsonObject.put(Const.PARAM_RENT,rent)
-            jsonObject.put(Const.PARAM_DAILY_RENT_PRICE,price)
-            jsonObject.put(Const.PARAM_WEEKLY_RENT_PRICE,weeklyPrice)
-            jsonObject.put(Const.PARAM_MONTHLY_RENT_PRICE,monthlyPrice)
-            jsonObject.put(Const.PARAM_SELLER_ID,sellerId)
+            jsonObject.put(Const.PARAM_VIN_CHEESIS_NUMBER, chasisNumber)
+            jsonObject.put(Const.PARAM_CITY_ID, cityId)
+            jsonObject.put(Const.PARAM_MAKE_ID, makeId)
+            jsonObject.put(Const.PARAM_BODY_TYPE_ID, bodyTypeId)
+            jsonObject.put(Const.PARAM_CAR_MODEL_ID, carModelId)
+            jsonObject.put(Const.PARAM_CAR_YEAR, yearName)
+            jsonObject.put(Const.PARAM_RUN_KILOMETERS, kiloMetere)
+            jsonObject.put(Const.PARAM_PRICE, price)
+            jsonObject.put(Const.PARAM_REGIONAL_SPECIFICATION, regionalSpecificationName)
+            jsonObject.put(Const.PARAM_EXTERIOR_COLOR_ID, exteriourColorId)
+            jsonObject.put(Const.PARAM_TRANSMISSION_TYPE, transmissionTypeName)
+            jsonObject.put(Const.PARAM_HORSE_POWER_Id, horsePowerId)
+            jsonObject.put(Const.PARAM_SELLER_TYPE, sellerTypeName)
+            jsonObject.put(Const.PARAM_FULL_SERVICE_HISTORY, fullServiceHistoryName)
+            jsonObject.put(Const.PARAM_NO_OF_CYLINDERS, numberOfCylinderName)
+            jsonObject.put(Const.PARAM_INTERIOR_COLOR_ID, interiorColorId)
+            jsonObject.put(Const.PARAM_FUEL_TYPE, fuelTypeName)
+            jsonObject.put(Const.PARAM_BODY_CONDITION_ID, bodyConditionId)
+            jsonObject.put(Const.PARAM_MECHANICAL_CONDITION_ID, mechanicalConditionId)
+            jsonObject.put(Const.PARAM_STEERING_TYPE, steeringSideName)
+            jsonObject.put(Const.PARAM_WARRENTY, warrantyName)
+            jsonObject.put(Const.PARAM_SALES_PERSON_ID, salePersonId)
+            jsonObject.put(Const.PARAM_TITLE, title)
+            jsonObject.put(Const.PARAM_DESCRIPTION, description)
+            jsonObject.put(Const.PARAM_LOCATION_URL, locationUrl)
+            jsonObject.put(Const.PARAM_TOUR_URL, tourUrl)
+            jsonObject.put(Const.PARAM_RENT, rent)
+            jsonObject.put(Const.PARAM_DAILY_RENT_PRICE, price)
+            jsonObject.put(Const.PARAM_WEEKLY_RENT_PRICE, weeklyPrice)
+            jsonObject.put(Const.PARAM_MONTHLY_RENT_PRICE, monthlyPrice)
+            jsonObject.put(Const.PARAM_SELLER_ID, sellerId)
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -1035,65 +1041,80 @@ class AddCarStepOneFragment :
 
         getDataFromEditText()
 
-        if (cityName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_city), Toast.LENGTH_LONG).show()
+        if (cityName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_city),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (makeName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_make), Toast.LENGTH_LONG).show()
+        } else if (makeName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_make),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (carModelName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_car_model), Toast.LENGTH_LONG).show()
+        } else if (carModelName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_car_model),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (yearName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_year), Toast.LENGTH_LONG).show()
+        } else if (yearName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_year),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (kiloMetere.isNullOrEmpty()) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_kilometers), Toast.LENGTH_LONG).show()
+        } else if (kiloMetere.isNullOrEmpty()) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_kilometers),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (price.isNullOrEmpty()) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_price), Toast.LENGTH_LONG).show()
+        } else if (price.isNullOrEmpty()) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_price),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-          else if (weeklyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE){
-              Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_weekly_price), Toast.LENGTH_LONG).show()
-              return false
-          }
-            else if (monthlyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE){
-              Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_monthly_price), Toast.LENGTH_LONG).show()
-              return false
-          }
-
-        else if (regionalSpecificationName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_regional_specification), Toast.LENGTH_LONG).show()
+        } else if (weeklyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_weekly_price),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (exteriourColorName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_exteriour_colour), Toast.LENGTH_LONG).show()
+        } else if (monthlyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_monthly_price),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (transmissionTypeName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_transmission_type), Toast.LENGTH_LONG).show()
+        } else if (regionalSpecificationName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_regional_specification),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (horsePowerName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_horse_power), Toast.LENGTH_LONG).show()
+        } else if (exteriourColorName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_exteriour_colour),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (sellerTypeName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_seller_type), Toast.LENGTH_LONG).show()
+        } else if (transmissionTypeName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_transmission_type),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (fullServiceHistoryName.equals("Select",true)) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_full_service_history), Toast.LENGTH_LONG).show()
+        } else if (horsePowerName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_horse_power),
+                Toast.LENGTH_LONG).show()
             return false
-        }
-        else if (title.isNullOrEmpty()) {
-            Toast.makeText(requireContext(),getStringFromResource(R.string.error_empty_title), Toast.LENGTH_LONG).show()
+        } else if (sellerTypeName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_seller_type),
+                Toast.LENGTH_LONG).show()
+            return false
+        } else if (fullServiceHistoryName.equals("Select", true)) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_full_service_history),
+                Toast.LENGTH_LONG).show()
+            return false
+        } else if (title.isNullOrEmpty()) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_title),
+                Toast.LENGTH_LONG).show()
             return false
         }
         return true
@@ -1284,9 +1305,6 @@ class AddCarStepOneFragment :
                     }
 
 
-
-
-
                 }
                 is Resource.Failure -> handleApiErrors(it)
             }
@@ -1371,9 +1389,7 @@ class AddCarStepOneFragment :
             compressImage()
 
 
-        }
-
-        else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == AppCompatActivity.RESULT_OK) {
+        } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == AppCompatActivity.RESULT_OK) {
 
             if (data != null) {
 
@@ -1395,7 +1411,7 @@ class AddCarStepOneFragment :
             }
         }
 
-        }
+    }
 
     private fun getPath(contentURI: Uri?): String {
         var result = ""
@@ -1590,7 +1606,9 @@ class AddCarStepOneFragment :
     }
 
     private fun setImageRecyclerView() {
-        val addMultipleImageAdapter = AddMultipleImageAdapter(requireContext(), arrayOfImages)
+        val addMultipleImageAdapter =
+            AddMultipleImageAdapter(requireContext(), arrayOfImages, this@AddCarStepOneFragment)
+        //addMultipleImageAdapter.positionList(arrImages)
         binding.recyclerviewMultipleImageUpload.adapter = addMultipleImageAdapter
         binding.recyclerviewMultipleImageUpload.setNestedScrollingEnabled(false);
         binding.recyclerviewMultipleImageUpload.setLayoutManager(GridLayoutManager(requireContext(),
@@ -1604,27 +1622,42 @@ class AddCarStepOneFragment :
         map.moveCamera(CameraUpdateFactory.newLatLng(india))
     }
 
-    val arrOfImageList:ArrayList<MultipartBody.Part> = ArrayList()
-    val arrayOfImages:ArrayList<Image> = ArrayList()
+   // lateinit var arrImages: ArrayList<HashMap<String, String>>
+    val arrOfImageList: ArrayList<MultipartBody.Part> = ArrayList()
+    var arrayOfImages: ArrayList<String> = ArrayList()
     private fun compressImage() {
         actualImage?.let { imageFile ->
 
-                lifecycleScope.launch(Dispatchers.Main) {
+            lifecycleScope.launch(Dispatchers.Main) {
 
-                    compressedImage = Compressor.compress(requireContext(), imageFile) {
-                        resolution(600, 540)
-                        quality(30)
-                        format(Bitmap.CompressFormat.JPEG)
-                        size(1024000)
+                compressedImage = Compressor.compress(requireContext(), imageFile) {
+                    resolution(600, 540)
+                    quality(30)
+                    format(Bitmap.CompressFormat.JPEG)
+                    size(1024000)
 
+                }
+                delay(500)
+
+                arrOfImageList.add(createMutiPartForm())
+
+                arrayOfImages.add(compressedImage!!.absolutePath)
+            /*    arrImages = ArrayList()
+
+                if (arrOfImageList.size > 0) {
+
+                    arrOfImageList.forEachIndexed { index, item ->
+                        val hashMap = HashMap<String, String>()
+                        hashMap.put(Const.KEY_ID, "" + "${index+1}")
+                        hashMap.put(Const.KEY_NAME, "" + "${index+1}")
+                        arrImages.addAll(listOf(hashMap))
                     }
-                    delay(1000)
-                  //  image_uri = compressedImage!!.absolutePath
 
+                    arrayOfImages.add(compressedImage!!.absolutePath)
 
-                    arrOfImageList.add(createMutiPartForm())
-                    arrayOfImages.add(Image(compressedImage!!.absolutePath,if(arrayOfImages.isEmpty()) 1 else arrayOfImages.size))
-                    setImageRecyclerView()
+                }
+*/
+                setImageRecyclerView()
 
             }
 
@@ -1632,19 +1665,37 @@ class AddCarStepOneFragment :
         }
 
     }
-
-    fun createMutiPartForm():MultipartBody.Part{
+   var count=0
+    fun createMutiPartForm(): MultipartBody.Part {
         var image: MultipartBody.Part? = null
-
+        count++
         try {
             var file = FileUtil.from(LuxuryCarApplication.instance, Uri.fromFile(compressedImage))
             val surveyBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            image = MultipartBody.Part.createFormData("images[]", file!!.name, surveyBody)
+            image = MultipartBody.Part.createFormData("images[]", count.toString(), surveyBody)
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return  image!!
+        return image!!
     }
+
+    /*var arrOfImagesPostion = ArrayList<Int>()
+    fun onSpinnerItemOnClick(pos: Int) {
+        if (arrOfImagesPostion.contains(pos)) {
+
+            arrOfImagesPostion.remove(pos)
+            arrOfImagesPostion.add(pos)
+
+            Toast.makeText(requireContext(),"item removed than added", Toast.LENGTH_LONG).show()
+
+        } else {
+
+            arrOfImagesPostion.add(pos)
+            Toast.makeText(requireContext(),"item  added", Toast.LENGTH_LONG).show()
+
+        }
+
+    }*/
 
 }
 

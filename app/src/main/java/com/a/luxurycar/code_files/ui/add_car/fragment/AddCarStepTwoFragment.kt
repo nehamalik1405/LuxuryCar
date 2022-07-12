@@ -8,8 +8,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.AddCarRepository
+import com.a.luxurycar.code_files.repository.AddCarStepTwoRepository
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
 import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
+import com.a.luxurycar.code_files.view_model.AddCarStepTwoViewModel
 import com.a.luxurycar.code_files.view_model.AddCarViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
@@ -22,25 +24,37 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class AddCarStepTwoFragment : BaseFragment<AddCarViewModel, FragmentAddCarStepTwoBinding, AddCarRepository>(),OnMapReadyCallback {
+class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCarStepTwoBinding, AddCarStepTwoRepository>(),OnMapReadyCallback {
     private lateinit var map: GoogleMap
     lateinit var list:ArrayList<ProductDetailImageModel>
     var page = ""
 
-    override fun getViewModel()=AddCarViewModel::class.java
+    override fun getViewModel()=AddCarStepTwoViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     )= FragmentAddCarStepTwoBinding.inflate(inflater,container,false)
-    override fun getRepository()= AddCarRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository()= AddCarStepTwoRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callSellCarStepTwoApi()
         setViewPager()
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
     }
+
+    private fun callSellCarStepTwoApi() {
+        val bundle = arguments
+        var id = ""
+        if (bundle != null) {
+            id = bundle.getString("car_ads_id").toString()
+        }
+     viewModel.getAddSellerListingPlan("84")
+
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         map=googleMap
         val india = LatLng(     23.63936, 79.14712)
