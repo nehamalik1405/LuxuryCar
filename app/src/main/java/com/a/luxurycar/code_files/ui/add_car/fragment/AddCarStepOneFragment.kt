@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.AddCarStepOneRepository
+import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
 import com.a.luxurycar.code_files.ui.add_car.adapter.AddMultipleImageAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.AddMultipleImageModel
 import com.a.luxurycar.code_files.view_model.AddCarStepOneViewModel
@@ -161,7 +162,6 @@ class AddCarStepOneFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         listImage = arrayListOf()
         //selectRadioButtonId()
         manageClickListeners()
@@ -200,7 +200,7 @@ class AddCarStepOneFragment :
         }
 
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.addCarStepTwo)
+
             if (validation()) {
                 addCarStepOnePostApi()
             }
@@ -604,9 +604,13 @@ class AddCarStepOneFragment :
                         if (it.values.status != null && it.values.status == 1) {
                             Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
                                 .show()
-                             bundle = Bundle()
-                            bundle.putString("id",idForImageUpload)
-                            findNavController().navigate(R.id.addCarStepTwo,bundle)
+                            (activity as AddCarActivity?)?.getCurrentId(idForImageUpload)
+                            /* bundle = Bundle()
+                            bundle.putString("id",idForImageUpload)*/
+                            if(idForImageUpload.isNullOrEmpty()){
+                                findNavController().navigate(R.id.addCarStepTwo,bundle)
+                            }
+
 
                         }
 
