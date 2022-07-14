@@ -52,7 +52,7 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
     private fun manageClickListener() {
         binding.conLayoutFabButton.setOnClickListener {
             StartActivity(AddCarActivity::class.java)
-           // requireActivity().finishAffinity()
+            //requireActivity().finishAffinity()
         }
 
         binding.consLayoutTabForSale.setOnClickListener {

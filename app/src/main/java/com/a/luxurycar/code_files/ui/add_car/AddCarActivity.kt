@@ -15,7 +15,7 @@ import com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepOneFragment
 import com.a.luxurycar.databinding.ActivityAddCarBinding
 
 class AddCarActivity : AppCompatActivity() {
-    var fragment: AddCarStepOneFragment? = null
+
     lateinit var binding: ActivityAddCarBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
@@ -34,7 +34,7 @@ class AddCarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddCarBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        fragment = AddCarStepOneFragment()
+
         // id = fragment?.idForImageUpload.toString()
 
 

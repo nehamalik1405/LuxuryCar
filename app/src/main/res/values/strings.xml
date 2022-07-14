@@ -46,6 +46,8 @@
     <string name="error_empty_year">Please select the year.</string>
     <string name="error_empty_kilometers">Please select the kilometers.</string>
     <string name="error_empty_price">Please select the price.</string>
+    <string name="error_empty_deposit">Please select the deposit price.</string>
+    <string name="error_empty_daily_price">Please select the daily price.</string>
     <string name="error_empty_regional_specification">Please select the regional specification.</string>
     <string name="error_empty_weekly_price">Please select the weekly price.</string>
     <string name="error_empty_monthly_price">Please select the monthly price.</string>

@@ -8,68 +8,69 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="match_parent">
-  <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/margin_20_dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/txtViewTellUsAboutYourCar"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/AddCarTextViewHeadingTitle"
-            android:layout_marginTop="@dimen/margin_0dp"
-            android:layout_marginStart="@dimen/margin_10_dp"
-            android:text="@string/str_tell_us_about_your_car"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewCarType"
-            android:layout_width="@dimen/margin_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20_dp"
-            app:cardCornerRadius="@dimen/margin_10_dp"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewTellUsAboutYourCar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:paddingBottom="@dimen/margin_20_dp">
 
-            <RadioGroup
-                android:id="@+id/radioGroupButton"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtViewTellUsAboutYourCar"
+                style="@style/AddCarTextViewHeadingTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#F1F5F8"
-                android:paddingStart="@dimen/margin_25_dp"
-                android:paddingEnd="@dimen/margin_25_dp"
-               android:paddingTop="@dimen/margin_5dp"
-                android:paddingBottom="@dimen/margin_5dp"
-                android:orientation="horizontal"
-                 >
+                android:layout_marginStart="@dimen/margin_10_dp"
+                android:layout_marginTop="@dimen/margin_0dp"
+                android:text="@string/str_tell_us_about_your_car"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <RadioButton
-                    android:id="@+id/radioButtonSellCar"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:textSize="@dimen/txt_size_15sp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/muli_semi_bold"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewCarType"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20_dp"
+                app:cardCornerRadius="@dimen/margin_10_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewTellUsAboutYourCar">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupButton"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/str_sell_car" />
+                    android:background="#F1F5F8"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_25_dp"
+                    android:paddingTop="@dimen/margin_5dp"
+                    android:paddingEnd="@dimen/margin_25_dp"
+                    android:paddingBottom="@dimen/margin_5dp">
 
-                <RadioButton
-                    android:id="@+id/radioButtonRentCar"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:textSize="@dimen/txt_size_15sp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/muli_semi_bold"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_rent_car" />
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/radioButtonSellCar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:fontFamily="@font/muli_semi_bold"
+                        android:text="@string/str_sell_car"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_size_15sp" />
 
-        </androidx.cardview.widget.CardView>
+                    <RadioButton
+                        android:id="@+id/radioButtonRentCar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/muli_semi_bold"
+                        android:text="@string/str_rent_car"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_size_15sp" />
+                </RadioGroup>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consLayoutCarDetails"
@@ -80,8 +81,8 @@
                 android:padding="@dimen/margin_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewCarType"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/cardViewCarType">
+
                 <TextView
                     android:id="@+id/txtViewEnterChasisNumber"
                     style="@style/TextViewTitle"
@@ -343,20 +344,19 @@
 
                     <EditText
                         android:id="@+id/edtTextKilometers"
+                        style="@style/EditTextField"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/margin_45_dp"
-                        android:inputType="number"
-                        android:hint="Enter Kilometers"
-                        android:textColorHint="@color/sub_title_color"
                         android:background="@drawable/drawable_rounder_edit_text_background"
-                        style="@style/EditTextField"
-                        android:imeOptions="actionNext"
                         android:gravity="center_vertical"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:hint="Enter Kilometers"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:textColorHint="@color/sub_title_color"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -372,6 +372,7 @@
                     app:layout_constraintTop_toTopOf="@+id/txtViewKilometers" />
 
                 <TextView
+                    android:id="@+id/txtViewPriceStar"
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -393,25 +394,120 @@
 
                     <EditText
                         android:id="@+id/edtTextPrice"
+                        style="@style/EditTextField"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/margin_45_dp"
-                        android:inputType="number"
-                        android:hint="Enter Price"
-                        android:textColorHint="@color/sub_title_color"
                         android:background="@drawable/drawable_rounder_edit_text_background"
-                        style="@style/EditTextField"
-                        android:imeOptions="actionNext"
                         android:gravity="center_vertical"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:hint="Enter Price"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:textColorHint="@color/sub_title_color"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/edtTextDailyPrice"
+                        style="@style/EditTextField"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45_dp"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        android:gravity="center_vertical"
+                        android:hint="Enter Daily Price"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:textColorHint="@color/sub_title_color"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-              <!--  weekly price and monthly price-->
+                <!-- diposit price-->
+                <TextView
+                    android:id="@+id/txtViewDeposit"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:text="Deposit"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectKilometers" />
+
+                <TextView
+                    android:id="@+id/txtViewDepositStar"
+                    style="@style/TextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_mandatory_star"
+                    android:textColor="#B64B71"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/txtViewDeposit"
+                    app:layout_constraintTop_toTopOf="@+id/txtViewDeposit" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutDepositPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:padding="@dimen/margin_1dp"
+                    android:background="@drawable/drawable_rounder_edit_text_background"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewDeposit">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/consLayoutPrefixAddAED"
+                        android:layout_width="@dimen/margin_70_dp"
+                        android:layout_height="@dimen/margin_0dp"
+                        android:background="@drawable/drawable_card_background"
+                        android:backgroundTint="#E9ECEF"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtViewAED"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AED"
+                            style="@style/TextViewTitle"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <EditText
+                        android:id="@+id/edtTextDepositPrice"
+                        style="@style/EditTextField"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45_dp"
+                        android:background="@drawable/drawable_edittext_background"
+                        android:backgroundTint="@color/white"
+                        android:gravity="center_vertical"
+                        android:hint="Deposit Price"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:textColorHint="@color/sub_title_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/consLayoutPrefixAddAED"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--  weekly price and monthly price-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/consLayoutWeeklyAndMonthlyPrice"
@@ -419,9 +515,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15dp"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectKilometers"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutDepositPrice">
 
                     <TextView
                         android:id="@+id/txtViewWeeklyPrice"
@@ -430,7 +526,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/str_weekly_price"
                         app:layout_constraintStart_toStartOf="parent"
-                      app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         style="@style/TextViewTitle"
@@ -454,20 +550,19 @@
 
                         <EditText
                             android:id="@+id/edtTextWeeklyPrice"
+                            style="@style/EditTextField"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/margin_45_dp"
-                            android:inputType="number"
-                            android:hint="Enter Price"
-                            android:textColorHint="@color/sub_title_color"
                             android:background="@drawable/drawable_rounder_edit_text_background"
-                            style="@style/EditTextField"
-                            android:imeOptions="actionNext"
                             android:gravity="center_vertical"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:hint="Enter Price"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:textColorHint="@color/sub_title_color"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -504,20 +599,19 @@
 
                         <EditText
                             android:id="@+id/edtTextMonthlyPrice"
+                            style="@style/EditTextField"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/margin_45_dp"
-                            android:inputType="number"
-                            android:hint="Enter Price"
-                            android:textColorHint="@color/sub_title_color"
                             android:background="@drawable/drawable_rounder_edit_text_background"
-                            style="@style/EditTextField"
-                            android:imeOptions="actionNext"
                             android:gravity="center_vertical"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:hint="Enter Price"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:textColorHint="@color/sub_title_color"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -706,122 +800,235 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!--seller type-->
-                <TextView
-                    android:id="@+id/txtViewSellerType"
-                    style="@style/TextViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_15dp"
-                    android:text="@string/str_seller_type"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectHorsepower" />
-
-                <TextView
-                    style="@style/TextViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_mandatory_star"
-                    android:textColor="#B64B71"
-                    app:layout_constraintStart_toEndOf="@+id/txtViewSellerType"
-                    app:layout_constraintTop_toTopOf="@+id/txtViewSellerType" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/conLayoutSelectSellerType"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/margin_45dp"
-                    android:layout_marginTop="@dimen/margin_5dp"
-                    android:layout_marginEnd="@dimen/margin_5dp"
-                    android:background="@drawable/drawable_rounder_edit_text_background"
-                    app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectFullServiceHistory"
+                    android:id="@+id/consLayoutSellerTypeAndFullServiceHistory"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewSellerType">
+                    app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectHorsepower">
 
-                    <Spinner
-                        android:id="@+id/spinnerSelectSellerType"
-                        android:layout_width="@dimen/margin_0_dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/margin_2dp"
-                        android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                    <TextView
+                        android:id="@+id/txtViewSellerType"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_15dp"
+                        android:text="@string/str_seller_type"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_mandatory_star"
+                        android:textColor="#B64B71"
+                        app:layout_constraintStart_toEndOf="@+id/txtViewSellerType"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewSellerType" />
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutSelectSellerType"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginEnd="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        app:layout_constraintEnd_toStartOf="@+id/conLayoutSelectFullServiceHistory"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtViewSellerType">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectSellerType"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtViewFullServiceHistory"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_full_service_history"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtViewSellerType"
+                        app:layout_constraintStart_toStartOf="@+id/conLayoutSelectFullServiceHistory"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewSellerType" />
+
+                    <TextView
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_mandatory_star"
+                        android:textColor="#B64B71"
+                        app:layout_constraintStart_toEndOf="@+id/txtViewFullServiceHistory"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewFullServiceHistory" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutSelectFullServiceHistory"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_marginStart="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectSellerType"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/conLayoutSelectSellerType"
+                        app:layout_constraintTop_toTopOf="@+id/conLayoutSelectSellerType">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectFullServiceHistory"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/txtViewFullServiceHistory"
-                    style="@style/TextViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_full_service_history"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtViewSellerType"
-                    app:layout_constraintStart_toStartOf="@+id/conLayoutSelectFullServiceHistory"
-                    app:layout_constraintTop_toTopOf="@+id/txtViewSellerType" />
 
-                <TextView
-                    style="@style/TextViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_mandatory_star"
-                    android:textColor="#B64B71"
-                    app:layout_constraintStart_toEndOf="@+id/txtViewFullServiceHistory"
-                    app:layout_constraintTop_toTopOf="@+id/txtViewFullServiceHistory" />
-
+                <!--delivery charges and payment method-->
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/conLayoutSelectFullServiceHistory"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/margin_45dp"
-                    android:layout_marginStart="@dimen/margin_5dp"
-                    android:background="@drawable/drawable_rounder_edit_text_background"
-                    app:layout_constraintBottom_toBottomOf="@+id/conLayoutSelectSellerType"
+                    android:id="@+id/consLayoutDeliveryChargesAndPaymentMethod"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/conLayoutSelectSellerType"
-                    app:layout_constraintTop_toTopOf="@+id/conLayoutSelectSellerType">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/consLayoutSellerTypeAndFullServiceHistory">
 
-                    <Spinner
-                        android:id="@+id/spinnerSelectFullServiceHistory"
-                        android:layout_width="@dimen/margin_0_dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/margin_2dp"
-                        android:backgroundTint="@color/gray_600"
-                        android:spinnerMode="dialog"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                    <TextView
+                        android:id="@+id/txtViewDeliveryCharge"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_15dp"
+                        android:text="Delivery Charges"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtViewDeliveryChargeStar"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_mandatory_star"
+                        android:textColor="#B64B71"
+                        app:layout_constraintStart_toEndOf="@+id/txtViewDeliveryCharge"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewDeliveryCharge" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutDeliveryCharge"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginEnd="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        app:layout_constraintEnd_toStartOf="@+id/conLayoutPaymentMethod"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtViewDeliveryCharge">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectDeliveryCharge"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtViewPaymentMethod"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Method"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtViewDeliveryCharge"
+                        app:layout_constraintStart_toStartOf="@+id/conLayoutPaymentMethod"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewDeliveryCharge" />
+
+                    <TextView
+                        android:id="@+id/txtViewPaymentMethodStar"
+                        style="@style/TextViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_mandatory_star"
+                        android:textColor="#B64B71"
+                        app:layout_constraintStart_toEndOf="@+id/txtViewPaymentMethod"
+                        app:layout_constraintTop_toTopOf="@+id/txtViewPaymentMethod" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conLayoutPaymentMethod"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_45dp"
+                        android:layout_marginStart="@dimen/margin_5dp"
+                        android:background="@drawable/drawable_rounder_edit_text_background"
+                        app:layout_constraintBottom_toBottomOf="@+id/conLayoutDeliveryCharge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/conLayoutDeliveryCharge"
+                        app:layout_constraintTop_toTopOf="@+id/conLayoutDeliveryCharge">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectPaymentMethod"
+                            android:layout_width="@dimen/margin_0_dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_2dp"
+                            android:backgroundTint="@color/gray_600"
+                            android:spinnerMode="dialog"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/txtViewMoreDetailsAndLessDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextViewTitle"
-            android:layout_marginTop="@dimen/margin_10_dp"
-            android:text="@string/str_more_deatils_non_mandatory"
-            android:layout_marginEnd="@dimen/margin_15dp"
-            app:layout_constraintTop_toBottomOf="@+id/consLayoutCarDetails"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/txtViewMoreDetailsAndLessDetails"
+                style="@style/TextViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginEnd="@dimen/margin_15dp"
+                android:text="@string/str_more_deatils_non_mandatory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutCarDetails" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consLayoutSecondPartCarDetails"
-                android:background="@drawable/drawable_card_background"
-                android:padding="@dimen/margin_15dp"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20_dp"
-                app:cardCornerRadius="@dimen/margin_10_dp"
+                android:background="@drawable/drawable_card_background"
+                android:padding="@dimen/margin_15dp"
                 android:visibility="gone"
+                app:cardCornerRadius="@dimen/margin_10_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewMoreDetailsAndLessDetails"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/txtViewMoreDetailsAndLessDetails">
 
                 <!--no. of cylinder and interiour colour-->
 
@@ -1127,7 +1334,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consLayoutAssignSalePerson"
                 android:layout_width="@dimen/margin_0dp"
@@ -1137,8 +1343,7 @@
                 android:padding="@dimen/margin_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/consLayoutSecondPartCarDetails"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutSecondPartCarDetails">
 
                 <TextView
                     android:id="@+id/txtViewAssignSalePerson"
@@ -1179,9 +1384,9 @@
 
                 <TextView
                     android:id="@+id/txtViewJohneeDeo"
+                    style="@style/TextViewSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextViewSubTitle"
                     android:layout_marginTop="@dimen/margin_10_dp"
                     android:text="@string/title_jhone_deo"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1201,29 +1406,27 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/consLayoutUploadImage"
-            android:layout_width="@dimen/margin_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20_dp"
-            android:layout_marginStart="@dimen/margin_5dp"
-            android:layout_marginEnd="@dimen/margin_5dp"
-            android:background="@drawable/drawable_background_dash_for_add_picture"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/consLayoutAssignSalePerson">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/consLayoutUploadImage"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_20_dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                android:background="@drawable/drawable_background_dash_for_add_picture"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutAssignSalePerson">
 
 
                 <LinearLayout
                     android:id="@+id/linLayoutAddPictures"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/margin_40dp"
                     android:layout_marginStart="@dimen/margin_15dp"
+                    android:layout_marginTop="@dimen/margin_40dp"
                     android:layout_marginEnd="@dimen/margin_15dp"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toTopOf="@+id/txtViewUploadMultipleImages"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1238,13 +1441,14 @@
                     <TextView
                         android:id="@+id/txtViewAddPictures"
                         style="@style/TextViewTitle"
-                        android:layout_marginStart="@dimen/margin_10_dp"
-                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/margin_10_dp"
                         android:text="@string/str_add_pictures" />
                 </LinearLayout>
-              <TextView
+
+                <TextView
                     android:id="@+id/txtViewUploadMultipleImages"
                     style="@style/TextViewTitle"
                     android:layout_width="@dimen/margin_0dp"
@@ -1253,26 +1457,26 @@
                     android:layout_marginBottom="@dimen/margin_40dp"
                     android:gravity="center_horizontal"
                     android:text="@string/str_upload_multiple_images"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linLayoutAddPictures"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/linLayoutAddPictures" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerviewMultipleImageUpload"
-            android:layout_width="@dimen/margin_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10_dp"
-            android:layout_marginStart="@dimen/margin_5dp"
-            android:layout_marginEnd="@dimen/margin_5dp"
-            app:layout_constraintTop_toBottomOf="@+id/consLayoutUploadImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewMultipleImageUpload"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutUploadImage" />
 
-       <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consLayoutTitle"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="wrap_content"
@@ -1281,74 +1485,70 @@
                 android:padding="@dimen/margin_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerviewMultipleImageUpload"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/recyclerviewMultipleImageUpload">
 
                 <TextView
                     android:id="@+id/txtViewTitle"
+                    style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_title"
-                    style="@style/TextViewTitle"
                     android:layout_marginStart="@dimen/margin_1dp"
+                    android:text="@string/str_title"
                     app:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/edtTextTitle"
+                    style="@style/EditTextField"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_45_dp"
                     android:layout_marginTop="@dimen/margin_5dp"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"
-                    style="@style/EditTextField"
-                    android:hint="@string/str_enter_title"
-                    android:textColorHint="@color/sub_title_color"
                     android:background="@drawable/drawable_rounder_edit_text_background"
                     android:gravity="center_vertical"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewTitle"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:hint="@string/str_enter_title"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:textColorHint="@color/sub_title_color"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewTitle" />
 
                 <TextView
                     android:id="@+id/txtViewDescribeYourCarForSale"
+                    style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_1dp"
                     android:layout_marginTop="@dimen/margin_10_dp"
                     android:text="@string/str_describe_your_car_for_sale"
-                    style="@style/TextViewTitle"
-                    android:layout_marginStart="@dimen/margin_1dp"
                     app:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtTextTitle"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/edtTextTitle" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edtTextDescription"
+                    style="@style/EditTextField"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_150_dp"
                     android:layout_marginTop="@dimen/margin_5dp"
-                    style="@style/EditTextField"
                     android:background="@drawable/drawable_rounder_edit_text_background"
+                    android:gravity="top|start"
                     android:hint="@string/str_enter_your_message"
-                    android:textColorHint="@color/sub_title_color"
                     android:imeOptions="actionDone"
                     android:inputType="textMultiLine"
                     android:maxLength="500"
-                    android:minLines="4"
-                    android:gravity="top|start"
                     android:maxLines="6"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewDescribeYourCarForSale"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:minLines="4"
+                    android:textColorHint="@color/sub_title_color"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewDescribeYourCarForSale" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-      <androidx.constraintlayout.widget.ConstraintLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consLayoutLocationYourCar"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="wrap_content"
@@ -1357,83 +1557,76 @@
                 android:padding="@dimen/margin_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/consLayoutTitle"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutTitle">
 
                 <TextView
                     android:id="@+id/txtViewLocationYourCar"
+                    style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_location_your_car"
-                    style="@style/TextViewTitle"
                     android:layout_marginStart="@dimen/margin_1dp"
+                    android:text="@string/str_location_your_car"
                     app:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/edtTextEnterLocation"
+                    style="@style/EditTextField"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_45_dp"
                     android:layout_marginTop="@dimen/margin_5dp"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"
-                    style="@style/EditTextField"
-                    android:hint="@string/str_enter_location"
-                    android:textColorHint="@color/sub_title_color"
                     android:background="@drawable/drawable_rounder_edit_text_background"
                     android:gravity="center_vertical"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewLocationYourCar"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:hint="@string/str_enter_location"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:textColorHint="@color/sub_title_color"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewLocationYourCar" />
 
                 <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="@dimen/margin_0dp"
-                        android:layout_height="@dimen/margin_160_dp"
-                        android:layout_marginTop="@dimen/margin_10_dp"
-                        app:layout_constraintTop_toBottomOf="@+id/edtTextEnterLocation"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="@dimen/margin_160_dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtTextEnterLocation" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNext"
+                style="@style/buttonFieldStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_50dp"
+                android:layout_marginStart="@dimen/margin_15dp"
+                android:layout_marginTop="@dimen/margin_30_dp"
+                android:layout_marginEnd="@dimen/margin_15dp"
+                android:text="@string/str_next"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/consLayoutLocationYourCar"
+                app:rippleColor="@color/white" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNext"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/margin_50dp"
-            android:text="@string/str_next"
-            android:layout_marginTop="@dimen/margin_30_dp"
-            android:textColor="@color/white"
-            style="@style/buttonFieldStyle"
-            android:textAllCaps="true"
-            android:layout_marginStart="@dimen/margin_15dp"
-            android:layout_marginEnd="@dimen/margin_15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/consLayoutLocationYourCar"
-            app:rippleColor="@color/white" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
     <ProgressBar
         android:id="@+id/progressbarAddCarStepOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

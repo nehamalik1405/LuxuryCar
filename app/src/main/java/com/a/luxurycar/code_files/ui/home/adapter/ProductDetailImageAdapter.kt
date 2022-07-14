@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.CarImage
 import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
 
 import com.jsibbold.zoomage.ZoomageView
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.item_image_dialog.view.*
 
 class ProductDetailImageAdapter(
     val context: Context,
-    val list: ArrayList<ProductDetailImageModel>,
+    val list: ArrayList<CarImage>,
 ):
     RecyclerView.Adapter<ProductDetailImageAdapter.ViewiewHolder>() {
   var   currentPosition = 0

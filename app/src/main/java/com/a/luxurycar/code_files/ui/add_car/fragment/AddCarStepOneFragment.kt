@@ -61,6 +61,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AddCarStepOneFragment :
@@ -88,6 +89,8 @@ class AddCarStepOneFragment :
     lateinit var arrFuelTypeListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrSteeringListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrWarrantyListHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrDeliveryChargesListHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrPaymentMethodListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrsalePersonListHashMap: ArrayList<HashMap<String, String>>
 
     var chasisNumber = ""
@@ -101,6 +104,8 @@ class AddCarStepOneFragment :
     var carModelName = ""
     var kiloMetere = ""
     var price = ""
+    var deposit = ""
+    var dailyPrice =""
     var weeklyPrice = ""
     var monthlyPrice = ""
     var bodyConditionId = ""
@@ -115,13 +120,22 @@ class AddCarStepOneFragment :
     var mechanicalConditionName = ""
     var regionalSpecificationName = ""
     var transmissionTypeName = ""
+    var transmissionTypeId = ""
+    var sellerTypeId = ""
     var sellerTypeName = ""
+    var deliveryChargesId = ""
+    var deliveryChargesName = ""
+    var paymentMethodId = ""
+    var paymentMethodName = ""
     var yearName = ""
     var fullServiceHistoryName = ""
+    var fullServiceHistoryId = ""
     var numberOfCylinderName = ""
     var fuelTypeName = ""
+    var steeringSideId = ""
     var steeringSideName = ""
     var warrantyName = ""
+    var warrantyId = ""
     var salePersonId = ""
     var salePersonName = ""
     var title = ""
@@ -129,7 +143,7 @@ class AddCarStepOneFragment :
     var locationUrl =
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462560.30119248916!2d54.94729410040116!3d25.076381469564634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sin!4v1656315325167!5m2!1sen!2sin"
     var tourUrl = ""
-    var rent = "No"
+    var rent = "0"
     var sellerId = ""
     var idForImageUpload = ""
 
@@ -139,7 +153,6 @@ class AddCarStepOneFragment :
     var MY_CAMERA_PERMISSION_CODE = 100
     var imageName = ""
     lateinit var file: File
-    lateinit var bundle:Bundle
 
     private var actualImage: File? = null
     private var compressedImage: File? = null
@@ -171,6 +184,7 @@ class AddCarStepOneFragment :
         callSellCarStepOneBasicListApi()
         callSalePersonApi()
         getPreviousYearList()
+        setSpinnerAdapterAndDropdown()
         observeSellCarStepOneBasicListResponse()
         observeAddCarStepOneImageApiResponse()
         observeAddCarStepOneApiResponse()
@@ -201,9 +215,13 @@ class AddCarStepOneFragment :
 
         binding.btnNext.setOnClickListener {
 
-            if (validation()) {
+
+            (activity as AddCarActivity).getCurrentId("32")
+           findNavController().navigate(R.id.addCarStepTwo)
+
+           /* if (validation()) {
                 addCarStepOnePostApi()
-            }
+            }*/
         }
 
         binding.spinnerSelectMake.onItemSelectedListener =
@@ -349,6 +367,8 @@ class AddCarStepOneFragment :
                 ) {
                     transmissionTypeName =
                         arrTransMissionTypeListHashMap[position].get(Const.KEY_NAME).toString()
+                    transmissionTypeId =
+                        arrTransMissionTypeListHashMap[position].get(Const.KEY_ID).toString()
 
                 }
 
@@ -367,6 +387,8 @@ class AddCarStepOneFragment :
                 ) {
                     sellerTypeName =
                         arrSellerTypeListHashMap[position].get(Const.KEY_NAME).toString()
+                    sellerTypeId =
+                        arrSellerTypeListHashMap[position].get(Const.KEY_ID).toString()
 
                 }
 
@@ -385,6 +407,8 @@ class AddCarStepOneFragment :
                 ) {
                     fullServiceHistoryName =
                         arrFullServiceHistoryListHashMap[position].get(Const.KEY_NAME).toString()
+                    fullServiceHistoryId =
+                        arrFullServiceHistoryListHashMap[position].get(Const.KEY_ID).toString()
 
                 }
 
@@ -439,6 +463,8 @@ class AddCarStepOneFragment :
                 ) {
                     steeringSideName =
                         arrSteeringListHashMap[position].get(Const.KEY_NAME).toString()
+                    steeringSideId =
+                        arrSteeringListHashMap[position].get(Const.KEY_ID).toString()
 
                 }
 
@@ -455,6 +481,7 @@ class AddCarStepOneFragment :
                     position: Int,
                     p3: Long,
                 ) {
+                    warrantyId = arrWarrantyListHashMap[position].get(Const.KEY_ID).toString()
                     warrantyName = arrWarrantyListHashMap[position].get(Const.KEY_NAME).toString()
 
                 }
@@ -556,12 +583,61 @@ class AddCarStepOneFragment :
 
             }
 
+        binding.spinnerSelectDeliveryCharge.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    deliveryChargesId = arrDeliveryChargesListHashMap[position].get(Const.KEY_ID).toString()
+                    deliveryChargesName = arrDeliveryChargesListHashMap[position].get(Const.KEY_NAME).toString()
+
+                }
+
+            }
+
+        binding.spinnerSelectPaymentMethod.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    paymentMethodId = arrPaymentMethodListHashMap[position].get(Const.KEY_ID).toString()
+                    paymentMethodName = arrPaymentMethodListHashMap[position].get(Const.KEY_NAME).toString()
+                }
+
+            }
+
         binding.radioButtonSellCar.setOnClickListener {
 
             if (binding.radioButtonSellCar.isChecked) {
-                rent = "No"
+                rent = "0"
                 binding.txtViewPrice.text = "Price"
+                binding.edtTextPrice.visibility = View.VISIBLE
+                binding.edtTextDailyPrice.visibility = View.GONE
                 binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.GONE
+                binding.consLayoutDeliveryChargesAndPaymentMethod.visibility = View.GONE
+                binding.consLayoutSellerTypeAndFullServiceHistory.visibility = View.VISIBLE
+
+               /* //price visibility visibible
+                binding.conLayoutSelectPrice.visibility = View.VISIBLE
+                binding.txtViewPrice.visibility = View.VISIBLE
+                binding.txtViewPriceStar.visibility = View.VISIBLE*/
+
+                //deposit price visibility hide
+                binding.txtViewDeposit.visibility = View.GONE
+                binding.txtViewDepositStar.visibility = View.GONE
+                binding.conLayoutDepositPrice.visibility = View.GONE
             }
 
         }
@@ -569,9 +645,23 @@ class AddCarStepOneFragment :
         binding.radioButtonRentCar.setOnClickListener {
 
             if (binding.radioButtonRentCar.isChecked) {
-                rent = "Yes"
+                rent = "1"
                 binding.txtViewPrice.text = "Daily Price"
+                binding.edtTextPrice.visibility = View.GONE
+                binding.edtTextDailyPrice.visibility = View.VISIBLE
                 binding.consLayoutWeeklyAndMonthlyPrice.visibility = View.VISIBLE
+                binding.consLayoutDeliveryChargesAndPaymentMethod.visibility = View.VISIBLE
+                binding.consLayoutSellerTypeAndFullServiceHistory.visibility = View.GONE
+
+                /*//price visibility hide
+                binding.conLayoutSelectPrice.visibility = View.GONE
+                binding.txtViewPrice.visibility = View.GONE
+                binding.txtViewPriceStar.visibility = View.GONE*/
+
+                //deposit price visibility visibible
+               binding.txtViewDeposit.visibility = View.VISIBLE
+                binding.txtViewDepositStar.visibility = View.VISIBLE
+                binding.conLayoutDepositPrice.visibility = View.VISIBLE
             }
 
         }
@@ -588,8 +678,6 @@ class AddCarStepOneFragment :
                 binding.txtViewMoreDetailsAndLessDetails.text =
                     getString(R.string.str_more_deatils_non_mandatory)
             }
-
-
         }
 
 
@@ -604,10 +692,11 @@ class AddCarStepOneFragment :
                         if (it.values.status != null && it.values.status == 1) {
                             Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
                                 .show()
-                            (activity as AddCarActivity?)?.getCurrentId(idForImageUpload)
-                            /* bundle = Bundle()
-                            bundle.putString("id",idForImageUpload)*/
-                            if(idForImageUpload.isNullOrEmpty()){
+
+                             val bundle = Bundle()
+                            bundle.putString("car_ads_id",idForImageUpload)
+                            if(!idForImageUpload.isNullOrEmpty()){
+                                (activity as AddCarActivity?)?.getCurrentId(idForImageUpload)
                                 findNavController().navigate(R.id.addCarStepTwo,bundle)
                             }
 
@@ -750,19 +839,19 @@ class AddCarStepOneFragment :
                             //add regional specification
                             for (item in it.values.data.regionalSpecifications) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrRegionalSpecificationListHashMap.add(hashMap)
                             }
                             //add transmission type specification
                             for (item in it.values.data.transmissionTypes) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrTransMissionTypeListHashMap.add(hashMap)
                             }
                             //add body type
-                            for (item in it.values.data.body_types) {
+                            for (item in it.values.data.bodyTypes) {
                                 val hashMap = HashMap<String, String>()
                                 hashMap.put(Const.KEY_ID, "" + item.id)
                                 hashMap.put(Const.KEY_NAME, item.name)
@@ -772,44 +861,44 @@ class AddCarStepOneFragment :
                             //add seller type
                             for (item in it.values.data.sellerType) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrSellerTypeListHashMap.add(hashMap)
                             }
                             //add full service history
                             for (item in it.values.data.fullServiceHistory) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrFullServiceHistoryListHashMap.add(hashMap)
                             }
                             //add number of cylinders
                             for (item in it.values.data.numberOfCylinders) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrNumberOfCylinderListHashMap.add(hashMap)
                             }
                             //add fuel type
                             for (item in it.values.data.fuelType) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrFuelTypeListHashMap.add(hashMap)
                             }
                             //add steering side
                             for (item in it.values.data.steeringSide) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrSteeringListHashMap.add(hashMap)
                             }
 
                             //add warranty side
                             for (item in it.values.data.warranty) {
                                 val hashMap = HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "")
-                                hashMap.put(Const.KEY_NAME, item)
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
                                 arrWarrantyListHashMap.add(hashMap)
                             }
                             //add body condition
@@ -842,9 +931,23 @@ class AddCarStepOneFragment :
                                 hashMap.put(Const.KEY_NAME, item.name)
                                 arrMechanicalConditionListHashMap.add(hashMap)
                             }
+                            //add mechanical condition
+                            for (item in it.values.data.deliveryCharges) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrDeliveryChargesListHashMap.add(hashMap)
+                            }
+                            //add mechanical condition
+                            for (item in it.values.data.paymentMethod) {
+                                val hashMap = HashMap<String, String>()
+                                hashMap.put(Const.KEY_ID, "" + item.id)
+                                hashMap.put(Const.KEY_NAME, item.name)
+                                arrPaymentMethodListHashMap.add(hashMap)
+                            }
                         }
                     }
-                    setSpinnerAdapterAndDropdown()
+                    //setSpinnerAdapterAndDropdown()
                 }
                 is Resource.Failure -> handleApiErrors(it)
             }
@@ -879,6 +982,9 @@ class AddCarStepOneFragment :
         val adapterWarrantyList = AdapterSpinner(requireContext(),
             android.R.layout.simple_spinner_item, arrWarrantyListHashMap)
 
+
+
+
         val adapterBodyCondition = AdapterSpinner(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -909,6 +1015,11 @@ class AddCarStepOneFragment :
             android.R.layout.simple_spinner_item,
             arrBodyTypeListHashMap
         )
+        val adapterDeliveryChargesList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrDeliveryChargesListHashMap)
+
+        val adapterPaymentMethodList = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item, arrPaymentMethodListHashMap)
 
 
         //Drop down layout style - list view for body type
@@ -983,6 +1094,16 @@ class AddCarStepOneFragment :
         //attaching data adapter to spinner
         binding.spinnerSelectMechanicalCondition.setAdapter(adapterMechanicalCondition)
 
+        //Drop down layout style - list view for delivery charges
+        adapterDeliveryChargesList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data body type adapter to spinner
+        binding.spinnerSelectDeliveryCharge.setAdapter(adapterDeliveryChargesList)
+
+        //Drop down layout style - list view for delivery charges
+        adapterPaymentMethodList.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data body type adapter to spinner
+        binding.spinnerSelectPaymentMethod.setAdapter(adapterPaymentMethodList)
+
     }
 
     private fun initializeAllSellCarStepOneListAndDefaultItem() {
@@ -1003,6 +1124,8 @@ class AddCarStepOneFragment :
         arrFuelTypeListHashMap = ArrayList()
         arrSteeringListHashMap = ArrayList()
         arrWarrantyListHashMap = ArrayList()
+        arrDeliveryChargesListHashMap = ArrayList()
+        arrPaymentMethodListHashMap = ArrayList()
 
 
         //default item for all list
@@ -1027,6 +1150,8 @@ class AddCarStepOneFragment :
         arrFuelTypeListHashMap.add(hashMapDefaultitem)
         arrSteeringListHashMap.add(hashMapDefaultitem)
         arrWarrantyListHashMap.add(hashMapDefaultitem)
+        arrDeliveryChargesListHashMap.add(hashMapDefaultitem)
+        arrPaymentMethodListHashMap.add(hashMapDefaultitem)
         addCitiesAdapter()
         addCarModelAdapter()
     }
@@ -1068,26 +1193,30 @@ class AddCarStepOneFragment :
             jsonObject.put(Const.PARAM_CAR_YEAR, yearName)
             jsonObject.put(Const.PARAM_RUN_KILOMETERS, kiloMetere)
             jsonObject.put(Const.PARAM_PRICE, price)
+            jsonObject.put(Const.PARAM_DEPOSIT, deposit)
+            jsonObject.put(Const.PARAM_DAILY_RENT_PRICE, dailyPrice)
             jsonObject.put(Const.PARAM_REGIONAL_SPECIFICATION, regionalSpecificationName)
             jsonObject.put(Const.PARAM_EXTERIOR_COLOR_ID, exteriourColorId)
-            jsonObject.put(Const.PARAM_TRANSMISSION_TYPE, transmissionTypeName)
+            jsonObject.put(Const.PARAM_TRANSMISSION_TYPE, transmissionTypeId)
             jsonObject.put(Const.PARAM_HORSE_POWER_Id, horsePowerId)
-            jsonObject.put(Const.PARAM_SELLER_TYPE, sellerTypeName)
-            jsonObject.put(Const.PARAM_FULL_SERVICE_HISTORY, fullServiceHistoryName)
+            jsonObject.put(Const.PARAM_SELLER_TYPE, sellerTypeId)
+            jsonObject.put(Const.PARAM_FULL_SERVICE_HISTORY, fullServiceHistoryId)
+            jsonObject.put(Const.PARAM_DELIVERY_CHARGES, deliveryChargesId)
+            jsonObject.put(Const.PARAM_PAYMENT_METHOD, paymentMethodId)
             jsonObject.put(Const.PARAM_NO_OF_CYLINDERS, numberOfCylinderName)
             jsonObject.put(Const.PARAM_INTERIOR_COLOR_ID, interiorColorId)
             jsonObject.put(Const.PARAM_FUEL_TYPE, fuelTypeName)
             jsonObject.put(Const.PARAM_BODY_CONDITION_ID, bodyConditionId)
             jsonObject.put(Const.PARAM_MECHANICAL_CONDITION_ID, mechanicalConditionId)
-            jsonObject.put(Const.PARAM_STEERING_TYPE, steeringSideName)
-            jsonObject.put(Const.PARAM_WARRENTY, warrantyName)
+            jsonObject.put(Const.PARAM_STEERING_TYPE, steeringSideId)
+            jsonObject.put(Const.PARAM_WARRENTY, warrantyId)
             jsonObject.put(Const.PARAM_SALES_PERSON_ID, salePersonId)
             jsonObject.put(Const.PARAM_TITLE, title)
             jsonObject.put(Const.PARAM_DESCRIPTION, description)
             jsonObject.put(Const.PARAM_LOCATION_URL, locationUrl)
             jsonObject.put(Const.PARAM_TOUR_URL, tourUrl)
             jsonObject.put(Const.PARAM_RENT, rent)
-            jsonObject.put(Const.PARAM_DAILY_RENT_PRICE, price)
+            jsonObject.put(Const.PARAM_DAILY_RENT_PRICE, dailyPrice)
             jsonObject.put(Const.PARAM_WEEKLY_RENT_PRICE, weeklyPrice)
             jsonObject.put(Const.PARAM_MONTHLY_RENT_PRICE, monthlyPrice)
             jsonObject.put(Const.PARAM_SELLER_ID, sellerId)
@@ -1134,7 +1263,20 @@ class AddCarStepOneFragment :
                 getStringFromResource(R.string.error_empty_price),
                 Toast.LENGTH_LONG).show()
             return false
-        } else if (weeklyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE) {
+        }
+        else if (deposit.isNullOrEmpty() && binding.conLayoutDepositPrice.visibility == View.VISIBLE) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_deposit),
+                Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (dailyPrice.isNullOrEmpty() && binding.edtTextDailyPrice.visibility == View.VISIBLE) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_daily_price),
+                Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (weeklyPrice.isNullOrEmpty() && binding.consLayoutWeeklyAndMonthlyPrice.visibility == View.VISIBLE) {
             Toast.makeText(requireContext(),
                 getStringFromResource(R.string.error_empty_weekly_price),
                 Toast.LENGTH_LONG).show()
@@ -1164,17 +1306,30 @@ class AddCarStepOneFragment :
                 getStringFromResource(R.string.error_empty_horse_power),
                 Toast.LENGTH_LONG).show()
             return false
-        } else if (sellerTypeName.equals("Select", true)) {
+        } else if (sellerTypeName.equals("Select", true) && binding.consLayoutSellerTypeAndFullServiceHistory.visibility == View.VISIBLE) {
             Toast.makeText(requireContext(),
                 getStringFromResource(R.string.error_empty_seller_type),
                 Toast.LENGTH_LONG).show()
             return false
-        } else if (fullServiceHistoryName.equals("Select", true)) {
+        } else if (fullServiceHistoryName.equals("Select", true) && binding.consLayoutSellerTypeAndFullServiceHistory.visibility == View.VISIBLE) {
             Toast.makeText(requireContext(),
                 getStringFromResource(R.string.error_empty_full_service_history),
                 Toast.LENGTH_LONG).show()
             return false
-        } else if (title.isNullOrEmpty()) {
+        }
+        else if (deliveryChargesName.equals("Select", true)  && binding.consLayoutDeliveryChargesAndPaymentMethod.visibility == View.VISIBLE) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_full_service_history),
+                Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (paymentMethodName.equals("Select", true)  && binding.consLayoutDeliveryChargesAndPaymentMethod.visibility == View.VISIBLE) {
+            Toast.makeText(requireContext(),
+                getStringFromResource(R.string.error_empty_full_service_history),
+                Toast.LENGTH_LONG).show()
+            return false
+        }
+        else if (title.isNullOrEmpty()) {
             Toast.makeText(requireContext(),
                 getStringFromResource(R.string.error_empty_title),
                 Toast.LENGTH_LONG).show()
@@ -1193,6 +1348,8 @@ class AddCarStepOneFragment :
         chasisNumber = binding.edtEnterChasisNumber.getTextInString()
         kiloMetere = binding.edtTextKilometers.getTextInString()
         price = binding.edtTextPrice.getTextInString()
+        deposit = binding.edtTextDepositPrice.getTextInString()
+        dailyPrice = binding.edtTextDailyPrice.getTextInString()
         weeklyPrice = binding.edtTextWeeklyPrice.getTextInString()
         monthlyPrice = binding.edtTextMonthlyPrice.getTextInString()
         title = binding.edtTextTitle.getTextInString()

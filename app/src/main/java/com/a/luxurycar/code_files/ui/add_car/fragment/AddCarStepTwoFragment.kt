@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
-import com.a.luxurycar.MainActivity
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.AddCarStepTwoRepository
 import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
+import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.CarImage
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.Data
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
-import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
 import com.a.luxurycar.code_files.view_model.AddCarStepTwoViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
@@ -33,7 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCarStepTwoBinding, AddCarStepTwoRepository>(),OnMapReadyCallback {
     private lateinit var map: GoogleMap
-    lateinit var list:ArrayList<ProductDetailImageModel>
+    lateinit var list:ArrayList<CarImage>
     var page = ""
 
     override fun getViewModel()=AddCarStepTwoViewModel::class.java
@@ -61,6 +60,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
                         val data = it.values.data
+                        setViewPager(data)
                         addCarDataSet(data)
 
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
@@ -79,23 +79,26 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
         })
     }
 
-    private fun addCarDataSet(data: Data) {
+    private fun addCarDataSet(data: List<Data>) {
 
+        for (item in data){
+            binding.txtViewChevroletComoro.text = item.title
+            binding.txtViewAED.text = item.price+"AED"
+            binding.txtViewMakeResult.text = item.makeId.toString()
+            binding.txtViewModalResult.text = item.carModelId.toString()
+            binding.txtView2021.text = item.carYear
+            binding.txtViewKilometersResults.text = item.runKms
+            binding.txtViewPriceInAED.text = item.price
+            binding.txtViewFiveStarGlobalNCAP.text = item.regionalSpecification
+            binding.txtViewExteriorColorType.text = item.exteriorColorId.toString()
+            binding.txtViewTransmissionTypeManual.text = item.transmissionType
+            binding.txtViewHoursePowerType.text = item.horsePowerId.toString()
+
+            // set the description
+            binding.txtViewLoremIpsumisSimplyDummyTextofPrinting.text = item.description.toString()
+        }
         // set the detail
-        binding.txtViewChevroletComoro.text = data.title
-        binding.txtViewAED.text = data.price+"AED"
-        binding.txtViewMakeResult.text = data.makeId.toString()
-        binding.txtViewModalResult.text = data.carModelId.toString()
-        binding.txtView2021.text = data.carYear
-        binding.txtViewKilometersResults.text = data.runKms
-        binding.txtViewPriceInAED.text = data.price
-        binding.txtViewFiveStarGlobalNCAP.text = data.regionalSpecification
-        binding.txtViewExteriorColorType.text = data.exteriorColorId.toString()
-        binding.txtViewTransmissionTypeManual.text = data.transmissionType
-        binding.txtViewHoursePowerType.text = data.horsePowerId.toString()
 
-        // set the description
-         binding.txtViewLoremIpsumisSimplyDummyTextofPrinting.text = data.description.toString()
 
 
     }
@@ -106,7 +109,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
         if (bundle != null) {
             id = bundle.getString("car_ads_id").toString()
         }
-     viewModel.getAddSellerListingPlan("95")
+     viewModel.getAddSellerListingPlan("32")
 
     }
 
@@ -116,12 +119,12 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
         map.addMarker(MarkerOptions().position(india).title("India location"))
         map.moveCamera(CameraUpdateFactory.newLatLng(india))
     }
-    private fun setViewPager() {
+    private fun setViewPager(data: List<Data>) {
         list = arrayListOf()
-        list.add(ProductDetailImageModel(R.drawable.ic_car_image))
-        list.add(ProductDetailImageModel(R.drawable.storage_car))
-        list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car2))
-        list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car1))
+        for (item in data){
+            list.addAll(item.carImages)
+        }
+
 
         val viewpager = binding.viewPagerProductDetailPage
         val productDetailViewPagerAdapter = ProductDetailViewPagerAdapter(requireContext(),list)
