@@ -39,6 +39,7 @@
         android:textColor="@color/light_black"
         android:background="@drawable/drawable_rounder_edit_text_background"
         style="@style/EditTextField"
+        android:padding="@dimen/margin_0dp"
         android:imeOptions="actionNext"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/margin_5dp"

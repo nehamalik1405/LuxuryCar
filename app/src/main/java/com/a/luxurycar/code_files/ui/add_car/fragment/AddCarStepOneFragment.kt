@@ -216,12 +216,12 @@ class AddCarStepOneFragment :
         binding.btnNext.setOnClickListener {
 
 
-            (activity as AddCarActivity).getCurrentId("32")
-           findNavController().navigate(R.id.addCarStepTwo)
+          /*  (activity as AddCarActivity).getCurrentId("32")
+           findNavController().navigate(R.id.addCarStepTwo)*/
 
-           /* if (validation()) {
+           if (validation()) {
                 addCarStepOnePostApi()
-            }*/
+            }
         }
 
         binding.spinnerSelectMake.onItemSelectedListener =

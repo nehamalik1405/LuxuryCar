@@ -84,15 +84,15 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
         for (item in data){
             binding.txtViewChevroletComoro.text = item.title
             binding.txtViewAED.text = item.price+"AED"
-            binding.txtViewMakeResult.text = item.makeId.toString()
-            binding.txtViewModalResult.text = item.carModelId.toString()
+            binding.txtViewMakeResult.text = item.make.name
+            binding.txtViewModalResult.text = item.carModel.name
             binding.txtView2021.text = item.carYear
             binding.txtViewKilometersResults.text = item.runKms
             binding.txtViewPriceInAED.text = item.price
             binding.txtViewFiveStarGlobalNCAP.text = item.regionalSpecification
-            binding.txtViewExteriorColorType.text = item.exteriorColorId.toString()
+            binding.txtViewExteriorColorType.text = item.colorEx.name
             binding.txtViewTransmissionTypeManual.text = item.transmissionType
-            binding.txtViewHoursePowerType.text = item.horsePowerId.toString()
+            binding.txtViewHoursePowerType.text = item.horsePower.name
 
             // set the description
             binding.txtViewLoremIpsumisSimplyDummyTextofPrinting.text = item.description.toString()

@@ -107,7 +107,7 @@ class AddCarActivity : AppCompatActivity() {
         }*/
 
               step2.setOnClickListener {
-                  if(!id.isNullOrEmpty()) {
+                  if(id.isNullOrEmpty()) {
                       stepTextViewAddCar.setText("Add car step-2")
                       viewLineStep1.setBackgroundResource(R.color.green)
                       viewLineStep2.setBackgroundResource(R.color.yellow_color)
@@ -118,7 +118,7 @@ class AddCarActivity : AppCompatActivity() {
 
               }
               step3.setOnClickListener {
-                  if(!id.isNullOrEmpty()) {
+                  if(id.isNullOrEmpty()) {
                       stepTextViewAddCar.setText("Add car step-3")
                       viewLineStep1.setBackgroundResource(R.color.green)
                       viewLineStep2.setBackgroundResource(R.color.green)
@@ -128,7 +128,7 @@ class AddCarActivity : AppCompatActivity() {
                   }
               }
               step4.setOnClickListener {
-                  if(!id.isNullOrEmpty()) {
+                  if(id.isNullOrEmpty()) {
                       stepTextViewAddCar.setText("Add car step-4")
                       viewLineStep1.setBackgroundResource(R.color.green)
                       viewLineStep2.setBackgroundResource(R.color.green)

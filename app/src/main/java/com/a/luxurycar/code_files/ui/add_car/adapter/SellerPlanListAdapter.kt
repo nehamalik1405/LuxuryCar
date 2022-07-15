@@ -68,9 +68,9 @@ class SellerPlanListAdapter(
                 list[i].isSelected = false
             }
             item.isSelected = true
-            list[position] = item
-           notifyItemChanged(position)
+            notifyDataSetChanged()
         }
+
         holder.btnSelectPlan.setOnClickListener {
 
             if (item.isSelected) {
