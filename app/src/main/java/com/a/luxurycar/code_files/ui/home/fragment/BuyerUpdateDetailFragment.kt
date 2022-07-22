@@ -8,9 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
-import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +24,8 @@ import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.UpdateDetailRepository
 import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
-import com.a.luxurycar.code_files.ui.auth.model.country.CountryListModel
 import com.a.luxurycar.code_files.ui.auth.model.country.Data
 import com.a.luxurycar.code_files.ui.home.HomeActivity
-import com.a.luxurycar.code_files.ui.home.adapter.BuyerViewpagerAdapter
 import com.a.luxurycar.code_files.view_model.UpdateDetailViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AdapterSpinner
@@ -46,7 +42,6 @@ import com.squareup.picasso.Picasso
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat

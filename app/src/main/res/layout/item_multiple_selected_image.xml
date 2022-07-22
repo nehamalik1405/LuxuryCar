@@ -30,7 +30,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
+  <!--  <TextView
         android:id="@+id/edtTextFirstName"
         android:layout_width="0dp"
         android:layout_height="@dimen/margin_35_dp"
@@ -48,10 +48,10 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewCarImage"
         app:layout_constraintStart_toStartOf="@+id/cardViewCarImage"
         app:layout_constraintEnd_toEndOf="@+id/cardViewCarImage"
-        />
+        />-->
 
-   <!-- <Spinner
-        android:id="@+id/spinnerPosition"
+    <Spinner
+        android:id="@+id/spinnerPositionValue"
         android:layout_width="@dimen/margin_0_dp"
         android:layout_height="@dimen/margin_35dp"
         android:layout_marginStart="@dimen/margin_2dp"
@@ -60,6 +60,6 @@
         android:background="@drawable/drawable_rounder_edit_text_background"
         app:layout_constraintTop_toBottomOf="@+id/cardViewCarImage"
         app:layout_constraintStart_toStartOf="@+id/cardViewCarImage"
-        app:layout_constraintEnd_toEndOf="@+id/cardViewCarImage" />-->
+        app:layout_constraintEnd_toEndOf="@+id/cardViewCarImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,6 +62,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class AddCarStepOneFragment :
@@ -163,6 +164,8 @@ class AddCarStepOneFragment :
     }
 
     lateinit var listImage: ArrayList<AddMultipleImageModel>
+
+    var arrForImagePosition = ArrayList<HashMap<String, String>>()
 
     override fun getViewModel() = AddCarStepOneViewModel::class.java
     override fun getFragmentBinding(
@@ -1386,7 +1389,6 @@ class AddCarStepOneFragment :
         })
     }
 
-
     private fun callCitiesListApi() {
         viewModel.getAddCarStepCitiesResponse("1")
 
@@ -1763,8 +1765,14 @@ class AddCarStepOneFragment :
     }
 
     private fun setImageRecyclerView() {
+
+        val hashMap = HashMap<String, String>()
+        hashMap.put(Const.KEY_ID, "${arrayOfImages.size}")
+        hashMap.put(Const.KEY_NAME, "${arrayOfImages.size}")
+        arrForImagePosition.add(hashMap)
+
         val addMultipleImageAdapter =
-            AddMultipleImageAdapter(requireContext(), arrayOfImages, this@AddCarStepOneFragment)
+            AddMultipleImageAdapter(requireContext(), arrayOfImages, this@AddCarStepOneFragment,arrForImagePosition)
         //addMultipleImageAdapter.positionList(arrImages)
         binding.recyclerviewMultipleImageUpload.adapter = addMultipleImageAdapter
         binding.recyclerviewMultipleImageUpload.setNestedScrollingEnabled(false);

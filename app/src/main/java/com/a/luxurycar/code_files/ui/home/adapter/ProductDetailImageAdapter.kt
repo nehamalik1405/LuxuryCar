@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_image_dialog.view.*
 
 class ProductDetailImageAdapter(
     val context: Context,
-    val list: ArrayList<CarImage>,
+    val list: ArrayList<ProductDetailImageModel>,
 ):
     RecyclerView.Adapter<ProductDetailImageAdapter.ViewiewHolder>() {
   var   currentPosition = 0

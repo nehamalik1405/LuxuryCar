@@ -19,9 +19,9 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.ProductDetailRepository
-import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.CarImage
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailImageAdapter
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
+import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
 import com.a.luxurycar.code_files.view_model.ProductDetailViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
@@ -51,7 +51,7 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
     var distance = 0.0
     var currentPage = 0
     private lateinit var productDetailViewPagerAdapter:ProductDetailViewPagerAdapter
-    lateinit var list:ArrayList<CarImage>
+    lateinit var list:ArrayList<ProductDetailImageModel>
 
     override fun getViewModel() = ProductDetailViewModel::class.java
     override fun getFragmentBinding(
@@ -172,10 +172,10 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
     }
     private fun setViewPager() {
         list = arrayListOf()
-       /* list.add(ProductDetailImageModel(R.drawable.ic_car_image))
+        list.add(ProductDetailImageModel(R.drawable.ic_car_image))
         list.add(ProductDetailImageModel(R.drawable.storage_car))
         list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car2))
-        list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car1))*/
+        list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car1))
 
         val viewpager = binding.viewPagerProductDetailPage
          productDetailViewPagerAdapter = ProductDetailViewPagerAdapter(requireContext(),list)
@@ -189,7 +189,7 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
                 setViewPagerCurrentPage()
             }
         })
-        productDetailViewPagerAdapter.onItemClick = {
+       /* productDetailViewPagerAdapter.onItemClick = {
             val dialog = Dialog(requireContext(), android.R.style.Theme_Light)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setContentView(R.layout.fragment_view_pager_details_image);
@@ -210,7 +210,7 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
             imageBack.setOnClickListener {
                 dialog.dismiss()
             }
-        }
+        }*/
     }
 
     private fun setViewPagerCurrentPage() {

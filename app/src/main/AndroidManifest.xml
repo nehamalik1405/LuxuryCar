@@ -68,7 +68,8 @@
 
         <activity
             android:name=".code_files.ui.auth.AuthActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".code_files.ui.home.HomeActivity"
             android:exported="true">

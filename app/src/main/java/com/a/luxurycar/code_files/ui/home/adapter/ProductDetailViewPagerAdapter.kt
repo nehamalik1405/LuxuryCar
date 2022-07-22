@@ -20,9 +20,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_image.view.*
 
 
-class ProductDetailViewPagerAdapter(val context:Context, val list: ArrayList<CarImage>):RecyclerView.Adapter<ProductDetailViewPagerAdapter.ViewiewHolder>() {
+class ProductDetailViewPagerAdapter(val context:Context, val list: ArrayList<ProductDetailImageModel>):RecyclerView.Adapter<ProductDetailViewPagerAdapter.ViewiewHolder>() {
     lateinit var productDetailImageModelList:ArrayList<ProductDetailImageModel>
-    var onItemClick:((ProductDetailImageModel) -> Unit)? = null
+    //var onItemClick:((ProductDetailImageModel) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewiewHolder {
         /* val view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false);
           return  ViewiewHolder(view);*/
@@ -41,7 +42,8 @@ class ProductDetailViewPagerAdapter(val context:Context, val list: ArrayList<Car
         //SessionManager.setViewPagerItem(item.image.toString())
         item.image?.let { Picasso.get().load(it).into(holder.imgViewItem) };
         holder.imgViewItem.setOnClickListener {
-            onItemClick?.invoke(ProductDetailImageModel())
+
+            //onItemClick?.invoke(ProductDetailImageModel())
         }
 
 

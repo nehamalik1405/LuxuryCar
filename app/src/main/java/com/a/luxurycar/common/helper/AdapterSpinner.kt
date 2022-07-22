@@ -11,13 +11,13 @@ import android.widget.TextView
 import com.a.luxurycar.R
 import com.a.luxurycar.common.requestresponse.Const
 
-
-import java.util.ArrayList
 import java.util.HashMap
+import kotlin.collections.ArrayList
 
 
 class AdapterSpinner(internal var context: Context, txtViewResourceId: Int,
-                     internal var list: ArrayList<HashMap<String, String>>) : ArrayAdapter<String>(context, txtViewResourceId) {
+                     internal var list: ArrayList<HashMap<String, String>>
+) : ArrayAdapter<String>(context, txtViewResourceId) {
 
     override fun getItem(index: Int): String? {
         return list[index][Const.KEY_NAME]

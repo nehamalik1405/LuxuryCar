@@ -11,6 +11,7 @@ import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.AddCarStepTwoRepository
 import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
+import com.a.luxurycar.code_files.ui.add_car.adapter.AddCarPreviewAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.CarImage
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.Data
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
@@ -127,7 +128,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
 
 
         val viewpager = binding.viewPagerProductDetailPage
-        val productDetailViewPagerAdapter = ProductDetailViewPagerAdapter(requireContext(),list)
+        val productDetailViewPagerAdapter = AddCarPreviewAdapter(requireContext(),list)
         viewpager.adapter= productDetailViewPagerAdapter
 
         viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
