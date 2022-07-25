@@ -30,27 +30,31 @@
 
     </androidx.cardview.widget.CardView>
 
-  <!--  <TextView
-        android:id="@+id/edtTextFirstName"
+    <TextView
+        android:id="@+id/textViewFirstName"
         android:layout_width="0dp"
-        android:layout_height="@dimen/margin_35_dp"
+        android:layout_height="@dimen/margin_45_dp"
         android:layout_marginTop="@dimen/margin_10_dp"
         android:text="@string/str_first_picture"
         android:textColor="@color/light_black"
         android:background="@drawable/drawable_rounder_edit_text_background"
         style="@style/EditTextField"
         android:padding="@dimen/margin_0dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textIsSelectable="false"
         android:imeOptions="actionNext"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/margin_5dp"
-        android:paddingEnd="@dimen/margin_5dp"
+        android:paddingStart="@dimen/margin_10_dp"
+        android:paddingEnd="@dimen/margin_10_dp"
         android:ellipsize="end"
+        android:clickable="true"
         app:layout_constraintTop_toBottomOf="@+id/cardViewCarImage"
         app:layout_constraintStart_toStartOf="@+id/cardViewCarImage"
         app:layout_constraintEnd_toEndOf="@+id/cardViewCarImage"
-        />-->
+        />
 
-    <Spinner
+  <!--  <Spinner
         android:id="@+id/spinnerPositionValue"
         android:layout_width="@dimen/margin_0_dp"
         android:layout_height="@dimen/margin_35dp"
@@ -60,6 +64,6 @@
         android:background="@drawable/drawable_rounder_edit_text_background"
         app:layout_constraintTop_toBottomOf="@+id/cardViewCarImage"
         app:layout_constraintStart_toStartOf="@+id/cardViewCarImage"
-        app:layout_constraintEnd_toEndOf="@+id/cardViewCarImage" />
+        app:layout_constraintEnd_toEndOf="@+id/cardViewCarImage" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

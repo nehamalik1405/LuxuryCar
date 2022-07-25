@@ -83,7 +83,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewCarType">
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/txtViewEnterChasisNumber"
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
@@ -128,17 +128,16 @@
                     app:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtEnterChasisNumber" />
-
+-->
 
                 <TextView
                     android:id="@+id/txtViewCity"
                     style="@style/TextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20_dp"
                     android:text="@string/str_city"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewThisNumberWillNotShowOnYourAd" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     style="@style/TextViewTitle"

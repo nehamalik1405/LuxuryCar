@@ -29,6 +29,7 @@ import com.a.luxurycar.code_files.repository.AddCarStepOneRepository
 import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
 import com.a.luxurycar.code_files.ui.add_car.adapter.AddMultipleImageAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.AddMultipleImageModel
+import com.a.luxurycar.code_files.ui.add_car.model.ImageIndexSelectionModel
 import com.a.luxurycar.code_files.view_model.AddCarStepOneViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AdapterSpinner
@@ -94,7 +95,7 @@ class AddCarStepOneFragment :
     lateinit var arrPaymentMethodListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrsalePersonListHashMap: ArrayList<HashMap<String, String>>
 
-    var chasisNumber = ""
+    //var chasisNumber = ""
     var makeId = ""
     var makeName = ""
     var cityId = ""
@@ -165,7 +166,7 @@ class AddCarStepOneFragment :
 
     lateinit var listImage: ArrayList<AddMultipleImageModel>
 
-    var arrForImagePosition = ArrayList<HashMap<String, String>>()
+    var arrForImagePosition = ArrayList<String>()
 
     override fun getViewModel() = AddCarStepOneViewModel::class.java
     override fun getFragmentBinding(
@@ -1188,7 +1189,7 @@ class AddCarStepOneFragment :
         sellerId = SessionManager.getUserData()?.id.toString()
         val jsonObject = JSONObject()
         try {
-            jsonObject.put(Const.PARAM_VIN_CHEESIS_NUMBER, chasisNumber)
+            //jsonObject.put(Const.PARAM_VIN_CHEESIS_NUMBER, chasisNumber)
             jsonObject.put(Const.PARAM_CITY_ID, cityId)
             jsonObject.put(Const.PARAM_MAKE_ID, makeId)
             jsonObject.put(Const.PARAM_BODY_TYPE_ID, bodyTypeId)
@@ -1348,7 +1349,7 @@ class AddCarStepOneFragment :
     }
 
     private fun getDataFromEditText() {
-        chasisNumber = binding.edtEnterChasisNumber.getTextInString()
+        //chasisNumber = binding.edtEnterChasisNumber.getTextInString()
         kiloMetere = binding.edtTextKilometers.getTextInString()
         price = binding.edtTextPrice.getTextInString()
         deposit = binding.edtTextDepositPrice.getTextInString()
@@ -1766,10 +1767,8 @@ class AddCarStepOneFragment :
 
     private fun setImageRecyclerView() {
 
-        val hashMap = HashMap<String, String>()
-        hashMap.put(Const.KEY_ID, "${arrayOfImages.size}")
-        hashMap.put(Const.KEY_NAME, "${arrayOfImages.size}")
-        arrForImagePosition.add(hashMap)
+
+        arrForImagePosition.add("${arrayOfImages.size}")
 
         val addMultipleImageAdapter =
             AddMultipleImageAdapter(requireContext(), arrayOfImages, this@AddCarStepOneFragment,arrForImagePosition)
@@ -1789,7 +1788,9 @@ class AddCarStepOneFragment :
 
    // lateinit var arrImages: ArrayList<HashMap<String, String>>
     val arrOfImageList: ArrayList<MultipartBody.Part> = ArrayList()
-    var arrayOfImages: ArrayList<String> = ArrayList()
+    var arrayOfImages: ArrayList<ImageIndexSelectionModel> = ArrayList()
+    var index = 0
+
     private fun compressImage() {
         actualImage?.let { imageFile ->
 
@@ -1806,7 +1807,8 @@ class AddCarStepOneFragment :
 
                 arrOfImageList.add(createMutiPartForm())
 
-                arrayOfImages.add(compressedImage!!.absolutePath)
+                index++
+                arrayOfImages.add(ImageIndexSelectionModel(compressedImage!!.absolutePath, index))
             /*    arrImages = ArrayList()
 
                 if (arrOfImageList.size > 0) {
