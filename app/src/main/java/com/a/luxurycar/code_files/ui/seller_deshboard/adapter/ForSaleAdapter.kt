@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.Data
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_car.view.*
 
-class ForSaleAdapter:RecyclerView.Adapter<ForSaleAdapter.ViewiewHolder>() {
+class ForSaleAdapter(val forSaleList: ArrayList<Data>) :RecyclerView.Adapter<ForSaleAdapter.ViewiewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewiewHolder {
@@ -20,8 +22,8 @@ class ForSaleAdapter:RecyclerView.Adapter<ForSaleAdapter.ViewiewHolder>() {
 
     override fun onBindViewHolder(holder: ViewiewHolder, position: Int) {
 
-        // val item = list[position]
-        // Picasso.get().load(item.image).into(holder.imgViewItem);
+         val item = forSaleList[position]
+
     }
 
     override fun getItemCount(): Int {

@@ -22,6 +22,9 @@ import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordMo
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.UpdateSellerProfileModel
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.find_garages.FindGaragesResponse
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.SellerCarListResponse
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_dashboard.SellerDetailDashboardResponse
 import okhttp3.MultipartBody
 
 import okhttp3.RequestBody
@@ -163,4 +166,14 @@ interface ApiService {
     //seller car plan list
     @POST("sell-car/step-3")
     suspend fun getAddCarStepThreeSelectedPlan(@Body body: RequestBody): AddCarStepThreeSelectedPlanResponse
+
+    @GET("seller/detail")
+    suspend fun getSellerDetailDasboardResponse() : SellerDetailDashboardResponse
+
+    @GET("seller/car-list")
+    suspend fun getSellerCarListResponse() : SellerCarListResponse
+
+    @GET("find-garages")
+    suspend fun  getFindGaragesResponse() : FindGaragesResponse
+
 }

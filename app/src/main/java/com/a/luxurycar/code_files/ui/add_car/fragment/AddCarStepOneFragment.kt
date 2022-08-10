@@ -1767,7 +1767,6 @@ class AddCarStepOneFragment :
 
     private fun setImageRecyclerView() {
 
-
         arrForImagePosition.add("${arrayOfImages.size}")
 
         val addMultipleImageAdapter =
@@ -1829,6 +1828,16 @@ class AddCarStepOneFragment :
             }
 
 
+        }
+
+    }
+    fun startIndexFromCurrentIndex(i: Int) {
+        if(arrayOfImages.isNullOrEmpty()){
+            index = 0
+            arrayOfImages.clear()
+            arrForImagePosition.clear()
+        }else{
+            index=i
         }
 
     }

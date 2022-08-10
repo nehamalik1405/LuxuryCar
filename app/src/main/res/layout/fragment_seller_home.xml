@@ -68,9 +68,10 @@
         android:textColor="@color/text_color_grey"
         />
     <TextView
+        android:id="@+id/txtViewSellerCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/str_town_square_dubai"
+        android:text=""
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         style="@style/TextViewSubTitle"
@@ -88,11 +89,12 @@
           style="@style/TextViewSubTitle"
           />
       <TextView
+          android:id="@+id/txtViewPhoneNumber"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_5dp"
           android:textSize="@dimen/margin_16sp"
-          android:text="@string/str_999_999_9999"
+          android:text=""
           style="@style/TextViewSubTitle"
           />
     </LinearLayout>
@@ -167,7 +169,7 @@
         android:layout_marginTop="@dimen/margin_10_dp"
         android:layout_marginStart="@dimen/margin_10_dp"
         android:layout_marginEnd="@dimen/margin_10_dp"
-        android:text="@string/str_lorem_ipsum_is_simply_dummy_text_of_the_printing_and_type_industry_lorem_ipsum_has_been_the_industry_s_standards_dummy_text_ever_seen_the_1500s_whwn_an_unknown"
+        android:text=""
         android:textColor="@color/light_black"
         app:layout_constraintTop_toBottomOf="@+id/txtViewForRentValue"
         app:layout_constraintStart_toStartOf="parent"
@@ -342,5 +344,15 @@
         app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarSellerHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

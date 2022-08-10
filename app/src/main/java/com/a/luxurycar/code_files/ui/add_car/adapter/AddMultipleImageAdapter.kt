@@ -3,12 +3,10 @@ package com.a.luxurycar.code_files.ui.add_car.adapter
 import android.app.Dialog
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.add_car.fragment.AddCarStepOneFragment
 import com.a.luxurycar.code_files.ui.add_car.model.ImageIndexSelectionModel
@@ -49,14 +47,28 @@ class AddMultipleImageAdapter(
         Picasso.get().load(Uri.fromFile(File(item.imagePath))).into(holder.imgViewItemCar)
         holder.txtViewFirstName.text = ""+item.index
 
+        holder.imgViewDelete.setOnClickListener {
+            listImage.filter { it.index == arrForImagePosition[arrForImagePosition.size-1].toInt() }.map {
+                it.index = listImage[position].index
+            }
+            listImage.removeAt(position)
+            arrForImagePosition.removeAt(arrForImagePosition.size-1)
+            Log.e("list_size_position",listImage.size.toString())
+            Log.e("list_size_image[]",arrForImagePosition.size.toString())
+            fragment.startIndexFromCurrentIndex(arrForImagePosition.size)
+            notifyDataSetChanged()
 
+        /*  val item=  listImage.find { it.index == arrForImagePosition[arrForImagePosition.size-1].toInt() }
+            listImage.remove(item)
+            arrForImagePosition.remove(item?.imagePath)
+            notifyDataSetChanged()*/
+        }
 
 
         holder.txtViewFirstName.setOnClickListener {
 
             previousIndexValue = holder.txtViewFirstName.text.toString().trim().toInt()
             showImageIndexList()
-
 
         }
 
@@ -164,8 +176,8 @@ class AddMultipleImageAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgViewItemCar = itemView.imgViewItemCar
-       //val spinnerPosition = itemView.spinnerPositionValue
          val txtViewFirstName = itemView.textViewFirstName
+         val imgViewDelete = itemView.imgViewDelete
 
     }
 

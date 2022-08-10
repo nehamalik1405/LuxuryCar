@@ -14,19 +14,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/imgViewItemCar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_140_dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/demo_image1"
+                android:src="@drawable/demo_image1" />
+
+            <ImageView
+                android:id="@+id/imgViewDelete"
+                android:layout_width="@dimen/margin_20_dp"
+                android:layout_height="@dimen/margin_20_dp"
+                android:padding="@dimen/margin_5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginEnd="@dimen/margin_10_dp"
+                android:src="@drawable/ic_close"
+                android:background="@drawable/drawable_background_circle_shape"
+                android:backgroundTint="@color/yellow_color"
+                app:tint="@color/black"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

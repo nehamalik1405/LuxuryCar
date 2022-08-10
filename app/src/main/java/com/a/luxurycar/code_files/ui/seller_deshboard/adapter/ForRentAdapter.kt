@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.Data
 
-class ForRentAdapter: RecyclerView.Adapter<ForRentAdapter.ViewiewHolder>() {
+class ForRentAdapter(forRentList: ArrayList<Data>) : RecyclerView.Adapter<ForRentAdapter.ViewiewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewiewHolder {

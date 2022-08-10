@@ -201,7 +201,6 @@
             android:layout_height="@dimen/margin_40dp"
             android:layout_marginTop="@dimen/margin_20_dp"
             android:layout_marginEnd="@dimen/margin_20_dp"
-
             app:layout_constraintEnd_toStartOf="@+id/imgViewEnd"
             app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
         <TextView
@@ -215,7 +214,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnCall" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/txtViewMake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -442,7 +441,19 @@
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType" />
+            app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDetails"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewDetails"
+            />
 
 
 
@@ -455,7 +466,7 @@
             android:background="@color/light_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewHoursePower" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewDetails" />
 
         <TextView
             android:id="@+id/txtViewDescription"
