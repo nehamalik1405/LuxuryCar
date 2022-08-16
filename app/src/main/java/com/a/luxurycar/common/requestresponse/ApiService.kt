@@ -17,7 +17,7 @@ import com.a.luxurycar.code_files.ui.auth.model.forgot_password.OtpModel
 import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.code_files.ui.auth.model.seller.SellerRegistrationModel
-import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.AdvertiserSuggestedListModel
+import com.a.luxurycar.code_files.ui.home.model.HomeResponse
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
@@ -81,8 +81,8 @@ interface ApiService {
     suspend fun getChangePasswordResponse(@Body body: RequestBody): ChangePasswordModel
 
     // home page api
-    @POST("?price_from=100000&price_to=1000000")
-    suspend fun getAdvertiserSuggestedListResponse(): AdvertiserSuggestedListModel
+    @GET(Const.HOME_PAGE_URL)
+    suspend fun getAdvertiserSuggestedListResponse(): HomeResponse
 
     // send otp api
     @POST("otps/send")

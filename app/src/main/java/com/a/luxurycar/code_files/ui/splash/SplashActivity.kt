@@ -39,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
                     StartActivity(SellerDeshboardActivity::class.java)
                 }
             else {
-                StartActivity(AuthActivity::class.java)
+                StartActivity(HomeActivity::class.java)
             }
             finish()
         }// 3000 is the delayed time in milliseconds.

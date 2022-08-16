@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
-import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.Listt
+import com.a.luxurycar.code_files.ui.home.model.home_response.Listt
 import kotlinx.android.synthetic.main.item_advertiser.view.*
 import kotlinx.android.synthetic.main.item_car.view.*
 
@@ -22,7 +22,7 @@ class PremiumListAdapter(val context: Context, val list:ArrayList<Listt>): Recyc
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemData = list[position]
 
-        holder.txtViewChevrolet.text = itemData.name
+        holder.txtViewChevrolet.text = itemData.title
         holder.txtViewModel.text = itemData.carYear
         holder.txtViewKm.text = itemData.runKms +" km"
         holder.txtViewPrice.text = "AED " +itemData.price

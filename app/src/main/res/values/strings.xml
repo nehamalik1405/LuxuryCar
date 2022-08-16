@@ -251,9 +251,9 @@
     <string name="str_find_garages">Find Garages</string>
     <string name="str_enter_a_location_or_company_name">Enter a location or Company name</string>
     <string name="str_forgot_password">Forgot Password</string>
-    <string name="str_suggested_listing">Suggested Listing</string>
-    <string name="str_premium_listing">Premium Listing</string>
-    <string name="str_promoted_list">Promoted List</string>
+    <string name="str_suggested_listing">Suggested Car List</string>
+    <string name="str_premium_listing">Premium Car List</string>
+    <string name="str_promoted_list">Promoted Car List</string>
     <string name="str_physical_inspection">Physical inspection</string>
     <string name="str__360_degree_vehicle_checks">360-degree vehicle checks</string>
     <string name="str_comprehensive_computer_diagnostics">Comprehensive computer diagnostics</string>

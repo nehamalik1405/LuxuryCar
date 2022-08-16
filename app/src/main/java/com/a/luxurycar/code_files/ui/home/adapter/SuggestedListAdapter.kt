@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
-import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.Listt
-import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.SuggestedCars
+import com.a.luxurycar.code_files.ui.home.model.home_response.Listt
+
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.item_advertiser.view.*
@@ -30,7 +30,7 @@ class SuggestedListAdapter(val context: Context, val list:ArrayList<Listt>): Rec
 
         val itemData = list[position]
 
-        holder.txtViewChevrolet.text = itemData.name
+       holder.txtViewChevrolet.text = itemData.title
         holder.txtViewModel.text = itemData.carYear
         holder.txtViewKm.text = itemData.runKms +" km"
         holder.txtViewPrice.text = "AED " +itemData.price

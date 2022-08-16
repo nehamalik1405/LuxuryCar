@@ -9,7 +9,9 @@ class Const {
       //  const val BASE_URL = "https://onlineprojectprogress.com/laravel/luxary_car/api/" //old url
        // const val BASE_URL = "https://onlineprojectprogress.com/laravel/luxury_car_market/api/" //old url2
         const val BASE_URL = "https://laravelproject.onlineprojectprogress.com/luxury_car_market/api/"
-        const val KEY_ID = "id"
+      const val HOME_PAGE_URL = "https://laravelproject.onlineprojectprogress.com/luxury_car_market/api/"
+
+      const val KEY_ID = "id"
         const val KEY_NAME = "name"
         const val KEY_TYPE = "key_type"
 

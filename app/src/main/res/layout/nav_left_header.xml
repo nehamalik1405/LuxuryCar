@@ -21,17 +21,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/drawable_background_circle_shape">
+        android:background="@drawable/drawable_background_circle_shape"
+        android:backgroundTint="@color/white">
 
 
         <ImageView
             android:id="@+id/imgViewUserProfile"
             android:layout_width="@dimen/margin_75dp"
             android:layout_height="@dimen/margin_75dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/drawable_background_circle_shape"
-            android:backgroundTint="@color/white"
-            android:scaleType="centerCrop" />
+            android:layout_centerInParent="true"
+             />
 
 
     </RelativeLayout>
@@ -51,7 +50,7 @@
             android:textSize="@dimen/margin_13sp"
             android:fontFamily="@font/muli_bold"
             android:textColor="@color/white"
-            android:text="@string/nav_header_title"
+            android:text="Guest User"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
@@ -63,7 +62,7 @@
             android:fontFamily="@font/muli_bold"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/margin_2dp"
-            android:text="@string/nav_header_subtitle" />
+            android:text="" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

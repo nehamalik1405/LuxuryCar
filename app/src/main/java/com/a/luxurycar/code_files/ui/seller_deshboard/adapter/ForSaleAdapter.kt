@@ -22,7 +22,7 @@ class ForSaleAdapter(val forSaleList: ArrayList<Data>) :RecyclerView.Adapter<For
 
     override fun onBindViewHolder(holder: ViewiewHolder, position: Int) {
 
-         val item = forSaleList[position]
+       // val item = forSaleList[position]
 
     }
 

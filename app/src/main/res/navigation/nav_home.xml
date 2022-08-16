@@ -15,7 +15,7 @@
             app:destination="@id/nav_car_listing" />
         <action
             android:id="@+id/action_nav_home_to_storageFragment"
-            app:destination="@id/storageFragment"
+            app:destination="@id/nav_storage"
             app:popUpToSaveState="false"
             />
         <action
@@ -121,7 +121,7 @@
         android:label="fragment_term_and_condition"
         tools:layout="@layout/fragment_term_and_condition" />
     <fragment
-        android:id="@+id/storageFragment"
+        android:id="@+id/nav_storage"
         android:name="com.a.luxurycar.code_files.ui.home.fragment.StorageFragment"
         android:label="fragment_storage"
         tools:layout="@layout/fragment_storage" >

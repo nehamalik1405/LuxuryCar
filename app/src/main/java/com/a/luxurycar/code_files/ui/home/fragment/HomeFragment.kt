@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.HomeRepository
-import com.a.luxurycar.code_files.ui.home.adapter.ImageAdapter
-import com.a.luxurycar.code_files.ui.home.adapter.PremiumListAdapter
-import com.a.luxurycar.code_files.ui.home.adapter.PromotedListAdapter
-import com.a.luxurycar.code_files.ui.home.adapter.SuggestedListAdapter
-import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.Listt
+import com.a.luxurycar.code_files.ui.home.adapter.*
 import com.a.luxurycar.code_files.view_model.HomeViewModel
 import com.a.luxurycar.common.helper.AdapterSpinner
+import com.a.luxurycar.code_files.ui.home.model.home_response.BannerList
+import com.a.luxurycar.code_files.ui.home.model.home_response.Banners
+import com.a.luxurycar.code_files.ui.home.model.home_response.Listt
+import com.a.luxurycar.code_files.ui.home.model.home_response.PlatinumPartnersList
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
@@ -41,7 +41,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
     lateinit var arrSuggestedList : ArrayList<Listt>
     lateinit var arrPremiumList : ArrayList<Listt>
     lateinit var arrPromotedList : ArrayList<Listt>
-    lateinit var arrBannerList : ArrayList<Listt>
+    lateinit var arrBannerList : ArrayList<BannerList>
+    lateinit var platinumPartnersList : ArrayList<PlatinumPartnersList>
 
     override fun getViewModel()=HomeViewModel::class.java
     override fun getFragmentBinding(
@@ -99,6 +100,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
                         arrSuggestedList = arrayListOf()
                         arrPremiumList = arrayListOf()
                         arrPromotedList = arrayListOf()
+                        platinumPartnersList = arrayListOf()
 
                         arrBannerList=it.values.data!!.banners!!.list
 
@@ -106,11 +108,14 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
 
                         arrPremiumList=it.values.data!!.premiumCars!!.list
 
-                        arrPromotedList=it.values.data!!.promotedCars!!.list
+                        arrPromotedList=it.values.data!!.featuredCars!!.list
+
+                        platinumPartnersList = it.values.data!!.platinumPartners!!.list
 
                         setSuggestedList()
                         setPremiumList()
                         setPromotedList()
+                        setPlatinumPartnersList()
                         setViewPager()
                         checkListNullability()
 
@@ -122,6 +127,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
                 is Resource.Failure -> handleApiErrors(it)
             }
         })
+
+    }
+
+    private fun setPlatinumPartnersList() {
+        val ourPlatinumPartnersAdapter = OurPlatinumPartnersAdapter(requireContext(),platinumPartnersList)
+        binding.recyclerviewOurPlatinumPartnersList.adapter = ourPlatinumPartnersAdapter
+        binding.recyclerviewOurPlatinumPartnersList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
 
     }
 
@@ -241,6 +253,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         if (!arrBannerList.isEmpty()){
             binding.cardViewImageViewPager.visibility =View.VISIBLE
             binding.cardViewImageViewPager.visibility =View.VISIBLE
+        }
+        if (!platinumPartnersList.isEmpty()){
+            binding.txtViewOurPlatinumPartnersList.visibility =View.VISIBLE
+            binding.imgViewOurPlatinumPartnersRightArrow.visibility =View.VISIBLE
         }
     }
     private fun setSelectionOnButton() {

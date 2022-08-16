@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
-import com.a.luxurycar.code_files.ui.home.model.ImageModel
-import com.a.luxurycar.code_files.ui.home.model.advertiser_suggersted_list.Listt
+import com.a.luxurycar.code_files.ui.home.model.home_response.BannerList
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_image.view.*
 
-class ImageAdapter(val context: Context, private val list:ArrayList<Listt>): RecyclerView.Adapter<ImageAdapter.ViewiewHolder>()  {
+class ImageAdapter(val context: Context, private val list:ArrayList<BannerList>): RecyclerView.Adapter<ImageAdapter.ViewiewHolder>()  {
     //   (val context: Context, private val list:ArrayList<ImageModel>)
 
 

@@ -43,6 +43,16 @@
             android:title="@string/menu_soucing" />
     </group>
     <group
+        android:id="@+id/nav_grp_storage"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_storage"
+            android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
+            android:title="storage" />
+    </group>
+    <group
         android:id="@+id/nav_grp5"
         android:checkableBehavior="single">
 

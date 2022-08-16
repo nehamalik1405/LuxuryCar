@@ -96,6 +96,7 @@ class HomeActivity : AppCompatActivity() {
         setRightNavView()
         setRightHeader()
         setLeftHeader()
+        checkMenuCondition()
 
         navController.popBackStack(R.id.nav_home, false)
 
@@ -119,30 +120,69 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-     fun setLeftHeader() {
+    private fun checkMenuCondition() {
+        val itemAboutUs: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_about_us)
+        val itemCarListing: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_car_listing)
+        val itemTransport: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_transport)
+        val itemSourcing: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_sourcing)
+        val itemStorage: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_storage)
+        val itemInspecting: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_inspecting)
+        val itemSellUrCar: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_sell_ur_car)
+        val itemSaurceMyCar: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_saurce_my_car)
+        val itemFindGarages: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_find_Garages)
+
+        if (!SessionManager.isUserLoggedIn()){
+            itemAboutUs.setVisible(true)
+            itemCarListing.setVisible(true)
+            itemTransport.setVisible(true)
+            itemSourcing.setVisible(true)
+            itemStorage.setVisible(true)
+            itemInspecting.setVisible(true)
+            itemSellUrCar.setVisible(false)
+            itemSaurceMyCar.setVisible(false)
+            itemFindGarages.setVisible(false)
+        }else{
+            itemAboutUs.setVisible(true)
+            itemCarListing.setVisible(true)
+            itemTransport.setVisible(true)
+            itemSourcing.setVisible(true)
+            itemStorage.setVisible(true)
+            itemInspecting.setVisible(true)
+            itemSellUrCar.setVisible(true)
+            itemSaurceMyCar.setVisible(true)
+            itemFindGarages.setVisible(true)
+        }
+
+
+    }
+
+    fun setLeftHeader() {
         val userData = SessionManager.getUserData()
         val txtViewEmail = leftHeaderView.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = leftHeaderView.findViewById<TextView>(R.id.txtViewHeaderUserName)
         val userImage = leftHeaderView.findViewById<ImageView>(R.id.imgViewUserProfile)
         //setPhoto()
-        val fullName = userData!!.fullName
-        val email = userData.email
-        val image = userData.image
+         if (userData!= null){
+             val fullName = userData!!.fullName
+             val email = userData.email
+             val image = userData.image
 
 
-        if(!Utils.isEmptyOrNull(fullName)) {
-            textViewUserName.text = fullName
-        } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
-            textViewUserName.text = userData?.firstname +" " +userData?.lastname
-        }
+             if(!Utils.isEmptyOrNull(fullName)) {
+                 textViewUserName.text = fullName
+             } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
+                 textViewUserName.text = userData?.firstname +" " +userData?.lastname
+             }
 
-        if(!Utils.isEmptyOrNull(email)) {
-            txtViewEmail.text =  email
-        }
+             if(!Utils.isEmptyOrNull(email)) {
+                 txtViewEmail.text =  email
+             }
 
-        if(!Utils.isEmptyOrNull(image)) {
-            Picasso.get().load(image).transform(CircleTransform()).into(userImage)
-        }
+             if(!Utils.isEmptyOrNull(image)) {
+                 Picasso.get().load(image).transform(CircleTransform()).into(userImage)
+             }
+         }
+
     }
 
 
@@ -157,23 +197,28 @@ class HomeActivity : AppCompatActivity() {
             txtViewEmail.text=userData.data.user.email
         }*/
 
-         val fullName = userData!!.fullName
-        val email = userData.email
-        val image = userData.image
+         if(userData!= null){
+             val fullName = userData!!.fullName
+             val email = userData.email
+             val image = userData.image
 
-         if(!Utils.isEmptyOrNull(fullName)) {
-             textViewUserName.text = fullName
-         } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
-             textViewUserName.text = userData?.firstname +" " +userData?.lastname
+             if(!Utils.isEmptyOrNull(fullName)) {
+                 textViewUserName.text = fullName
+             } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
+                 textViewUserName.text = userData?.firstname +" " +userData?.lastname
+             }
+
+             if(!Utils.isEmptyOrNull(email)) {
+                 txtViewEmail.text =  email
+             }
+
+             if(!Utils.isEmptyOrNull(image)) {
+                 Picasso.get().load(image).transform(CircleTransform()).into(userImage)
+             }
+
          }
 
-         if(!Utils.isEmptyOrNull(email)) {
-             txtViewEmail.text =  email
-         }
 
-         if(!Utils.isEmptyOrNull(image)) {
-             Picasso.get().load(image).transform(CircleTransform()).into(userImage)
-         }
 
 
 
@@ -211,8 +256,9 @@ class HomeActivity : AppCompatActivity() {
                         builder1.setPositiveButton("Yes") { dialog, id ->
                             val sessionManager = SessionManager(this@HomeActivity)
                             sessionManager.logout()
-                            startActivity(Intent(applicationContext, AuthActivity::class.java))
-                            finish()
+                            finishAffinity()
+                            startActivity(Intent(applicationContext, HomeActivity::class.java))
+
                         }
                         builder1.setNegativeButton("No")
                         { dialog, id -> dialog.cancel() }
@@ -247,6 +293,9 @@ class HomeActivity : AppCompatActivity() {
                 }
                 else if(itemId == R.id.nav_sourcing){
                     navController.navigate(R.id.nav_sourcing)
+                }
+                else if(itemId == R.id.nav_storage){
+                    navController.navigate(R.id.nav_storage)
                 }
                 else if(itemId == R.id.nav_inspecting){
                     navController.navigate(R.id.nav_inspecting)
@@ -367,7 +416,14 @@ class HomeActivity : AppCompatActivity() {
         }
 
         imgViewOpenProfile.setOnClickListener{
-            openOrCloseDrawerProfile()
+            if(SessionManager.isUserLoggedIn()){
+                openOrCloseDrawerProfile()
+            }
+            else{
+                startActivity(Intent(applicationContext, AuthActivity::class.java))
+                openOrCloseDrawerProfile()
+            }
+
         }
 
     }
