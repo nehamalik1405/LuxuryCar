@@ -16,7 +16,6 @@ import com.a.luxurycar.code_files.ui.home.adapter.*
 import com.a.luxurycar.code_files.view_model.HomeViewModel
 import com.a.luxurycar.common.helper.AdapterSpinner
 import com.a.luxurycar.code_files.ui.home.model.home_response.BannerList
-import com.a.luxurycar.code_files.ui.home.model.home_response.Banners
 import com.a.luxurycar.code_files.ui.home.model.home_response.Listt
 import com.a.luxurycar.code_files.ui.home.model.home_response.PlatinumPartnersList
 import com.a.luxurycar.common.requestresponse.ApiAdapter
@@ -82,9 +81,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
             binding.txtViewMoreOptions.visibility = View.VISIBLE
             binding.txtViewLessOptions.visibility = View.GONE
         }*/
-        binding.btnSearch.setOnClickListener {
+       /* binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.productDetailFragment)
-        }
+        }*/
     }
 
     private fun liveDataObserver() {
@@ -131,10 +130,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
     }
 
     private fun setPlatinumPartnersList() {
-        val ourPlatinumPartnersAdapter = OurPlatinumPartnersAdapter(requireContext(),platinumPartnersList)
+        val ourPlatinumPartnersAdapter = OurPlatinumPartnersAdapter(requireContext(),platinumPartnersList,this)
         binding.recyclerviewOurPlatinumPartnersList.adapter = ourPlatinumPartnersAdapter
         binding.recyclerviewOurPlatinumPartnersList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
 
+    }
+    fun navigateToFindGaragesFragment(){
+        findNavController().navigate(R.id.nav_find_Garages)
     }
 
     private fun manageSpinnerItemsLIst() {
@@ -256,7 +258,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         }
         if (!platinumPartnersList.isEmpty()){
             binding.txtViewOurPlatinumPartnersList.visibility =View.VISIBLE
-            binding.imgViewOurPlatinumPartnersRightArrow.visibility =View.VISIBLE
+            //binding.imgViewOurPlatinumPartnersRightArrow.visibility =View.VISIBLE
         }
     }
     private fun setSelectionOnButton() {
@@ -304,21 +306,26 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
         }, 2500, 2500)
     }
     private fun setSuggestedList() {
-        val advertieserSuggestedList = SuggestedListAdapter(requireContext(),arrSuggestedList)
+        val advertieserSuggestedList = SuggestedListAdapter(requireContext(),arrSuggestedList,this)
         binding.recyclerviewSuggestedList.adapter = advertieserSuggestedList
         binding.recyclerviewSuggestedList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
 
     }
     private fun setPromotedList() {
-        val promotedListAdapter = PromotedListAdapter(requireContext(),arrPromotedList)
+        val promotedListAdapter = PromotedListAdapter(requireContext(),arrPromotedList,this)
         binding.recyclerviewPromotedList.adapter = promotedListAdapter
         binding.recyclerviewPromotedList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
 
     }
     private fun setPremiumList() {
-        val premiumListAdapter = PremiumListAdapter(requireContext(),arrPremiumList)
+        val premiumListAdapter = PremiumListAdapter(requireContext(),arrPremiumList,this)
         binding.recyclerviewPremiumList.adapter = premiumListAdapter
         binding.recyclerviewPremiumList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
+    }
+    fun navigateToProductDetailPage(id:String){
+        val bundle = Bundle()
+        bundle.putString("product_detail_id",id)
+        findNavController().navigate(R.id.productDetailFragment,bundle)
     }
 }
 

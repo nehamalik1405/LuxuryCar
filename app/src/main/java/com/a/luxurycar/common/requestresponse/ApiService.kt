@@ -19,6 +19,7 @@ import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.code_files.ui.auth.model.seller.SellerRegistrationModel
 import com.a.luxurycar.code_files.ui.home.model.HomeResponse
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
+import com.a.luxurycar.code_files.ui.home.model.product_detail_response.ProductDetailsResponse
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.UpdateSellerProfileModel
@@ -83,6 +84,10 @@ interface ApiService {
     // home page api
     @GET(Const.HOME_PAGE_URL)
     suspend fun getAdvertiserSuggestedListResponse(): HomeResponse
+
+    // product detail fragments
+    @GET("product-detail/{id}")
+    suspend fun getProductDetailResponse(@Path("id") Id: String): ProductDetailsResponse
 
     // send otp api
     @POST("otps/send")
@@ -171,7 +176,13 @@ interface ApiService {
     suspend fun getSellerDetailDasboardResponse() : SellerDetailDashboardResponse
 
     @GET("seller/car-list")
-    suspend fun getSellerCarListResponse() : SellerCarListResponse
+    suspend fun getSellerForSaleListResponse(@Query("rent") rent: String) : SellerCarListResponse
+
+
+    @GET("seller/car-list")
+    suspend fun getSellerForRenListResponse(@Query("rent") rent: String) : SellerCarListResponse
+
+
 
     @GET("find-garages")
     suspend fun  getFindGaragesResponse() : FindGaragesResponse

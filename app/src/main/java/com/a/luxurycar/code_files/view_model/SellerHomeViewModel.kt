@@ -33,15 +33,26 @@ class SellerHomeViewModel(val repository:SellerHomeRepository):BaseViewModel(rep
 
     }
 
-    private val _getSellerCarListResponse: MutableLiveData<Resource<SellerCarListResponse>> = MutableLiveData()
-    val getSellerCarListResponse: LiveData<Resource<SellerCarListResponse>>
-        get() = _getSellerCarListResponse
+    private val _getSellerForSaleListResponse: MutableLiveData<Resource<SellerCarListResponse>> = MutableLiveData()
+    val getSellerForSaleListResponse: LiveData<Resource<SellerCarListResponse>>
+        get() = _getSellerForSaleListResponse
 
-    fun getSellerCarListResponse() = viewModelScope.launch {
-        _getSellerCarListResponse.value = Resource.Loading
-        _getSellerCarListResponse.value = repository.getSellerCarListResponse()
+    fun getSellerForSaleListResponse(id:String) = viewModelScope.launch {
+        _getSellerForSaleListResponse.value = Resource.Loading
+        _getSellerForSaleListResponse.value = repository.getSellerForSaleListResponse(id)
 
     }
+
+    private val _getSellerForRenListResponse: MutableLiveData<Resource<SellerCarListResponse>> = MutableLiveData()
+    val getSellerForRenListResponse: LiveData<Resource<SellerCarListResponse>>
+        get() = _getSellerForRenListResponse
+
+    fun getSellerRenListResponse(id:String) = viewModelScope.launch {
+        _getSellerForRenListResponse.value = Resource.Loading
+        _getSellerForRenListResponse.value = repository.getSellerForRenListResponse(id)
+
+    }
+
 
 
 }

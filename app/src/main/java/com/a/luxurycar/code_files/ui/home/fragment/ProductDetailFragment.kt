@@ -1,30 +1,33 @@
 package com.a.luxurycar.code_files.ui.home.fragment
 
 import android.Manifest
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.viewpager2.widget.ViewPager2
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.ProductDetailRepository
-import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailImageAdapter
+import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailOfCarAdapter
 import com.a.luxurycar.code_files.ui.home.adapter.ProductDetailViewPagerAdapter
 import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
+import com.a.luxurycar.code_files.ui.home.model.product_detail_response.CarImage
+import com.a.luxurycar.code_files.ui.home.model.product_detail_response.Detail
 import com.a.luxurycar.code_files.view_model.ProductDetailViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.handleApiErrors
+import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentProductDetailBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -34,8 +37,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+
 
 
 
@@ -51,7 +53,9 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
     var distance = 0.0
     var currentPage = 0
     private lateinit var productDetailViewPagerAdapter:ProductDetailViewPagerAdapter
-    lateinit var list:ArrayList<ProductDetailImageModel>
+//    lateinit var list:ArrayList<ProductDetailImageModel>
+    lateinit var arrBannerCarImageList:ArrayList<CarImage>
+    lateinit var arrCarDetailList:ArrayList<Detail>
 
     override fun getViewModel() = ProductDetailViewModel::class.java
     override fun getFragmentBinding(
@@ -63,7 +67,8 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViewPager()
+        arrBannerCarImageList = arrayListOf()
+        arrCarDetailList = arrayListOf()
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -71,8 +76,53 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
         // initialize fused location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getCurrentLocation()
+        callProductDetailsApi()
+        observeProductDetailsApiResponse()
 
     }
+
+    private fun observeProductDetailsApiResponse() {
+        viewModel.getProductDetailResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarProductDetailPage.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if(it != null && it.values.status == 1) {
+                        arrBannerCarImageList = it.values.data.carImages
+                        arrCarDetailList = it.values.data.details
+                        if(it.values.data.carAds !=null){
+                            binding.txtViewChevroletComoro.text = it.values.data.carAds.get(0).title
+                            binding.txtViewAED.text ="AED ${it.values.data.carAds.get(0).price}"
+                            binding.txtViewLoremIpsumisSimplyDummyTextofPrinting.setText(Html.fromHtml(it.values.data.carAds.get(0).description).toString())
+                            binding.txtViewLocationAddress.text = it.values.data.carAds.get(0).locationUrl
+                        }
+                         setViewPager()
+                        setDeatilOfCar()
+                    }
+                    else{
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
+
+    private fun setDeatilOfCar() {
+
+        val productDetailOfCarAdapter = ProductDetailOfCarAdapter(arrCarDetailList)
+        binding.recyclerViewDetails.adapter = productDetailOfCarAdapter
+
+    }
+
+    private fun callProductDetailsApi() {
+     val bundle = arguments
+        var id = ""
+        if (bundle != null) {
+            id = bundle.getString("product_detail_id").toString()
+        }
+        viewModel.getProductDetailResponse(id)
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray,
     ) {
@@ -171,14 +221,14 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
 
     }
     private fun setViewPager() {
-        list = arrayListOf()
+        /*list = arrayListOf()
         list.add(ProductDetailImageModel(R.drawable.ic_car_image))
         list.add(ProductDetailImageModel(R.drawable.storage_car))
         list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car2))
-        list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car1))
+        list.add(ProductDetailImageModel(R.drawable.ic_sourcing_car1))*/
 
         val viewpager = binding.viewPagerProductDetailPage
-         productDetailViewPagerAdapter = ProductDetailViewPagerAdapter(requireContext(),list)
+         productDetailViewPagerAdapter = ProductDetailViewPagerAdapter(requireContext(),arrBannerCarImageList)
         viewpager.adapter= productDetailViewPagerAdapter
         // To get swipe event of viewpager2
         // To get swipe event of viewpager2
@@ -214,7 +264,7 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel,FragmentProduc
     }
 
     private fun setViewPagerCurrentPage() {
-        binding.txtViewPageCounter.text = "${ currentPage}/${list.size}"
+        binding.txtViewPageCounter.text = "${ currentPage}/${arrBannerCarImageList.size}"
 
     }
 /*    fun distance(

@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
+import com.a.luxurycar.code_files.ui.home.HomeActivity
 import com.a.luxurycar.common.helper.CircleTransform
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.databinding.ActivitySellerDeshboardBinding
@@ -90,7 +91,7 @@ class SellerDeshboardActivity : AppCompatActivity() {
                 else if(itemId == R.id.nav_logout) {
                     val sessionManager = SessionManager(this@SellerDeshboardActivity)
                     sessionManager.logout()
-                    startActivity(Intent(applicationContext, AuthActivity::class.java))
+                    startActivity(Intent(applicationContext, HomeActivity::class.java))
                     finish()
                 }
                 binding.drawerLayout.closeDrawer(GravityCompat.END)

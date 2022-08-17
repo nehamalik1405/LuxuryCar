@@ -369,6 +369,8 @@
     <string name="str_location_your_car">Location your car</string>
     <string name="str_enter_location">Enter location</string>
     <string name="str_next">NEXT</string>
+    <string name="featured_car_list">Featured Car List</string>
+    <string name="our_platinum_partners">Our Platinum Partners</string>
 
 
     <string-array name="countryCode">

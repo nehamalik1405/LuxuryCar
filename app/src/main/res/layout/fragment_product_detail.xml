@@ -182,6 +182,7 @@
             app:layout_constraintEnd_toStartOf="@+id/imgViewEnd"
             app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
 
+
         <TextView
             android:id="@+id/txtViewDetails"
             android:layout_width="wrap_content"
@@ -195,7 +196,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnColl" />
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDetails"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewDetails"
+            />
+
+      <!--  <TextView
             android:id="@+id/txtViewMake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -350,7 +363,7 @@
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewColor" />
+            app:layout_constraintTop_toBottomOf="@+id/txtViewColor" />-->
 
         <View
             android:id="@+id/viewLine2"
@@ -360,7 +373,7 @@
             android:background="@color/light_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtView2016" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewDetails" />
 
         <TextView
             android:id="@+id/txtViewDescription"
@@ -454,5 +467,14 @@
         </androidx.cardview.widget.CardView>
 
 
+        <ProgressBar
+            android:id="@+id/progressBarProductDetailPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

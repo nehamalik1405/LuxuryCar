@@ -93,7 +93,10 @@ class HomeActivity : AppCompatActivity() {
         menageClickEvents()
         setBottomNavigation()
         setLeftNavView()
-        setRightNavView()
+        if(SessionManager.isUserLoggedIn()){
+            setRightNavView()
+        }
+
         setRightHeader()
         setLeftHeader()
         checkMenuCondition()
@@ -411,6 +414,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun menageClickEvents() {
+        if(SessionManager.isUserLoggedIn()){
+            openOrCloseDrawerProfile()
+        }
         imageViewMenu.setOnClickListener {
             openOrCloseDrawer()
         }
@@ -421,7 +427,6 @@ class HomeActivity : AppCompatActivity() {
             }
             else{
                 startActivity(Intent(applicationContext, AuthActivity::class.java))
-                openOrCloseDrawerProfile()
             }
 
         }

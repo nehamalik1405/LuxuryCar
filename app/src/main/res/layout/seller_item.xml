@@ -19,7 +19,6 @@
             android:layout_width="@dimen/margin_120_dp"
             android:layout_height="@dimen/margin_110_dp"
             android:scaleType="fitXY"
-            android:src="@drawable/demo_image1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

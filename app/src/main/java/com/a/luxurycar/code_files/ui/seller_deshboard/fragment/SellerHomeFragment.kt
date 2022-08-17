@@ -27,7 +27,7 @@ import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.Data
 
 class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBinding,SellerHomeRepository>() {
 
-    lateinit var rentAndSaleList:ArrayList<Data>
+
     lateinit var forSaleList:ArrayList<Data>
     lateinit var forRentList:ArrayList<Data>
 
@@ -42,33 +42,27 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rentAndSaleList = arrayListOf()
         forRentList = arrayListOf()
         forSaleList = arrayListOf()
 
         manageClickListener()
         callSellerDetailApi()
-        callSellerCarListApi()
+        callSellerForSaleListApi()
         observeCallSellerDetailResponse()
-        observeGetSellerCarListResponse()
+        observeGetSellerForSaleListResponse()
+        observeGetSellerForRentListResponse()
         //setForSaleList()
         //setForRentList()
     }
 
-    private fun observeGetSellerCarListResponse() {
-        viewModel.getSellerCarListResponse.observe(viewLifecycleOwner, Observer {
+    private fun observeGetSellerForRentListResponse() {
+        viewModel.getSellerForRenListResponse.observe(viewLifecycleOwner, Observer {
             binding.progressBarSellerHome.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
-                        rentAndSaleList = it.values.data
-                        for(item in rentAndSaleList){
-                            if(item.rent == "0") {
-                                forRentList.add(item)
-                            }else{
-                                forSaleList.add(item)
-                            }
-                        }
+                        forRentList = it.values.data
+                        setForRentList()
 
                     }
 
@@ -83,8 +77,34 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
         })
     }
 
-    private fun callSellerCarListApi() {
-     viewModel.getSellerCarListResponse()
+    private fun callSellerForRentListApi() {
+        viewModel.getSellerRenListResponse("1")
+    }
+
+    private fun observeGetSellerForSaleListResponse() {
+        viewModel.getSellerForSaleListResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBarSellerHome.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        forSaleList = it.values.data
+                            setForSaleList()
+
+                    }
+
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+    }
+
+    private fun callSellerForSaleListApi() {
+     viewModel.getSellerForSaleListResponse("0")
     }
 
     private fun observeCallSellerDetailResponse() {
@@ -118,15 +138,14 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
     }
 
     private fun setForRentList() {
-      val forSaleAdapter = ForSaleAdapter(forSaleList)
-        binding.recyclerViewForSale.adapter = forSaleAdapter
-        binding.recyclerViewForSale.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL ,false)
+      val forRentAdapter = ForRentAdapter(requireContext(),forRentList)
+        binding.recyclerViewAllList.adapter = forRentAdapter
+
     }
 
     private fun setForSaleList() {
-        val forRentAdapter = ForRentAdapter(forRentList)
-        binding.recyclerViewForRent.adapter = forRentAdapter
-        binding.recyclerViewForRent.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL ,false)
+        val forSaleAdapter = ForSaleAdapter(requireContext(),forSaleList)
+        binding.recyclerViewAllList.adapter = forSaleAdapter
     }
     private fun manageClickListener() {
         binding.conLayoutFabButton.setOnClickListener {
@@ -138,18 +157,15 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
             binding.consLayoutTabForRent.setBackgroundResource(0)
             binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(0)
             binding.consLayoutTabForSale.setBackgroundResource(R.drawable.drawable_tab_background)
-            binding.recyclerViewForSale.visibility = View.VISIBLE
-            binding.recyclerViewForRent.visibility = View.GONE
-            setForSaleList()
+            callSellerForSaleListApi()
 
         }
         binding.consLayoutTabForRent.setOnClickListener {
-            binding.recyclerViewForSale.visibility = View.GONE
-            binding.recyclerViewForRent.visibility = View.VISIBLE
             binding.consLayoutTabForSale.setBackgroundResource(0)
             binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(0)
             binding.consLayoutTabForRent.setBackgroundResource(R.drawable.drawable_tab_background)
-            setForRentList()
+            callSellerForRentListApi()
+
         }
         binding.consLayoutTabForBuyerEnqukles.setOnClickListener {
             binding.consLayoutTabForRent.setBackgroundResource(0)

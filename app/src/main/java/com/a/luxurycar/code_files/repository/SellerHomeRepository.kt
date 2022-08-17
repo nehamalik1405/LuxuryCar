@@ -12,8 +12,12 @@ class SellerHomeRepository(val api:ApiService):BaseRepository() {
         api.getFindGaragesResponse()
     }
 
-    suspend fun getSellerCarListResponse() = safeApiCall {
-        api.getSellerCarListResponse()
+    suspend fun getSellerForSaleListResponse(id:String) = safeApiCall {
+        api.getSellerForSaleListResponse(id)
     }
+    suspend fun getSellerForRenListResponse(id:String) = safeApiCall {
+        api.getSellerForRenListResponse(id)
+    }
+
 
 }

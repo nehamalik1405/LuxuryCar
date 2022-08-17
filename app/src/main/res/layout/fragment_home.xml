@@ -656,7 +656,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
-            android:text="@string/str_promoted_list"
+            android:text="@string/featured_car_list"
             android:textSize="@dimen/margin_17sp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
@@ -692,7 +692,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
-            android:text="@string/str_promoted_list"
+            android:text="@string/our_platinum_partners"
             android:textSize="@dimen/margin_17sp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/margin_15_dp"
@@ -701,7 +701,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerviewPromotedList"/>
 
-        <ImageView
+       <!-- <ImageView
             android:id="@+id/imgViewOurPlatinumPartnersRightArrow"
             android:layout_width="@dimen/margin_15dp"
             android:layout_height="@dimen/margin_25_dp"
@@ -712,7 +712,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtViewOurPlatinumPartnersList"
             app:layout_constraintBottom_toBottomOf="@+id/txtViewOurPlatinumPartnersList"
-            />
+            />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewOurPlatinumPartnersList"

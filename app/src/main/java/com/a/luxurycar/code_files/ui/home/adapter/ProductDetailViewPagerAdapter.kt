@@ -5,22 +5,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
+import com.a.luxurycar.code_files.ui.home.model.product_detail_response.CarImage
 import com.a.luxurycar.R
-import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.CarImage
 import com.a.luxurycar.code_files.ui.home.model.ProductDetailImageModel
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_image.view.*
 
 
-class ProductDetailViewPagerAdapter(val context:Context, val list: ArrayList<ProductDetailImageModel>):RecyclerView.Adapter<ProductDetailViewPagerAdapter.ViewiewHolder>() {
+class ProductDetailViewPagerAdapter(val context:Context, val list: ArrayList<CarImage>):RecyclerView.Adapter<ProductDetailViewPagerAdapter.ViewiewHolder>() {
     lateinit var productDetailImageModelList:ArrayList<ProductDetailImageModel>
     //var onItemClick:((ProductDetailImageModel) -> Unit)? = null
 
