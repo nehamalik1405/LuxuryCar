@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.SellerHomeRepository
@@ -24,12 +23,15 @@ import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentSellerHomeBinding
 import com.squareup.picasso.Picasso
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.Data
+import okhttp3.internal.notify
 
 class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBinding,SellerHomeRepository>() {
 
 
     lateinit var forSaleList:ArrayList<Data>
     lateinit var forRentList:ArrayList<Data>
+    lateinit var forSaleAdapter:ForSaleAdapter
+    lateinit var forRentAdapter:ForRentAdapter
 
     override fun getViewModel() =SellerHomeViewModel::class.java
 
@@ -138,13 +140,13 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
     }
 
     private fun setForRentList() {
-      val forRentAdapter = ForRentAdapter(requireContext(),forRentList)
+       forRentAdapter = ForRentAdapter(requireContext(),forRentList,this)
         binding.recyclerViewAllList.adapter = forRentAdapter
 
     }
 
     private fun setForSaleList() {
-        val forSaleAdapter = ForSaleAdapter(requireContext(),forSaleList)
+         forSaleAdapter = ForSaleAdapter(requireContext(),forSaleList,this)
         binding.recyclerViewAllList.adapter = forSaleAdapter
     }
     private fun manageClickListener() {
@@ -172,6 +174,32 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
             binding.consLayoutTabForSale.setBackgroundResource(0)
             binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(R.drawable.drawable_tab_background)
         }
+    }
+    fun callDeleteItemApi(id:String){
+        viewModel.getDeleteCarResponse(id)
+        viewModel.getDeleteCarResponse.observe(viewLifecycleOwner, Observer {
+
+            binding.progressBarSellerHome.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        callSellerForSaleListApi()
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
+                        Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+
+        })
+
+
     }
 
 

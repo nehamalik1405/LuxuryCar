@@ -5,15 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.seller_deshboard.fragment.SellerHomeFragment
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.Data
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.seller_item.view.*
 
 
-class ForRentAdapter(val context:Context,val forRentList: ArrayList<Data>) : RecyclerView.Adapter<ForRentAdapter.ViewiewHolder>() {
+class ForRentAdapter(
+    val context: Context,
+    val forRentList: ArrayList<Data>,
+    val sellerHomeFragment: SellerHomeFragment
+) : RecyclerView.Adapter<ForRentAdapter.ViewiewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewiewHolder {
@@ -27,6 +33,7 @@ class ForRentAdapter(val context:Context,val forRentList: ArrayList<Data>) : Rec
     override fun onBindViewHolder(holder: ViewiewHolder, position: Int) {
 
          val item = forRentList[position]
+        val idForDeleteItem = item.id
 
         for (index in item.carImages.indices){
             if (index == 0){
@@ -55,11 +62,32 @@ class ForRentAdapter(val context:Context,val forRentList: ArrayList<Data>) : Rec
             popup.getMenuInflater()
                 .inflate(R.menu.popup_edit_delete_menu, popup.getMenu());
             popup.setOnMenuItemClickListener { item ->
-                Toast.makeText(
-                    context,
-                    "You Clicked : " + item.title,
-                    Toast.LENGTH_SHORT
-                ).show()
+                if(item.title.equals("Make Premium Ad")){
+                    Toast.makeText(
+                        context,
+                        "You Clicked : 1",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                if(item.title.equals("Edit")){
+                    Toast.makeText(
+                        context,
+                        "You Clicked : 2",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                if(item.title.equals("Delete")){
+                    val builder1 = AlertDialog.Builder(context)
+                    builder1.setMessage("Are You Sure You Want to delete item?")
+                    builder1.setCancelable(true)
+                    builder1.setPositiveButton("Yes") { dialog, id ->
+                        sellerHomeFragment.callDeleteItemApi(idForDeleteItem.toString())
+                    }
+                    builder1.setNegativeButton("No")
+                    { dialog, id -> dialog.cancel() }
+                    val alert11 = builder1.create()
+                    alert11.show()
+                }
                 true
             }
             popup.show(); //showing popup menu

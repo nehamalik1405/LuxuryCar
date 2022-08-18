@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.a.luxurycar.code_files.base.BaseViewModel
 import com.a.luxurycar.code_files.repository.SellerHomeRepository
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.delete_car_response.DeleteCarResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.find_garages.FindGaragesResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.SellerCarListResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_dashboard.SellerDetailDashboardResponse
@@ -52,6 +53,17 @@ class SellerHomeViewModel(val repository:SellerHomeRepository):BaseViewModel(rep
         _getSellerForRenListResponse.value = repository.getSellerForRenListResponse(id)
 
     }
+    private val _getDeleteCarResponse: MutableLiveData<Resource<DeleteCarResponse>> = MutableLiveData()
+    val getDeleteCarResponse: LiveData<Resource<DeleteCarResponse>>
+        get() = _getDeleteCarResponse
+
+
+    fun getDeleteCarResponse(id:String) = viewModelScope.launch {
+        _getDeleteCarResponse.value = Resource.Loading
+        _getDeleteCarResponse.value = repository.getDeleteCarResponse(id)
+
+    }
+
 
 
 

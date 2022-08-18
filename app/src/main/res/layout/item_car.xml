@@ -63,7 +63,7 @@
                  android:background="@drawable/drawable_button_background"/>
 
               <TextView
-                  android:id="@+id/txtViewKm"
+                     android:id="@+id/txtViewKm"
                   android:layout_width="0dp"
                   android:layout_height="wrap_content"
                  android:text="@string/str_kilometer"

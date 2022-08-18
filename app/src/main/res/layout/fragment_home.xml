@@ -652,7 +652,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
-            android:id="@+id/txtViewPromotedListing"
+            android:id="@+id/txtViewFeaturedListing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15_dp"
@@ -666,7 +666,7 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerviewPremiumList"/>
 
         <ImageView
-            android:id="@+id/imgViewPromotedRightArrow"
+            android:id="@+id/imgViewFeaturedRightArrow"
             android:layout_width="@dimen/margin_15dp"
             android:layout_height="@dimen/margin_25_dp"
             android:layout_marginTop="@dimen/margin_10_dp"
@@ -674,8 +674,8 @@
             android:visibility="gone"
             android:src="@mipmap/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txtViewPromotedListing"
-            app:layout_constraintBottom_toBottomOf="@+id/txtViewPromotedListing"
+            app:layout_constraintTop_toTopOf="@+id/txtViewFeaturedListing"
+            app:layout_constraintBottom_toBottomOf="@+id/txtViewFeaturedListing"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -683,7 +683,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewPromotedListing"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewFeaturedListing"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

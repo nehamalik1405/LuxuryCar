@@ -76,6 +76,26 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
 
 
         }
+        binding.imgViewSuggestedRightArrow.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("id",Const.PARAM_SUGGESTED)
+            bundle.putString("list_name","Suggested listing")
+            findNavController().navigate(R.id.nav_car_listing,bundle)
+        }
+
+        binding.imgViewPremiumRightArrow.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("id",Const.PARAM_PREMIUM)
+            bundle.putString("list_name","Premium listing")
+            findNavController().navigate(R.id.nav_car_listing,bundle)
+        }
+
+        binding.imgViewFeaturedRightArrow.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("id",Const.PARAM_FEATURED)
+            bundle.putString("list_name","Featured listing")
+            findNavController().navigate(R.id.nav_car_listing,bundle)
+        }
       /*  binding.txtViewLessOptions.setOnClickListener {
             binding.consLayoutTransmissionType.visibility = View.GONE
             binding.txtViewMoreOptions.visibility = View.VISIBLE
@@ -249,8 +269,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding,HomeReposit
             binding.imgViewPremiumRightArrow.visibility = View.VISIBLE
         }
         if (!arrPromotedList.isEmpty()){
-            binding.txtViewPromotedListing.visibility =View.VISIBLE
-            binding.imgViewPromotedRightArrow.visibility =View.VISIBLE
+            binding.txtViewFeaturedListing.visibility =View.VISIBLE
+            binding.imgViewFeaturedRightArrow.visibility =View.VISIBLE
         }
         if (!arrBannerList.isEmpty()){
             binding.cardViewImageViewPager.visibility =View.VISIBLE

@@ -18,11 +18,13 @@ import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.code_files.ui.auth.model.seller.SellerRegistrationModel
 import com.a.luxurycar.code_files.ui.home.model.HomeResponse
+import com.a.luxurycar.code_files.ui.home.model.car_list_response.CarListResponse
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
 import com.a.luxurycar.code_files.ui.home.model.product_detail_response.ProductDetailsResponse
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.UpdateSellerProfileModel
+import com.a.luxurycar.code_files.ui.seller_deshboard.model.delete_car_response.DeleteCarResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.find_garages.FindGaragesResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.SellerCarListResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_dashboard.SellerDetailDashboardResponse
@@ -182,7 +184,11 @@ interface ApiService {
     @GET("seller/car-list")
     suspend fun getSellerForRenListResponse(@Query("rent") rent: String) : SellerCarListResponse
 
+    @DELETE("delete-car/{id}")
+    suspend fun getDeleteCarResponse(@Path("id") id:String): DeleteCarResponse
 
+    @GET("car-listings/{id}")
+    suspend fun getCarListResponse(@Path("id") id: String): CarListResponse
 
     @GET("find-garages")
     suspend fun  getFindGaragesResponse() : FindGaragesResponse

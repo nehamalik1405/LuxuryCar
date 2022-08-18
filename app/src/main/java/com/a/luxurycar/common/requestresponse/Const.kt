@@ -97,6 +97,11 @@ class Const {
       const val PARAM_LISTING_PLAN_ID = "listing_plan_id"
       const val PARAM_STATUS = "status"
 
+      //car list for param
+      const val PARAM_SUGGESTED ="suggested"
+      const val PARAM_FEATURED ="featured"
+      const val PARAM_PREMIUM ="premium"
+
 
 
 

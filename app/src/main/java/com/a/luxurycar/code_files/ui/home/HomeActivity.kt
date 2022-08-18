@@ -24,6 +24,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -89,14 +90,15 @@ class HomeActivity : AppCompatActivity() {
         leftHeaderView  = navViewLeft.getHeaderView(0)
         rightHeaderView  = navViewRight.getHeaderView(0)
         navViewRight.setItemIconTintList(null)
-
         menageClickEvents()
         setBottomNavigation()
         setLeftNavView()
-        if(SessionManager.isUserLoggedIn()){
-            setRightNavView()
+        if(!SessionManager.isUserLoggedIn()){
+           binding.navViewRight.visibility = View.GONE
+        }else{
+            binding.navViewRight.visibility = View.VISIBLE
         }
-
+        setRightNavView()
         setRightHeader()
         setLeftHeader()
         checkMenuCondition()

@@ -19,5 +19,10 @@ class SellerHomeRepository(val api:ApiService):BaseRepository() {
         api.getSellerForRenListResponse(id)
     }
 
+    suspend fun getDeleteCarResponse(id:String) = safeApiCall {
+        api.getDeleteCarResponse(id)
+    }
+
+
 
 }
