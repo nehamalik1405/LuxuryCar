@@ -95,7 +95,7 @@
 
     <string name="home_fragment">Home</string>
 
-    <string name="contact_fragment">Contact</string>
+    <string name="contact_fragment">Contact Us</string>
 
     <string name="follow_us_fragment">Follow Us</string>
 
@@ -377,6 +377,7 @@
         <item>+917</item>
         <item>+91</item>
         <item>+1</item>
+
 
     </string-array>
 

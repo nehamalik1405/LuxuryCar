@@ -102,6 +102,10 @@ class Const {
       const val PARAM_FEATURED ="featured"
       const val PARAM_PREMIUM ="premium"
 
+      //contact us param
+      const val PARAM_MESSAGE ="message"
+
+
 
 
 

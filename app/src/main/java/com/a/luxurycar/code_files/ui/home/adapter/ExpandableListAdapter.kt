@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.home.model.faqresponse.Data
+import com.a.luxurycar.code_files.ui.home.model.faqresponse.FAQResponse
 import kotlinx.android.synthetic.main.item_expandable_card.view.*
 
-class ExpandableListAdapter():RecyclerView.Adapter<ExpandableListAdapter.Viewholder>() {
+class ExpandableListAdapter(val arrListFaq:ArrayList<Data>):RecyclerView.Adapter<ExpandableListAdapter.Viewholder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
@@ -18,6 +20,15 @@ class ExpandableListAdapter():RecyclerView.Adapter<ExpandableListAdapter.Viewhol
     }
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
+        val itemData=arrListFaq[position]
+
+        if(itemData.question!=null){
+            holder.textViewQuestion.text=itemData.question
+        }
+        if(itemData.answer!=null){
+            holder.txtViewExpandable.text=itemData.answer
+        }
+
     holder.cardViewExpandable.setOnClickListener {
 
         if( holder.txtViewExpandable.isVisible){
@@ -41,5 +52,6 @@ class ExpandableListAdapter():RecyclerView.Adapter<ExpandableListAdapter.Viewhol
       val cardViewExpandable = itemView.cardViewExpandable
       val txtViewExpandable = itemView.txtViewExpandable
       val imgViewDropDown = itemView.imgViewDropDown
+      val textViewQuestion=itemView.textViewQuestion
     }
 }

@@ -93,11 +93,11 @@ class HomeActivity : AppCompatActivity() {
         menageClickEvents()
         setBottomNavigation()
         setLeftNavView()
-        if(!SessionManager.isUserLoggedIn()){
+       /* if(!SessionManager.isUserLoggedIn()){
            binding.navViewRight.visibility = View.GONE
         }else{
             binding.navViewRight.visibility = View.VISIBLE
-        }
+        }*/
         setRightNavView()
         setRightHeader()
         setLeftHeader()
@@ -262,7 +262,7 @@ class HomeActivity : AppCompatActivity() {
                             val sessionManager = SessionManager(this@HomeActivity)
                             sessionManager.logout()
                             finishAffinity()
-                            startActivity(Intent(applicationContext, HomeActivity::class.java))
+                            startActivity(Intent(applicationContext, AuthActivity::class.java))
 
                         }
                         builder1.setNegativeButton("No")
@@ -339,10 +339,12 @@ class HomeActivity : AppCompatActivity() {
                     //consLayout.visibility = View.GONE
                 }
                 else if(itemId == R.id.nav_follow_us) {
-                    onButtonShowPopupWindowClick(findViewById(R.id.nav_follow_us))
+                    navController.navigate((R.id.nav_follow_us))
+                  //  onButtonShowPopupWindowClick(findViewById(R.id.nav_follow_us))
                 }
             true
         }
+
       /*  bottomNavigation?.menu?.findItem(R.id.nav_follow_us)?.setOnMenuItemClickListener {
 
 
@@ -416,21 +418,22 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun menageClickEvents() {
-        if(SessionManager.isUserLoggedIn()){
+        /*if(SessionManager.isUserLoggedIn()){
             openOrCloseDrawerProfile()
-        }
+        }*/
         imageViewMenu.setOnClickListener {
             openOrCloseDrawer()
         }
 
         imgViewOpenProfile.setOnClickListener{
-            if(SessionManager.isUserLoggedIn()){
+           /* if(SessionManager.isUserLoggedIn()){
                 openOrCloseDrawerProfile()
             }
             else{
                 startActivity(Intent(applicationContext, AuthActivity::class.java))
-            }
+            }*/
 
+            openOrCloseDrawerProfile()
         }
 
     }

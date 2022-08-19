@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewExpandable"
@@ -22,10 +23,10 @@
             android:paddingBottom="@dimen/margin_15_dp"
             android:background="#D6E5DE">
             <TextView
-                android:id="@+id/txtViewHowMuchDoesItCostToShipaCar"
+                android:id="@+id/textViewQuestion"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/str_how_much_does_it_cost_to_ship_a_car"
+                tools:text="@string/str_how_much_does_it_cost_to_ship_a_car"
                 android:textSize="@dimen/margin_14sp"
                 android:fontFamily="@font/muli_semi_bold"
                 android:textColor="@color/black"
@@ -41,9 +42,9 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_down_arrow"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txtViewHowMuchDoesItCostToShipaCar"
+                app:layout_constraintTop_toTopOf="@+id/textViewQuestion"
                 android:layout_marginEnd="@dimen/margin_15_dp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtViewHowMuchDoesItCostToShipaCar"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewQuestion"
                 app:tint="@color/green" />
 
             <TextView
@@ -51,7 +52,7 @@
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_the_cost_will_be_based_on_a_couple_of_things_pickup_and_delivery_location_distance_open_or_enclosed_type_of_vehicle_and_vehicle_s_conditions"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewHowMuchDoesItCostToShipaCar"
+                app:layout_constraintTop_toBottomOf="@+id/textViewQuestion"
                 app:layout_constraintStart_toStartOf="parent"
                 android:textSize="@dimen/margin_13dp"
                 android:textColor="@color/description_color"

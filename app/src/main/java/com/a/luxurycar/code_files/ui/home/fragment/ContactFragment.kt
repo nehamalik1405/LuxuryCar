@@ -8,16 +8,22 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.ContactRepository
+import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
+import com.a.luxurycar.code_files.ui.home.HomeActivity
+import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.ContactViewModel
+import com.a.luxurycar.common.helper.AdapterSpinner
+import com.a.luxurycar.common.helper.NetworkHelper
+import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
-import com.a.luxurycar.common.utils.Utils
-import com.a.luxurycar.common.utils.getStringFromResource
-import com.a.luxurycar.common.utils.getTextInString
-import com.a.luxurycar.common.utils.showErrorAndSetFocus
+import com.a.luxurycar.common.requestresponse.Const
+import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentContactBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import org.json.JSONObject
 
 class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, ContactRepository>(),
     OnMapReadyCallback {
@@ -35,6 +42,7 @@ class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, C
     var email = ""
     var phone = ""
     var description = ""
+    lateinit var arrCountryCodeListHashMap: ArrayList<HashMap<String, String>>
 
     override fun getViewModel() = ContactViewModel::class.java
     override fun getFragmentBinding(
@@ -47,15 +55,39 @@ class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, C
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-
+        arrCountryCodeListHashMap = arrayListOf()
+        setCountrySpinner()
         manageClickListener()
+    }
+
+    private fun setCountrySpinner() {
+        val list = arrayListOf<String>("+917", "+91", "+1")
+
+        for (item in list) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "")
+            hashMap.put(Const.KEY_NAME, item)
+            arrCountryCodeListHashMap.add(hashMap)
+        }
+
+
+        val adapterCountryCode = AdapterSpinner(requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrCountryCodeListHashMap,
+            "contectFragment")
+
+
+        //Drop down layout style - list view for body type
+        adapterCountryCode.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        binding.spinnerCountryCode.setAdapter(adapterCountryCode)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun manageClickListener() {
         binding.btnSend.setOnClickListener {
             if (isValidate()) {
-                Toast.makeText(requireContext(), "All Field are correct", Toast.LENGTH_LONG).show()
+                callContactUsApi()
+                //  Toast.makeText(requireContext(), "All Field are correct", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -65,6 +97,49 @@ class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, C
                 view.parent.requestDisallowInterceptTouchEvent(false)
             }
             return@setOnTouchListener false
+        }
+    }
+
+    private fun callContactUsApi() {
+        contactUsApi()
+        viewModel.contactusResponse.observe(viewLifecycleOwner, Observer {
+            binding.progressBar.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        requireContext().toast(it.values.message)
+                        dataClearEditText()
+                    } else {
+                        requireContext().toast(it.values.message)
+                    }
+                }
+                is Resource.Failure -> handleApiErrors(it)
+            }
+        })
+
+
+    }
+
+    private fun contactUsApi() {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put(Const.PARAM_FIRST_NAME, firstName)
+            jsonObject.put(Const.PARAM_LAST_NAME, lastName)
+            jsonObject.put(Const.PARAM_EMAIL, email)
+            jsonObject.put(Const.PARAM_Phone, phone)
+            jsonObject.put(Const.PARAM_MESSAGE, description)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        val body = jsonObject.convertJsonToRequestBody()
+
+
+        if (NetworkHelper.isNetworkAvaialble(requireContext())) {
+            viewModel.getContactUsResponse(body)
+        } else {
+
+            requireContext().toast("No Internet Connection")
         }
     }
 
@@ -108,6 +183,15 @@ class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, C
         val india = LatLng(23.63936, 79.14712)
         map.addMarker(MarkerOptions().position(india).title("India location"))
         map.moveCamera(CameraUpdateFactory.newLatLng(india))
+    }
+
+    fun dataClearEditText(){
+        binding.edtTextFirstName.text.clear()
+        binding.edtTextLastName.text.clear()
+        binding.edtTextEnterEmail.text.clear()
+        binding.edtTextPhoneNumber.text.clear()
+        binding.edtTextEnterYourMessage.text?.clear()
+
     }
 
 }

@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 
 class AdapterSpinner(internal var context: Context, txtViewResourceId: Int,
-                     internal var list: ArrayList<HashMap<String, String>>
+                     internal var list: ArrayList<HashMap<String, String>>,val from:String =""
 ) : ArrayAdapter<String>(context, txtViewResourceId) {
 
     override fun getItem(index: Int): String? {
@@ -43,6 +43,9 @@ class AdapterSpinner(internal var context: Context, txtViewResourceId: Int,
 
         textView.setTextColor(ContextCompat.getColor(context, R.color.black))
 
+        if(from.equals("contectFragment")){
+            textView.setTextSize(15.0f)
+        }
         val events = list[position]
 
         if (events[Const.KEY_NAME] != null)
