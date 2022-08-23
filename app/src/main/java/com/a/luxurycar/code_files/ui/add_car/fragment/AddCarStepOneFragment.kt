@@ -30,6 +30,7 @@ import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
 import com.a.luxurycar.code_files.ui.add_car.adapter.AddMultipleImageAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.AddMultipleImageModel
 import com.a.luxurycar.code_files.ui.add_car.model.ImageIndexSelectionModel
+import com.a.luxurycar.code_files.ui.home.fragment.SellYourCarFragment
 import com.a.luxurycar.code_files.view_model.AddCarStepOneViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.AdapterSpinner
@@ -700,7 +701,7 @@ class AddCarStepOneFragment :
                              val bundle = Bundle()
                             bundle.putString("car_ads_id",idForImageUpload)
                             if(!idForImageUpload.isNullOrEmpty()){
-                                (activity as AddCarActivity?)?.getCurrentId(idForImageUpload)
+                                (parentFragment as SellYourCarFragment).getCurrentId(idForImageUpload)
                                 findNavController().navigate(R.id.addCarStepTwo,bundle)
                             }
 
@@ -748,7 +749,8 @@ class AddCarStepOneFragment :
 
     private fun callSalePersonApi() {
         val id = SessionManager.getUserData()?.id.toString()
-        viewModel.getSalePersonResponse("73")
+        viewModel.getSalePersonResponse(id)
+
 
         viewModel.salePersonResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             arrsalePersonListHashMap = ArrayList()
@@ -1214,7 +1216,7 @@ class AddCarStepOneFragment :
             jsonObject.put(Const.PARAM_MECHANICAL_CONDITION_ID, mechanicalConditionId)
             jsonObject.put(Const.PARAM_STEERING_TYPE, steeringSideId)
             jsonObject.put(Const.PARAM_WARRENTY, warrantyId)
-            jsonObject.put(Const.PARAM_SALES_PERSON_ID, salePersonId)
+            jsonObject.put(Const.PARAM_SALES_PERSON_ID, "3")
             jsonObject.put(Const.PARAM_TITLE, title)
             jsonObject.put(Const.PARAM_DESCRIPTION, description)
             jsonObject.put(Const.PARAM_LOCATION_URL, locationUrl)

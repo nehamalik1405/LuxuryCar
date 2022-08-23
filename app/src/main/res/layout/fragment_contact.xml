@@ -83,7 +83,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/margin_45_dp"
         android:inputType="text"
-        android:hint="@string/str_sur_name"
+        android:hint="@string/str_last_name"
         android:textColorHint="@color/sub_title_color"
         android:paddingStart="@dimen/margin_10_dp"
         android:layout_marginTop="@dimen/margin_5dp"
@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextViewTitle"
-        android:text="@string/titlt_enter_email"
+        android:text="@string/str_enter_email_address"
         android:layout_marginTop="@dimen/margin_20_dp"
         android:layout_marginStart="@dimen/margin_16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +160,7 @@
             android:background="@drawable/drawable_button_background"
             android:layout_height="match_parent">
 
-            <Spinner
+           <!-- <Spinner
                 android:id="@+id/spinnerCountryCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,7 +168,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white"/>-->
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccpCountryCodePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccp_showFlag="false"
+                app:ccp_showNameCode="false"
+                app:ccp_textSize="@dimen/margin_13sp"
+                app:ccp_contentColor="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <EditText
@@ -188,14 +204,23 @@
             />
 
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/txtViewMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        style="@style/TextViewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linLayoutPhoneNumber"/>
 
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edtTextEnterYourMessage"
         android:layout_width="0dp"
         android:layout_height="@dimen/margin_80_dp"
-        android:layout_marginTop="@dimen/margin_20_dp"
+        android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginStart="@dimen/margin_10_dp"
         android:layout_marginEnd="@dimen/margin_10_dp"
         android:paddingStart="@dimen/margin_10_dp"
@@ -204,7 +229,7 @@
         android:textColorHint="@color/sub_title_color"
         style="@style/CommonEditTextFieldForDescription"
         android:background="@drawable/drawable_rounder_edit_text_background"
-        app:layout_constraintTop_toBottomOf="@+id/linLayoutPhoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />

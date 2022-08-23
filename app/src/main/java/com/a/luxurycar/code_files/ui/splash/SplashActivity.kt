@@ -32,15 +32,16 @@ class SplashActivity : AppCompatActivity() {
         // to send a message with a delayed time.
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000)
-            if (userRole != null && userRole.equals(Const.KEY_BUYER, true)) {
+            StartActivity(HomeActivity::class.java)
+           /* if (userRole != null && userRole.equals(Const.KEY_BUYER, true)) {
                 StartActivity(HomeActivity::class.java)
             }
             else if (userRole != null && userRole.equals(Const.KEY_SELLER, true)) {
-                    StartActivity(SellerDeshboardActivity::class.java)
+                    StartActivity(HomeActivity::class.java)
                 }
             else {
                 StartActivity(AuthActivity::class.java)
-            }
+            }*/
             finish()
         }// 3000 is the delayed time in milliseconds.
 

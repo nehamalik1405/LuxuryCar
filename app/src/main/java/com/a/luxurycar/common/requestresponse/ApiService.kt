@@ -18,10 +18,12 @@ import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.code_files.ui.auth.model.seller.SellerRegistrationModel
 import com.a.luxurycar.code_files.ui.home.model.HomeResponse
+import com.a.luxurycar.code_files.ui.home.model.appointmentenquiry.BookAppointmentEnquiryResponse
 import com.a.luxurycar.code_files.ui.home.model.car_list_response.CarListResponse
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
 import com.a.luxurycar.code_files.ui.home.model.contactus.ContactUsResponse
 import com.a.luxurycar.code_files.ui.home.model.faqresponse.FAQResponse
+import com.a.luxurycar.code_files.ui.home.model.inspectinginquery.InspectingEnquiryResponse
 import com.a.luxurycar.code_files.ui.home.model.product_detail_response.ProductDetailsResponse
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
@@ -154,7 +156,7 @@ interface ApiService {
     suspend fun getSellCarStepOneResponse(): SellCarStepOneBasicListModel
 
     // seller car get car model list
-    @GET("get-sales-person-list-by-seller-id/{id}")
+    @GET("get-sales-person-list-by-seller-id/")
     suspend fun getSalePersonResponse(@Path("id") salePersonId: String): SalePersonModelList
 
 
@@ -204,9 +206,14 @@ interface ApiService {
     @POST("general-enquiry")
     suspend fun getContactUSResponse(@Body body: RequestBody): ContactUsResponse
 
-
     @GET("faqs-listing")
     suspend fun getFAQListResponse(): FAQResponse
+
+    @POST("inspecting-enquiry")
+    suspend fun getinspectingEnquiryResponse(@Body body: RequestBody): InspectingEnquiryResponse
+
+   @POST("appointment-enquiry")
+    suspend fun getBookAppointmentEnquiryResponse(@Body body: RequestBody): BookAppointmentEnquiryResponse
 
 
 

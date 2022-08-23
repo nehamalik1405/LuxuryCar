@@ -188,6 +188,7 @@
     <dimen name="heading_margin_from_top">20dp</dimen>
     <dimen name="subheading_margin_from_top">10dp</dimen>
     <dimen name="margin_65_dp">65dp</dimen>
+    <dimen name="margin_43_dp">43dp</dimen>
 
 
 </resources>

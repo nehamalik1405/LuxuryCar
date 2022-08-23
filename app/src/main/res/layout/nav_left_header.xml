@@ -50,7 +50,7 @@
             android:textSize="@dimen/margin_13sp"
             android:fontFamily="@font/muli_bold"
             android:textColor="@color/white"
-            android:text="Guest User"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView

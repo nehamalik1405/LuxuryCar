@@ -6,16 +6,205 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".code_files.ui.home.fragment.SellYourCarFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linLayoutTop"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sell Your Car"
-        android:textSize="@dimen/margin_25sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/txtViewAddCar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_10_dp"
+            android:fontFamily="@font/muli_semi_bold"
+            android:gravity="center"
+            android:text="@string/str_add_car_step_1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/consLayoutForTab"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        app:layout_constraintTop_toBottomOf="@id/linLayoutTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consLayoutTabStep1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_45_dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/consLayoutTabForRent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_step_1"
+                android:fontFamily="@font/muli_bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_size_14sp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginBottom="@dimen/margin_10_dp"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consLayoutTabStep2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_45_dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/consLayoutTabStep3"
+            app:layout_constraintStart_toEndOf="@+id/consLayoutTabStep1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_step_2"
+                android:fontFamily="@font/muli_bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_size_14sp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginBottom="@dimen/margin_10_dp"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consLayoutTabStep3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_45_dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/consLayoutTabStep2"
+            app:layout_constraintEnd_toStartOf="@+id/consLayoutTabStep4"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_step_3"
+                android:textSize="@dimen/txt_size_14sp"
+                android:fontFamily="@font/muli_bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginBottom="@dimen/margin_10_dp"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consLayoutTabStep4"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_45_dp"
+            android:layout_weight="1"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/consLayoutTabStep3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_step_4"
+                android:textSize="@dimen/txt_size_14sp"
+                android:fontFamily="@font/muli_bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:layout_marginBottom="@dimen/margin_10_dp"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/viewLineTabBootom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/consLayoutForTab"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <View
+            android:id="@+id/viewLineStep1"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/yellow_color" />
+        <View
+            android:id="@+id/viewLineStep2"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/green" />
+        <View
+            android:id="@+id/viewLineStep3"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/green" />
+        <View
+            android:id="@+id/viewLineStep4"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="@dimen/margin_3dp"
+            android:layout_weight="1"
+            android:background="@color/green" />
+    </LinearLayout>
+
+    <!-- <View
+         android:id="@+id/viewLineTabBootom"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/margin_3dp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/consLayoutForTab"
+         android:background="@color/green" />-->
+
+
+    <fragment
+        android:id="@+id/nav_host_fragment_content_main_for_add_car"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintTop_toBottomOf="@+id/viewLineTabBootom"
+        android:layout_marginTop="@dimen/margin_20_dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:navGraph="@navigation/nav_add_car"
         />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

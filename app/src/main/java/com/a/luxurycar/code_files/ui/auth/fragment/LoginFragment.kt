@@ -106,12 +106,21 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
                         SessionManager.saveUserData(loginResponse)
                         SessionManager.setAuthorizationToken(it.values.data.accessToken)
                         SessionManager.setUserRole(user.role)
+                        val intent=Intent(requireActivity(),HomeActivity::class.java)
+                        startActivity(intent)
 
-                        if(user.role.equals(Const.KEY_BUYER, true)) {
-                            StartActivity(HomeActivity::class.java)
-                        } else {
-                            StartActivity(SellerDeshboardActivity::class.java)
-                        }
+                       /* if(user.role.equals(Const.KEY_BUYER, true)) {
+                           // StartActivity(HomeActivity::class.java)
+
+                            val intent=Intent(requireActivity(),HomeActivity::class.java).apply {
+                                putExtra("OpenDrawer",HelperClass.openRightNavigation)
+                            }
+                            startActivity(intent)
+
+                        }else if(user.role.equals(Const.KEY_SELLER, true)){
+
+                            //StartActivity(HomeActivity::class.java)
+                        }*/
                         requireActivity().finishAffinity()
 
                     }

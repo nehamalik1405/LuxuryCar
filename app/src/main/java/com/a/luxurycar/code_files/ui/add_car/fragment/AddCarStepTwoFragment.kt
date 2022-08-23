@@ -16,6 +16,7 @@ import com.a.luxurycar.code_files.ui.add_car.adapter.AddCarStepTwoDetailAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.CarAd
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.CarImage
 import com.a.luxurycar.code_files.ui.add_car.model.add_car_step_two.Detail
+import com.a.luxurycar.code_files.ui.home.fragment.SellYourCarFragment
 import com.a.luxurycar.code_files.view_model.AddCarStepTwoViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
@@ -33,6 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCarStepTwoBinding, AddCarStepTwoRepository>(),OnMapReadyCallback {
+
     private lateinit var map: GoogleMap
     lateinit var carList:ArrayList<CarImage>
     lateinit var carAdList:ArrayList<CarAd>
@@ -49,14 +51,15 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         carList = arrayListOf()
         carAdList = arrayListOf()
         detailList = arrayListOf()
         detailList = arrayListOf()
 
         callSellCarStepTwoApi()
-        observeSellCarStepTwoApiResponse()
-        (activity as AddCarActivity?)?.currentDestination()
+
+        (parentFragment as SellYourCarFragment).currentDestination()
        // setViewPager()
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -128,8 +131,8 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
         if (bundle != null) {
             id = bundle.getString("car_ads_id").toString()
         }
-     viewModel.getAddSellerListingPlan("6")
-
+       viewModel.getAddSellerListingPlan("6")
+        observeSellCarStepTwoApiResponse()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

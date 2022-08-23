@@ -14,22 +14,22 @@
 
              />
     </group>
-    <group
+   <!-- <group
         android:id="@+id/grp2"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_language"
             android:icon="@drawable/ic_arrow_back"
             android:title="@string/language" />
-    </group>
-    <group
+    </group>-->
+    <!--<group
         android:id="@+id/grp3"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_condition"
             android:icon="@drawable/ic_arrow_back"
             android:title="@string/terms_condition" />
-    </group>
+    </group>-->
     <group
         android:id="@+id/grp4"
         android:checkableBehavior="single">

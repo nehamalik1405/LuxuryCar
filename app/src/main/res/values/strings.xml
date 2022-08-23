@@ -58,6 +58,8 @@
     <string name="error_empty_full_service_history">Please select the full serive history.</string>
     <string name="error_empty_title">Please enter the title.</string>
     <string name="error_empty_description_message">Please enter the description.</string>
+     <string name="error_subject_message">Please enter the subject.</string>
+
 
     <string name="titlr_login">Login</string>
     <string name="titlr_login_underline"> <u>Login</u></string>
@@ -157,10 +159,10 @@
     <string name="str_destination_country">Destination country.*</string>
     <string name="str_number_of_cars_to_export">Number of cars to export</string>
     <string name="str_car_links">Car Links.*</string>
-    <string name="str_first_name">First Name.*</string>
-    <string name="str_last_name">Last Name.*</string>
+    <string name="str_first_name">First Name</string>
+    <string name="str_last_name">Last Name</string>
     <string name="str_email">Email.*</string>
-    <string name="str_phone">Phone.*</string>
+    <string name="str_phone">Phone no</string>
     <string name="str_get_free_quote">Get Free Quote</string>
     <string name="str_transport_export_faq_s">Transport/Export FAQ\'S</string>
     <string name="str_put_simply_car_sourcing_is_you_the_buyer_commissioning_us_the_seller_to_locate_prepare_and_supply_you_next_luxury_car">Put simply,car sourcing is you (the buyer) commissioning us (the seller) to locate,prepare and supply you next luxury car.</string>
@@ -184,9 +186,9 @@
     <string name="title_upload_logo">Upload Logo</string>
     <string name="str_please_only_upload_images_that_you_have_the_right_to_use">Please only upload images that you have the right to use</string>
     <string name="title_first_name">First Name</string>
-    <string name="title_first_name_star">First Name.*</string>
+    <string name="title_first_name_star">First Name</string>
     <string name="title_sur_name">Sur Name</string>
-    <string name="title_sur_name_star">Last Name.*</string>
+    <string name="title_sur_name_star">Last Name</string>
     <string name="str_address">Address</string>
     <string name="tirle_confirm_password">Confirm Password</string>
     <string name="title_description">Description</string>
@@ -195,7 +197,7 @@
     <string name="title_sign_up">Sign Up</string>
     <string name="str_sign_up_as_a_buyer">Sign Up as a Buyer</string>
     <string name="titlt_phone_no">Phone No.*</string>
-    <string name="titlt_enter_email">Enter Email.*</string>
+    <string name="titlt_enter_email">Enter Email</string>
     <string name="str_advertising_media_pack"><u>Advertising Media Pack</u></string>
     <string name="str_technical_specification"><u>Technical Specification</u></string>
     <string name="str_select_the_bundle_is_right_for_you">Select the bundle is right for you</string>
@@ -230,7 +232,7 @@
     <string name="title_company_name">Company name.*</string>
     <string name="title_enter_email_address">Enter Email Address.*</string>
     <string name="hint_enter_email_address">Enter email address</string>
-    <string name="title_phone_no">Phone No.*</string>
+    <string name="title_phone_no">Phone No</string>
     <string name="city_code_917">+917</string>
     <string name="str_min_price">Min Price*</string>
     <string name="str_enter_price_aed">Enter Price (AED)</string>
@@ -263,9 +265,9 @@
     <string name="hint_password">Password</string>
     <string name="str_sur_name">Sur Name</string>
     <string name="hint_last_name">Last Name</string>
-    <string name="str_company_name">Company name.*</string>
+    <string name="str_company_name">Company name</string>
     <string name="hint_company_name">Company name</string>
-    <string name="str_enter_email_address">Enter Email Address.*</string>
+    <string name="str_enter_email_address">Email address</string>
     <string name="str_917">+917</string>
     <string name="str_email_varification">Email Varification</string>
     <string name="str_didn_t_receive_any_code">Didn\'t receive any code</string>

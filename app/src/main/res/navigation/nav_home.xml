@@ -170,6 +170,16 @@
         android:name="com.a.luxurycar.code_files.ui.home.fragment.BuyerUpdateDetailFragment"
         android:label="fragment_buyer_update_detail"
         tools:layout="@layout/fragment_buyer_update_detail" />
+    <fragment
+        android:id="@+id/nav_book_an_appointment"
+        android:name="com.a.luxurycar.code_files.ui.home.fragment.BookAnAppointmentFragment"
+        android:label="fragment_book_an_appointment"
+        tools:layout="@layout/fragment_book_an_appointment" />
+    <fragment
+        android:id="@+id/nav_new_enquiry_form"
+        android:name="com.a.luxurycar.code_files.ui.home.fragment.NewEnquiryFormStorageFragment"
+        android:label="fragment_new_enquiry_form_storage"
+        tools:layout="@layout/fragment_new_enquiry_form_storage" />
 
 
 </navigation>

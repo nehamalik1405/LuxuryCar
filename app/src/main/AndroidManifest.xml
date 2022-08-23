@@ -72,7 +72,8 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".code_files.ui.home.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity

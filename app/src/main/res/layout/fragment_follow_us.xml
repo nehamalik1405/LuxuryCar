@@ -63,9 +63,8 @@
                         android:id="@+id/imgViewBackground"
                         android:layout_width="@dimen/margin_0dp"
                         android:layout_height="@dimen/margin_0dp"
-                        android:src="@drawable/ic_car_image"
+                        android:src="@mipmap/ic_inspecting_background"
                         android:scaleType="fitXY"
-                        android:alpha=".75"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -242,37 +241,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/margin_30_dp"
-        android:layout_marginEnd="@dimen/margin_40dp"
+        android:layout_marginEnd="@dimen/margin_35_dp"
         app:layout_constraintEnd_toEndOf="@+id/topConsLayout"
         app:layout_constraintBottom_toTopOf="@+id/tringleArrow"
-        android:padding="@dimen/margin_10_dp"
+        android:padding="@dimen/margin_15_dp"
         android:background="@color/green"
         >
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgViewYoutube"
-            android:layout_width="@dimen/margin_20_dp"
-            android:layout_height="@dimen/margin_20_dp"
+            android:layout_width="@dimen/margin_25_dp"
+            android:layout_height="@dimen/margin_25_dp"
             android:src="@mipmap/ic_utube"
             />
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgViewLinkedIn"
-            android:layout_width="@dimen/margin_20_dp"
-            android:layout_height="@dimen/margin_20_dp"
+            android:layout_width="@dimen/margin_25_dp"
+            android:layout_height="@dimen/margin_25_dp"
             android:src="@mipmap/ic_linkedin"
             android:layout_marginTop="@dimen/margin_5dp"
             />
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgViewInstagram"
-            android:layout_width="@dimen/margin_20_dp"
-            android:layout_height="@dimen/margin_20_dp"
+            android:layout_width="@dimen/margin_25_dp"
+            android:layout_height="@dimen/margin_25_dp"
             android:src="@mipmap/ic_instagram"
             android:layout_marginTop="@dimen/margin_5dp"
 
             />
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgViewFacebook"
-            android:layout_width="@dimen/margin_20_dp"
-            android:layout_height="@dimen/margin_20_dp"
+            android:layout_width="@dimen/margin_25_dp"
+            android:layout_height="@dimen/margin_25_dp"
             android:src="@mipmap/ic_facebook_trans"
             android:layout_marginTop="@dimen/margin_5dp"
 

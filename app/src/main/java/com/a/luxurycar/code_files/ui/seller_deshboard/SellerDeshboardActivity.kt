@@ -91,7 +91,7 @@ class SellerDeshboardActivity : AppCompatActivity() {
                 else if(itemId == R.id.nav_logout) {
                     val sessionManager = SessionManager(this@SellerDeshboardActivity)
                     sessionManager.logout()
-                    startActivity(Intent(applicationContext, HomeActivity::class.java))
+                    startActivity(Intent(applicationContext, AuthActivity::class.java))
                     finish()
                 }
                 binding.drawerLayout.closeDrawer(GravityCompat.END)

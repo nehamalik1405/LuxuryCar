@@ -56,11 +56,11 @@ class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, C
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         arrCountryCodeListHashMap = arrayListOf()
-        setCountrySpinner()
+        //setCountrySpinner()
         manageClickListener()
     }
 
-    private fun setCountrySpinner() {
+    /*private fun setCountrySpinner() {
         val list = arrayListOf<String>("+917", "+91", "+1")
 
         for (item in list) {
@@ -80,7 +80,7 @@ class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, C
         //Drop down layout style - list view for body type
         adapterCountryCode.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
         binding.spinnerCountryCode.setAdapter(adapterCountryCode)
-    }
+    }*/
 
     @SuppressLint("ClickableViewAccessibility")
     private fun manageClickListener() {

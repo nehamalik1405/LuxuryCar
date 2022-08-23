@@ -36,6 +36,8 @@ import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.common.helper.AlertDialogHelper
 import com.a.luxurycar.common.helper.CircleTransform
 import com.a.luxurycar.common.helper.SessionManager
+import com.a.luxurycar.common.requestresponse.Const
+import com.a.luxurycar.common.utils.HelperClass
 import com.a.luxurycar.common.utils.Utils
 import com.a.luxurycar.databinding.ActivityHomeBinding
 import com.bumptech.glide.Glide
@@ -66,6 +68,9 @@ class HomeActivity : AppCompatActivity() {
     lateinit var rightHeaderView: View
     val REQUEST_CODE = 100
 
+    var openRightNavigation=false
+
+    var id = ""
     var isShow = false
     companion object {
         private val REQUEST_TAKE_PHOTO = 321
@@ -77,6 +82,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        openRightNavigation=intent.getBooleanExtra("OpenDrawer",false)
 
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigation)
         navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -90,18 +97,19 @@ class HomeActivity : AppCompatActivity() {
         leftHeaderView  = navViewLeft.getHeaderView(0)
         rightHeaderView  = navViewRight.getHeaderView(0)
         navViewRight.setItemIconTintList(null)
+
         menageClickEvents()
         setBottomNavigation()
+        checkMenuCondition()
         setLeftNavView()
-       /* if(!SessionManager.isUserLoggedIn()){
-           binding.navViewRight.visibility = View.GONE
-        }else{
-            binding.navViewRight.visibility = View.VISIBLE
-        }*/
+        setLeftHeader()
         setRightNavView()
         setRightHeader()
-        setLeftHeader()
-        checkMenuCondition()
+
+        checkConditionForDrawer()
+        lockedTheDrawerBothSide()
+
+
 
         navController.popBackStack(R.id.nav_home, false)
 
@@ -122,7 +130,15 @@ class HomeActivity : AppCompatActivity() {
         })
 */
 
+    }
+    private fun lockedTheDrawerBothSide() {
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+    fun checkConditionForDrawer() {
+         if(SessionManager.isUserLoggedIn()){
+                 openOrCloseDrawerProfile()
 
+         }
     }
 
     private fun checkMenuCondition() {
@@ -135,8 +151,35 @@ class HomeActivity : AppCompatActivity() {
         val itemSellUrCar: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_sell_ur_car)
         val itemSaurceMyCar: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_saurce_my_car)
         val itemFindGarages: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_find_Garages)
+        val userRole = SessionManager.getUserRole()
+        if(SessionManager.isUserLoggedIn() && userRole != null && userRole.equals(Const.KEY_BUYER, true)){
+            itemAboutUs.setVisible(true)
+            itemCarListing.setVisible(true)
+            itemTransport.setVisible(true)
+            itemSourcing.setVisible(true)
+            itemStorage.setVisible(true)
+            itemInspecting.setVisible(true)
+            itemSellUrCar.setVisible(false)
+            itemSaurceMyCar.setVisible(true)
+            itemFindGarages.setVisible(true)
 
-        if (!SessionManager.isUserLoggedIn()){
+        }else if(SessionManager.isUserLoggedIn() && userRole != null && userRole.equals(Const.KEY_SELLER, true)){
+            itemAboutUs.setVisible(true)
+            itemCarListing.setVisible(true)
+            itemTransport.setVisible(true)
+            itemSourcing.setVisible(true)
+            itemStorage.setVisible(true)
+            itemInspecting.setVisible(true)
+            itemSellUrCar.setVisible(true)
+            itemSaurceMyCar.setVisible(false)
+            itemFindGarages.setVisible(false)
+
+
+
+        }
+
+
+       /* if (!SessionManager.isUserLoggedIn()){
             itemAboutUs.setVisible(true)
             itemCarListing.setVisible(true)
             itemTransport.setVisible(true)
@@ -153,12 +196,12 @@ class HomeActivity : AppCompatActivity() {
             itemSourcing.setVisible(true)
             itemStorage.setVisible(true)
             itemInspecting.setVisible(true)
-            itemSellUrCar.setVisible(true)
+            itemSellUrCar.setVisible(false)
             itemSaurceMyCar.setVisible(true)
             itemFindGarages.setVisible(true)
         }
 
-
+*/
     }
 
     fun setLeftHeader() {
@@ -170,13 +213,21 @@ class HomeActivity : AppCompatActivity() {
          if (userData!= null){
              val fullName = userData!!.fullName
              val email = userData.email
+             val countryName = userData.companyName
              val image = userData.image
 
 
-             if(!Utils.isEmptyOrNull(fullName)) {
-                 textViewUserName.text = fullName
-             } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
-                 textViewUserName.text = userData?.firstname +" " +userData?.lastname
+             if (userData.role.equals(Const.KEY_BUYER)){
+                 if(!Utils.isEmptyOrNull(fullName)) {
+                     textViewUserName.text = fullName
+                 } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
+                     textViewUserName.text = userData?.firstname +" " +userData?.lastname
+                 }
+             }
+             if (userData.role.equals(Const.KEY_SELLER)){
+                 if(!Utils.isEmptyOrNull(countryName)) {
+                     textViewUserName.text = countryName
+                 }
              }
 
              if(!Utils.isEmptyOrNull(email)) {
@@ -206,11 +257,21 @@ class HomeActivity : AppCompatActivity() {
              val fullName = userData!!.fullName
              val email = userData.email
              val image = userData.image
+             val countryName = userData.companyName
 
-             if(!Utils.isEmptyOrNull(fullName)) {
-                 textViewUserName.text = fullName
-             } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
-                 textViewUserName.text = userData?.firstname +" " +userData?.lastname
+
+
+             if (userData.role.equals(Const.KEY_BUYER)){
+                 if(!Utils.isEmptyOrNull(fullName)) {
+                     textViewUserName.text = fullName
+                 } else if (!Utils.isEmptyOrNull(userData?.firstname)) {
+                     textViewUserName.text = userData?.firstname +" " +userData?.lastname
+                 }
+             }
+             if (userData.role.equals(Const.KEY_SELLER)){
+                 if(!Utils.isEmptyOrNull(countryName)) {
+                     textViewUserName.text = countryName
+                 }
              }
 
              if(!Utils.isEmptyOrNull(email)) {
@@ -244,12 +305,12 @@ class HomeActivity : AppCompatActivity() {
                 if (itemId == R.id.nav_profiles) {
                     navController.navigate(R.id.nav_profiles)
                 }
-                else if(itemId == R.id.nav_language){
+               /* else if(itemId == R.id.nav_language){
                     navController.navigate(R.id.nav_language)
-                }
-                else if(itemId == R.id.nav_condition){
+                }*/
+                /*else if(itemId == R.id.nav_condition){
                     navController.navigate(R.id.nav_condition)
-                }
+                }*/
                 else if(itemId == R.id.nav_change_password){
                     navController.navigate(R.id.nav_change_password)
                 }
@@ -418,22 +479,19 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun menageClickEvents() {
-        /*if(SessionManager.isUserLoggedIn()){
-            openOrCloseDrawerProfile()
-        }*/
+
         imageViewMenu.setOnClickListener {
             openOrCloseDrawer()
         }
 
         imgViewOpenProfile.setOnClickListener{
-           /* if(SessionManager.isUserLoggedIn()){
+
+            if(!SessionManager.isUserLoggedIn()){
+                startActivity(Intent(this@HomeActivity, AuthActivity::class.java))
+            }else{
                 openOrCloseDrawerProfile()
             }
-            else{
-                startActivity(Intent(applicationContext, AuthActivity::class.java))
-            }*/
 
-            openOrCloseDrawerProfile()
         }
 
     }
@@ -448,7 +506,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun openOrCloseDrawerProfile() {
-
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.END)){
             binding.drawerLayout.closeDrawer(GravityCompat.END)
         }else{
@@ -497,4 +554,43 @@ class HomeActivity : AppCompatActivity() {
             imgViewProfile.setImageURI(data?.data) // handle chosen image
         }
     }*/
+
+
+
+   /* fun getCurrentId(id:String){
+        this.id = id
     }
+    fun currentDestination(){
+        if(navController.currentDestination?.id == R.id.addCarStepOne){
+            stepTextViewAddCar.setText("Add car step-1")
+            stepTextViewAddCar.setText("Add car step-1")
+            viewLineStep1.setBackgroundResource(R.color.yellow_color)
+            viewLineStep2.setBackgroundResource(R.color.green)
+            viewLineStep3.setBackgroundResource(R.color.green)
+            viewLineStep4.setBackgroundResource(R.color.green)
+        }
+        if(navController.currentDestination?.id == R.id.addCarStepTwo){
+            stepTextViewAddCar.setText("Add car step-2")
+            viewLineStep1.setBackgroundResource(R.color.green)
+            viewLineStep2.setBackgroundResource(R.color.yellow_color)
+            viewLineStep3.setBackgroundResource(R.color.green)
+            viewLineStep4.setBackgroundResource(R.color.green)
+        }
+        if(navController.currentDestination?.id == R.id.addCarStepThree){
+            stepTextViewAddCar.setText("Add car step-3")
+            viewLineStep1.setBackgroundResource(R.color.green)
+            viewLineStep2.setBackgroundResource(R.color.green)
+            viewLineStep3.setBackgroundResource(R.color.yellow_color)
+            viewLineStep4.setBackgroundResource(R.color.green)
+        }
+        if(navController.currentDestination?.id == R.id.addCarStepFour){
+            stepTextViewAddCar.setText("Add car step-4")
+            viewLineStep1.setBackgroundResource(R.color.green)
+            viewLineStep2.setBackgroundResource(R.color.green)
+            viewLineStep3.setBackgroundResource(R.color.green)
+            viewLineStep4.setBackgroundResource(R.color.yellow_color)
+        }
+    }*/
+
+
+}
