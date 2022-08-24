@@ -59,7 +59,7 @@
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_blank.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_book_an_appointment.xml" value="0.25" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_buyer_payment_history.xml" value="0.15648148148148147" />
-        <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_buyer_profile_detail.xml" value="0.13796296296296295" />
+        <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_buyer_profile_detail.xml" value="0.21" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_buyer_saved_cars.xml" value="0.175" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_buyer_update_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_car_list.xml" value="0.20416666666666666" />
@@ -96,7 +96,7 @@
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_update_password.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_update_seller_profile.xml" value="0.25" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_view_pager_details_image.xml" value="0.20416666666666666" />
-        <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_view_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/fragment_view_profile.xml" value="0.18" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/image_dialog.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_advertiser.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_car.xml" value="0.1814814814814815" />
@@ -106,6 +106,7 @@
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_expandable_card.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_find_garages.xml" value="0.17685185185185184" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_image.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_image_banner.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_image_dialog.xml" value="0.20102564102564102" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_list_picture_position.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_multiple_selected_image.xml" value="0.5" />
@@ -116,6 +117,7 @@
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_sourcing_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_sourcing_slider.xml" value="0.18717948717948718" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_spinner.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_transmission_type.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/item_transport_export.xml" value="0.18" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/layout.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/LuxuryCar/app/src/main/res/layout/nav_header.xml" value="0.20416666666666666" />
