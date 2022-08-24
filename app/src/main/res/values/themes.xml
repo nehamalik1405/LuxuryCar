@@ -137,5 +137,12 @@
         <item name="rippleColor">@color/white</item>
     </style>
 
+    <style name="MyCustomTabTextAppearance" parent="Theme.LuxuryCar">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+
+
 
 </resources>

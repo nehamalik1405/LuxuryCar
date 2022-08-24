@@ -123,6 +123,16 @@ class Const {
       const val PARAM_RENT_ID_FOR_SEARCH_ADS ="make_id"
       const val PARAM_TRAMISION_TYPE_FOR_SEARCH_ADS ="transmission_type"
       const val PARAM_USER_ID="user_id"
+     const val PARAM_FROM_YEAR="from_year"
+     const val PARAM_TO_YEAR="to_year"
+
+      const val PARAM_MIN_PRICE="min_price"
+      const val PARAM_MAX_PRICE="max_price"
+
+
+
+
+
 
 
 

@@ -188,33 +188,38 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-              <!--  <TextView
-                    android:id="@+id/txViewSelectedMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10_dp"
-                    android:text="@string/title_select_model"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-                <ImageView
-                    android:id="@+id/imgViewSelectedMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_15dp"
-                    android:src="@mipmap/ic_down_arrow"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/conLayoutSelectCity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_45dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:visibility="gone"
+                android:background="@drawable/drawable_background_spinner"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/conLayoutSelectModel">
+
+                <Spinner
+                    android:id="@+id/spinnerSelectedCity"
+                    android:layout_width="@dimen/margin_0_dp"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog"
+                    android:layout_marginStart="@dimen/margin_2dp"
+                    android:backgroundTint="@color/gray_600"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <!-- price and year -->
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linLayoutYear"
                 android:layout_width="0dp"
@@ -222,19 +227,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectModel">
+                app:layout_constraintTop_toBottomOf="@+id/conLayoutSelectCity">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/conLayoutYearFrom"
+                    android:id="@+id/conLayoutYearTo"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/margin_45dp"
                     android:layout_marginTop="@dimen/margin_10_dp"
                     android:layout_marginEnd="@dimen/margin_5dp"
                     android:background="@drawable/drawable_background_spinner"
-                   >
+                    >
                     <Spinner
-                        android:id="@+id/spinnerDailrPriceTo"
+                        android:id="@+id/spinnerYearTo"
                         android:layout_width="@dimen/margin_0_dp"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/gray_600"
@@ -245,44 +250,20 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                  <!--  <TextView
-                        android:id="@+id/imgViewYearFrom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10_dp"
-                        android:text="@string/title_year_from"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-                    <ImageView
-                        android:id="@+id/imgViewDownYearFrom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:src="@mipmap/ic_down_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
--->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/conLayoutYearTo"
+                    android:id="@+id/conLayoutYearFrom"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_45dp"
                     android:layout_weight="1"
                     android:layout_marginStart="@dimen/margin_5dp"
                     android:layout_marginTop="@dimen/margin_10_dp"
                     android:background="@drawable/drawable_background_spinner"
-                 >
-
+                    >
                     <Spinner
-                        android:id="@+id/spinnerDailrPriceFrom"
+                        android:id="@+id/spinnerYearFrom"
                         android:layout_width="@dimen/margin_0_dp"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/gray_600"
@@ -292,31 +273,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                   <!-- <TextView
-                        android:id="@+id/txViewYearTo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10_dp"
-                        android:text="@string/title_year_to"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-                    <ImageView
-                        android:id="@+id/imgViewYearTo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:src="@mipmap/ic_down_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />-->
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -332,17 +288,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/linLayoutYear">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/conLayoutPrice"
+                    android:id="@+id/conLayoutPriceTo"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/margin_45dp"
                     android:layout_marginTop="@dimen/margin_10_dp"
                     android:layout_marginEnd="@dimen/margin_5dp"
                     android:background="@drawable/drawable_background_spinner"
-                   >
+                    >
 
                     <Spinner
-                        android:id="@+id/spinnerWeeklyPriceFrom"
+                        android:id="@+id/spinnerPriceTo"
                         android:layout_width="@dimen/margin_0_dp"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/gray_600"
@@ -353,34 +309,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                   <!-- <TextView
-                        android:id="@+id/imgViewPriceFrom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10_dp"
-                        android:text="@string/title_price_from"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-                    <ImageView
-                        android:id="@+id/imgViewDownPriceFrom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:src="@mipmap/ic_down_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
--->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/conLayoutPriceTo"
+                    android:id="@+id/conLayoutPriceFrom"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_45dp"
                     android:layout_weight="1"
@@ -388,6 +321,107 @@
                     android:layout_marginTop="@dimen/margin_10_dp"
                     android:background="@drawable/drawable_background_spinner"
                     >
+
+                    <Spinner
+                        android:id="@+id/spinnerPriceFrom"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--dailyPrice and weekly prive-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linLayoutDailyPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutPrice">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutDailyPriceTo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_background_spinner"
+                   >
+                    <Spinner
+                        android:id="@+id/spinnerDaiyPriceTo"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutDailyPriceFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:background="@drawable/drawable_background_spinner"
+                 >
+
+                    <Spinner
+                        android:id="@+id/spinnerDailyPriceFrom"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linLayoutWeeklyPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutDailyPrice">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutWeeklyPriceTo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_background_spinner"
+                   >
 
                     <Spinner
                         android:id="@+id/spinnerWeeklyPriceTo"
@@ -401,29 +435,29 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <!--<TextView
-                        android:id="@+id/txViewPriceTo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10_dp"
-                        android:text="@string/title_price_to"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutWeeklyPriceFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:background="@drawable/drawable_background_spinner"
+                    >
 
-
-
-                    <ImageView
-                        android:id="@+id/imgViewPriceTo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:src="@mipmap/ic_down_arrow"
+                    <Spinner
+                        android:id="@+id/spinnerWeeklyPriceFrom"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />-->
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -432,12 +466,80 @@
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- deposit and payment method -->
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linLayoutDepositAndPaymentMethod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutWeeklyPrice">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutDeposit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:background="@drawable/drawable_background_spinner"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spinnerDeposit"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conLayoutPayment"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_45dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:background="@drawable/drawable_background_spinner"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spinnerPayment"
+                        android:layout_width="@dimen/margin_0_dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/gray_600"
+                        android:spinnerMode="dialog"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- transmission type-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consLayoutTransmissionType"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/linLayoutPrice"
+                app:layout_constraintTop_toBottomOf="@+id/linLayoutDepositAndPaymentMethod"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -453,7 +555,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     />
 
-                <CheckBox
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewTransmissionType"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="wrap_content"
+                    app:spanCount="2"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+              <!--  <CheckBox
                     android:id="@+id/checkBoxManual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -472,7 +584,7 @@
                     android:textColor="@color/light_black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewTransmissionType"
                     app:layout_constraintStart_toEndOf="@+id/checkBoxManual"/>
-
+-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/linLayoutKilometer"
                     android:layout_width="0dp"
@@ -480,7 +592,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@+id/checkBoxManual">
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewTransmissionType">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/conLayoutKilometerTo"

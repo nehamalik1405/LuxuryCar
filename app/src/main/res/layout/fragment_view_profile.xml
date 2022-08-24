@@ -81,11 +81,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtViewEmail"
                     android:layout_marginTop="@dimen/margin_55_dp"
-                    android:textAlignment="center"
-                    app:tabGravity="fill"
                     app:tabMode="fixed"
+                    app:tabTextAppearance="@style/MyCustomTabTextAppearance"
                     app:tabRippleColor="@color/white" />
-
 
             </RelativeLayout>
 

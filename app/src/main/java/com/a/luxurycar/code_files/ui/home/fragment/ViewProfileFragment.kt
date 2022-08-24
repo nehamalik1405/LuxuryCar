@@ -32,6 +32,7 @@ import com.a.luxurycar.common.helper.CircleTransform
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
+import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.common.requestresponse.Resource
 import com.a.luxurycar.common.utils.*
 import com.a.luxurycar.databinding.FragmentViewProfileBinding
@@ -47,7 +48,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfileBinding,UpdateDetailRepository>() {
+class ViewProfileFragment :
+    BaseFragment<UpdateDetailViewModel, FragmentViewProfileBinding, UpdateDetailRepository>() {
     var image_uri: String? = ""
     var firstName = ""
     var lastname = ""
@@ -59,21 +61,18 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 123
     }
 
-   lateinit var buyerViewpagerAdapter:BuyerViewpagerAdapter
+    lateinit var buyerViewpagerAdapter: BuyerViewpagerAdapter
     override fun getViewModel() = UpdateDetailViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentViewProfileBinding.inflate(inflater,container,false)
+    ) = FragmentViewProfileBinding.inflate(inflater, container, false)
 
-    override fun getRepository() = UpdateDetailRepository(ApiAdapter.buildApi(ApiService::class.java))
+    override fun getRepository() =
+        UpdateDetailRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-
         setViewPager()
         setBuyerDetail()
         manageClickListener()
@@ -90,31 +89,73 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         }
 
     }
+
     private fun setBuyerDetail() {
 
-        val userData = SessionManager.getUserData()
+        /*  val userData = SessionManager.getUserData()
 
-        val fullName = userData?.fullName
-        val email = userData?.email
-        setPhoto()
-        (activity as HomeActivity?)?.setRightHeader()
-        (activity as HomeActivity?)?.setLeftHeader()
+          val fullName = userData?.fullName
+          val email = userData?.email
+          setPhoto()
+          (activity as HomeActivity?)?.setRightHeader()
+          (activity as HomeActivity?)?.setLeftHeader()
 
-        if(!Utils.isEmptyOrNull(fullName)) {
-            binding.txtViewUsername.text = fullName
-        } else if(!Utils.isEmptyOrNull(userData?.firstname)) {
-            binding.txtViewUsername.text = userData?.firstname + " "+userData?.lastname
+          if(!Utils.isEmptyOrNull(fullName)) {
+              binding.txtViewUsername.text = fullName
+          } else if(!Utils.isEmptyOrNull(userData?.firstname)) {
+              binding.txtViewUsername.text = userData?.firstname + " "+userData?.lastname
+          }
+
+
+          if(!Utils.isEmptyOrNull(email)) {
+              binding.txtViewEmail.text =  email
+          }*/
+        if (SessionManager.isUserLoggedIn()) {
+
+            val data = SessionManager.getUserData()
+
+            if (data != null) {
+
+                setPhoto()
+
+                val email = data.email
+
+                if (!Utils.isEmptyOrNull(email)) {
+                    binding.txtViewEmail.text = email
+                }
+
+                if (data.role.equals("Buyer")) {
+                    val fullName = data?.fullName
+
+                    (activity as HomeActivity?)?.setRightHeader()
+                    (activity as HomeActivity?)?.setLeftHeader()
+
+                    if (!Utils.isEmptyOrNull(fullName)) {
+                        binding.txtViewUsername.text = fullName
+                    } else if (!Utils.isEmptyOrNull(data?.firstname)) {
+                        binding.txtViewUsername.text = data?.firstname + " " + data?.lastname
+                    }
+
+                }
+                else if (data.role.equals("Seller")) {
+                    val companyName = data?.companyName
+
+                    (activity as HomeActivity?)?.setRightHeader()
+                    (activity as HomeActivity?)?.setLeftHeader()
+
+                    if (!Utils.isEmptyOrNull(companyName)) {
+                        binding.txtViewUsername.text = companyName
+                    }
+                }
+
+
+            }
         }
 
-
-        if(!Utils.isEmptyOrNull(email)) {
-            binding.txtViewEmail.text =  email
-        }
-
-       /*if (buyerData != null) {
-            binding.txtViewUsername.text = buyerData.data.user.fullname
-            binding.txtViewEmail.text =  buyerData.data.user.email
-        }*/
+        /*if (buyerData != null) {
+             binding.txtViewUsername.text = buyerData.data.user.fullname
+             binding.txtViewEmail.text =  buyerData.data.user.email
+         }*/
     }
 
     private fun createImageInMultipartAndSendToServer() {
@@ -132,14 +173,15 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         viewModel.getUploadBuyerProfileImage(buyerImage!!)
         observeUploadAthleteImageCallback()
     }
+
     private fun observeUploadAthleteImageCallback() {
 
         viewModel.uploadBuyerProfileImage.observe(viewLifecycleOwner, Observer {
             binding.progressBarUploadProfileImage.visible(it is Resource.Loading)
-            when(it) {
+            when (it) {
                 is Resource.Success -> {
 
-                    if(it.values != null && it.values.status == 1) {
+                    if (it.values != null && it.values.status == 1) {
                         val updatedImage = it.values.buyerProfileData?.image
                         val loginResponse = SessionManager.getUserData()?.apply {
                             image = updatedImage!!
@@ -149,7 +191,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
                     }
 
 
-                    if(!Utils.isEmptyOrNull(it.values.message)) {
+                    if (!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(
                             requireContext(),
                             it.values.message,
@@ -166,7 +208,6 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
     }
 
 
-
     private fun setViewPager() {
         buyerViewpagerAdapter = BuyerViewpagerAdapter(this)
         binding.viewPagerProfile.adapter = buyerViewpagerAdapter
@@ -174,28 +215,27 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         TabLayoutMediator(binding.tabs, binding.viewPagerProfile) { tab, position ->
             var tabName = ""
             if (position == 0) {
-                tabName ="My Profile"
-            }
-            else if (position == 1){
-                tabName= "Saved Cars"
-            }
-            else {
-                tabName= "Payment History"
+                tabName = "My Profile"
+            } else if (position == 1) {
+                tabName = "Saved Cars"
+            } else {
+                tabName = "Payment History"
             }
             tab.text = tabName
 
         }.attach()
 
-        buyerViewpagerAdapter.setOnTabChangeListener(object : BuyerViewpagerAdapter.OnTabChangeListener {
+        buyerViewpagerAdapter.setOnTabChangeListener(object :
+            BuyerViewpagerAdapter.OnTabChangeListener {
             override fun onTabChange(BuyerProfileDetailFragment: Boolean) {
             }
         })
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -239,8 +279,6 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
         (!Utils.isEmptyOrNull(image))
         Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
     }
-
-
 
 
     private fun openBottomSheet() {
@@ -357,7 +395,7 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
             val f = File(currentPhotoPath)
             //image_uri = compressTheImageBeforeSendingToServer(currentPhotoPath).toString()
             image_uri = Uri.fromFile(f).toString()
-           // setPhoto()
+            // setPhoto()
             createImageInMultipartAndSendToServer()
         }
     }
@@ -445,8 +483,6 @@ class ViewProfileFragment : BaseFragment<UpdateDetailViewModel,FragmentViewProfi
 
 
     }
-
-
 
 
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.HomeRepository
+import com.a.luxurycar.code_files.ui.auth.AuthActivity
 import com.a.luxurycar.code_files.ui.home.adapter.*
 import com.a.luxurycar.code_files.ui.home.model.home.*
 import com.a.luxurycar.code_files.view_model.HomeViewModel
@@ -25,6 +26,7 @@ import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Const
 import com.a.luxurycar.common.requestresponse.Resource
+import com.a.luxurycar.common.utils.StartActivity
 import com.a.luxurycar.common.utils.convertJsonToRequestBody
 import com.a.luxurycar.common.utils.handleApiErrors
 import com.a.luxurycar.common.utils.visible
@@ -38,7 +40,7 @@ import kotlin.collections.ArrayList
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeRepository>() {
     var isShowMoreOption = false
 
-       lateinit var arrMakeListHashMap: ArrayList<HashMap<String, String>>
+     // lateinit var arrMakeListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrModelListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrYearFromListHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrYearToListHashMap: ArrayList<HashMap<String, String>>
@@ -49,11 +51,18 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
     lateinit var arrSelectModelHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrDailyPriceToHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrDailyPriceFromHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrMinPriceToHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrMaxPriceToHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrWeeklyPriceToHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrWeeklyPriceFromHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrKilometerToHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrKilometerFromHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrYearToHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrYearFromHashMap: ArrayList<HashMap<String, String>>
     lateinit var arrColorHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrDepositHashMap: ArrayList<HashMap<String, String>>
+    lateinit var arrPaymentHashMap: ArrayList<HashMap<String, String>>
+
 
 
     lateinit var arrSuggestedList: ArrayList<Listt>
@@ -72,18 +81,29 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
     lateinit var arrKilometerTo: ArrayList<KmsIncluded>
     lateinit var arrKilometerFrom: ArrayList<KmsIncluded>
     lateinit var arrCarColor: ArrayList<Color>
+    lateinit var arrMinPrice: ArrayList<PriceRange>
+    lateinit var arrMaxPrice: ArrayList<PriceRange>
+    lateinit var arrDeposit: ArrayList<Deposit>
+    lateinit var arrPayment: ArrayList<PaymentMethod>
+    lateinit var arrTransmissionType: ArrayList<TransmissionType>
 
     var makeId = ""
     var modelId = ""
     var kilometerTo = ""
     var kilometerFrom = ""
+    var yearTo = ""
+    var yearFrom = ""
+    var priceTo = ""
+    var priceFrom = ""
+    var deposit = ""
+    var payment = ""
     var dailyPriceTo = ""
     var dailyPriceFrom = ""
     var weeklyPriceTo = ""
     var weeklyPriceFrom = ""
     var colorId = ""
 
-    var isBuy=0
+    var isBuy="0"
 
 
     override fun getViewModel() = HomeViewModel::class.java
@@ -97,18 +117,97 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getPreviousYearList()
+        setDefaultMakeAndModel()
+        setDeafultKiloMeterAndColor()
+        setDefaultPrice()
+        setDefaultPaymentAndDepositItem()
         setSelectionOnButton()
         callHomePageApi()
         //manageSpinnerItemsLIst()
 
         manageClickListener()
 
-    }
 
+
+    }
+    private fun getPreviousYearList() {
+        val list = arrayListOf<String>()
+        arrYearToHashMap = ArrayList()
+        arrYearFromHashMap = ArrayList()
+
+        //default item for all list
+        val hashMapDefaultitem1 = HashMap<String, String>()
+        hashMapDefaultitem1.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem1.put(Const.KEY_NAME, "Select Year [To]")
+
+        //add default item
+        arrYearToHashMap.add(hashMapDefaultitem1)
+
+        val hashMapDefaultitem2 = HashMap<String, String>()
+        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem2.put(Const.KEY_NAME, "Select Year [From]")
+
+        //add default item
+        arrYearFromHashMap.add(hashMapDefaultitem2)
+
+
+        val prevYear = Calendar.getInstance()
+        list.add(prevYear[Calendar.YEAR].toString())
+        var i = 1
+        for (i in i until 50) {
+            prevYear.add(Calendar.YEAR, -1)
+            list.add(prevYear[Calendar.YEAR].toString())
+            i.dec()
+        }
+        for (item in list) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "")
+            hashMap.put(Const.KEY_NAME, item)
+            arrYearToHashMap.add(hashMap)
+            arrYearFromHashMap.add(hashMap)
+        }
+
+        val adapteryearTo = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrYearToHashMap
+        )
+
+
+        //Drop down layout style - list view with radio button
+        adapteryearTo.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerYearTo.setAdapter(adapteryearTo)
+
+
+        val adapteryearFrom = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrYearFromHashMap
+        )
+
+
+        //Drop down layout style - list view with radio button
+        adapteryearFrom.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+        //attaching data adapter to spinner
+        binding.spinnerYearFrom.setAdapter(adapteryearFrom)
+    }
+    var selectedTransmissionType=""
     private fun manageClickListener() {
 
         binding.btnSearch.setOnClickListener {
-            callSearchFilterApi()
+            if(SessionManager.isUserLoggedIn()){
+
+                if(!arrSelectedTransmission.isEmpty()){
+                    selectedTransmissionType=arrSelectedTransmission.joinToString()
+                    callSearchFilterApi()
+                }
+
+            }else{
+                StartActivity(AuthActivity::class.java)
+            }
+
         }
 
         binding.txtViewMoreOptions.paintFlags = Paint.UNDERLINE_TEXT_FLAG
@@ -156,7 +255,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    makeId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    makeId = arrCarSelectMakeHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
@@ -172,12 +271,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    modelId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    modelId = arrSelectModelHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
 
-        binding.spinnerDailrPriceTo.onItemSelectedListener =
+        binding.spinnerDaiyPriceTo.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
@@ -188,11 +287,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    dailyPriceTo = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    dailyPriceTo = arrDailyPriceToHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
-        binding.spinnerDailrPriceFrom.onItemSelectedListener =
+        binding.spinnerDailyPriceFrom.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
@@ -203,7 +302,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    dailyPriceFrom = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    dailyPriceFrom = arrDailyPriceFromHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
@@ -219,7 +318,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    weeklyPriceTo = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    weeklyPriceTo = arrWeeklyPriceToHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
@@ -235,7 +334,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    weeklyPriceFrom = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    weeklyPriceFrom = arrWeeklyPriceFromHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
@@ -251,7 +350,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    kilometerTo = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    kilometerTo = arrKilometerToHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
@@ -267,7 +366,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    kilometerFrom = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    kilometerFrom = arrKilometerFromHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
@@ -283,7 +382,103 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                     position: Int,
                     p3: Long,
                 ) {
-                    colorId = arrMakeListHashMap[position].get(Const.KEY_ID).toString()
+                    colorId = arrColorHashMap[position].get(Const.KEY_ID).toString()
+                }
+
+            }
+
+        binding.spinnerYearTo.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    yearTo = arrYearToHashMap[position].get(Const.KEY_NAME).toString()
+                }
+
+            }
+
+        binding.spinnerYearFrom.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                     yearFrom= arrYearFromHashMap[position].get(Const.KEY_NAME).toString()
+                }
+
+            }
+
+        binding.spinnerPriceTo.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    priceTo = arrMinPriceToHashMap[position].get(Const.KEY_ID).toString()
+                }
+
+            }
+
+        binding.spinnerPriceFrom.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    priceFrom = arrMaxPriceToHashMap[position].get(Const.KEY_ID).toString()
+                }
+
+            }
+
+        binding.spinnerDeposit.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    deposit = arrDepositHashMap[position].get(Const.KEY_ID).toString()
+                }
+
+            }
+
+        binding.spinnerPayment.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    payment = arrPaymentHashMap[position].get(Const.KEY_ID).toString()
                 }
 
             }
@@ -294,16 +489,31 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
         val jsonObject = JSONObject()
         try {
-            jsonObject.put(Const.PARAM_MAKE_ID_FOR_SEARCH_ADS, makeId)
-            jsonObject.put(Const.PARAM_CAR_MODEL_ID, modelId)
-            jsonObject.put(Const.PARAM_KILOMETER_FROM_FOR_SEARCH_ADS, kilometerFrom)
-            jsonObject.put(Const.PARAM_KILOMETER_TO_FOR_SEARCH_ADS, kilometerTo)
-           /// jsonObject.put(Const.PARAM_TRAMISION_TYPE_FOR_SEARCH_ADS, )
-            /*jsonObject.put(Const.PARAM_EXTERIOR_COLOR_ID, colorId)
-            jsonObject.put(Const.PARAM_MAKE_ID, makeId)
-            jsonObject.put(Const.PARAM_YEAR, yearName)
-            jsonObject.put(Const.PARAM_CAR_MODEL_ID, carModelId)*/
-            //jsonObject.put(Const.SELLER_COMPANY_NAME, carModelId)
+            if (isBuy.equals("0")){
+                jsonObject.put(Const.PARAM_MAKE_ID_FOR_SEARCH_ADS, makeId)
+                jsonObject.put(Const.PARAM_CAR_MODEL_ID, modelId)
+                jsonObject.put(Const.PARAM_KILOMETER_FROM_FOR_SEARCH_ADS, kilometerFrom)
+                jsonObject.put(Const.PARAM_KILOMETER_TO_FOR_SEARCH_ADS, kilometerTo)
+                jsonObject.put(Const.PARAM_TRAMISION_TYPE_FOR_SEARCH_ADS,selectedTransmissionType)
+                jsonObject.put(Const.PARAM_EXTERIOR_COLOR_ID,colorId)
+                jsonObject.put(Const.PARAM_USER_ID, SessionManager.getUserData()?.id.toString())
+                jsonObject.put(Const.PARAM_RENT,isBuy)
+                jsonObject.put(Const.PARAM_TO_YEAR,yearTo)
+                jsonObject.put(Const.PARAM_FROM_YEAR,yearFrom)
+                jsonObject.put(Const.PARAM_MIN_PRICE,priceTo)
+                jsonObject.put(Const.PARAM_MAX_PRICE,priceFrom)
+            }
+            if (isBuy.equals("1")){
+                jsonObject.put(Const.PARAM_MAKE_ID_FOR_SEARCH_ADS, makeId.toInt())
+                jsonObject.put(Const.PARAM_CAR_MODEL_ID, modelId.toInt())
+                jsonObject.put(Const.PARAM_KILOMETER_FROM_FOR_SEARCH_ADS, kilometerFrom)
+                jsonObject.put(Const.PARAM_KILOMETER_TO_FOR_SEARCH_ADS, kilometerTo)
+                jsonObject.put(Const.PARAM_TRAMISION_TYPE_FOR_SEARCH_ADS,"Manual")
+                jsonObject.put(Const.PARAM_EXTERIOR_COLOR_ID,colorId.toInt())
+                jsonObject.put(Const.PARAM_USER_ID,userId.toInt())
+                jsonObject.put(Const.PARAM_RENT,isBuy)
+            }
+
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -311,7 +521,26 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
         val body = jsonObject.convertJsonToRequestBody()
 
-       // viewModel.getsearchAdsResponseResponse()
+        viewModel.getsearchAdsResponseResponse(body)
+
+        viewModel.searchAdsResponseResponse.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                binding.progressBarHomePage.visible(it is Resource.Loading)
+                when (it) {
+
+                    is Resource.Success -> {
+                        if (it != null && it.values.status == 1) {
+                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                                .show()
+
+                        } else {
+                            Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                    is Resource.Failure -> handleApiErrors(it)
+                }
+            })
     }
 
     private fun liveDataObserver() {
@@ -329,12 +558,17 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                             arrPremiumList = arrayListOf()
                             arrPromotedList = arrayListOf()
                             platinumPartnersList = arrayListOf()
+                            arrDeposit = arrayListOf()
+                            arrPayment = arrayListOf()
+                            arrTransmissionType = arrayListOf()
 
 
                             arrCarMake = arrayListOf()
                             arrModel = arrayListOf()
                             arrDailyPrizeFrom = arrayListOf()
                             arrDailyPrizeTo = arrayListOf()
+                            arrMinPrice = arrayListOf()
+                            arrMaxPrice = arrayListOf()
                             arrrWeekPriceTo = arrayListOf()
                             arrWeeklyPriceFrom = arrayListOf()
                             arrKilometerTo = arrayListOf()
@@ -357,6 +591,14 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                                 arrCarMake =
                                     it.values.data!!.search_filters_list.list.makes as ArrayList<Make>
                             }
+                            if (it.values.data!!.search_filters_list.list.deposit != null && !it.values.data!!.search_filters_list.list.deposit.isEmpty()) {
+                                arrDeposit =
+                                    it.values.data!!.search_filters_list.list.deposit as ArrayList<Deposit>
+                            }
+                            if (it.values.data!!.search_filters_list.list.paymentMethod != null && !it.values.data!!.search_filters_list.list.paymentMethod.isEmpty()) {
+                                arrPayment =
+                                    it.values.data!!.search_filters_list.list.paymentMethod as ArrayList<PaymentMethod>
+                            }
                             if (it.values.data!!.search_filters_list.list.carModels != null && !it.values.data!!.search_filters_list.list.carModels.isEmpty()) {
                                 arrModel =
                                     it.values.data!!.search_filters_list.list.carModels
@@ -371,6 +613,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                                 arrDailyPrizeTo =
                                     it.values.data!!.search_filters_list.list.priceRange as ArrayList<PriceRange>
 
+                                arrMinPrice =
+                                    it.values.data!!.search_filters_list.list.priceRange as ArrayList<PriceRange>
+
+                                arrMaxPrice =
+                                    it.values.data!!.search_filters_list.list.priceRange as ArrayList<PriceRange>
+
 
                             }
                             if (it.values.data!!.search_filters_list.list.colors != null && !it.values.data!!.search_filters_list.list.colors.isEmpty()) {
@@ -383,7 +631,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                                 arrKilometerTo =
                                     it.values.data!!.search_filters_list.list.kmsIncluded as ArrayList<KmsIncluded>
 
-
+                            }
+                            if (it.values.data!!.search_filters_list.list.transmissionTypes != null && !it.values.data!!.search_filters_list.list.transmissionTypes.isEmpty()) {
+                                arrTransmissionType =
+                                    it.values.data!!.search_filters_list.list.transmissionTypes
                             }
 
                             setSuggestedList()
@@ -391,8 +642,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
                             setPromotedList()
                             setPlatinumPartnersList()
                             setViewPager()
+                            setTranmissionRecyclerView()
                             checkListNullability()
 
+                            setPaymentMethodAndDeposit()
                             setPriceRangeSpinner()
                             setMakeAndCarModel()
                             setKiloMeterAndCarColor()
@@ -409,14 +662,148 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
     }
 
-    private fun setKiloMeterAndCarColor() {
+    var arrSelectedTransmission =  ArrayList<String> ()
+
+    fun setTranmissionTypeListener(name: String, value: Boolean) {
+        if(!arrSelectedTransmission.contains(name) && value){
+            arrSelectedTransmission.add(name)
+        }else if(arrSelectedTransmission.contains(name) && value==false){
+            arrSelectedTransmission.remove(name)
+        }
+
+    }
+
+    private fun setTranmissionRecyclerView() {
+        if (!arrTransmissionType.isEmpty()){
+            val adapter = TransmissionTypeAdapter(this,arrTransmissionType)
+            binding.recyclerViewTransmissionType.adapter = adapter
+        }
+
+    }
+
+    private fun setDefaultPaymentAndDepositItem(){
+        //set  deposit
+        arrDepositHashMap = ArrayList()
+        val hashMapDefaultitem = HashMap<String, String>()
+        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem.put(Const.KEY_NAME, "Select Deposit")
+        arrDepositHashMap.add(hashMapDefaultitem)
+
+        //set  payment method
+        arrPaymentHashMap = ArrayList()
+        val hashMapDefaultitem2 = HashMap<String, String>()
+        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem2.put(Const.KEY_NAME, "Select Payment")
+        arrPaymentHashMap.add(hashMapDefaultitem2)
+    }
+
+    private fun setDeafultKiloMeterAndColor(){
         //set kilometer to
         arrKilometerToHashMap = ArrayList()
-
         val hashMapDefaultitem = HashMap<String, String>()
         hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
         hashMapDefaultitem.put(Const.KEY_NAME, "Kilometer [To]")
         arrKilometerToHashMap.add(hashMapDefaultitem)
+
+        //set kilometer from
+        arrKilometerFromHashMap = ArrayList()
+
+        val hashMapDefaultitem2 = HashMap<String, String>()
+        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem2.put(Const.KEY_NAME, "Kilometer [From]")
+        arrKilometerFromHashMap.add(hashMapDefaultitem2)
+
+        //set car color
+        arrColorHashMap = ArrayList()
+
+        val hashMapDefaultitem3 = HashMap<String, String>()
+        hashMapDefaultitem3.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem3.put(Const.KEY_NAME, "Select Color")
+        arrColorHashMap.add(hashMapDefaultitem3)
+
+    }
+
+    private fun setDefaultMakeAndModel(){
+        //set select car make to
+        arrCarSelectMakeHashMap = ArrayList()
+
+        val hashMapDefaultitem = HashMap<String, String>()
+        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem.put(Const.KEY_NAME, "Select Car Make")
+        arrCarSelectMakeHashMap.add(hashMapDefaultitem)
+
+        //set select car model to
+        arrSelectModelHashMap = ArrayList()
+
+        val hashMapDefaultitem2 = HashMap<String, String>()
+        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem2.put(Const.KEY_NAME, "Select Model")
+        arrSelectModelHashMap.add(hashMapDefaultitem2)
+
+    }
+
+    private fun setDefaultPrice(){
+        //set daily price to
+        arrDailyPriceToHashMap = ArrayList()
+
+        val hashMapDefaultitem = HashMap<String, String>()
+        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem.put(Const.KEY_NAME, "Daily Price [To]")
+        arrDailyPriceToHashMap.add(hashMapDefaultitem)
+
+        //set daily price from
+
+        arrDailyPriceFromHashMap = ArrayList()
+
+        val hashMapDefaultitem2= HashMap<String, String>()
+        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem2.put(Const.KEY_NAME, "Daily Price [From]")
+        arrDailyPriceFromHashMap.add(hashMapDefaultitem2)
+    }
+
+    private fun setPaymentMethodAndDeposit() {
+
+
+
+
+
+        for (item in arrDeposit) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "" + item.id)
+            hashMap.put(Const.KEY_NAME, item.name.toString())
+            arrDepositHashMap.add(hashMap)
+        }
+
+        val adapter = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrDepositHashMap
+        )
+
+        adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+
+        binding.spinnerDeposit.setAdapter(adapter)
+
+        for (item in arrPayment) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "" + item.id)
+            hashMap.put(Const.KEY_NAME, item.name.toString())
+            arrPaymentHashMap.add(hashMap)
+        }
+
+        val adapter2 = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrPaymentHashMap
+        )
+
+        adapter2.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+
+        binding.spinnerPayment.setAdapter(adapter2)
+
+    }
+
+    private fun setKiloMeterAndCarColor() {
 
         for (item in arrKilometerTo) {
             val hashMap = HashMap<String, String>()
@@ -435,13 +822,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
         binding.spinnerKilometerTo.setAdapter(adapter)
 
-        //set kilometer from
-        arrKilometerFromHashMap = ArrayList()
-
-        val hashMapDefaultitem2 = HashMap<String, String>()
-        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem2.put(Const.KEY_NAME, "Kilometer [From]")
-        arrKilometerFromHashMap.add(hashMapDefaultitem2)
 
         for (item in arrKilometerFrom) {
             val hashMap = HashMap<String, String>()
@@ -460,14 +840,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
         binding.spinnerKilometerFrom.setAdapter(adapter2)
 
-
-        //set car color
-        arrColorHashMap = ArrayList()
-
-        val hashMapDefaultitem3 = HashMap<String, String>()
-        hashMapDefaultitem3.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem3.put(Const.KEY_NAME, "Select Color")
-        arrColorHashMap.add(hashMapDefaultitem3)
 
         for (item in arrCarColor) {
             val hashMap = HashMap<String, String>()
@@ -488,13 +860,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
     }
 
     private fun setMakeAndCarModel() {
-        //set select car make to
-        arrCarSelectMakeHashMap = ArrayList()
 
-        val hashMapDefaultitem = HashMap<String, String>()
-        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem.put(Const.KEY_NAME, "Select Car Make")
-        arrCarSelectMakeHashMap.add(hashMapDefaultitem)
 
         for (item in arrCarMake) {
             val hashMap = HashMap<String, String>()
@@ -514,13 +880,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
         binding.spinnerSelectedMake.setAdapter(adapter)
 
 
-        //set select car make to
-        arrSelectModelHashMap = ArrayList()
-
-        val hashMapDefaultitem2 = HashMap<String, String>()
-        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem2.put(Const.KEY_NAME, "Select Model")
-        arrSelectModelHashMap.add(hashMapDefaultitem2)
 
         for (item in arrModel) {
             val hashMap = HashMap<String, String>()
@@ -543,13 +902,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
     }
 
     private fun setPriceRangeSpinner() {
-        //set daily price to
-        arrDailyPriceToHashMap = ArrayList()
 
-        val hashMapDefaultitem = HashMap<String, String>()
-        hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem.put(Const.KEY_NAME, "Daily Price [To]")
-        arrDailyPriceToHashMap.add(hashMapDefaultitem)
 
         for (item in arrDailyPrizeTo) {
             val hashMap = HashMap<String, String>()
@@ -566,17 +919,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
         adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
 
-       binding.spinnerDailrPriceTo.setAdapter(adapter)
+       binding.spinnerDaiyPriceTo.setAdapter(adapter)
 
 
-        //set daily price from
-
-        arrDailyPriceFromHashMap = ArrayList()
-
-        val hashMapDefaultitem2= HashMap<String, String>()
-        hashMapDefaultitem2.put(Const.KEY_ID, "" + 0)
-        hashMapDefaultitem2.put(Const.KEY_NAME, "Daily Price [From]")
-        arrDailyPriceFromHashMap.add(hashMapDefaultitem2)
 
         for (item in arrDailyPrizeFrom) {
             val hashMap = HashMap<String, String>()
@@ -593,7 +938,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
         adapter2.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
 
-        binding.spinnerDailrPriceFrom.setAdapter(adapter2)
+        binding.spinnerDailyPriceFrom.setAdapter(adapter2)
 
 
 
@@ -647,6 +992,56 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
 
         binding.spinnerWeeklyPriceFrom.setAdapter(adapter4)
 
+
+
+        arrMinPriceToHashMap = ArrayList()
+
+        val hashMapDefaultitem5 = HashMap<String, String>()
+        hashMapDefaultitem5.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem5.put(Const.KEY_NAME, "Select Price [To]")
+        arrMinPriceToHashMap.add(hashMapDefaultitem5)
+
+        for (item in arrMinPrice) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "" + item.id)
+            hashMap.put(Const.KEY_NAME, item.name.toString())
+            arrMinPriceToHashMap.add(hashMap)
+        }
+
+        val adapter5 = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrMinPriceToHashMap
+        )
+
+        adapter5.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+
+        binding.spinnerPriceTo.setAdapter(adapter5)
+
+
+        arrMaxPriceToHashMap = ArrayList()
+
+        val hashMapDefaultitem6 = HashMap<String, String>()
+        hashMapDefaultitem6.put(Const.KEY_ID, "" + 0)
+        hashMapDefaultitem6.put(Const.KEY_NAME, "Select Price [From]")
+        arrMaxPriceToHashMap.add(hashMapDefaultitem6)
+
+        for (item in arrMaxPrice) {
+            val hashMap = HashMap<String, String>()
+            hashMap.put(Const.KEY_ID, "" + item.id)
+            hashMap.put(Const.KEY_NAME, item.name.toString())
+            arrMaxPriceToHashMap.add(hashMap)
+        }
+
+        val adapter6 = AdapterSpinner(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrMaxPriceToHashMap
+        )
+
+        adapter6.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+
+        binding.spinnerPriceFrom.setAdapter(adapter6)
 
 
 
@@ -795,12 +1190,27 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, HomeReposi
         binding.btnToBuy.setOnClickListener {
             binding.btnToBuy.setBackgroundResource(R.drawable.drawable_button_background)
             binding.btnToRent.setBackgroundResource(R.drawable.disable_button_background)
-            isBuy=1
+            isBuy="0"
+
+           //binding.conLayoutSelectCity.visibility = View.GONE
+           binding.linLayoutDailyPrice.visibility = View.GONE
+           binding.linLayoutWeeklyPrice.visibility = View.GONE
+           binding.linLayoutDepositAndPaymentMethod.visibility = View.GONE
+           binding.linLayoutYear.visibility = View.VISIBLE
+           binding.linLayoutPrice.visibility = View.VISIBLE
+
         }
         binding.btnToRent.setOnClickListener {
             binding.btnToRent.setBackgroundResource(R.drawable.drawable_button_background)
             binding.btnToBuy.setBackgroundResource(R.drawable.disable_button_background)
-            isBuy=0
+            isBuy="1"
+           // binding.conLayoutSelectCity.visibility = View.VISIBLE
+            binding.linLayoutDailyPrice.visibility = View.VISIBLE
+            binding.linLayoutWeeklyPrice.visibility = View.VISIBLE
+            binding.linLayoutDepositAndPaymentMethod.visibility = View.VISIBLE
+            binding.linLayoutYear.visibility = View.GONE
+            binding.linLayoutPrice.visibility = View.GONE
+
         }
 
     }

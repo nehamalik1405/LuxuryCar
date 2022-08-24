@@ -19,7 +19,7 @@ class ImageAdapter(val context: Context, private val list:ArrayList<BannerList>)
         /* val view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false);
           return  ViewiewHolder(view);*/
 
-        val view: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false)
+        val view: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_banner, parent, false)
         view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         return ViewiewHolder(view)
 

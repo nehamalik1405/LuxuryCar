@@ -237,7 +237,7 @@
                 android:layout_height="@dimen/margin_45_dp"
                 android:inputType="number"
                 android:maxLength="10"
-                android:hint="@string/hint_phone_no"
+                android:hint=""
                 android:layout_margin="@dimen/margin_1dp"
                 android:textColorHint="@color/sub_title_color"
                 android:paddingStart="@dimen/margin_10_dp"

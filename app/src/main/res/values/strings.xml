@@ -114,6 +114,8 @@
     <string name="menu_sellur_car">Sell your Car</string>
     <string name="str_more_options"><u>More Options +</u></string>
     <string name="str_less_options"><u>Less Options -</u></string>
+    <string name="exquisite_cars_for_exquisite_peaople">Exquisite Cars For \nExquisite People</string>
+
 
 
     /////////////////////////
@@ -162,7 +164,7 @@
     <string name="str_first_name">First Name</string>
     <string name="str_last_name">Last Name</string>
     <string name="str_email">Email.*</string>
-    <string name="str_phone">Phone no</string>
+    <string name="str_phone">Phone no.</string>
     <string name="str_get_free_quote">Get Free Quote</string>
     <string name="str_transport_export_faq_s">Transport/Export FAQ\'S</string>
     <string name="str_put_simply_car_sourcing_is_you_the_buyer_commissioning_us_the_seller_to_locate_prepare_and_supply_you_next_luxury_car">Put simply,car sourcing is you (the buyer) commissioning us (the seller) to locate,prepare and supply you next luxury car.</string>
@@ -218,7 +220,7 @@
     <string name="title_premium">Premium</string>
     <string name="str_tell_us_about_your_car">Tell us about your car</string>
     <string name="title_jhone_deo">jhone Deo</string>
-    <string name="str_enter_your_message">Enter your message</string>
+    <string name="str_enter_your_message">Message...</string>
     <string name="str_title">Title</string>
     <string name="str_please_enter_otp">Please enter OTP.</string>
     <string name="str_please_enter_proper_otp">Please enter proper otp.</string>
@@ -231,7 +233,7 @@
     <string name="str_please_enter_your_information_below">Please enter your information below</string>
     <string name="title_company_name">Company name.*</string>
     <string name="title_enter_email_address">Enter Email Address.*</string>
-    <string name="hint_enter_email_address">Enter email address</string>
+    <string name="hint_enter_email_address">Enter address</string>
     <string name="title_phone_no">Phone No</string>
     <string name="city_code_917">+917</string>
     <string name="str_min_price">Min Price*</string>
@@ -258,7 +260,7 @@
     <string name="str_promoted_list">Promoted Car List</string>
     <string name="str_physical_inspection">Physical inspection</string>
     <string name="str__360_degree_vehicle_checks">360-degree vehicle checks</string>
-    <string name="str_comprehensive_computer_diagnostics">Comprehensive computer diagnostics</string>
+    <string name="str_comprehensive_computer_diagnostics">Comprehensive computer \ndiagnostics</string>
     <string name="str_digital_vehicle_reports">Digital vehicle reports</string>
     <string name="str_enquire">Enquire</string>
     <string name="str_book_now">Book Now</string>

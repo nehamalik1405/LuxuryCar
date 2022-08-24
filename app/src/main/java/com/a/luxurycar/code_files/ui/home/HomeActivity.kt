@@ -323,7 +323,7 @@ class HomeActivity : AppCompatActivity() {
                             val sessionManager = SessionManager(this@HomeActivity)
                             sessionManager.logout()
                             finishAffinity()
-                            startActivity(Intent(applicationContext, AuthActivity::class.java))
+                            startActivity(Intent(applicationContext, HomeActivity::class.java))
 
                         }
                         builder1.setNegativeButton("No")

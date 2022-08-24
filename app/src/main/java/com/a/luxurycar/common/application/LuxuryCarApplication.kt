@@ -2,6 +2,7 @@ package com.a.luxurycar.common.application;
 
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 
 
 class LuxuryCarApplication : Application() {
@@ -12,7 +13,7 @@ class LuxuryCarApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         instance = this
         application = this
 
