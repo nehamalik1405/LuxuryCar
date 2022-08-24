@@ -109,6 +109,25 @@ class Const {
       const val PARAM_SUBJECT ="subject"
       const val PARAM_YEAR ="year"
 
+      // param for search ads
+      const val PARAM_MAKE_ID_FOR_SEARCH_ADS ="make_id"
+      const val PARAM_MODEL_ID_FOR_SEARCH_ADS ="car_model_id"
+      const val PARAM_DAILY_PRICE_TO_FOR_SEARCH_ADS ="make_id"
+      const val PARAM_MIN_DAILY_RENT_PRICE_SEARCH_ADS ="min_daily_rent_price"
+      const val PARAM_MAX_DAILY_RENT_PRICE_SEARCH_ADS ="max_daily_rent_price"
+      const val PARAM_MIN_WEEKLY_RENT_PRICE_SEARCH_ADS ="min_weekly_rent_price"
+      const val PARAM_MAX_WEEKLY_RENT_PRICE_SEARCH_ADS ="max_weekly_rent_price"
+      const val PARAM_KILOMETER_TO_FOR_SEARCH_ADS ="to_kms"
+      const val PARAM_KILOMETER_FROM_FOR_SEARCH_ADS ="from_kms"
+      const val PARAM_COLOR_ID_FOR_SEARCH_ADS ="exterior_color_id"
+      const val PARAM_RENT_ID_FOR_SEARCH_ADS ="make_id"
+      const val PARAM_TRAMISION_TYPE_FOR_SEARCH_ADS ="transmission_type"
+      const val PARAM_USER_ID="user_id"
+
+
+
+
+
 
 
     }

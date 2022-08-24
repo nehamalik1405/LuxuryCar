@@ -25,6 +25,7 @@ import com.a.luxurycar.code_files.ui.home.model.contactus.ContactUsResponse
 import com.a.luxurycar.code_files.ui.home.model.faqresponse.FAQResponse
 import com.a.luxurycar.code_files.ui.home.model.inspectinginquery.InspectingEnquiryResponse
 import com.a.luxurycar.code_files.ui.home.model.product_detail_response.ProductDetailsResponse
+import com.a.luxurycar.code_files.ui.home.model.search_ads_response.SearchAdsResponse
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.UpdateSellerProfileModel
@@ -91,6 +92,9 @@ interface ApiService {
     @GET(Const.HOME_PAGE_URL)
     suspend fun getAdvertiserSuggestedListResponse(): HomeResponse
 
+    // home page api
+    @POST("search-ads")
+    suspend fun getsearchAdsResponseResponse(@Body requestBody: RequestBody): SearchAdsResponse
     // product detail fragments
     @GET("product-detail/{id}")
     suspend fun getProductDetailResponse(@Path("id") Id: String): ProductDetailsResponse

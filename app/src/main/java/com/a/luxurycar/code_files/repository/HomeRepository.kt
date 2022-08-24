@@ -9,5 +9,8 @@ class HomeRepository(val api: ApiService):BaseRepository() {
     suspend fun getAdvertiserSuggestedListResponse() = safeApiCall {
         api.getAdvertiserSuggestedListResponse()
     }
+    suspend fun getsearchAdsResponseResponse(requestBody: RequestBody) = safeApiCall {
+        api.getsearchAdsResponseResponse(requestBody)
+    }
 
 }
