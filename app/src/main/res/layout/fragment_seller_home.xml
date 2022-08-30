@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rootSellerDashboard"
     tools:context=".code_files.ui.seller_deshboard.fragment.SellerHomeFragment">
 
 <androidx.core.widget.NestedScrollView
+    android:id="@+id/rootSellerDashBoardPage"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
+    android:visibility="visible"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,13 +30,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/txtViewSellerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_10_dp"
             android:fontFamily="@font/muli_semi_bold"
             android:gravity="center"
-            android:text="Seller Name Dashboard"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/txt_size_15sp" />
 
@@ -41,27 +45,40 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewImageSeller"
-        android:layout_width="@dimen/margin_100_dp"
-        android:layout_height="@dimen/margin_100_dp"
+        android:layout_width="@dimen/margin_120_dp"
+        android:layout_height="@dimen/margin_120_dp"
         android:layout_marginStart="@dimen/margin_10_dp"
-        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginTop="@dimen/margin_10_dp"
         android:layout_marginEnd="@dimen/margin_15_dp"
         app:cardCornerRadius="@dimen/margin_10_dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linLayoutTop">
 
-        <ImageView
-            android:id="@+id/imgViewSellerCard"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_seller_card_image" />
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/imgViewSellerCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
+            <ImageView
+                android:id="@+id/imgViewEditProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_profile_edit" />
+        </RelativeLayout>
+
 
     </androidx.cardview.widget.CardView>
+
   <LinearLayout
       android:layout_width="@dimen/margin_0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/margin_10_dp"
+      android:layout_marginEnd="@dimen/margin_10_dp"
       app:layout_constraintTop_toTopOf="@+id/cardViewImageSeller"
       app:layout_constraintStart_toEndOf="@+id/cardViewImageSeller"
       app:layout_constraintEnd_toEndOf="parent"
@@ -79,36 +96,47 @@
         android:textColor="@color/text_color_grey"
         />
     <TextView
-        android:id="@+id/txtViewSellerCompanyName"
+        android:id="@+id/txtViewSellerCityName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         style="@style/TextViewSubTitle"
-        android:textColor="@color/light_black"
+        android:textColor="@color/black"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
       android:orientation="horizontal">
       <TextView
+          android:id="@+id/txtViewDialCode"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/str_91"
-          android:textSize="@dimen/margin_16sp"
+          android:text=""
+          android:textSize="@dimen/margin_14sp"
           style="@style/TextViewSubTitle"
+          android:textColor="@color/light_black"
           />
       <TextView
           android:id="@+id/txtViewPhoneNumber"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_5dp"
-          android:textSize="@dimen/margin_16sp"
+          android:textSize="@dimen/txt_size_15sp"
+          android:text=""
+          style="@style/TextViewSubTitle"
+          android:textColor="@color/light_black"
+          />
+    </LinearLayout>
+      <TextView
+          android:id="@+id/txtViewEmail"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/margin_14sp"
           android:text=""
           style="@style/TextViewSubTitle"
           />
-    </LinearLayout>
 
 
   </LinearLayout>
@@ -121,8 +149,8 @@
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         android:layout_marginTop="@dimen/margin_10_dp"
-        android:text="@string/str_53"
-        android:textColor="@color/light_black"
+        android:text=""
+        android:textColor="@color/green"
         app:layout_constraintTop_toBottomOf="@+id/cardViewImageSeller"
         app:layout_constraintStart_toStartOf="@+id/cardViewImageSeller"/>
 
@@ -137,7 +165,7 @@
         android:text="@string/str_for_rent"
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_light_grey"
         app:layout_constraintTop_toBottomOf="@+id/cardViewImageSeller"
         app:layout_constraintStart_toEndOf="@+id/txtViewForRentValue"/>
 
@@ -148,8 +176,8 @@
         style="@style/TextViewSubTitle"
         android:layout_marginStart="@dimen/margin_20_dp"
         android:layout_marginTop="@dimen/margin_10_dp"
-        android:text="@string/str_30"
-        android:textColor="@color/light_black"
+        android:text=""
+        android:textColor="@color/green"
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
         app:layout_constraintTop_toBottomOf="@+id/cardViewImageSeller"
@@ -166,7 +194,7 @@
         android:text="@string/str_for_sale"
         android:textSize="@dimen/margin_16sp"
         android:fontFamily="@font/muli_semi_bold"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_light_grey"
         app:layout_constraintTop_toBottomOf="@+id/cardViewImageSeller"
         app:layout_constraintStart_toEndOf="@+id/txtViewForSaleValue"/>
 
@@ -174,9 +202,7 @@
         android:id="@+id/txtViewLoremIpsumisSimplyDummyTextofPrintingInSellerHome"
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="wrap_content"
-        style="@style/TextViewSubTitle"
-        android:textSize="@dimen/txt_size_15sp"
-        android:fontFamily="@font/muli_semi_bold"
+        android:textSize="@dimen/margin_14sp"
         android:layout_marginTop="@dimen/margin_10_dp"
         android:layout_marginStart="@dimen/margin_10_dp"
         android:layout_marginEnd="@dimen/margin_10_dp"
@@ -186,7 +212,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-   <LinearLayout
+   <androidx.constraintlayout.widget.ConstraintLayout
        android:id="@+id/consLayoutForTab"
        android:layout_width="@dimen/margin_0dp"
        android:layout_height="wrap_content"
@@ -200,10 +226,8 @@
 
        <androidx.constraintlayout.widget.ConstraintLayout
            android:id="@+id/consLayoutTabForSale"
-           android:layout_width="0dp"
+           android:layout_width="@dimen/margin_0dp"
            android:layout_height="@dimen/margin_50dp"
-           android:layout_weight="1"
-           android:background="@drawable/drawable_tab_background"
            app:layout_constraintTop_toTopOf="parent"
            app:layout_constraintEnd_toStartOf="@+id/consLayoutTabForRent"
            app:layout_constraintBottom_toBottomOf="parent"
@@ -217,8 +241,6 @@
                android:textSize="@dimen/txt_size_14sp"
                android:layout_marginTop="@dimen/margin_10_dp"
                android:layout_marginBottom="@dimen/margin_10_dp"
-               android:layout_marginStart="@dimen/margin_5dp"
-               android:layout_marginEnd="@dimen/margin_5dp"
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +250,6 @@
            android:id="@+id/consLayoutTabForRent"
            android:layout_width="0dp"
            android:layout_height="@dimen/margin_50dp"
-           android:layout_weight="1"
            app:layout_constraintTop_toTopOf="parent"
            app:layout_constraintBottom_toBottomOf="parent"
            app:layout_constraintEnd_toStartOf="@+id/consLayoutTabForBuyerEnqukles"
@@ -242,8 +263,6 @@
                android:textSize="@dimen/txt_size_14sp"
                android:layout_marginTop="@dimen/margin_10_dp"
                android:layout_marginBottom="@dimen/margin_10_dp"
-               android:layout_marginStart="@dimen/margin_5dp"
-               android:layout_marginEnd="@dimen/margin_5dp"
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
@@ -251,15 +270,14 @@
        </androidx.constraintlayout.widget.ConstraintLayout>
        <androidx.constraintlayout.widget.ConstraintLayout
            android:id="@+id/consLayoutTabForBuyerEnqukles"
-           android:layout_width="0dp"
+           android:layout_width="wrap_content"
            android:layout_height="@dimen/margin_50dp"
-           android:layout_weight="1.2"
-           android:layout_marginEnd="@dimen/margin_10_dp"
            app:layout_constraintTop_toTopOf="parent"
            app:layout_constraintStart_toEndOf="@+id/consLayoutTabForRent"
            app:layout_constraintEnd_toStartOf="@+id/imgViewFilterList"
            app:layout_constraintBottom_toBottomOf="parent">
            <TextView
+               android:id="@+id/txtViewBuyerEnquiries"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/str_buyer_enquiries"
@@ -267,60 +285,125 @@
                android:fontFamily="@font/muli_bold"
                android:textColor="@color/black"
                android:layout_marginTop="@dimen/margin_10_dp"
-               android:layout_marginBottom="@dimen/margin_10_dp"
                android:layout_marginStart="@dimen/margin_5dp"
-               android:layout_marginEnd="@dimen/margin_5dp"
+               android:layout_marginBottom="@dimen/margin_10_dp"
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintEnd_toStartOf="@+id/constLayoutCount"
                app:layout_constraintStart_toStartOf="parent"/>
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:id="@+id/constLayoutCount"
+               android:layout_width="@dimen/margin_20_dp"
+               android:layout_height="@dimen/margin_20_dp"
+               android:layout_marginStart="@dimen/margin_5dp"
+               android:layout_marginEnd="@dimen/margin_10_dp"
+               android:background="@drawable/drawable_background_circle_shape"
+              app:layout_constraintTop_toTopOf="@+id/txtViewBuyerEnquiries"
+               app:layout_constraintStart_toEndOf="@+id/txtViewBuyerEnquiries"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintBottom_toBottomOf="@+id/txtViewBuyerEnquiries"
+               >
+               <TextView
+                   android:id="@+id/txtViewEnquiesCount"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="@dimen/margin_2dp"
+                   android:text="4"
+                   android:textSize="@dimen/txt_size_12sp"
+                   android:fontFamily="@font/muli_semi_bold"
+                   android:textColor="@color/white"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   />
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
        </androidx.constraintlayout.widget.ConstraintLayout>
 
        <ImageView
            android:id="@+id/imgViewFilterList"
            android:layout_width="@dimen/margin_25_dp"
            android:layout_height="@dimen/margin_25_dp"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintStart_toEndOf="@+id/consLayoutTabForBuyerEnqukles"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
            android:src="@drawable/ic_filter_list"
           android:layout_gravity="center_vertical"/>
 
 
-   </LinearLayout>
+       <View
+           android:id="@+id/viewLineForSale"
+           android:layout_width="@dimen/margin_0dp"
+           android:layout_height="@dimen/margin_3dp"
+           android:background="@color/yellow_color"
+           app:layout_constraintEnd_toEndOf="@+id/consLayoutTabForSale"
+           app:layout_constraintStart_toStartOf="@+id/consLayoutTabForSale"
+           app:layout_constraintTop_toBottomOf="@+id/consLayoutTabForSale" />
+       <View
+           android:id="@+id/viewLineForRent"
+           android:layout_width="@dimen/margin_0dp"
+           android:layout_height="@dimen/margin_3dp"
+           android:background="@color/green"
+           app:layout_constraintEnd_toEndOf="@+id/consLayoutTabForRent"
+           app:layout_constraintStart_toStartOf="@+id/consLayoutTabForRent"
+           app:layout_constraintTop_toBottomOf="@+id/consLayoutTabForRent" />
+       <View
+           android:id="@+id/viewLineForBuyerEnquiries"
+           android:layout_width="@dimen/margin_0dp"
+           android:layout_height="@dimen/margin_3dp"
+           android:background="@color/green"
+           app:layout_constraintEnd_toEndOf="@+id/consLayoutTabForBuyerEnqukles"
+           app:layout_constraintStart_toStartOf="@+id/consLayoutTabForBuyerEnqukles"
+           app:layout_constraintTop_toBottomOf="@+id/consLayoutTabForBuyerEnqukles" />
+       <View
+           android:id="@+id/viewLineForFilter"
+           android:layout_width="@dimen/margin_0dp"
+           android:layout_height="@dimen/margin_3dp"
+           android:background="@color/green"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toEndOf="@+id/viewLineForBuyerEnquiries"
+           app:layout_constraintTop_toTopOf="@+id/viewLineForBuyerEnquiries"
+           app:layout_constraintBottom_toBottomOf="@+id/viewLineForBuyerEnquiries"/>
 
-    <View
-        android:id="@+id/viewLineTabBootom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_3dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/margin_10_dp"
-        android:layout_marginEnd="@dimen/margin_10_dp"
-        app:layout_constraintTop_toBottomOf="@+id/consLayoutForTab"
-        android:background="@color/green" />
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAllList"
+        android:id="@+id/recyclerViewForRentList"
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_10_dp"
         android:nestedScrollingEnabled="false"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/viewLineTabBootom"
+        app:layout_constraintTop_toBottomOf="@+id/consLayoutForTab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/margin_20_dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewForSaleList"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/consLayoutForTab"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/margin_20_dp"/>
 
-        <ProgressBar
-        android:id="@+id/progressBarSellerHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
@@ -329,20 +412,43 @@
         android:layout_width="@dimen/margin_55_dp"
         android:layout_height="@dimen/margin_55_dp"
         android:layout_marginEnd="@dimen/margin_10_dp"
-        android:layout_marginBottom="@dimen/margin_10_dp"
+        android:layout_marginBottom="@dimen/margin_5dp"
         android:background="@drawable/drawable_background_circle_shape"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
+        android:layout_above="@+id/txtViewAddCar">
         <ImageView
             android:id="@+id/imgViewFabButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_2dp"
+            android:src="@mipmap/ic_add_circle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="@color/white" />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtViewAddCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/margin_10_dp"
+        android:layout_marginBottom="@dimen/margin_10_dp"
+        android:fontFamily="@font/muli_bold"
+        android:text="Add Car"
+        android:textColor="@color/green"
+        android:textSize="@dimen/txt_size_14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarSellerHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+       android:layout_centerInParent="true"/>
 </RelativeLayout>

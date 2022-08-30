@@ -92,40 +92,40 @@ class BuyerUpdateDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         callCountryList()
         manageListeners()
-        setBuyerDetail()
         liveDataObserver()
     }
 
-    private fun setBuyerDetail() {
-
+    private fun setBuyerData() {
         val userData = SessionManager.getUserData()
 
         val firstName = userData?.firstname
         val lastName = userData?.lastname
         val email = userData?.email
         val phone = userData?.phone
+
         setPhoto()
+
         binding.edtTextFirstName.setText(firstName)
         binding.edtTextLastName.setText(lastName)
         binding.edtTextEmail.setText(email)
         binding.edtTextPhoneNo.setText(phone)
 
-
-        /* if (buyerData != null) {
-             binding.txtViewUsername.text = buyerData.data.user.fullname
-             binding.txtViewEmail.text =  buyerData.data.user.email
-         }*/
+        if (!arrCountry.isEmpty()) {
+            val pos = arrCountry.indexOf(arrCountry.find { it.id == userData?.countryId } ?: 0)
+            binding.spinnerCountry.setSelection(pos + 1)
+        }
     }
 
-    private fun getCountrySelectedPosition(): Int {
+
+   /* private fun getCountrySelectedPosition(): Int {
         val userCountry = SessionManager.getUserData()?.country
         if (userCountry != null) {
             for (i in 0 until arrCountry.size) {
                 if (arrCountry[i].id == userCountry?.id) {
                     country_id = arrCountry[i].id.toString()
-                    callStateListApi()
                     return (i + 1)
                     break
                 }
@@ -141,7 +141,7 @@ class BuyerUpdateDetailFragment :
             for (i in 0 until arrState.size) {
                 if (arrState[i].id == userState?.id) {
                     stateId = arrState[i].id.toString()
-                    callCityListApi()
+                    // callCityListApi()
                     return (i + 1)
                     break
                 }
@@ -162,7 +162,7 @@ class BuyerUpdateDetailFragment :
             }
         }
         return 0
-    }
+    }*/
 
     private fun createImageInMultipartAndSendToServer() {
 
@@ -210,6 +210,7 @@ class BuyerUpdateDetailFragment :
                 }
                 is Resource.Failure -> handleApiErrors(it)
 
+                else -> {}
             }
 
         })
@@ -219,12 +220,8 @@ class BuyerUpdateDetailFragment :
 
     private fun callCountryList() {
         viewModel.getCountryList()
+
         viewModel.countryResponse.observe(viewLifecycleOwner, Observer {
-            arrListCountryHashMap = ArrayList()
-            val hashMapDefaultitem = HashMap<String, String>()
-            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "Country Name")
-            arrListCountryHashMap.add(hashMapDefaultitem)
 
 
             binding.progressBarUpdateDetailPage.visible(it is Resource.Loading)
@@ -234,33 +231,44 @@ class BuyerUpdateDetailFragment :
                     if (it.values.status == 1) {
                         binding.progressBarUpdateDetailPage.visible(isHidden)
                         if (it.values != null) {
-                            arrCountry = it.values.data
-                            for (item in it.values.data) {
-                                val hashMap = java.util.HashMap<String, String>()
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name.toString())
-                                arrListCountryHashMap.add(hashMap)
+
+                            if (!it.values.data.isEmpty()) {
+
+                                arrCountry = ArrayList()
+
+                                arrCountry = it.values.data
+
+                                arrListCountryHashMap = ArrayList()
+                                val hashMapDefaultitem = HashMap<String, String>()
+                                hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+                                hashMapDefaultitem.put(Const.KEY_NAME, "Country Name")
+                                arrListCountryHashMap.add(hashMapDefaultitem)
+
+                                for (item in arrCountry) {
+                                    val hashMap = java.util.HashMap<String, String>()
+                                    hashMap.put(Const.KEY_ID, "" + item.id)
+                                    hashMap.put(Const.KEY_NAME, item.name.toString())
+                                    arrListCountryHashMap.add(hashMap)
+                                }
                             }
+
+                            val adapter = AdapterSpinner(
+                                requireContext(),
+                                android.R.layout.simple_spinner_item,
+                                arrListCountryHashMap
+                            )
+                            adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                            //attaching data adapter to spinner
+                            binding.spinnerCountry.setAdapter(adapter)
+
+                            setBuyerData()
+
                         }
                     }
-
-
-                    val adapter = AdapterSpinner(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        arrListCountryHashMap
-                    )
-
-
-                    //Drop down layout style - list view with radio button
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                    //attaching data adapter to spinner
-                    binding.spinnerCountry.setAdapter(adapter)
-                    binding.spinnerCountry.setSelection(getCountrySelectedPosition())
-
-
                 }
                 is Resource.Failure -> handleApiErrors(it)
+
+                else -> {}
             }
 
 
@@ -292,7 +300,10 @@ class BuyerUpdateDetailFragment :
                             location = user.location,
                             country = user.country,
                             state = user.state,
-                            city = user.city
+                            city = user.city,
+                            cityId = user.cityId,
+                            countryId = user.countryId,
+                            stateId = user.stateId
                         )
                         SessionManager.saveUserData(loginResponse)
                         (requireActivity() as HomeActivity).setRightHeader()
@@ -308,6 +319,8 @@ class BuyerUpdateDetailFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+
+                else -> {}
             }
         })
     }
@@ -336,7 +349,10 @@ class BuyerUpdateDetailFragment :
                     p3: Long,
                 ) {
                     country_id = arrListCountryHashMap[position].get(Const.KEY_ID).toString()
-                    callStateListApi()
+                    if (country_id != null && !country_id.equals("")) {
+                        callStateListApi()
+                    }
+
                 }
 
             }
@@ -352,7 +368,10 @@ class BuyerUpdateDetailFragment :
                     p3: Long,
                 ) {
                     stateId = arrListStateHashMap[position].get(Const.KEY_ID).toString()
-                    callCityListApi()
+                    if(stateId!=null){
+                        callCityListApi()
+                    }
+
                 }
 
             }
@@ -379,11 +398,6 @@ class BuyerUpdateDetailFragment :
     private fun callCityListApi() {
         viewModel.getCitiesList(stateId)
         viewModel.cityResponse.observe(viewLifecycleOwner, Observer {
-            arrListCityHashMap = ArrayList()
-            val hashMapDefaultitem = HashMap<String, String>()
-            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "City Name")
-            arrListCityHashMap.add(hashMapDefaultitem)
 
 
             binding.progressBarUpdateDetailPage.visible(it is Resource.Loading)
@@ -394,84 +408,110 @@ class BuyerUpdateDetailFragment :
 
                         if (it.values != null) {
 
-                            arrCity = it.values.data
+                            arrListCityHashMap = ArrayList()
+                            val hashMapDefaultitem = HashMap<String, String>()
+                            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+                            hashMapDefaultitem.put(Const.KEY_NAME, "City Name")
+                            arrListCityHashMap.add(hashMapDefaultitem)
 
-                            for (item in it.values.data) {
-                                val hashMap = java.util.HashMap<String, String>()
+                            if(!it.values.data.isEmpty()){
+                                arrCity=ArrayList()
+                                arrCity = it.values.data
 
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name.toString())
-                                arrListCityHashMap.add(hashMap)
+                                for (item in it.values.data) {
+                                    val hashMap = java.util.HashMap<String, String>()
+
+                                    hashMap.put(Const.KEY_ID, "" + item.id)
+                                    hashMap.put(Const.KEY_NAME, item.name.toString())
+                                    arrListCityHashMap.add(hashMap)
+                                }
+
+                                val adapter = AdapterSpinner(
+                                    requireContext(),
+                                    android.R.layout.simple_spinner_item,
+                                    arrListCityHashMap
+                                )
+
+
+                                //Drop down layout style - list view with radio button
+                                adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                                //attaching data adapter to spinner
+                                binding.spinnerCity.setAdapter(adapter)
+
+                                setPreviousCityData()
                             }
+
                         }
                     }
 
-                    val adapter = AdapterSpinner(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        arrListCityHashMap
-                    )
 
-
-                    //Drop down layout style - list view with radio button
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                    //attaching data adapter to spinner
-                    binding.spinnerCity.setAdapter(adapter)
-                    binding.spinnerCity.setSelection(getCitySelectedPosition())
+                   //
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+
+                else -> {}
             }
 
 
         })
 
+    }
+
+    private fun setPreviousCityData() {
+        val data=SessionManager.getUserData()
+        val pos =arrCity.indexOf(arrCity.find { it.id ==data?.cityId }?:0)
+        binding.spinnerCity.setSelection(pos+1)
     }
 
     private fun callStateListApi() {
         viewModel.getSateList(country_id)
         viewModel.stateResponse.observe(viewLifecycleOwner, Observer {
-            arrListStateHashMap = ArrayList()
-            val hashMapDefaultitem = HashMap<String, String>()
-            hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
-            hashMapDefaultitem.put(Const.KEY_NAME, "State Name")
-            arrListStateHashMap.add(hashMapDefaultitem)
 
 
             binding.progressBarUpdateDetailPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status == 1) {
-                        binding.progressBarUpdateDetailPage.visible(isHidden)
-
                         if (it.values != null) {
 
-                            arrState = it.values.data
-                            for (item in it.values.data) {
-                                val hashMap = java.util.HashMap<String, String>()
+                            if (!it.values.data.isEmpty()) {
 
-                                hashMap.put(Const.KEY_ID, "" + item.id)
-                                hashMap.put(Const.KEY_NAME, item.name.toString())
-                                arrListStateHashMap.add(hashMap)
+                                arrState= ArrayList()
+                                arrState = it.values.data
+
+
+                                arrListStateHashMap = ArrayList()
+                                val hashMapDefaultitem = HashMap<String, String>()
+                                hashMapDefaultitem.put(Const.KEY_ID, "" + 0)
+                                hashMapDefaultitem.put(Const.KEY_NAME, "State Name")
+                                arrListStateHashMap.add(hashMapDefaultitem)
+
+                                for (item in it.values.data) {
+                                    val hashMap = java.util.HashMap<String, String>()
+
+                                    hashMap.put(Const.KEY_ID, "" + item.id)
+                                    hashMap.put(Const.KEY_NAME, item.name.toString())
+                                    arrListStateHashMap.add(hashMap)
+                                }
+
+                                val adapter = AdapterSpinner(
+                                    requireContext(),
+                                    android.R.layout.simple_spinner_item,
+                                    arrListStateHashMap)
+
+                                adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
+                                binding.spinnerState.setAdapter(adapter)
+
+                                setpreviousStateData()
                             }
                         }
+
                     }
-
-                    val adapter = AdapterSpinner(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        arrListStateHashMap
-                    )
-
-
-                    //Drop down layout style - list view with radio button
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down_item)
-                    //attaching data adapter to spinner
-                    binding.spinnerState.setAdapter(adapter)
-                    binding.spinnerState.setSelection(getStateSelectedPosition())
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
 
 
@@ -479,8 +519,13 @@ class BuyerUpdateDetailFragment :
 
     }
 
-    private fun callUpdateDetailApi() {
+    private fun setpreviousStateData() {
+        val userData = SessionManager.getUserData()
+        val pos = arrState.indexOf(arrState.find { it.id == userData?.stateId } ?: 0)
+        binding.spinnerState.setSelection(pos + 1)
+    }
 
+    private fun callUpdateDetailApi() {
         viewModel.getBuyerUpdateDetails(
             firstName,
             lastName,
@@ -495,9 +540,6 @@ class BuyerUpdateDetailFragment :
     private fun getDataFromEditField() {
         firstName = binding.edtTextFirstName.getTextInString()
         lastName = binding.edtTextLastName.getTextInString()
-        // country = binding.edtTextCountryName.getTextInString()
-        //   state = binding.edtTextStateName.getTextInString()
-        //  city = binding.edtTextCityName.getTextInString()
         email = binding.edtTextEmail.getTextInString()
         phone = binding.edtTextPhoneNo.getTextInString()
     }
@@ -588,8 +630,8 @@ class BuyerUpdateDetailFragment :
     private fun setPhoto() {
         val userData = SessionManager.getUserData()
         val image = userData?.image
-        if(!Utils.isEmptyOrNull(image))
-        Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
+        if (!Utils.isEmptyOrNull(image))
+            Picasso.get().load(image).transform(CircleTransform()).into(binding.imgViewUserProfile)
     }
 
 

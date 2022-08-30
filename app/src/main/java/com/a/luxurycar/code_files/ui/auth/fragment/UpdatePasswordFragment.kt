@@ -54,6 +54,7 @@ class UpdatePasswordFragment : BaseFragment<ForgotPasswordViewModel,FragmentUpda
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

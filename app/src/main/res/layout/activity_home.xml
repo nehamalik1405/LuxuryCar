@@ -23,6 +23,7 @@
        android:fitsSystemWindows="true"
        android:minHeight="?attr/actionBarSize"
        app:itemIconTint="#006138"
+       android:layout_marginTop="@dimen/margin_22dp"
        app:headerLayout="@layout/nav_left_header"
        app:menu="@menu/drawer_left_menu" />
 

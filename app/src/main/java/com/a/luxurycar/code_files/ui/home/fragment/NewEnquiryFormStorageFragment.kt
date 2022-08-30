@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.NewEnquiryFormRepository
@@ -63,12 +64,14 @@ class NewEnquiryFormStorageFragment :
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
                         requireContext().toast(it.values.message)
+                        findNavController().popBackStack()
                         dataClearEditText()
                     } else {
                         requireContext().toast(it.values.message)
                     }
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

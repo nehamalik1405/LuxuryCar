@@ -58,7 +58,7 @@
     <string name="error_empty_full_service_history">Please select the full serive history.</string>
     <string name="error_empty_title">Please enter the title.</string>
     <string name="error_empty_description_message">Please enter the description.</string>
-     <string name="error_subject_message">Please enter the subject.</string>
+    <string name="error_subject_message">Please enter the subject.</string>
 
 
     <string name="titlr_login">Login</string>
@@ -114,8 +114,7 @@
     <string name="menu_sellur_car">Sell your Car</string>
     <string name="str_more_options"><u>More Options +</u></string>
     <string name="str_less_options"><u>Less Options -</u></string>
-    <string name="exquisite_cars_for_exquisite_peaople">Exquisite Cars For \nExquisite People</string>
-
+    <string name="exquisite_cars_for_exquisite_peaople">Exquisite Cars For \n Exquisite People</string>
 
 
     /////////////////////////
@@ -276,7 +275,7 @@
     <string name="str_verify">Verify</string>
     <string name="str_chevrolet_comoro_2_door">Chevrolet Comoro 2-door</string>
     <string name="str_aed_175_000">AED 175,000</string>
-    <string name="str_coll">Coll</string>
+    <string name="str_call">Call</string>
     <string name="str_exotic_cars">Exotic Cars</string>
     <string name="str_details">Details</string>
     <string name="str_make">Make</string>
@@ -375,6 +374,7 @@
     <string name="str_next">NEXT</string>
     <string name="featured_car_list">Featured Car List</string>
     <string name="our_platinum_partners">Our Platinum Partners</string>
+    <string name="message_please_include_your_budget">Message (Please include your budget)</string>
 
 
     <string-array name="countryCode">

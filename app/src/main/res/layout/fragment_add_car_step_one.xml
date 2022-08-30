@@ -12,6 +12,7 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:nestedScrollingEnabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/margin_20_dp">
@@ -1616,6 +1617,7 @@
                 app:rippleColor="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <ProgressBar

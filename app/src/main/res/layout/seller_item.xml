@@ -74,9 +74,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_kilometer"
                     android:textSize="@dimen/margin_13sp"
-                    android:fontFamily="@font/muli_semi_bold"
-                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:fontFamily="@font/muli_bold"
                     android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/margin_10_dp"
                     android:layout_weight="0.8"/>
 
 

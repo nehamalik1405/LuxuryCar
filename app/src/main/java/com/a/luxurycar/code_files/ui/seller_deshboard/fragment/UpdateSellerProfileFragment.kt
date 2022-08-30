@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
-import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +23,6 @@ import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.SellerRepository
 import com.a.luxurycar.code_files.ui.auth.model.LoginCommonResponse
-import com.a.luxurycar.code_files.ui.seller_deshboard.SellerDeshboardActivity
 import com.a.luxurycar.code_files.view_model.SellerViewModel
 import com.a.luxurycar.common.application.LuxuryCarApplication
 import com.a.luxurycar.common.helper.CircleTransform
@@ -110,7 +108,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
                             location = user.location,
                         )
                         SessionManager.saveUserData(loginResponse)
-                        (requireActivity() as SellerDeshboardActivity).setRightHeader()
+                     //   (requireActivity() as SellerDeshboardActivity).setRightHeader()
                         findNavController().popBackStack()
 
                     }
@@ -121,6 +119,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
@@ -129,6 +128,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
             it.hideKeyboard()
             //createImageInMultipartAndSendToServer()
             if (isUpdateDataValid()){
+
                 callSellerUpdateApi()
             }
         }
@@ -165,7 +165,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
     }
     private fun callSellerUpdateApi() {
         liveDataObserver()
-    viewModel.getUpdateSellerDetailResponse(companyName,email,phone,location,description)
+      viewModel.getUpdateSellerDetailResponse(companyName,email,phone,location,description)
 
     }
 
@@ -174,12 +174,9 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
         phone = binding.edtTextPhoneNo.getTextInString()
         email = binding.edtTextEmail.getTextInString()
         location = binding.edtTextLocation.getTextInString()
-       /* password = binding.edtTextPassword.getTextInString()
-        confirmPassword = binding.edtTextConfirmPassword.getTextInString()*/
         description = binding.edtTextDescription.getTextInString()
     }
     private fun isUpdateDataValid(): Boolean {
-
         getDataFromEditField()
         if (Utils.isEmptyOrNull(companyName)) {
             binding.edtTextCompanyName.showErrorAndSetFocus(getStringFromResource(R.string.error_empty_company_name))
@@ -236,7 +233,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
         binding.edtTextDescription.setText(description)
 
         setPhoto()
-        (activity as SellerDeshboardActivity?)?.setRightHeader()
+       // (activity as SellerDeshboardActivity?)?.setRightHeader()
           //  binding.txtViewUsername.text = sellerData.data.user.company_name
          //   binding.txtViewEmail.text =  sellerData.data.user.email
 
@@ -322,6 +319,7 @@ class UpdateSellerProfileFragment : BaseFragment<SellerViewModel, FragmentUpdate
                     }
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
 
             }
 

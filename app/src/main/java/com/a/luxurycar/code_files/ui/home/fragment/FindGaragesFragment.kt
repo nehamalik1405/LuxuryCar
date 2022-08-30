@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.FindGaragesRepository
 import com.a.luxurycar.code_files.ui.home.adapter.FindGarageAdapter
@@ -20,6 +22,7 @@ import com.a.luxurycar.common.utils.handleApiErrors
 import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentFindGaragesBinding
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.find_garages.Data
+import com.a.luxurycar.common.requestresponse.Const
 
 
 class FindGaragesFragment : BaseFragment<FindGaragesViewModel,FragmentFindGaragesBinding,FindGaragesRepository>() {
@@ -41,7 +44,7 @@ class FindGaragesFragment : BaseFragment<FindGaragesViewModel,FragmentFindGarage
         findGaragesList = arrayListOf()
         filterFindGaragesList()
         callFindGaragesApi()
-        observeCallFindGaragesApiResponse()
+
     }
 
     private fun filterFindGaragesList() {
@@ -85,18 +88,27 @@ class FindGaragesFragment : BaseFragment<FindGaragesViewModel,FragmentFindGarage
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
 
     private fun callFindGaragesApi() {
       viewModel.getFindGaragesResponse()
+        observeCallFindGaragesApiResponse()
 
     }
 
     private fun setFindGaragesList() {
-        findGarageAdapter =FindGarageAdapter(findGaragesList)
+        findGarageAdapter =FindGarageAdapter(this,findGaragesList)
         binding.recyclerViewFindGarages.adapter = findGarageAdapter
+    }
+
+    fun navigateToGarageDetailPage(findGarageId: String) {
+        val bundle = Bundle()
+        bundle.putString(Const.PARAM_ID_FOR_GARAGE,findGarageId)
+
+        findNavController().navigate(R.id.nav_garage_details,bundle)
     }
 
 }

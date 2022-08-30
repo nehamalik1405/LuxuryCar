@@ -24,8 +24,10 @@ import com.a.luxurycar.databinding.ActivityAddCarBinding
 import com.a.luxurycar.databinding.FragmentSellYourCarBinding
 
 
-class SellYourCarFragment : BaseFragment<SellYourCarViewModel, FragmentSellYourCarBinding, SellYourCarRepository>() {
+class SellYourCarFragment :
+    BaseFragment<SellYourCarViewModel, FragmentSellYourCarBinding, SellYourCarRepository>() {
 
+    var carAdId = ""
     override fun getViewModel() = SellYourCarViewModel::class.java
 
     override fun getFragmentBinding(
@@ -48,14 +50,14 @@ class SellYourCarFragment : BaseFragment<SellYourCarViewModel, FragmentSellYourC
     lateinit var viewLineStep3: View
     lateinit var viewLineStep4: View
     lateinit var stepTextViewAddCar: TextView
-    var id = ""
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main_for_add_car) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         stepTextViewAddCar = view.findViewById(R.id.txtViewAddCar)
 
@@ -73,8 +75,8 @@ class SellYourCarFragment : BaseFragment<SellYourCarViewModel, FragmentSellYourC
         manageClickListener()
     }
 
-    fun getCurrentId(id: String) {
-        this.id = id
+    fun getCurrentId(cardAddId: String) {
+        carAdId = cardAddId
     }
 
     fun currentDestination() {
@@ -123,38 +125,57 @@ class SellYourCarFragment : BaseFragment<SellYourCarViewModel, FragmentSellYourC
          }*/
 
         step2.setOnClickListener {
-            if (!id.isNullOrEmpty()) {
+            if (!carAdId.isNullOrEmpty()) {
                 stepTextViewAddCar.setText("Add car step-2")
                 viewLineStep1.setBackgroundResource(R.color.green)
                 viewLineStep2.setBackgroundResource(R.color.yellow_color)
                 viewLineStep3.setBackgroundResource(R.color.green)
                 viewLineStep4.setBackgroundResource(R.color.green)
-                navController.navigate(R.id.addCarStepTwo)
+
+                if (!carAdId.equals("") && !carAdId.isNullOrEmpty()) {
+                    val bundle = Bundle().apply {
+                        putString("car_ads_id", carAdId)
+                    }
+                    navController.navigate(R.id.addCarStepTwo, bundle)
+                }
+
             }
 
         }
         step3.setOnClickListener {
-            if (!id.isNullOrEmpty()) {
+            if (!carAdId.equals("") && !carAdId.isNullOrEmpty()) {
                 stepTextViewAddCar.setText("Add car step-3")
                 viewLineStep1.setBackgroundResource(R.color.green)
                 viewLineStep2.setBackgroundResource(R.color.green)
                 viewLineStep3.setBackgroundResource(R.color.yellow_color)
                 viewLineStep4.setBackgroundResource(R.color.green)
-                navController.navigate(R.id.addCarStepThree)
+                val bundle = Bundle().apply {
+                    putString("car_ads_id", carAdId)
+                }
+                navController.navigate(R.id.addCarStepThree, bundle)
             }
+
+
         }
         step4.setOnClickListener {
-            if (!id.isNullOrEmpty()) {
+            if (!carAdId.isNullOrEmpty()) {
                 stepTextViewAddCar.setText("Add car step-4")
                 viewLineStep1.setBackgroundResource(R.color.green)
                 viewLineStep2.setBackgroundResource(R.color.green)
                 viewLineStep3.setBackgroundResource(R.color.green)
                 viewLineStep4.setBackgroundResource(R.color.yellow_color)
-                navController.navigate(R.id.addCarStepFour)
+
+                if (!carAdId.equals("") && !carAdId.isNullOrEmpty()) {
+                    val bundle = Bundle().apply {
+                        putString("car_ads_id", carAdId)
+                    }
+                    navController.navigate(R.id.addCarStepFour, bundle)
+                }
+
             }
         }
 
 
     }
-    
+
 }

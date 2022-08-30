@@ -107,6 +107,7 @@ class BuyerRegister :
 
                     }
                     is Resource.Failure -> handleApiErrors(it)
+                    else -> {}
                 }
 
 
@@ -121,7 +122,7 @@ class BuyerRegister :
 
 
     private fun liveDataObserver() {
-        viewModel.registerResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.registerResponse.observe(viewLifecycleOwner,Observer {
             binding.progressBarRegisterPage.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
@@ -161,6 +162,7 @@ class BuyerRegister :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
@@ -300,6 +302,7 @@ class BuyerRegister :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
 
 
@@ -351,6 +354,7 @@ class BuyerRegister :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
 
 

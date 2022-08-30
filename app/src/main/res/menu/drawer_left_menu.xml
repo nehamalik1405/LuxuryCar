@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-
-
     <group
         android:id="@+id/nav_grp1"
         android:checkableBehavior="single">
@@ -42,16 +40,7 @@
             android:checkable="true"
             android:title="@string/menu_soucing" />
     </group>
-    <group
-        android:id="@+id/nav_grp_storage"
-        android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/nav_storage"
-            android:icon="@drawable/ic_arrow_back"
-            android:checkable="true"
-            android:title="storage" />
-    </group>
     <group
         android:id="@+id/nav_grp5"
         android:checkableBehavior="single">
@@ -62,24 +51,7 @@
             android:checkable="true"
             android:title="@string/menu_Inspecting" />
     </group>
-    <group
-        android:id="@+id/nav_grp6"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_sell_ur_car"
-            android:icon="@drawable/ic_arrow_back"
-            android:checkable="true"
-            android:title="@string/menu_sellur_car" />
-    </group>
-    <group
-        android:id="@+id/nav_grp7"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_saurce_my_car"
-            android:icon="@drawable/ic_arrow_back"
-            android:checkable="true"
-            android:title="Saurce my car" />
-    </group>
+
     <group
         android:id="@+id/nav_grp8"
         android:checkableBehavior="single">
@@ -89,7 +61,36 @@
             android:checkable="true"
             android:title="Find Garages" />
     </group>
+    <group
+        android:id="@+id/nav_grp11"
+        android:checkableBehavior="single">
 
+        <item
+            android:id="@+id/nav_storage"
+            android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
+            android:title="storage" />
+    </group>
+    <group
+        android:id="@+id/nav_grp10"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_advertiseWithUsFragment"
+            android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
+            android:title="Advertise With Us" />
+    </group>
+
+
+  <!--  <group
+        android:id="@+id/nav_grp7"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_saurce_my_car"
+            android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
+            android:title="Saurce my car" />
+    </group>-->
 
 
 </menu>

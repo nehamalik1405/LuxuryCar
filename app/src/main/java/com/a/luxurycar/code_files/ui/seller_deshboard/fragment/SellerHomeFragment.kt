@@ -6,27 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.SellerHomeRepository
 import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
+import com.a.luxurycar.code_files.ui.home.model.garage_response.GarageCar
 import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.ForRentAdapter
 import com.a.luxurycar.code_files.ui.seller_deshboard.adapter.ForSaleAdapter
 import com.a.luxurycar.code_files.view_model.SellerHomeViewModel
 import com.a.luxurycar.common.requestresponse.ApiAdapter
 import com.a.luxurycar.common.requestresponse.ApiService
 import com.a.luxurycar.common.requestresponse.Resource
-import com.a.luxurycar.common.utils.StartActivity
-import com.a.luxurycar.common.utils.Utils
-import com.a.luxurycar.common.utils.handleApiErrors
-import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentSellerHomeBinding
 import com.squareup.picasso.Picasso
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.Data
-import okhttp3.internal.notify
+import com.a.luxurycar.common.helper.NetworkHelper
+import com.a.luxurycar.common.helper.SessionManager
+import com.a.luxurycar.common.requestresponse.Const
+import com.a.luxurycar.common.utils.*
 
 class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBinding,SellerHomeRepository>() {
-
 
     lateinit var forSaleList:ArrayList<Data>
     lateinit var forRentList:ArrayList<Data>
@@ -38,23 +38,26 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
         override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentSellerHomeBinding.inflate(inflater,container,false)
+        )= FragmentSellerHomeBinding.inflate(inflater,container,false)
 
     override fun getRepository() = SellerHomeRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        forRentList = arrayListOf()
-        forSaleList = arrayListOf()
 
+        checkCondition()
         manageClickListener()
         callSellerDetailApi()
         callSellerForSaleListApi()
-        observeCallSellerDetailResponse()
-        observeGetSellerForSaleListResponse()
-        observeGetSellerForRentListResponse()
-        //setForSaleList()
-        //setForRentList()
+
+    }
+
+    private fun checkCondition() {
+        val data = SessionManager.getUserData()
+        if (data?.role.equals(Const.KEY_BUYER)){
+            binding.consLayoutTabForBuyerEnqukles.visibility = View.GONE
+
+        }
     }
 
     private fun observeGetSellerForRentListResponse() {
@@ -63,7 +66,9 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
+                        forRentList = arrayListOf()
                         forRentList = it.values.data
+
                         setForRentList()
 
                     }
@@ -75,12 +80,22 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
 
     private fun callSellerForRentListApi() {
-        viewModel.getSellerRenListResponse("1")
+        rentListApi()
+        observeGetSellerForRentListResponse()
+    }
+
+    private fun rentListApi() {
+        if (NetworkHelper.isNetworkAvaialble(requireContext())) {
+            viewModel.getSellerRenListResponse("1")
+        } else {
+            requireContext().toast("No Internet Connection")
+        }
     }
 
     private fun observeGetSellerForSaleListResponse() {
@@ -89,6 +104,7 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
+                        forSaleList = arrayListOf()
                         forSaleList = it.values.data
                             setForSaleList()
 
@@ -101,12 +117,24 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
 
     private fun callSellerForSaleListApi() {
-     viewModel.getSellerForSaleListResponse("0")
+        saleListApi()
+        observeGetSellerForSaleListResponse()
+    }
+
+    private fun saleListApi() {
+        if (NetworkHelper.isNetworkAvaialble(requireContext())) {
+            viewModel.getSellerForSaleListResponse("0")
+
+        } else {
+            requireContext().toast("No Internet Connection")
+        }
+
     }
 
     private fun observeCallSellerDetailResponse() {
@@ -115,12 +143,38 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
+
                         val data = it.values.data
 
-                        Picasso.get().load(data.image).into(binding.imgViewSellerCard)
-                        binding.txtViewSellerCompanyName.text = data.companyName
-                        binding.txtViewPhoneNumber.text = data.phone
-                        binding.txtViewLoremIpsumisSimplyDummyTextofPrintingInSellerHome.text = data.description
+                        binding.rootSellerDashBoardPage.visibility = View.VISIBLE
+
+                        if(!data.image.isNullOrEmpty()){
+                            Picasso.get().load(data.image).into(binding.imgViewSellerCard)
+                        }
+                        if(!data.companyName.isNullOrEmpty()){
+                            binding.txtViewSellerName.text = data.companyName
+                        }
+                        if(data.countryCode !=null){
+                            binding.txtViewSellerCityName.text = data.countryCode.toString()
+                        }
+                        if(data.dialCode != null){
+                            binding.txtViewDialCode.text = "+"+data.dialCode.toString()
+                        }
+                        if(!data.phone.isNullOrEmpty()){
+                            binding.txtViewPhoneNumber.text = data.phone
+                        }
+                        if(!data.email.isNullOrEmpty()){
+                            binding.txtViewEmail.text = data.email
+                        }
+                        if(!data.description.isNullOrEmpty()){
+                            binding.txtViewLoremIpsumisSimplyDummyTextofPrintingInSellerHome.text = data.description
+                        }
+                        if(data.rentCars != null){
+                            binding.txtViewForRentValue.text = data.rentCars.toString()
+                        }
+                        if(data.saleCars != null){
+                            binding.txtViewForSaleValue.text = data.saleCars.toString()
+                        }
 
                     }
 
@@ -131,48 +185,90 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
 
     private fun callSellerDetailApi() {
-        viewModel.getSellerDetailDasboardResponse()
+        sellerDetailApi()
+
+        observeCallSellerDetailResponse()
+    }
+
+    private fun sellerDetailApi() {
+        if (NetworkHelper.isNetworkAvaialble(requireContext())) {
+            viewModel.getSellerDetailDasboardResponse()
+        } else {
+            requireContext().toast("No Internet Connection")
+        }
     }
 
     private fun setForRentList() {
+       /* binding.recyclerViewForRentList.visibility = View.VISIBLE
+        binding.recyclerViewForSaleList.visibility = View.GONE*/
        forRentAdapter = ForRentAdapter(requireContext(),forRentList,this)
-        binding.recyclerViewAllList.adapter = forRentAdapter
-
+        binding.recyclerViewForRentList.adapter = forRentAdapter
     }
 
     private fun setForSaleList() {
+      /*  binding.recyclerViewForRentList.visibility = View.GONE
+        binding.recyclerViewForSaleList.visibility = View.VISIBLE*/
          forSaleAdapter = ForSaleAdapter(requireContext(),forSaleList,this)
-        binding.recyclerViewAllList.adapter = forSaleAdapter
+        binding.recyclerViewForSaleList.adapter = forSaleAdapter
     }
+
     private fun manageClickListener() {
         binding.conLayoutFabButton.setOnClickListener {
             StartActivity(AddCarActivity::class.java)
             //requireActivity().finishAffinity()
         }
 
-        binding.consLayoutTabForSale.setOnClickListener {
-            binding.consLayoutTabForRent.setBackgroundResource(0)
-            binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(0)
-            binding.consLayoutTabForSale.setBackgroundResource(R.drawable.drawable_tab_background)
-            callSellerForSaleListApi()
+        binding.imgViewEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.nav_updateSellerProfileFragment)
+        }
 
+        binding.consLayoutTabForSale.setOnClickListener {
+            binding.viewLineForSale.setBackgroundResource(R.color.yellow_color)
+            binding.viewLineForRent.setBackgroundResource(R.color.green)
+            binding.viewLineForFilter.setBackgroundResource(R.color.green)
+            binding.viewLineForBuyerEnquiries.setBackgroundResource(R.color.green)
+           /* binding.consLayoutTabForRent.setBackgroundResource(0)
+            binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(0)
+            binding.consLayoutTabForSale.setBackgroundResource(R.drawable.drawable_tab_background)*/
+            binding.recyclerViewForRentList.visibility = View.GONE
+            binding.recyclerViewForSaleList.visibility = View.VISIBLE
+            callSellerForSaleListApi()
         }
         binding.consLayoutTabForRent.setOnClickListener {
-            binding.consLayoutTabForSale.setBackgroundResource(0)
+            binding.viewLineForSale.setBackgroundResource(R.color.green)
+            binding.viewLineForRent.setBackgroundResource(R.color.yellow_color)
+            binding.viewLineForFilter.setBackgroundResource(R.color.green)
+            binding.viewLineForBuyerEnquiries.setBackgroundResource(R.color.green)
+            /*binding.consLayoutTabForSale.setBackgroundResource(0)
             binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(0)
-            binding.consLayoutTabForRent.setBackgroundResource(R.drawable.drawable_tab_background)
+            binding.consLayoutTabForRent.setBackgroundResource(R.drawable.drawable_tab_background)*/
+            binding.recyclerViewForRentList.visibility = View.VISIBLE
+            binding.recyclerViewForSaleList.visibility = View.GONE
             callSellerForRentListApi()
-
         }
         binding.consLayoutTabForBuyerEnqukles.setOnClickListener {
-            binding.consLayoutTabForRent.setBackgroundResource(0)
+            binding.viewLineForSale.setBackgroundResource(R.color.green)
+            binding.viewLineForRent.setBackgroundResource(R.color.green)
+            binding.viewLineForFilter.setBackgroundResource(R.color.green)
+            binding.viewLineForBuyerEnquiries.setBackgroundResource(R.color.yellow_color)
+           /* binding.consLayoutTabForRent.setBackgroundResource(0)
             binding.consLayoutTabForSale.setBackgroundResource(0)
-            binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(R.drawable.drawable_tab_background)
+            binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(R.drawable.drawable_tab_background)*/
+        }
+        binding.imgViewFilterList.setOnClickListener {
+            binding.viewLineForSale.setBackgroundResource(R.color.green)
+            binding.viewLineForRent.setBackgroundResource(R.color.green)
+            binding.viewLineForFilter.setBackgroundResource(R.color.yellow_color)
+            binding.viewLineForBuyerEnquiries.setBackgroundResource(R.color.green)
+            /* binding.consLayoutTabForRent.setBackgroundResource(0)
+             binding.consLayoutTabForSale.setBackgroundResource(0)
+             binding.consLayoutTabForBuyerEnqukles.setBackgroundResource(R.drawable.drawable_tab_background)*/
         }
     }
     fun callDeleteItemApi(id:String){
@@ -195,6 +291,7 @@ class SellerHomeFragment : BaseFragment<SellerHomeViewModel,FragmentSellerHomeBi
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
 
         })

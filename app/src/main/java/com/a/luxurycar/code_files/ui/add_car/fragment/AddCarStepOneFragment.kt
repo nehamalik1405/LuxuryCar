@@ -21,12 +21,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.AddCarStepOneRepository
-import com.a.luxurycar.code_files.ui.add_car.AddCarActivity
 import com.a.luxurycar.code_files.ui.add_car.adapter.AddMultipleImageAdapter
 import com.a.luxurycar.code_files.ui.add_car.model.AddMultipleImageModel
 import com.a.luxurycar.code_files.ui.add_car.model.ImageIndexSelectionModel
@@ -63,8 +63,6 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 class AddCarStepOneFragment :
@@ -148,7 +146,7 @@ class AddCarStepOneFragment :
     var tourUrl = ""
     var rent = "0"
     var sellerId = ""
-    var idForImageUpload = ""
+    var carAddId = ""
 
     var isShowMoreDetails = false
     var PICK_IMAGE_MULTIPLE = 321
@@ -699,12 +697,14 @@ class AddCarStepOneFragment :
                                 .show()
 
                              val bundle = Bundle()
-                            bundle.putString("car_ads_id",idForImageUpload)
-                            if(!idForImageUpload.isNullOrEmpty()){
-                                (parentFragment as SellYourCarFragment).getCurrentId(idForImageUpload)
+                            bundle.putString("car_ads_id",carAddId)
+
+                            if(!carAddId.isNullOrEmpty()){
+                                val navHostFragment=requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+                                val fragment=  navHostFragment.childFragmentManager.fragments.get(0)
+                                (fragment as SellYourCarFragment).getCurrentId(carAddId)
                                 findNavController().navigate(R.id.addCarStepTwo,bundle)
                             }
-
 
                         }
 
@@ -715,6 +715,7 @@ class AddCarStepOneFragment :
 
                     }
                     is Resource.Failure -> handleApiErrors(it)
+                    else -> {}
                 }
             })
         })
@@ -730,7 +731,7 @@ class AddCarStepOneFragment :
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
                             .show()
 
-                        idForImageUpload = it.values.data.carAds.id.toString()
+                        carAddId = it.values.data.carAds.id.toString()
 
                         callUploadMultipleImagesApi()
 
@@ -742,14 +743,16 @@ class AddCarStepOneFragment :
                     }
 
                 }
-                is Resource.Failure -> handleApiErrors(it)
+
+                else -> {}
             }
+
         })
     }
 
     private fun callSalePersonApi() {
-        val id = SessionManager.getUserData()?.id.toString()
-        viewModel.getSalePersonResponse(id)
+        val data = SessionManager.getUserData()
+        viewModel.getSalePersonResponse(data?.id.toString())
 
 
         viewModel.salePersonResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -795,6 +798,7 @@ class AddCarStepOneFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
 
@@ -956,6 +960,7 @@ class AddCarStepOneFragment :
                     //setSpinnerAdapterAndDropdown()
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
 
@@ -1183,7 +1188,7 @@ class AddCarStepOneFragment :
     private fun callUploadMultipleImagesApi() {
 
         var UserId: RequestBody? = null
-        UserId = RequestBody.create("text/plain".toMediaTypeOrNull(), idForImageUpload.toString())
+        UserId = RequestBody.create("text/plain".toMediaTypeOrNull(), carAddId.toString())
         viewModel.getMultipleUploadImagesResponse(UserId, arrOfImageList)
     }
 
@@ -1387,6 +1392,8 @@ class AddCarStepOneFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+
+                else -> {}
             }
 
         })
@@ -1420,6 +1427,7 @@ class AddCarStepOneFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
@@ -1469,6 +1477,7 @@ class AddCarStepOneFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
@@ -1903,6 +1912,7 @@ class AddCarStepOneFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

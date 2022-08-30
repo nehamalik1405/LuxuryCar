@@ -29,5 +29,9 @@ data class Data(
     @SerializedName("phone")
     val phone: String,
     @SerializedName("role")
-    val role: String
+    val role: String,
+    @SerializedName("rent_cars")
+    val rentCars: Int?,
+    @SerializedName("sale_cars")
+    val saleCars: Int?
 )

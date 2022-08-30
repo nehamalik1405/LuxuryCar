@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:fillViewport="true"
-    android:paddingBottom="@dimen/margin_20_dp"
-    android:scrollbars="none"
     tools:context=".code_files.ui.home.fragment.ProductDetailFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:id="@+id/rootProductDetailPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="@dimen/margin_20_dp"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -48,14 +54,14 @@
 
             <ImageView
                 android:id="@+id/imgViewBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/margin_30_dp"
+                android:layout_height="@dimen/margin_30_dp"
                 android:layout_marginStart="@dimen/margin_15_dp"
-                android:layout_marginTop="@dimen/margin_10_dp"
+                android:padding="@dimen/margin_5dp"
                 android:src="@mipmap/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imgViewShare"
-
+                app:layout_constraintBottom_toBottomOf="@+id/imgViewShare"
                 />
 
             <ImageView
@@ -88,7 +94,6 @@
                 android:layout_marginStart="@dimen/margin_15_dp"
                 android:layout_marginTop="@dimen/margin_10_dp"
                 android:fontFamily="@font/muli_bold"
-                android:text="@string/str_chevrolet_comoro_2_door"
                 android:textColor="@color/black"
                 android:textSize="@dimen/margin_14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +106,6 @@
                 android:layout_marginStart="@dimen/margin_15_dp"
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:fontFamily="@font/muli_bold"
-                android:text="@string/str_aed_175_000"
                 android:textColor="@color/green"
                 android:textSize="@dimen/margin_14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -121,6 +125,73 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/consLayoutTopImage" />
 
+        <LinearLayout
+            android:id="@+id/linLayoutCallAndEmail"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgViewVolksWagen"
+            android:layout_marginStart="@dimen/margin_15dp"
+            android:layout_marginEnd="@dimen/margin_15dp"
+            app:layout_constraintEnd_toEndOf="@+id/imgViewVolksWagen">
+            <LinearLayout
+                android:id="@+id/btnCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawable_button_background"
+                >
+
+                <TextView
+                    android:id="@+id/txtViewCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_30_dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_30_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:text="Call"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/margin_14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10_dp"
+                android:background="@drawable/drawable_background_email_button"
+                >
+
+                <TextView
+                    android:id="@+id/txtViewEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_30_dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginEnd="@dimen/margin_30_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:text="Email"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/margin_14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+<!--
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnColl"
             android:layout_width="wrap_content"
@@ -140,7 +211,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:fontFamily="@font/muli_semi_bold"
                 android:padding="@dimen/margin_0dp"
-                android:text="@string/str_coll"
+                android:text="@string/str_call"
                 android:textColor="@color/white"
                 android:textSize="@dimen/margin_14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -149,6 +220,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+-->
 
         <ImageView
             android:id="@+id/imgViewEnd"
@@ -194,7 +266,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/margin_14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnColl" />
+            app:layout_constraintTop_toBottomOf="@+id/linLayoutCallAndEmail" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDetails"
@@ -202,6 +274,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10_dp"
             android:orientation="vertical"
+            android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -369,7 +442,7 @@
             android:id="@+id/viewLine2"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="3dp"
-            android:layout_marginTop="@dimen/margin_30_dp"
+            android:layout_marginTop="@dimen/margin_15dp"
             android:background="@color/light_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -395,7 +468,6 @@
             android:layout_marginStart="@dimen/margin_15_dp"
             android:layout_marginTop="@dimen/margin_10_dp"
             android:fontFamily="@font/muli_semi_bold"
-            android:text="@string/str_lorem_ipsum_is_simply_dummy_text_of_the_printing_and_type_industry_lorem_ipsum_has_been_the_industry_s_standards_dummy"
             android:textColor="@color/description_color"
             android:textSize="@dimen/margin_14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -406,7 +478,7 @@
             android:id="@+id/viewLine3"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="3dp"
-            android:layout_marginTop="@dimen/margin_30_dp"
+            android:layout_marginTop="@dimen/margin_15dp"
             android:background="@color/light_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -439,8 +511,8 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_15_dp"
+            android:layout_marginEnd="@dimen/margin_15dp"
             android:layout_marginTop="@dimen/margin_10_dp"
-            android:text="@string/str_palm_jumeirah_dubai_uae"
             android:textColor="@color/black"
             android:textSize="@dimen/margin_14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -467,14 +539,19 @@
         </androidx.cardview.widget.CardView>
 
 
-        <ProgressBar
-            android:id="@+id/progressBarProductDetailPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBarProductDetailPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

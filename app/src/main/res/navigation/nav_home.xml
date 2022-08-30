@@ -180,6 +180,30 @@
         android:name="com.a.luxurycar.code_files.ui.home.fragment.NewEnquiryFormStorageFragment"
         android:label="fragment_new_enquiry_form_storage"
         tools:layout="@layout/fragment_new_enquiry_form_storage" />
+    <fragment
+        android:id="@+id/nav_updateSellerProfileFragment"
+        android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.UpdateSellerProfileFragment"
+        android:label="fragment_update_seller_profile"
+        tools:layout="@layout/fragment_update_seller_profile" />
 
-
+    <fragment
+        android:id="@+id/nav_seller_dashboard"
+        android:name="com.a.luxurycar.code_files.ui.seller_deshboard.fragment.SellerHomeFragment"
+        android:label="fragment_seller_home"
+        tools:layout="@layout/fragment_seller_home" />
+    <fragment
+        android:id="@+id/nav_garage_details"
+        android:name="com.a.luxurycar.code_files.ui.home.fragment.GarageDetailsFragment"
+        android:label="fragment_garage_details"
+        tools:layout="@layout/fragment_garage_details" />
+    <fragment
+        android:id="@+id/carSearchFragment"
+        android:name="com.a.luxurycar.code_files.ui.home.fragment.CarSearchFragment"
+        android:label="fragment_car_search"
+        tools:layout="@layout/fragment_car_search" />
+    <fragment
+        android:id="@+id/nav_advertiseWithUsFragment"
+        android:name="com.a.luxurycar.code_files.ui.home.fragment.AdvertiseWithUsFragment"
+        android:label="fragment_advertise_with_us"
+        tools:layout="@layout/fragment_advertise_with_us" />
 </navigation>

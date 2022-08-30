@@ -81,7 +81,13 @@ class ViewProfileFragment :
 
     private fun manageClickListener() {
         binding.imgViewEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.nav_buyerUpdateDetailFragment)
+            val data = SessionManager.getUserData()
+            if (data?.role.equals(Const.KEY_BUYER)) {
+                findNavController().navigate(R.id.nav_buyerUpdateDetailFragment)
+            } else if (data?.role.equals(Const.KEY_SELLER)) {
+                findNavController().navigate(R.id.nav_updateSellerProfileFragment)
+            }
+
         }
 
         binding.imgViewUserProfile.setOnClickListener {
@@ -127,8 +133,8 @@ class ViewProfileFragment :
                 if (data.role.equals("Buyer")) {
                     val fullName = data?.fullName
 
-                    (activity as HomeActivity?)?.setRightHeader()
-                    (activity as HomeActivity?)?.setLeftHeader()
+                    /* (activity as HomeActivity?)?.setRightHeader()
+                     (activity as HomeActivity?)?.setLeftHeader()*/
 
                     if (!Utils.isEmptyOrNull(fullName)) {
                         binding.txtViewUsername.text = fullName
@@ -136,12 +142,11 @@ class ViewProfileFragment :
                         binding.txtViewUsername.text = data?.firstname + " " + data?.lastname
                     }
 
-                }
-                else if (data.role.equals("Seller")) {
+                } else if (data.role.equals("Seller")) {
                     val companyName = data?.companyName
 
-                    (activity as HomeActivity?)?.setRightHeader()
-                    (activity as HomeActivity?)?.setLeftHeader()
+                    /*(activity as HomeActivity?)?.setRightHeader()
+                    (activity as HomeActivity?)?.setLeftHeader()*/
 
                     if (!Utils.isEmptyOrNull(companyName)) {
                         binding.txtViewUsername.text = companyName
@@ -188,6 +193,9 @@ class ViewProfileFragment :
                         }
                         SessionManager.saveUserData(loginResponse!!)
                         setPhoto()
+                        (activity as HomeActivity?)?.setRightHeader()
+                        (activity as HomeActivity?)?.setLeftHeader()
+
                     }
 
 
@@ -200,6 +208,7 @@ class ViewProfileFragment :
                     }
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
 
             }
 

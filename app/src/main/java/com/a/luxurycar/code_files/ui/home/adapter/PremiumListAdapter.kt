@@ -36,10 +36,19 @@ class PremiumListAdapter(
                 Picasso.get().load(itemData.carImages[item].image).into(holder.imgViewItemCar)
             }
         }
-        holder.txtViewChevrolet.text = itemData.title
-        holder.txtViewModel.text = itemData.carYear
-        holder.txtViewKm.text = itemData.runKms +" km"
-        holder.txtViewPrice.text = "AED " +itemData.price
+        if(!itemData.title.isNullOrEmpty()){
+            holder.txtViewChevrolet.text = itemData.title
+        }
+        if(!itemData.carYear.isNullOrEmpty()){
+            holder.txtViewModel.text = itemData.carYear
+        }
+        if(!itemData.runKms.isNullOrEmpty()){
+            holder.txtViewKm.text = itemData.runKms +" km"
+        }
+        if(!itemData.price.isNullOrEmpty()){
+            holder.txtViewPrice.text = "AED " +itemData.price
+        }
+        holder.textViewPremium.text = "P"
 
     }
 
@@ -53,6 +62,7 @@ class PremiumListAdapter(
         val txtViewModel = itemView.txtViewModel
         val txtViewKm = itemView.txtViewKm
         val txtViewPrice = itemView.txtViewPrice
+        val textViewPremium = itemView.textViewPremium
     }
 
 }

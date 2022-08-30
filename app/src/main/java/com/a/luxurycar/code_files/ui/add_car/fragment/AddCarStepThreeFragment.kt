@@ -46,10 +46,9 @@ class AddCarStepThreeFragment :
     }
 
     private fun observeAddCarStepThreeSelectedPlanResponse() {
-        viewModel.getAddCarStepThreeSelectedPlan.observe(viewLifecycleOwner, Observer {
-
+        viewModel.getAddCarStepThreeSelectedPlan.observe(viewLifecycleOwner,Observer {
             binding.progressBarForAddCarStepThree.visible(it is Resource.Loading)
-            when (it) {
+            when(it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
@@ -63,6 +62,7 @@ class AddCarStepThreeFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
 
         })
@@ -76,7 +76,7 @@ class AddCarStepThreeFragment :
     private fun observeSellerStepThreeResponse() {
         viewModel.getAddSellerListingPlanResponse.observe(viewLifecycleOwner , Observer {
             binding.progressBarForAddCarStepThree.visible(it is Resource.Loading)
-            when (it) {
+            when(it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
 
@@ -93,6 +93,7 @@ class AddCarStepThreeFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

@@ -11,8 +11,8 @@ import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.TransportExportRepository
 import com.a.luxurycar.code_files.ui.home.adapter.ExpandableListAdapter
 import com.a.luxurycar.code_files.ui.home.adapter.TransportExportAdapter
+import com.a.luxurycar.code_files.ui.home.model.cms.CmsbannerContent
 import com.a.luxurycar.code_files.ui.home.model.faqresponse.Data
-import com.a.luxurycar.code_files.ui.home.model.faqresponse.FAQResponse
 import com.a.luxurycar.code_files.view_model.TransportExportViewModel
 import com.a.luxurycar.common.helper.NetworkHelper
 import com.a.luxurycar.common.requestresponse.ApiAdapter
@@ -27,6 +27,8 @@ import com.a.luxurycar.databinding.FragmentTranspotExportBinding
 class TranspotExportFragment : BaseFragment<TransportExportViewModel,FragmentTranspotExportBinding,TransportExportRepository>() {
 
      var arrListFaq = ArrayList<Data>()
+     var arrListStepsList = ArrayList<CmsbannerContent>()
+
     override fun getViewModel()=TransportExportViewModel::class.java
 
     override fun getFragmentBinding(
@@ -38,18 +40,46 @@ class TranspotExportFragment : BaseFragment<TransportExportViewModel,FragmentTra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         callFaqListApi()
+        callCmsApi()
+    }
 
-        setRecyclerView()
-       // setExpandableCardRecyclerView()
+    private fun callCmsApi() {
+        cmsApi()
+
+        viewModel.cmsResponse.observe(viewLifecycleOwner, Observer {
+             binding.progressBar.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    if (it.values.status != null && it.values.status == 1) {
+                        if(!it.values.data?.transportExport?.cmsBanner?.cmsbannerContent?.isNullOrEmpty()!!){
+                            arrListStepsList=it.values.data?.transportExport?.cmsBanner?.cmsbannerContent!! as ArrayList<CmsbannerContent> /* = java.util.ArrayList<com.a.luxurycar.code_files.ui.home.model.cms_response.CmsbannerContent> */
+                            setRecyclerView()
+                            binding.rootView.visibility =View.VISIBLE
+                        }
+                    } else {
+                        requireContext().toast(it.values.message!!)
+                    }
+                }
+                is Resource.Failure -> handleApiErrors(it)
+                else -> {}
+            }
+        })
+    }
+
+    private fun cmsApi() {
+        if (NetworkHelper.isNetworkAvaialble(requireContext())) {
+            viewModel.getCmsResponse()
+        } else {
+            requireContext().toast("No Internet Connection")
+        }
 
     }
 
     private fun callFaqListApi() {
         faqListApi()
         viewModel.faqListResponse.observe(viewLifecycleOwner, Observer {
-           // binding..visible(it is Resource.Loading)
+            binding.progressBar.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     if (it.values.status != null && it.values.status == 1) {
@@ -62,6 +92,7 @@ class TranspotExportFragment : BaseFragment<TransportExportViewModel,FragmentTra
                     }
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
 
@@ -83,7 +114,7 @@ class TranspotExportFragment : BaseFragment<TransportExportViewModel,FragmentTra
     }
 
     private fun setRecyclerView() {
-        val transportExportAdapter = TransportExportAdapter()
+        val transportExportAdapter = TransportExportAdapter(requireContext(),arrListStepsList)
         binding.recyclerviewTransportExportList.adapter = transportExportAdapter
         binding.recyclerviewTransportExportList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL ,false)
 

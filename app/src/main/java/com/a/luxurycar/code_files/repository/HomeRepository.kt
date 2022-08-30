@@ -13,4 +13,8 @@ class HomeRepository(val api: ApiService):BaseRepository() {
         api.getsearchAdsResponseResponse(requestBody)
     }
 
+    suspend fun getCarModelResponse(makeId: String) = safeApiCall {
+        api.getCarModelResponse(makeId)
+    }
+
 }

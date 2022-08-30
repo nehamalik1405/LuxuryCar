@@ -84,6 +84,7 @@ class OtpVarificationFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
 
@@ -103,6 +104,7 @@ class OtpVarificationFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

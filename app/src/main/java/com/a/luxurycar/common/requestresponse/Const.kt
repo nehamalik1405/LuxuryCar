@@ -60,6 +60,7 @@ class Const {
 
       //param for add car
       const val PARAM_CAR_ADS_ID = "car_ads_id"
+      const val PARAM_CAR_ID = "car_id"
       const val PARAM_VIN_CHEESIS_NUMBER = "vin"
       const val PARAM_CITY_ID = "city_id"
       const val PARAM_MAKE_ID = "make_id"
@@ -94,6 +95,10 @@ class Const {
       const val PARAM_WEEKLY_RENT_PRICE = "weekly_rent_price"
       const val PARAM_MONTHLY_RENT_PRICE = "monthly_rent_price"
       const val PARAM_SELLER_ID = "seller_id"
+      const val PARAM_COUNTRY_CODE = "country_code"
+      const val PARAM_DIAL_CODE = "dial_code"
+
+      //param for dial code and country code
       const val PARAM_LISTING_PLAN_ID = "listing_plan_id"
       const val PARAM_STATUS = "status"
 
@@ -108,6 +113,7 @@ class Const {
 
       const val PARAM_SUBJECT ="subject"
       const val PARAM_YEAR ="year"
+
 
       // param for search ads
       const val PARAM_MAKE_ID_FOR_SEARCH_ADS ="make_id"
@@ -128,6 +134,8 @@ class Const {
 
       const val PARAM_MIN_PRICE="min_price"
       const val PARAM_MAX_PRICE="max_price"
+
+      const val PARAM_ID_FOR_GARAGE = "find_garage_id"
 
 
 

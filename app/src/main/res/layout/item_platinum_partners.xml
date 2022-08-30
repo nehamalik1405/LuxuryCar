@@ -6,11 +6,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardItemPlatinumPartners"
-        android:layout_width="@dimen/margin_160_dp"
+        android:layout_width="@dimen/margin_140dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/margin_15_dp"
-        android:layout_marginStart="@dimen/margin_15_dp"
+        android:layout_margin="@dimen/margin_10_dp"
         app:cardCornerRadius="@dimen/margin_5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +19,8 @@
             <ImageView
                 android:id="@+id/imgViewItemCar"
                 android:layout_width="match_parent"
-                android:layout_margin="@dimen/margin_5dp"
-                android:layout_height="@dimen/margin_160_dp"
+                android:padding="@dimen/margin_10_dp"
+                android:layout_height="@dimen/margin_140_dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/demo_image1"
                 />

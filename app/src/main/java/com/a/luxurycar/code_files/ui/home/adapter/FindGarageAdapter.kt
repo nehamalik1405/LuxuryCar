@@ -3,14 +3,14 @@ package com.a.luxurycar.code_files.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.home.fragment.FindGaragesFragment
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.find_garages.Data
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_find_garages.view.*
 
-class FindGarageAdapter(var findGaragesList: ArrayList<Data>) :RecyclerView.Adapter<FindGarageAdapter.ViewHolder>() {
+class FindGarageAdapter(val findGaragesFragment: FindGaragesFragment, var findGaragesList: ArrayList<Data>) :RecyclerView.Adapter<FindGarageAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +30,17 @@ class FindGarageAdapter(var findGaragesList: ArrayList<Data>) :RecyclerView.Adap
         if(!data.image.isNullOrEmpty()){
             Picasso.get().load(data.image).into(holder.imgViewFindGarages)
         }
+        if(data.rent_cars != null){
+            holder.txtView53.text  = data.rent_cars.toString()
+        }
+        if(data.sale_cars != null){
+            holder.txtView30.text  = data.sale_cars.toString()
+        }
+        holder.consLayoutTop.setOnClickListener {
+            findGaragesFragment.navigateToGarageDetailPage(data.id.toString())
+        }
+
+
 
 
     }
@@ -46,8 +57,11 @@ class FindGarageAdapter(var findGaragesList: ArrayList<Data>) :RecyclerView.Adap
     inner  class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val txtViewFirstChoiceGarage = itemView.txtViewFirstChoiceGarage
+        val consLayoutTop = itemView.consLayoutTop
         val txtViewCityDubai = itemView.txtViewCityDubai
         val imgViewFindGarages = itemView.imgViewFindGarages
+        val txtView53 = itemView.txtView53
+        val txtView30 = itemView.txtView30
 
     }
 }

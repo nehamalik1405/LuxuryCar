@@ -9,14 +9,13 @@ import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.home.fragment.HomeFragment
 import com.a.luxurycar.code_files.ui.home.model.home_response.Listt
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_advertiser.view.*
 import kotlinx.android.synthetic.main.item_car.view.*
 
-class PromotedListAdapter(
+class FeaturedListAdapter(
     val context: Context,
     val list: ArrayList<Listt>,
    val homeFragment: HomeFragment
-): RecyclerView.Adapter<PromotedListAdapter.ViewHolder>() {
+): RecyclerView.Adapter<FeaturedListAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,10 +35,19 @@ class PromotedListAdapter(
                 Picasso.get().load(itemData.carImages[item].image).into(holder.imgViewItemCar)
             }
         }
-        holder.txtViewChevrolet.text = itemData.title
-        holder.txtViewModel.text = itemData.carYear
-        holder.txtViewKm.text = itemData.runKms +" km"
-        holder.txtViewPrice.text = "AED " +itemData.price
+        if(!itemData.title.isNullOrEmpty()){
+            holder.txtViewChevrolet.text = itemData.title
+        }
+        if(!itemData.carYear.isNullOrEmpty()){
+            holder.txtViewModel.text = itemData.carYear
+        }
+        if(!itemData.runKms.isNullOrEmpty()){
+            holder.txtViewKm.text = itemData.runKms +" km"
+        }
+        if(!itemData.price.isNullOrEmpty()){
+            holder.txtViewPrice.text = "AED " +itemData.price
+        }
+        holder.textViewPremium.text = "F"
     }
 
     override fun getItemCount(): Int {
@@ -53,6 +61,7 @@ class PromotedListAdapter(
         val txtViewModel = itemView.txtViewModel
         val txtViewKm = itemView.txtViewKm
         val txtViewPrice = itemView.txtViewPrice
+        val textViewPremium = itemView.textViewPremium
 
     }
 }

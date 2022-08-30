@@ -97,5 +97,9 @@ data class DataX(
     @SerializedName("warranty")
     val warranty: String,
     @SerializedName("weekly_rent_price")
-    val weeklyRentPrice: Any
+    val weeklyRentPrice: Any,
+     @SerializedName("car_images")
+    val carImages: ArrayList<CarImagesItem>,
+
+
 )

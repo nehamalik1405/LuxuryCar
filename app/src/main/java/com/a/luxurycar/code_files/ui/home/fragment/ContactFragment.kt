@@ -114,6 +114,7 @@ class ContactFragment : BaseFragment<ContactViewModel, FragmentContactBinding, C
                     }
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
 

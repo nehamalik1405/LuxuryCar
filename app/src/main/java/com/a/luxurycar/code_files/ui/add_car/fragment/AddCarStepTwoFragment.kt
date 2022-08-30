@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
@@ -41,6 +43,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
     lateinit var detailList:ArrayList<Detail>
 
     var page = ""
+    var id=""
 
     override fun getViewModel()=AddCarStepTwoViewModel::class.java
     override fun getFragmentBinding(
@@ -49,9 +52,16 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
     )= FragmentAddCarStepTwoBinding.inflate(inflater,container,false)
     override fun getRepository()= AddCarStepTwoRepository(ApiAdapter.buildApi(ApiService::class.java))
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val bundle = arguments
+        if (bundle != null) {
+            id = bundle.getString("car_ads_id").toString()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         carList = arrayListOf()
         carAdList = arrayListOf()
         detailList = arrayListOf()
@@ -59,11 +69,12 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
 
         callSellCarStepTwoApi()
 
-        (parentFragment as SellYourCarFragment).currentDestination()
-       // setViewPager()
+        val navHostFragment=requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val fragment=  navHostFragment.childFragmentManager.fragments.get(0)
+        (fragment as SellYourCarFragment).currentDestination()
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-
     }
 
     private fun observeSellCarStepTwoApiResponse() {
@@ -78,6 +89,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
                         setViewPager(data)
                         addCarDataSet()
                         setDetailRecyclerview()
+                        binding.rootPreviewAddCarStepTwoPage.visibility = View.VISIBLE
 
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_LONG)
                             .show()
@@ -91,6 +103,7 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }
@@ -126,12 +139,8 @@ class AddCarStepTwoFragment : BaseFragment<AddCarStepTwoViewModel, FragmentAddCa
     }
 
     private fun callSellCarStepTwoApi() {
-        val bundle = arguments
-        var id = ""
-        if (bundle != null) {
-            id = bundle.getString("car_ads_id").toString()
-        }
-       viewModel.getAddSellerListingPlan("6")
+
+       viewModel.getAddSellerListingPlan(id)
         observeSellCarStepTwoApiResponse()
     }
 

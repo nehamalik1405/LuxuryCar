@@ -101,6 +101,9 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
                             id = user.id,
                             description = user.description,
                             location = user.location,
+                            countryId=user.countryId,
+                            stateId=user.stateId,
+                            cityId = user.cityId
                         )
 
                         SessionManager.saveUserData(loginResponse)
@@ -123,9 +126,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
                         }*/
                         requireActivity().finishAffinity()
 
-                    }
-
-                    if(!Utils.isEmptyOrNull(it.values.message)) {
+                    }else{
                         Toast.makeText(requireContext(), it.values.message, Toast.LENGTH_SHORT)
                             .show()
                     }
@@ -134,6 +135,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding, LoginRe
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

@@ -1,29 +1,19 @@
 package com.a.luxurycar.code_files.ui.home
 
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.provider.Settings
-import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
+import androidx.core.view.marginTop
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -33,23 +23,16 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.ui.auth.AuthActivity
-import com.a.luxurycar.common.helper.AlertDialogHelper
 import com.a.luxurycar.common.helper.CircleTransform
 import com.a.luxurycar.common.helper.SessionManager
 import com.a.luxurycar.common.requestresponse.Const
-import com.a.luxurycar.common.utils.HelperClass
 import com.a.luxurycar.common.utils.Utils
 import com.a.luxurycar.databinding.ActivityHomeBinding
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -64,8 +47,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var imageViewProfilePhoto:ImageView
     lateinit var navViewRight:NavigationView
     lateinit var navViewLeft:NavigationView
-    lateinit var leftHeaderView: View
-    lateinit var rightHeaderView: View
+    //lateinit var leftHeaderView: View
+   // lateinit var rightHeaderView: View
     val REQUEST_CODE = 100
 
     var openRightNavigation=false
@@ -94,19 +77,21 @@ class HomeActivity : AppCompatActivity() {
         imgViewOpenProfile = findViewById(R.id.imgViewOpenProfile)
         navViewRight = findViewById(R.id.navViewRight)
         navViewLeft = findViewById(R.id.navViewLeft)
-        leftHeaderView  = navViewLeft.getHeaderView(0)
-        rightHeaderView  = navViewRight.getHeaderView(0)
+      //  leftHeaderView  = navViewLeft.getHeaderView(0)
+       // rightHeaderView  = navViewRight.getHeaderView(0)
         navViewRight.setItemIconTintList(null)
 
         menageClickEvents()
         setBottomNavigation()
-        checkMenuCondition()
+        checkLeftMenuCondition()
+        checkRightMenuCondition()
         setLeftNavView()
         setLeftHeader()
         setRightNavView()
         setRightHeader()
 
         checkConditionForDrawer()
+
         lockedTheDrawerBothSide()
 
 
@@ -141,70 +126,75 @@ class HomeActivity : AppCompatActivity() {
          }
     }
 
-    private fun checkMenuCondition() {
-        val itemAboutUs: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_about_us)
-        val itemCarListing: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_car_listing)
-        val itemTransport: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_transport)
-        val itemSourcing: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_sourcing)
-        val itemStorage: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_storage)
-        val itemInspecting: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_inspecting)
-        val itemSellUrCar: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_sell_ur_car)
-        val itemSaurceMyCar: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_saurce_my_car)
-        val itemFindGarages: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_find_Garages)
+    private fun checkLeftMenuCondition() {
+
+
+       /* if(!SessionManager.isUserLoggedIn()){
+
+
+        }else {
+
+        }*/
+    }
+    private fun checkRightMenuCondition() {
+
+        val itemSellUrCar: MenuItem = binding.navViewRight.getMenu().findItem(R.id.nav_sell_ur_car)
+        val itemViewProfile: MenuItem = binding.navViewRight.getMenu().findItem(R.id.nav_profiles)
+        //val itemSaurceMyCar: MenuItem = binding.navViewLeft.getMenu().findItem(R.id.nav_saurce_my_car)
+        val itemSellerDashboard: MenuItem = binding.navViewRight.getMenu().findItem(R.id.nav_seller_dashboard)
         val userRole = SessionManager.getUserRole()
         if(SessionManager.isUserLoggedIn() && userRole != null && userRole.equals(Const.KEY_BUYER, true)){
-            itemAboutUs.setVisible(true)
-            itemCarListing.setVisible(true)
-            itemTransport.setVisible(true)
-            itemSourcing.setVisible(true)
-            itemStorage.setVisible(true)
-            itemInspecting.setVisible(true)
+
+
             itemSellUrCar.setVisible(false)
-            itemSaurceMyCar.setVisible(true)
-            itemFindGarages.setVisible(true)
+            // itemSaurceMyCar.setVisible(true)
+            itemSellerDashboard.setVisible(false)
+            itemViewProfile.setVisible(true)
 
         }else if(SessionManager.isUserLoggedIn() && userRole != null && userRole.equals(Const.KEY_SELLER, true)){
-            itemAboutUs.setVisible(true)
-            itemCarListing.setVisible(true)
-            itemTransport.setVisible(true)
-            itemSourcing.setVisible(true)
-            itemStorage.setVisible(true)
-            itemInspecting.setVisible(true)
+
             itemSellUrCar.setVisible(true)
-            itemSaurceMyCar.setVisible(false)
-            itemFindGarages.setVisible(false)
+            itemSellerDashboard.setVisible(true)
+            itemViewProfile.setVisible(false)
 
 
 
         }
 
 
-       /* if (!SessionManager.isUserLoggedIn()){
-            itemAboutUs.setVisible(true)
-            itemCarListing.setVisible(true)
-            itemTransport.setVisible(true)
-            itemSourcing.setVisible(true)
-            itemStorage.setVisible(true)
-            itemInspecting.setVisible(true)
-            itemSellUrCar.setVisible(false)
-            itemSaurceMyCar.setVisible(false)
-            itemFindGarages.setVisible(false)
-        }else{
-            itemAboutUs.setVisible(true)
-            itemCarListing.setVisible(true)
-            itemTransport.setVisible(true)
-            itemSourcing.setVisible(true)
-            itemStorage.setVisible(true)
-            itemInspecting.setVisible(true)
-            itemSellUrCar.setVisible(false)
-            itemSaurceMyCar.setVisible(true)
-            itemFindGarages.setVisible(true)
-        }
+        /* if (!SessionManager.isUserLoggedIn()){
+             itemAboutUs.setVisible(true)
+             itemCarListing.setVisible(true)
+             itemTransport.setVisible(true)
+             itemSourcing.setVisible(true)
+             itemStorage.setVisible(true)
+             itemInspecting.setVisible(true)
+             itemSellUrCar.setVisible(false)
+             itemSaurceMyCar.setVisible(false)
+             itemFindGarages.setVisible(false)
+         }else{
+             itemAboutUs.setVisible(true)
+             itemCarListing.setVisible(true)
+             itemTransport.setVisible(true)
+             itemSourcing.setVisible(true)
+             itemStorage.setVisible(true)
+             itemInspecting.setVisible(true)
+             itemSellUrCar.setVisible(false)
+             itemSaurceMyCar.setVisible(true)
+             itemFindGarages.setVisible(true)
+         }
 
-*/
+ */
     }
 
     fun setLeftHeader() {
+        val leftHeaderView  = navViewLeft.getHeaderView(0)
+        if(SessionManager.isUserLoggedIn()){
+            leftHeaderView.visibility = View.VISIBLE
+        }else{
+            leftHeaderView.visibility = View.GONE
+        }
+
         val userData = SessionManager.getUserData()
         val txtViewEmail = leftHeaderView.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = leftHeaderView.findViewById<TextView>(R.id.txtViewHeaderUserName)
@@ -243,6 +233,7 @@ class HomeActivity : AppCompatActivity() {
 
 
      fun setRightHeader() {
+         val rightHeaderView  = navViewRight.getHeaderView(0)
         val userData = SessionManager.getUserData()
         val txtViewEmail = rightHeaderView.findViewById<TextView>(R.id.textViewHeaderEmail)
         val textViewUserName = rightHeaderView.findViewById<TextView>(R.id.txtViewHeaderUserName)
@@ -305,10 +296,17 @@ class HomeActivity : AppCompatActivity() {
                 if (itemId == R.id.nav_profiles) {
                     navController.navigate(R.id.nav_profiles)
                 }
+                else if(itemId == R.id.nav_seller_dashboard){
+                    navController.navigate(R.id.nav_seller_dashboard)
+
+                }
+                else if(itemId == R.id.nav_sell_ur_car){
+                    navController.navigate(R.id.nav_sell_ur_car)
+                }
                /* else if(itemId == R.id.nav_language){
                     navController.navigate(R.id.nav_language)
                 }*/
-                /*else if(itemId == R.id.nav_condition){
+               /* else if(itemId == R.id.nav_condition){
                     navController.navigate(R.id.nav_condition)
                 }*/
                 else if(itemId == R.id.nav_change_password){
@@ -360,21 +358,24 @@ class HomeActivity : AppCompatActivity() {
                 else if(itemId == R.id.nav_sourcing){
                     navController.navigate(R.id.nav_sourcing)
                 }
-                else if(itemId == R.id.nav_storage){
-                    navController.navigate(R.id.nav_storage)
-                }
+
                 else if(itemId == R.id.nav_inspecting){
                     navController.navigate(R.id.nav_inspecting)
-                }
-                else if(itemId == R.id.nav_sell_ur_car){
-                    navController.navigate(R.id.nav_sell_ur_car)
-                }
-                else if(itemId == R.id.nav_saurce_my_car){
-                    navController.navigate(R.id.nav_saurce_my_car)
                 }
                 else if(itemId == R.id.nav_find_Garages){
                     navController.navigate(R.id.nav_find_Garages)
                 }
+                else if(itemId == R.id.nav_advertiseWithUsFragment){
+                    navController.navigate(R.id.nav_advertiseWithUsFragment)
+                }
+                else if(itemId == R.id.nav_storage){
+                    navController.navigate(R.id.nav_storage)
+                }
+
+               /* else if(itemId == R.id.nav_saurce_my_car){
+                    navController.navigate(R.id.nav_saurce_my_car)
+                }*/
+
 
 
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -400,8 +401,8 @@ class HomeActivity : AppCompatActivity() {
                     //consLayout.visibility = View.GONE
                 }
                 else if(itemId == R.id.nav_follow_us) {
-                    navController.navigate((R.id.nav_follow_us))
-                  //  onButtonShowPopupWindowClick(findViewById(R.id.nav_follow_us))
+                    //navController.navigate((R.id.nav_follow_us))
+                    onButtonShowPopupWindowClick(findViewById(R.id.nav_follow_us))
                 }
             true
         }
@@ -517,18 +518,26 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         when(navController.currentDestination?.id) {
             R.id.nav_home-> {
-                val builder1 = AlertDialog.Builder(this)
-                builder1.setMessage("Are You Sure You Want to Exit the App?")
-                builder1.setCancelable(true)
-                builder1.setPositiveButton("Yes") { dialog, id ->
-
-                    finish()
-
+                if(binding.drawerLayout.isDrawerOpen(GravityCompat.END)){
+                    binding.drawerLayout.closeDrawer(GravityCompat.END)
                 }
-                builder1.setNegativeButton("No")
-                { dialog, id -> dialog.cancel() }
-                val alert11 = builder1.create()
-                alert11.show()
+                else if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                else{
+                    val builder1 = AlertDialog.Builder(this)
+                    builder1.setMessage("Are You Sure You Want to Exit the App?")
+                    builder1.setCancelable(true)
+                    builder1.setPositiveButton("Yes") { dialog, id ->
+
+                        finish()
+
+                    }
+                    builder1.setNegativeButton("No")
+                    { dialog, id -> dialog.cancel() }
+                    val alert11 = builder1.create()
+                    alert11.show()
+                }
             }
             else ->
             {

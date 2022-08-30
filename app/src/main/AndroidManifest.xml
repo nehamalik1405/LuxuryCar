@@ -24,7 +24,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_main_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_main_logo"
+        android:roundIcon="@mipmap/app"
         android:supportsRtl="true"
         android:theme="@style/Theme.LuxuryCar"
         android:usesCleartextTraffic="true">

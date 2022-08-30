@@ -9,8 +9,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
+import com.a.luxurycar.code_files.ui.home.model.garage_response.GarageCar
 import com.a.luxurycar.code_files.ui.seller_deshboard.fragment.SellerHomeFragment
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.seller_car_list.Data
+import com.a.luxurycar.common.helper.SessionManager
+import com.a.luxurycar.common.requestresponse.Const
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.seller_item.view.*
 
@@ -34,6 +37,12 @@ class ForSaleAdapter(
 
         val item = forSaleList[position]
         val idForDeleteItem = item.id
+        val data = SessionManager.getUserData()
+
+            if(data?.role.equals(Const.KEY_BUYER)){
+                holder.imgViewThreeDot.visibility = View.GONE
+            }
+
 
         for (i in item.carImages.indices) {
             if (i == 0) {

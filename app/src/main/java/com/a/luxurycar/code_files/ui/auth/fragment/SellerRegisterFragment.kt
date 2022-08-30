@@ -115,6 +115,7 @@ class SellerRegisterFragment : BaseFragment<SellerViewModel, FragmentSellerRegis
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

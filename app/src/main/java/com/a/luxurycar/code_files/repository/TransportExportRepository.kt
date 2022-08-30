@@ -9,5 +9,9 @@ class TransportExportRepository(val api:ApiService) :BaseRepository(){
     suspend fun getfaqListResponse() = safeApiCall {
         api.getFAQListResponse()
     }
+    suspend fun getCmsResponse() = safeApiCall {
+        api.getCmsResponse()
+    }
+
 
 }

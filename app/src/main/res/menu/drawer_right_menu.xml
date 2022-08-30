@@ -14,15 +14,36 @@
 
              />
     </group>
-   <!-- <group
-        android:id="@+id/grp2"
+    <group
+        android:id="@+id/nav_grp9"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_language"
+            android:id="@+id/nav_seller_dashboard"
             android:icon="@drawable/ic_arrow_back"
-            android:title="@string/language" />
-    </group>-->
-    <!--<group
+            android:checkable="true"
+            android:title="DashBoard" />
+    </group>
+
+    <group
+        android:id="@+id/nav_grp6"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sell_ur_car"
+            android:icon="@drawable/ic_arrow_back"
+            android:checkable="true"
+            android:title="@string/menu_sellur_car" />
+    </group>
+
+
+    <!-- <group
+         android:id="@+id/grp2"
+         android:checkableBehavior="single">
+         <item
+             android:id="@+id/nav_language"
+             android:icon="@drawable/ic_arrow_back"
+             android:title="@string/language" />
+     </group>-->
+   <!-- <group
         android:id="@+id/grp3"
         android:checkableBehavior="single">
         <item

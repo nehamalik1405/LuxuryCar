@@ -25,7 +25,7 @@ class AddCarStepOneRepository(val api:ApiService):BaseRepository(){
          api.getAddCarStepCitiesResponse(cityId)
     }
     suspend fun getSalePersonResponse(salePersonId: String) = safeApiCall {
-        api.getSalePersonResponse(salePersonId)
+        api.getSalePersonResponse(/*salePersonId*/)
     }
 
     suspend fun getAddCarStepOneResponse(body: RequestBody) = safeApiCall {

@@ -50,7 +50,7 @@ import java.util.*
 
 
 class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfileBinding,SellerRepository>() {
-    lateinit var sellerProfileViewpager: SellerProfileViewpager
+    //lateinit var sellerProfileViewpager: SellerProfileViewpager
     var image_uri: String? = ""
     companion object {
         private val REQUEST_TAKE_PHOTO = 321
@@ -68,7 +68,7 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setViewPager()
+      //  setViewPager()
         setSellerDetail()
         manageClickListener()
 
@@ -95,14 +95,14 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
             binding.txtViewEmail.text =  email
         }
         setPhoto()
-        (activity as SellerDeshboardActivity?)?.setRightHeader()
+       // (activity as SellerDeshboardActivity?)?.setRightHeader()
        /* if (sellerData != null) {
             binding.txtViewUsername.text = sellerData.data.user.company_name
             binding.txtViewEmail.text =  sellerData.data.user.email
         }*/
     }
 
-    private fun setViewPager() {
+  /*  private fun setViewPager() {
         sellerProfileViewpager = SellerProfileViewpager(this)
         binding.viewPagerProfile.adapter = sellerProfileViewpager
 
@@ -128,7 +128,7 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
             override fun onTabChange(MyProfileDetailFragment: Boolean) {
             }
         })
-    }
+    }*/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == AppCompatActivity.RESULT_OK) {
@@ -210,6 +210,7 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
                     }
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
 
             }
 
@@ -421,13 +422,10 @@ class SellerProfileFragment : BaseFragment<SellerViewModel,FragmentSellerProfile
 
 
     fun selectImageInAlbum() {
-
-
         val photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         photoPickerIntent.type = "image/*"
         startActivityForResult(photoPickerIntent, REQUEST_SELECT_IMAGE_IN_ALBUM)
-
 
     }
 }

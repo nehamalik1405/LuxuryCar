@@ -18,15 +18,20 @@ import com.a.luxurycar.code_files.ui.auth.model.login.LoginResponse
 import com.a.luxurycar.code_files.ui.auth.model.register.RegistrationResponse
 import com.a.luxurycar.code_files.ui.auth.model.seller.SellerRegistrationModel
 import com.a.luxurycar.code_files.ui.home.model.HomeResponse
+import com.a.luxurycar.code_files.ui.home.model.advertiser_response.AdvertiserWithUsResponse
 import com.a.luxurycar.code_files.ui.home.model.appointmentenquiry.BookAppointmentEnquiryResponse
 import com.a.luxurycar.code_files.ui.home.model.car_list_response.CarListResponse
 import com.a.luxurycar.code_files.ui.home.model.change_password.ChangePasswordModel
+import com.a.luxurycar.code_files.ui.home.model.cms.CmsResponsee
 import com.a.luxurycar.code_files.ui.home.model.contactus.ContactUsResponse
 import com.a.luxurycar.code_files.ui.home.model.faqresponse.FAQResponse
+import com.a.luxurycar.code_files.ui.home.model.garage_response.GarageDetailResponse
 import com.a.luxurycar.code_files.ui.home.model.inspectinginquery.InspectingEnquiryResponse
 import com.a.luxurycar.code_files.ui.home.model.product_detail_response.ProductDetailsResponse
+import com.a.luxurycar.code_files.ui.home.model.saurce_my_car_response.SaurceMyCarResponse
 import com.a.luxurycar.code_files.ui.home.model.search_ads_response.SearchAdsResponse
 import com.a.luxurycar.code_files.ui.home.model.update_details.UpdateBuyerProfileImageModel
+import com.a.luxurycar.code_files.ui.home.model.wishlist_response.CarLikeDislikeResponse
 import com.a.luxurycar.code_files.ui.seller_deshboard.UpdateSellerProfileImageModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.UpdateSellerProfileModel
 import com.a.luxurycar.code_files.ui.seller_deshboard.model.delete_car_response.DeleteCarResponse
@@ -95,6 +100,7 @@ interface ApiService {
     // home page api
     @POST("search-ads")
     suspend fun getsearchAdsResponseResponse(@Body requestBody: RequestBody): SearchAdsResponse
+
     // product detail fragments
     @GET("product-detail/{id}")
     suspend fun getProductDetailResponse(@Path("id") Id: String): ProductDetailsResponse
@@ -160,8 +166,8 @@ interface ApiService {
     suspend fun getSellCarStepOneResponse(): SellCarStepOneBasicListModel
 
     // seller car get car model list
-    @GET("get-sales-person-list-by-seller-id/")
-    suspend fun getSalePersonResponse(@Path("id") salePersonId: String): SalePersonModelList
+    @GET("get-sales-person-list-by-seller-id")
+    suspend fun getSalePersonResponse(/*@Path("id")*/ /*salePersonId: String*/): SalePersonModelList
 
 
     // seller car get car model list
@@ -201,8 +207,8 @@ interface ApiService {
     @DELETE("delete-car/{id}")
     suspend fun getDeleteCarResponse(@Path("id") id: String): DeleteCarResponse
 
-    @GET("car-listings/{id}")
-    suspend fun getCarListResponse(@Path("id") id: String): CarListResponse
+    @GET("car-listings")
+    suspend fun getCarListResponse(/*@Path("id") id: String,*/@Query("sort_by") sortByID: String=""): CarListResponse
 
     @GET("find-garages")
     suspend fun getFindGaragesResponse(): FindGaragesResponse
@@ -213,13 +219,27 @@ interface ApiService {
     @GET("faqs-listing")
     suspend fun getFAQListResponse(): FAQResponse
 
+    @GET("cms")
+    suspend fun getCmsResponse(): CmsResponsee
+
     @POST("inspecting-enquiry")
     suspend fun getinspectingEnquiryResponse(@Body body: RequestBody): InspectingEnquiryResponse
 
-   @POST("appointment-enquiry")
+    @POST("advertisement-enquiry")
+    suspend fun getAdvertiserEnquiryResponse(@Body body: RequestBody): AdvertiserWithUsResponse
+
+    @POST("appointment-enquiry")
     suspend fun getBookAppointmentEnquiryResponse(@Body body: RequestBody): BookAppointmentEnquiryResponse
 
+    @POST("sourcing-enquiry")
+    suspend fun getSaurceMyCarResponse(@Body body: RequestBody): SaurceMyCarResponse
 
+
+    @POST("like-car")
+    suspend fun getWishListResponse(@Body body: RequestBody): CarLikeDislikeResponse
+
+    @GET("garage-detail/{id}")
+    suspend fun getGaragesDetailsResponse(@Path("id") id: String): GarageDetailResponse
 
 
 }

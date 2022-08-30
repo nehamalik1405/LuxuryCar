@@ -31,9 +31,9 @@ class OurPlatinumPartnersAdapter(
         val itemData = list[position]
 
         Picasso.get().load(itemData.image).into(holder.imgViewItemCar)
-      /*  holder.cardItemPlatinumPartners.setOnClickListener {
-           homeFragment.navigateToFindGaragesFragment()
-        }*/
+        holder.cardItemPlatinumPartners.setOnClickListener {
+           homeFragment.navigateToFindGaragesFragment(itemData.id.toString())
+        }
 
 
     }

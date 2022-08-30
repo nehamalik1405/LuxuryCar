@@ -69,6 +69,7 @@ class ChangePasswordFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

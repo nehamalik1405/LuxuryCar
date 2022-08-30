@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.a.luxurycar.code_files.base.BaseViewModel
 import com.a.luxurycar.code_files.repository.HomeRepository
+import com.a.luxurycar.code_files.ui.add_car.model.car_model.CarModelListModel
 import com.a.luxurycar.code_files.ui.home.model.HomeResponse
 import com.a.luxurycar.code_files.ui.home.model.search_ads_response.SearchAdsResponse
 
@@ -34,6 +35,16 @@ class HomeViewModel(val repository: HomeRepository): BaseViewModel(repository){
         _searchAdsResponseResponse.value = Resource.Loading
         _searchAdsResponseResponse.value =repository.getsearchAdsResponseResponse(requestBody)
 
+    }
+
+
+    private val _carModelResponse: MutableLiveData<Resource<CarModelListModel>> = MutableLiveData()
+    val carModelResponse: LiveData<Resource<CarModelListModel>>
+        get() = _carModelResponse
+
+    fun  getCarModelResponse(makeId: String) = viewModelScope.launch {
+        _carModelResponse.value = Resource.Loading
+        _carModelResponse.value = repository. getCarModelResponse(makeId)
     }
 
 }

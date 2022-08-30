@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class ApiAdapter {
 
@@ -40,6 +41,9 @@ class ApiAdapter {
                         val logging = HttpLoggingInterceptor()
                         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
                         client.addInterceptor(logging)
+                        client.readTimeout(50000, TimeUnit.SECONDS)
+                            .connectTimeout(50000, TimeUnit.SECONDS)
+                            .build()
                     }.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

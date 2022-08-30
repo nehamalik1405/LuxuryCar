@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,10 +21,14 @@
         android:layout_height="wrap_content"
         android:text="@string/exquisite_cars_for_exquisite_peaople"
         style="@style/TextViewHeading"
-        android:textColor="@color/white"
+        android:fontFamily="@font/muli_bold"
+        android:textSize="@dimen/margin_18sp"
+        android:textColor="#fdb40b"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/margin_15dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_marginTop="@dimen/margin_15dp"
+       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

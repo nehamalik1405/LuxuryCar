@@ -60,6 +60,7 @@ class ForgotPasswordFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

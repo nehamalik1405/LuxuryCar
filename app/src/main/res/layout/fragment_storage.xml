@@ -31,15 +31,17 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/rootStoragePage"
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="@dimen/margin_0dp"
+        android:visibility="gone"
         android:fillViewport="true"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/margin_40_dp"
         app:layout_constraintTop_toBottomOf="@+id/linLayoutTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottomViewLine">
+        app:layout_constraintBottom_toBottomOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -49,7 +51,7 @@
                 android:layout_height="@dimen/margin_180_dp"
                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:cardCornerRadius="@dimen/margin_10_dp"
+                app:cardCornerRadius="@dimen/margin_5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="@dimen/margin_15_dp"
                 android:layout_marginEnd="@dimen/margin_15_dp"
@@ -59,7 +61,6 @@
                     android:id="@+id/imgViewCar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/storage_car"
                     android:scaleType="fitXY"/>
             </androidx.cardview.widget.CardView>
 
@@ -110,6 +111,8 @@
                 android:id="@+id/recyclerViewForEnquireList"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/margin_15_dp"
@@ -117,16 +120,25 @@
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 
 
-<View
+<!--<View
     android:id="@+id/bottomViewLine"
     android:layout_width="@dimen/margin_0dp"
     android:layout_height="@dimen/margin_2dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:background="@color/green"
-    app:layout_constraintBottom_toBottomOf="parent"/>
+    app:layout_constraintBottom_toBottomOf="parent"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

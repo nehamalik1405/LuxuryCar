@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a.luxurycar.R
-import com.a.luxurycar.code_files.ui.home.model.StorageModel
+import com.a.luxurycar.code_files.ui.home.model.cms.CmsbannerContent
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_enquire.view.*
 
-class StorageAdapter(val list:ArrayList<StorageModel>):RecyclerView.Adapter<StorageAdapter.ViewHolder>() {
+class StorageAdapter(val arrEnquiesList: ArrayList<CmsbannerContent>):RecyclerView.Adapter<StorageAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,14 +20,14 @@ class StorageAdapter(val list:ArrayList<StorageModel>):RecyclerView.Adapter<Stor
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list[position]
-        item.image?.let { Picasso.get().load(it).into(holder.imgViewAntiFlat) };
-        holder.txtViewTitle.text = item.title.toString()
+        val item = arrEnquiesList[position]
+        item.logo?.let { Picasso.get().load(it).into(holder.imgViewAntiFlat) };
+        holder.txtViewTitle.text = item.heading
 
     }
 
     override fun getItemCount(): Int {
-     return list.size
+     return arrEnquiesList.size
     }
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

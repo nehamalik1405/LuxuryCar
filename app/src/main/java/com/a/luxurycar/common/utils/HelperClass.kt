@@ -1,6 +1,9 @@
 package com.a.luxurycar.common.utils
 
-object HelperClass {
+import com.a.luxurycar.code_files.ui.home.model.search_ads_response.SearchData
 
-    var openRightNavigation=false
+object HelperClass {
+    var arrSearchData: ArrayList<SearchData> = ArrayList()
+    var idForImageUpload=""
+
 }

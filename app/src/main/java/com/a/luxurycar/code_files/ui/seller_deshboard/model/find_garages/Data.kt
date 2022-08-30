@@ -44,6 +44,10 @@ data class Data(
     val stateId: Any,
     @SerializedName("status")
     val status: String,
+    @SerializedName("sale_cars")
+    val sale_cars: Int,
+    @SerializedName("rent_cars")
+    val rent_cars: Int,
     @SerializedName("updated_at")
     val updatedAt: String
 )

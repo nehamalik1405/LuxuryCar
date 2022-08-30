@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.CarListRepository
 import com.a.luxurycar.code_files.ui.home.adapter.CarListAdapter
@@ -23,28 +25,55 @@ import com.a.luxurycar.common.utils.handleApiErrors
 import com.a.luxurycar.common.utils.visible
 import com.a.luxurycar.databinding.FragmentCarListBinding
 
-class CarListFragment :BaseFragment<CarListViewModel, FragmentCarListBinding,CarListRepository>(){
+class CarListFragment :
+    BaseFragment<CarListViewModel, FragmentCarListBinding, CarListRepository>() {
 
-lateinit var arrCarList:ArrayList<DataX>
-lateinit var arrSortByListHashMap:ArrayList<HashMap<String,String>>
+     var arrCarList: ArrayList<DataX> = ArrayList()
+    lateinit var arrSortByListHashMap: ArrayList<HashMap<String, String>>
+    var sortByID =""
 
-    override fun getViewModel()=CarListViewModel::class.java
+    override fun getViewModel() = CarListViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentCarListBinding.inflate(inflater,container,false)
+    ) = FragmentCarListBinding.inflate(inflater, container, false)
+
     override fun getRepository() = CarListRepository(ApiAdapter.buildApi(ApiService::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arrCarList = arrayListOf()
+
         arrSortByListHashMap = ArrayList()
         setSpinnerItem()
-        callCarListRequestApi()
-        observeCarListResponse()
+      //  callCarListRequestApi()
+
         setSpinnerAdapterAndDropdown()
+        manageClickListener()
 
+    }
 
+    private fun manageClickListener() {
+
+        binding.spinnerSelectedFeatured.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long,
+                ) {
+                    sortByID = arrSortByListHashMap[position].get(Const.KEY_NAME).toString()
+                    if (sortByID.equals("All")) {
+                        sortByID = ""
+                    }
+                    callCarListRequestApi()
+
+                }
+
+            }
     }
 
     private fun setSpinnerAdapterAndDropdown() {
@@ -60,11 +89,11 @@ lateinit var arrSortByListHashMap:ArrayList<HashMap<String,String>>
     }
 
     private fun setSpinnerItem() {
-        val sortByList = listOf("All","Price","Latest")
+        val sortByList = listOf("All", "Price", "Latest")
 
-        for (item in sortByList){
+        for (item in sortByList) {
             val hashMap = HashMap<String, String>()
-            hashMap.put(Const.KEY_ID, "")
+            hashMap.put(Const.KEY_ID, "" + item)
             hashMap.put(Const.KEY_NAME, item)
             //add default item
             arrSortByListHashMap.add(hashMap)
@@ -84,39 +113,35 @@ lateinit var arrSortByListHashMap:ArrayList<HashMap<String,String>>
                     }
 
 
-                    if (!Utils.isEmptyOrNull(it.values.message)) {
+                 /*   if (!Utils.isEmptyOrNull(it.values.message)) {
                         Toast.makeText(
                             requireContext(),
                             it.values.message,
                             Toast.LENGTH_SHORT
                         ).show()
-                    }
+                    }*/
                 }
                 is Resource.Failure -> handleApiErrors(it)
-
+                else -> {}
             }
         })
     }
 
+    fun navigateToDetailPage(id: String) {
+        val bundle = Bundle()
+        bundle.putString("product_detail_id", id)
+        findNavController().navigate(com.a.luxurycar.R.id.productDetailFragment, bundle)
+    }
+
     private fun setCarListAdapter() {
-        val carListAdapter = CarListAdapter(requireContext(),arrCarList)
+        val carListAdapter = CarListAdapter(this, arrCarList)
         binding.recyclerviewCarList.adapter = carListAdapter
     }
 
     private fun callCarListRequestApi() {
 
-        val bundle = arguments
-        var id = ""
-
-        if (bundle != null) {
-            id = bundle.getString("id").toString()
-            val topTextViewName = bundle.getString("list_name").toString()
-            if(topTextViewName != null){
-                binding.topTextViewName.text = topTextViewName
-            }
-        }
-        viewModel.getCarListResponse(id)
-
+        viewModel.getCarListResponse(sortByID.toLowerCase())
+        observeCarListResponse()
     }
 
 }

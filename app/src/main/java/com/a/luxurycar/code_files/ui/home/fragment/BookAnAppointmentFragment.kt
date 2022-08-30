@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.a.luxurycar.R
 import com.a.luxurycar.code_files.base.BaseFragment
 import com.a.luxurycar.code_files.repository.BookAnAppointmentRepository
@@ -135,6 +136,7 @@ class BookAnAppointmentFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
 
         })
@@ -225,11 +227,13 @@ class BookAnAppointmentFragment :
                         if (it.values.status == 1) {
                             binding.progressBar.visible(isHidden)
                             if (it.values != null) {
+                                findNavController().popBackStack()
                                 clearEditTextData()
                             }
                         }
                     }
                     is Resource.Failure -> handleApiErrors(it)
+                    else -> {}
                 }
 
             })
@@ -319,6 +323,7 @@ class BookAnAppointmentFragment :
 
                 }
                 is Resource.Failure -> handleApiErrors(it)
+                else -> {}
             }
         })
     }

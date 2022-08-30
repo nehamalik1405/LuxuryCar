@@ -46,7 +46,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(AddCarStepOneViewModel::class.java) -> AddCarStepOneViewModel(repository = repository as AddCarStepOneRepository) as T
             modelClass.isAssignableFrom(AddCarStepThreeViewModel::class.java) -> AddCarStepThreeViewModel(repository = repository as AddCarStepThreeRepository) as T
             modelClass.isAssignableFrom(AddCarStepTwoViewModel::class.java) -> AddCarStepTwoViewModel(repository = repository as AddCarStepTwoRepository) as T
-
+            modelClass.isAssignableFrom(GarageDetailsViewModel::class.java) -> GarageDetailsViewModel(repository = repository as GarageDetailsRepository) as T
 
             else -> {
                 throw IllegalArgumentException("ViewModel Not Found")

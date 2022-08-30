@@ -29,6 +29,8 @@
 
     </LinearLayout>
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/cardViewForBackGroundImage"
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="@dimen/margin_0dp"
         android:layout_marginStart="@dimen/margin_15_dp"
@@ -49,16 +51,26 @@
                 android:id="@+id/imgViewBackground"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="@dimen/margin_0dp"
-                android:src="@drawable/ic_car_image"
-                android:scaleType="fitXY"
-                android:alpha=".75"
+                android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
 
-            <LinearLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerViewInspecting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/imgViewBackground"
+                app:layout_constraintTop_toTopOf="@+id/imgViewBackground"
+                android:layout_marginTop="@dimen/margin_30_dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                />
+
+          <!--  <LinearLayout
                 android:id="@+id/linLayoutPhysicalInspection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,9 +170,10 @@
                     android:layout_marginStart="@dimen/margin_10_dp"
                     android:layout_marginEnd="@dimen/margin_25_dp"/>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/linLayoutEnuireNBookNow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -169,7 +182,7 @@
                 android:layout_marginTop="@dimen/margin_30_dp"
                 android:layout_marginEnd="@dimen/margin_25_dp"
                 app:layout_constraintStart_toStartOf="@+id/imgViewBackground"
-                app:layout_constraintTop_toBottomOf="@+id/linLayoutDigitalVehicleReports"
+                app:layout_constraintTop_toBottomOf="@+id/recylerViewInspecting"
                 app:layout_constraintEnd_toEndOf="@+id/consLayoutBackground"
                 >
 
@@ -209,11 +222,22 @@
                 app:layout_constraintStart_toStartOf="@+id/consLayoutBackground"
                 app:layout_constraintTop_toBottomOf="@+id/linLayoutEnuireNBookNow"
                 app:layout_constraintEnd_toEndOf="@+id/consLayoutBackground"
-                android:layout_marginTop="@dimen/margin_30_dp"
-                android:textSize="@dimen/margin_14sp"
+                android:layout_marginTop="@dimen/margin_15dp"
+                android:textSize="@dimen/margin_15dp"
                 android:fontFamily="@font/muli_semi_bold"
                 android:textColor="@color/white"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:theme="@style/CircularProgress"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

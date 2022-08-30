@@ -5,7 +5,8 @@ import com.a.luxurycar.common.requestresponse.ApiService
 
 class CarListRepository(val api:ApiService):BaseRepository() {
 
-    suspend fun getCarListResponse(id: String) = safeApiCall {
-        api.getCarListResponse(id)
+    suspend fun getCarListResponse(/*id: String,*/ sortByID: String) = safeApiCall {
+
+        api.getCarListResponse(/*id,*/sortByID)
     }
 }

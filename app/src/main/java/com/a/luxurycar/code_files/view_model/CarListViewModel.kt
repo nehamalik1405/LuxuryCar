@@ -15,8 +15,8 @@ class CarListViewModel(val repository: CarListRepository):BaseViewModel(reposito
         val getCarListResponse:LiveData<Resource<CarListResponse>>
        get() = _getCarListResponse
 
-    fun getCarListResponse(id: String) = viewModelScope.launch {
+    fun getCarListResponse(sortByID: String) = viewModelScope.launch {
         _getCarListResponse.value = Resource.Loading
-        _getCarListResponse.value = repository.getCarListResponse(id)
+        _getCarListResponse.value = repository.getCarListResponse(sortByID)
     }
 }
